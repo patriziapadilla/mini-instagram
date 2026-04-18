@@ -1,821 +1,192 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D’Royal Spa · Home 3D</title>
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:#0b0b0b;
-      --line:rgba(255,255,255,.10);
-      --gold:#dcc2a2;
-      --cream:#efe2d4;
-      --text:#f8efe7;
-      --muted:rgba(248,239,231,.78);
-      --side:16px;
-      --radius:26px;
-      --shadow:0 24px 70px rgba(0,0,0,.34);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Scroll Treatments</title>
 
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      padding:0;
-      background:#000;
-      color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
-      overflow:hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
+.section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-    button{
-      font:inherit;
-      border:none;
-      background:none;
-      color:inherit;
-      cursor:pointer;
-    }
+.card {
+  width: 320px;
+  height: 420px;
+  perspective: 1000px;
+}
 
-    .app{
-      width:100%;
-      height:100vh;
-      overflow:hidden;
-      background:#000;
-      position:relative;
-    }
+.inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
 
-    .topbar{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:14px 16px;
-      background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.08));
-      pointer-events:none;
-    }
+.card:hover .inner {
+  transform: rotateY(180deg);
+}
 
-    .topbar > *{
-      pointer-events:auto;
-    }
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
 
-    .topbar-left,
-    .topbar-right{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:120px;
-      font-size:13px;
-      color:rgba(255,255,255,.96);
-    }
+.front img, .back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .topbar-center{
-      text-align:center;
-      flex:1;
-      min-width:0;
-    }
+.back {
+  transform: rotateY(180deg);
+}
 
-    .brand{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(22px,2.6vw,34px);
-      font-weight:500;
-      color:var(--gold);
-      letter-spacing:.02em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .deck{
-      height:100vh;
-      display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      scroll-snap-type:x mandatory;
-      scroll-behavior:smooth;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-    }
-
-    .deck::-webkit-scrollbar{
-      display:none;
-    }
-
-    .slide{
-      flex:0 0 100vw;
-      width:100vw;
-      height:100vh;
-      scroll-snap-align:start;
-      position:relative;
-      overflow:hidden;
-      background:#000;
-    }
-
-    .slide-inner{
-      width:100%;
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      opacity:.55;
-      transform:scale(.94);
-      transition:opacity .45s ease, transform .45s ease;
-    }
-
-    .slide.active .slide-inner{
-      opacity:1;
-      transform:scale(1);
-    }
-
-    .home{
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.36) 34%, rgba(0,0,0,.72) 78%, rgba(0,0,0,.94) 100%),
-        url('./modelo.jpg') center 24% / cover no-repeat;
-    }
-
-    .home-center{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:110px 20px 150px;
-    }
-
-    .headline{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(54px,8vw,104px);
-      line-height:.92;
-      font-weight:500;
-      color:#fff9f1;
-      max-width:1000px;
-    }
-
-    .areas{
-      margin-top:18px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,2vw,28px);
-      color:#f3e7d8;
-    }
-
-    .offer{
-      margin-top:16px;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(10,10,10,.34);
-      font-size:14px;
-    }
-
-    .offer b{
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(220,194,162,.18);
-      color:#fff4e8;
-    }
-
-    .pick{
-      margin-top:22px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,2.2vw,30px);
-      color:#fff5ea;
-    }
-
-    .pick-sub{
-      margin-top:8px;
-      font-size:11px;
-      letter-spacing:.20em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.68);
-    }
-
-    .home-rail{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:3;
-      display:grid;
-      gap:4px;
-      padding:0 0 8px;
-      background:linear-gradient(180deg, transparent, rgba(0,0,0,.76) 24%, rgba(0,0,0,.96) 100%);
-    }
-
-    .rail-btn,
-    .mini-rail-btn{
-      width:100%;
-      text-align:left;
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      padding:0 16px;
-      background:#030303;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      font-family:Georgia,"Times New Roman",serif;
-      color:#fff8ef;
-    }
-
-    .rail-btn{
-      height:36px;
-      font-size:clamp(15px,1.35vw,22px);
-    }
-
-    .mini-rail-btn{
-      height:32px;
-      font-size:13px;
-    }
-
-    .treatment{
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,.04), transparent 24%),
-        linear-gradient(180deg, #080808 0%, #000 100%);
-    }
-
-    .treatment-wrap{
-      width:100%;
-      height:100%;
-      padding:88px 16px 72px;
-      display:grid;
-      grid-template-columns:1.04fr .96fr;
-      gap:18px;
-      align-items:stretch;
-    }
-
-    .media-pane{
-      position:relative;
-      border-radius:28px;
-      overflow:hidden;
-      background:#111;
-      box-shadow:var(--shadow);
-      min-height:0;
-    }
-
-    .media-stage{
-      width:100%;
-      height:100%;
-      position:relative;
-      background:#0e0e0e;
-    }
-
-    .media-stage img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .media-dots{
-      position:absolute;
-      left:50%;
-      bottom:12px;
-      transform:translateX(-50%);
-      display:flex;
-      gap:8px;
-      z-index:4;
-    }
-
-    .media-dots button{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:rgba(255,255,255,.42);
-      border:none;
-      padding:0;
-    }
-
-    .media-dots button.active{
-      background:#fff;
-    }
-
-    .info-pane{
-      display:flex;
-      flex-direction:column;
-      min-height:0;
-    }
-
-    .page-card{
-      flex:1;
-      min-height:0;
-      border-radius:28px;
-      overflow:auto;
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow:var(--shadow);
-    }
-
-    .page-card-inner{
-      padding:24px 18px 18px;
-    }
-
-    .page-topline{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:12px;
-      color:rgba(255,255,255,.82);
-    }
-
-    .home-link{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:13px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.78);
-    }
-
-    .page-title{
-      margin:0 0 12px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(34px,4vw,62px);
-      line-height:.94;
-      font-weight:500;
-      color:#fff8ef;
-    }
-
-    .page-text{
-      margin:0;
-      font-size:clamp(15px,1.18vw,19px);
-      line-height:1.6;
-      color:var(--muted);
-    }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:18px 0 16px;
-    }
-
-    .chip{
-      padding:8px 13px;
-      border-radius:999px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.10);
-      color:#f5ecdf;
-      font-size:13px;
-    }
-
-    .gallery{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:4px;
-    }
-
-    .gallery-card{
-      overflow:hidden;
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-    }
-
-    .gallery-lab{
-      padding:10px 8px;
-      text-align:center;
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      background:#000;
-      color:#f6ecdf;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .gallery-card img{
-      width:100%;
-      height:210px;
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:18px;
-    }
-
-    .btn{
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      font-size:16px;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,.14);
-    }
-
-    .btn.light{
-      background:transparent;
-      color:#fff;
-    }
-
-    .btn.gold{
-      background:var(--cream);
-      color:#111;
-      border-color:transparent;
-    }
-
-    .bottom-nav{
-      margin-top:12px;
-      display:grid;
-      gap:4px;
-    }
-
-    .whatsapp-float{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      z-index:60;
-      width:54px;
-      height:54px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#25D366;
-      color:#fff;
-      box-shadow:0 16px 36px rgba(0,0,0,.35);
-      font-size:26px;
-    }
-
-    .swipe-hint{
-      position:absolute;
-      left:50%;
-      bottom:56px;
-      transform:translateX(-50%);
-      z-index:4;
-      font-size:11px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.66);
-      white-space:nowrap;
-    }
-
-    @media (max-width: 920px){
-      .topbar-left,
-      .topbar-right{
-        font-size:12px;
-        min-width:auto;
-      }
-
-      .treatment-wrap{
-        grid-template-columns:1fr;
-        gap:12px;
-        padding:82px 12px 72px;
-      }
-
-      .media-pane{
-        height:34vh;
-        min-height:240px;
-      }
-
-      .gallery-card img{
-        height:140px;
-      }
-
-      .headline{
-        font-size:clamp(46px,12vw,78px);
-      }
-
-      .home-center{
-        padding:110px 18px 190px;
-      }
-    }
-  </style>
+h2 {
+  position: absolute;
+  top: 40px;
+  font-size: 26px;
+}
+</style>
 </head>
+
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="topbar-left">
-        <a href="mailto:droyalspamiami@gmail.com">droyalspamiami@gmail.com</a>
+
+<!-- BRAZOS -->
+<div class="section">
+  <h2>Brazos</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="brazos/Your paragraph text-38.jpg">
       </div>
-      <div class="topbar-center">
-        <h1 class="brand" id="brand"></h1>
-      </div>
-      <div class="topbar-right">
-        <span>786 690 0960</span>
+      <div class="back">
+        <img src="brazos/Your paragraph text-38.jpg">
       </div>
     </div>
-
-    <main class="deck" id="deck"></main>
-
-    <a class="whatsapp-float" href="https://wa.me/message/6QSXBTK7A47QM1" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
   </div>
+</div>
 
-  <script>
-    const isSpanish = (navigator.language || '').toLowerCase().startsWith('es');
+<!-- CARA -->
+<div class="section">
+  <h2>Facial RF + Cool</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="d cool & rf/106.jpg">
+      </div>
+      <div class="back">
+        <img src="d cool & rf/108.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    const T = {
-      brand: "D’ROYAL SPA",
-      headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
-      areas: "Brickell · Downtown · Doral · Miami Beach",
-      offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-      pick: isSpanish ? "Desliza para ver tratamientos" : "Swipe to explore treatments",
-      pickSub: isSpanish ? "Resultados reales · Tecnología avanzada" : "Real results · Advanced technology",
-      home: isSpanish ? "Inicio" : "Home",
-      before: isSpanish ? "Antes" : "Before",
-      after: isSpanish ? "Después" : "After",
-      learn: isSpanish ? "Aprender más" : "Learn more",
-      book: isSpanish ? "Agendar cita" : "Book now",
-      swipe: isSpanish ? "desliza lateralmente" : "swipe sideways"
-    };
+<!-- GLUTEOS -->
+<div class="section">
+  <h2>Glúteos</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="gluteos/109.jpg">
+      </div>
+      <div class="back">
+        <img src="gluteos/113.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    document.getElementById('brand').textContent = T.brand;
+<!-- LIPO -->
+<div class="section">
+  <h2>Lipo Láser 360</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="lipo/111.jpg">
+      </div>
+      <div class="back">
+        <img src="lipo/Untitled design-16.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    const slides = [
-      {
-        type: "home"
-      },
-      {
-        nameEs: "Lipo con Láser 360",
-        nameEn: "Lipo Laser 360",
-        textEs: "Moldea, define y ayuda a reducir grasa localizada en abdomen, espalda y contorno corporal desde las primeras sesiones.",
-        textEn: "Contours and helps reduce localized fat across abdomen, back, and body contour from the first sessions.",
-        chipsEs: ["Abdomen","Espalda","Contorno","RF 40K"],
-        chipsEn: ["Abdomen","Back","Contour","RF 40K"],
-        learn: "https://droyalspa.com/lipo-con-laser",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559773",
-        media: ["./modelo.jpg","./111.jpg","./Untitled design-16.jpg","./Your paragraph text-40.jpg"],
-        gallery: ["./111.jpg","./Untitled design-16.jpg"]
-      },
-      {
-        nameEs: "Lipo con Láser 360 con Transfer",
-        nameEn: "Lipo Laser 360 with Transfer",
-        textEs: "Combina definición corporal con transferencia para resaltar curvas, glúteos y cintura con un resultado más armónico.",
-        textEn: "Combines body definition with transfer to enhance curves, butt projection, and waist contour.",
-        chipsEs: ["Transfer","Glúteos","Cintura","RF 40K"],
-        chipsEn: ["Transfer","Butt","Waist","RF 40K"],
-        learn: "https://droyalspa.com/lipo-laser-con-transfer",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559810",
-        media: ["./modelo.jpg","./111.jpg","./109.jpg","./113.jpg","./Untitled design-16.jpg"],
-        gallery: ["./109.jpg","./113.jpg"]
-      },
-      {
-        nameEs: "LipoPapada con Láser 360",
-        nameEn: "Chin Lipo Laser 360",
-        textEs: "Ayuda a definir mandíbula, perfil y cuello para una apariencia más limpia, elegante y estilizada.",
-        textEn: "Helps define jawline, profile, and neck for a cleaner, more elegant look.",
-        chipsEs: ["Papada","Perfil","Cuello","RF 40K"],
-        chipsEn: ["Double chin","Profile","Neck","RF 40K"],
-        learn: "https://droyalspa.com/lipo-papada",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560745",
-        media: ["./107.jpg","./108.jpg","./106.jpg"],
-        gallery: ["./107.jpg","./108.jpg"]
-      },
-      {
-        nameEs: "D-Cool",
-        nameEn: "D-Cool",
-        textEs: "Tratamiento facial regenerativo con RF 40K enfocado en textura, firmeza, mirada, cuello y rejuvenecimiento visual.",
-        textEn: "Regenerative facial treatment with RF 40K focused on texture, firmness, eyes, neck, and visible rejuvenation.",
-        chipsEs: ["Cara","Cuello","Ojos","RF 40K"],
-        chipsEn: ["Face","Neck","Eyes","RF 40K"],
-        learn: "https://droyalspa.com/d-cool-regeneracion-con-celulas-madre",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560920",
-        media: ["./106.jpg","./108.jpg","./Copia de Untitled design-16.jpg","./107.jpg"],
-        gallery: ["./106.jpg","./Copia de Untitled design-16.jpg"]
-      },
-      {
-        nameEs: "Aumento de Senos sin Cirugía",
-        nameEn: "Non-Surgical Breast Enhancement",
-        textEs: "Ayuda a mejorar volumen visual, escote y forma para una apariencia más llena y armónica sin cirugía.",
-        textEn: "Helps improve visual fullness, cleavage, and shape for a fuller non-surgical appearance.",
-        chipsEs: ["Escote","Volumen visual","Forma","RF 40K"],
-        chipsEn: ["Cleavage","Visual fullness","Shape","RF 40K"],
-        learn: "https://droyalspa.com/new-page",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560087",
-        media: ["./110.jpg","./Copia de Your paragraph text-35 2.jpg"],
-        gallery: ["./110.jpg","./Copia de Your paragraph text-35 2.jpg"]
-      },
-      {
-        nameEs: "Aumento de Glúteos sin Cirugía",
-        nameEn: "Non-Surgical Butt Enhancement",
-        textEs: "Busca más proyección, forma y una apariencia más levantada, combinando contorno visual y trabajo de tejido.",
-        textEn: "Targets more projection, shape, and a lifted appearance through contouring and tissue work.",
-        chipsEs: ["Proyección","Forma","Lifting visual","RF 40K"],
-        chipsEn: ["Projection","Shape","Lifted look","RF 40K"],
-        learn: "https://droyalspa.com/piernas",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560697",
-        media: ["./109.jpg","./113.jpg"],
-        gallery: ["./109.jpg","./113.jpg"]
-      },
-      {
-        nameEs: "LipoEscultura de Brazos 360",
-        nameEn: "Arm Sculpting 360",
-        textEs: "Ayuda a afinar, tensar y definir el brazo para una línea más limpia y estética.",
-        textEn: "Helps slim, tighten, and define the arms for a cleaner, more sculpted line.",
-        chipsEs: ["Brazos","Definición","Firmeza","RF 40K"],
-        chipsEn: ["Arms","Definition","Firmness","RF 40K"],
-        learn: "https://droyalspa.com/reduccion-de-brazos",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873037",
-        media: ["./Your paragraph text-38.jpg"],
-        gallery: ["./Your paragraph text-38.jpg","./Your paragraph text-38.jpg"]
-      },
-      {
-        nameEs: "LipoEscultura de Piernas 360",
-        nameEn: "Leg Sculpting 360",
-        textEs: "Trabaja textura, contorno y reducción visual de celulitis para unas piernas más estilizadas.",
-        textEn: "Targets texture, contour, and visual cellulite reduction for more sculpted legs.",
-        chipsEs: ["Piernas","Celulitis","Contorno","RF 40K"],
-        chipsEn: ["Legs","Cellulite","Contour","RF 40K"],
-        learn: "https://droyalspa.com/1-reduccion-de-celulitis-en-piernas",
-        book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873056",
-        media: ["./113.jpg"],
-        gallery: ["./113.jpg","./113.jpg"]
-      }
-    ];
+<!-- LIPO + TRANSFER -->
+<div class="section">
+  <h2>Lipo + Transfer</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="lipo con trasfer/109.jpg">
+      </div>
+      <div class="back">
+        <img src="lipo con trasfer/111.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    const deck = document.getElementById('deck');
+<!-- PAPADA -->
+<div class="section">
+  <h2>Papada</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="papada/107.jpg">
+      </div>
+      <div class="back">
+        <img src="papada/108.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    const getName = (s) => isSpanish ? s.nameEs : s.nameEn;
-    const getText = (s) => isSpanish ? s.textEs : s.textEn;
-    const getChips = (s) => isSpanish ? s.chipsEs : s.chipsEn;
+<!-- PIERNAS -->
+<div class="section">
+  <h2>Piernas</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="piernas/113.jpg">
+      </div>
+      <div class="back">
+        <img src="piernas/113.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    function makeHomeRail() {
-      return slides
-        .slice(1)
-        .map((s, i) => `
-          <button class="rail-btn" data-go="${i + 1}">
-            <span>${getName(s)}</span>
-            <span>›</span>
-          </button>
-        `)
-        .join("");
-    }
+<!-- ESPALDA -->
+<div class="section">
+  <h2>Espalda / Senos</h2>
+  <div class="card">
+    <div class="inner">
+      <div class="front">
+        <img src="senos/110.jpg">
+      </div>
+      <div class="back">
+        <img src="senos/Your paragraph text-38.jpg">
+      </div>
+    </div>
+  </div>
+</div>
 
-    function makeMiniRail(index) {
-      return slides
-        .slice(1)
-        .map((s, i) => {
-          const real = i + 1;
-          if (real === index) return "";
-          return `
-            <button class="mini-rail-btn" data-go="${real}">
-              <span>${getName(s)}</span>
-              <span>›</span>
-            </button>
-          `;
-        })
-        .join("");
-    }
-
-    function mediaMarkup(media, cardIndex) {
-      return `
-        <div class="media-stage" data-media-stage="${cardIndex}">
-          <img src="${media[0]}" alt="">
-          ${
-            media.length > 1
-              ? `
-                <div class="media-dots">
-                  ${media.map((_, i) => `<button data-dot="${i}" class="${i === 0 ? 'active' : ''}"></button>`).join("")}
-                </div>
-              `
-              : ""
-          }
-        </div>
-      `;
-    }
-
-    deck.innerHTML = slides.map((slide, index) => {
-      if (slide.type === "home") {
-        return `
-          <section class="slide home-slide active" data-slide="${index}">
-            <div class="slide-inner home">
-              <div class="home-center">
-                <h2 class="headline">${T.headline}</h2>
-                <div class="areas">${T.areas}</div>
-                <div class="offer"><b>25% OFF</b><span>${T.offer}</span></div>
-                <div class="pick">${T.pick}</div>
-                <div class="pick-sub">${T.pickSub}</div>
-              </div>
-              <div class="swipe-hint">${T.swipe}</div>
-              <div class="home-rail">
-                ${makeHomeRail()}
-              </div>
-            </div>
-          </section>
-        `;
-      }
-
-      return `
-        <section class="slide treatment" data-slide="${index}">
-          <div class="slide-inner">
-            <div class="treatment-wrap">
-              <div class="media-pane">
-                ${mediaMarkup(slide.media, index)}
-              </div>
-
-              <div class="info-pane">
-                <div class="page-card">
-                  <div class="page-card-inner">
-                    <div class="page-topline">
-                      <button class="home-link" data-go="0">‹ ${T.home}</button>
-                      <span>${index}/${slides.length - 1}</span>
-                    </div>
-
-                    <h2 class="page-title">${getName(slide)}</h2>
-                    <p class="page-text">${getText(slide)}</p>
-
-                    <div class="chips">
-                      ${getChips(slide).map(c => `<span class="chip">${c}</span>`).join("")}
-                    </div>
-
-                    <div class="gallery">
-                      <div class="gallery-card">
-                        <div class="gallery-lab">${T.before}</div>
-                        <img src="${slide.gallery[0]}" alt="${T.before}">
-                      </div>
-                      <div class="gallery-card">
-                        <div class="gallery-lab">${T.after}</div>
-                        <img src="${slide.gallery[1] || slide.gallery[0]}" alt="${T.after}">
-                      </div>
-                    </div>
-
-                    <div class="actions">
-                      <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
-                      <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                    </div>
-
-                    <div class="bottom-nav">
-                      ${makeMiniRail(index)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-    }).join("");
-
-    const slideEls = [...document.querySelectorAll('.slide')];
-
-    function setActiveSlide() {
-      const left = deck.scrollLeft;
-      const width = deck.clientWidth;
-      const active = Math.round(left / width);
-
-      slideEls.forEach((el, i) => {
-        el.classList.toggle('active', i === active);
-      });
-    }
-
-    function goToSlide(index) {
-      deck.scrollTo({
-        left: index * deck.clientWidth,
-        behavior: 'smooth'
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      const go = e.target.closest('[data-go]');
-      if (go) {
-        goToSlide(Number(go.dataset.go));
-      }
-
-      const dot = e.target.closest('[data-dot]');
-      if (dot) {
-        const stage = dot.closest('[data-media-stage]');
-        const slideIndex = Number(stage.dataset.mediaStage);
-        const slide = slides[slideIndex];
-        const img = stage.querySelector('img');
-        img.src = slide.media[Number(dot.dataset.dot)];
-        stage.querySelectorAll('[data-dot]').forEach((b, i) => {
-          b.classList.toggle('active', i === Number(dot.dataset.dot));
-        });
-      }
-    });
-
-    deck.addEventListener('scroll', setActiveSlide);
-    window.addEventListener('resize', setActiveSlide);
-
-    deck.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        deck.scrollLeft += e.deltaY;
-      }
-    }, { passive:false });
-
-    setActiveSlide();
-  </script>
 </body>
 </html>
