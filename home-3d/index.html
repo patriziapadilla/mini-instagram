@@ -1,660 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D’Royal Spa · Home 3D</title>
-  <style>
-    :root{
-      --bg:#050505;
-      --line:rgba(255,255,255,.12);
-      --gold:#d7bc99;
-      --cream:#efe2d4;
-      --text:#f7efe7;
-      --muted:rgba(247,239,231,.78);
-      --strip-h:44px;
-      --side:18px;
-      --shadow:0 20px 60px rgba(0,0,0,.38);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#000;color:var(--text);font-family:Georgia,"Times New Roman",serif;overflow-x:hidden}
-    body{background:#000}
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D’Royal Spa</title>
 
-    .app{
-      width:100%;
-      min-height:100vh;
-      background:#000;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:black;
+  color:white;
+}
 
-    .home{
-      min-height:100vh;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.16) 0%, rgba(0,0,0,.32) 34%, rgba(0,0,0,.64) 72%, rgba(0,0,0,.94) 100%),
-        url('./hero-model.jpg') center center / cover no-repeat;
-      display:flex;
-      flex-direction:column;
-      position:relative;
-    }
+.hero{
+  height:100vh;
+  background:url('modelo.jpg') center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
 
-    .topline{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      padding:16px 18px 0;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:13px;
-      color:rgba(255,255,255,.96);
-      z-index:2;
-    }
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+}
 
-    .hero-copy{
-      text-align:center;
-      padding:34px 18px 0;
-      max-width:1100px;
-      margin:0 auto;
-      z-index:2;
-    }
+.hero-content{
+  position:relative;
+  z-index:2;
+}
 
-    .brand{
-      margin:0 0 8px;
-      font-size:clamp(28px,3vw,42px);
-      color:var(--gold);
-    }
+.hero h1{
+  font-size:40px;
+  margin:10px 0;
+}
 
-    .headline{
-      margin:0;
-      font-size:clamp(52px,8vw,96px);
-      line-height:.94;
-      color:#fff9f1;
-      font-weight:500;
-    }
+.hero p{
+  color:#ccc;
+  letter-spacing:2px;
+}
 
-    .subline{
-      margin-top:12px;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:12px;
-      letter-spacing:.30em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.86);
-    }
+.btn{
+  margin-top:20px;
+  display:inline-block;
+  padding:12px 20px;
+  background:#d6c2a2;
+  color:black;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+}
 
-    .areas{
-      margin-top:auto;
-      padding:0 18px;
-      text-align:center;
-      font-size:clamp(18px,2vw,28px);
-      color:#f4eadf;
-      z-index:2;
-    }
+.menu{
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
 
-    .contact{
-      display:grid;
-      justify-items:center;
-      gap:8px;
-      padding:14px 18px 0;
-      font-family:Arial,Helvetica,sans-serif;
-      z-index:2;
-    }
+.menu button{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:black;
+  color:white;
+  border-top:1px solid #333;
+  font-size:16px;
+  text-align:left;
+}
+</style>
+</head>
 
-    .phone{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:11px 22px;
-      border-radius:999px;
-      background:rgba(10,10,10,.48);
-      border:1px solid rgba(255,255,255,.14);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      font-size:clamp(18px,2vw,28px);
-      font-weight:700;
-      box-shadow:var(--shadow);
-    }
+<body>
 
-    .email{
-      font-size:14px;
-      color:rgba(255,255,255,.82);
-    }
+<div class="hero">
+  <div class="hero-content">
+    <h2>D’ROYAL SPA</h2>
+    <h1>Lipo Sin Cirugía</h1>
+    <p>SIN AGUJAS · SIN DOLOR</p>
 
-    .offer{
-      margin-top:12px;
-      display:inline-flex;
-      align-items:center;
-      gap:12px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.1);
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:14px;
-    }
+    <a class="btn" href="https://wa.me/17866900960">
+      📞 786 690 0960
+    </a>
+  </div>
 
-    .offer b{
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(215,188,153,.18);
-      color:#fff5ea;
-    }
-
-    .pick{
-      text-align:center;
-      padding:16px 18px 10px;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:12px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.72);
-      z-index:2;
-    }
-
-    .strip-list{
-      display:grid;
-      gap:5px;
-      padding-bottom:14px;
-      z-index:2;
-    }
-
-    .strip{
-      height:var(--strip-h);
-      width:100%;
-      border:0;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(0,0,0,.96), rgba(8,8,8,.98));
-      color:#fff9f0;
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      padding:0 18px;
-      text-align:left;
-      cursor:pointer;
-      font-size:clamp(16px,1.5vw,24px);
-      letter-spacing:.01em;
-    }
-
-    .strip .arrow{
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:22px;
-      opacity:.88;
-    }
-
-    .overlay{
-      position:fixed;
-      inset:0;
-      z-index:9999;
-      background:rgba(0,0,0,.92);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .35s ease;
-    }
-
-    .overlay.active{
-      opacity:1;
-      pointer-events:auto;
-    }
-
-    .panel{
-      position:absolute;
-      inset:0;
-      display:flex;
-      flex-direction:column;
-      background:#000;
-      transform:translateY(100%);
-      transition:transform .42s cubic-bezier(.22,.9,.2,1);
-    }
-
-    .overlay.active .panel{
-      transform:translateY(0);
-    }
-
-    .float-top, .float-bottom{
-      display:grid;
-      gap:5px;
-      background:rgba(0,0,0,.98);
-      z-index:3;
-    }
-
-    .float-top{
-      position:sticky;
-      top:0;
-      padding-top:0;
-    }
-
-    .home-return{
-      height:var(--strip-h);
-      border:0;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(0,0,0,.98), rgba(8,8,8,.98));
-      color:#fffaf2;
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      align-items:center;
-      gap:12px;
-      padding:0 18px;
-      cursor:pointer;
-      font-size:clamp(16px,1.5vw,24px);
-      text-align:left;
-    }
-
-    .home-return .mini{
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:12px;
-      color:rgba(255,255,255,.72);
-      margin-top:2px;
-    }
-
-    .mini-strip{
-      height:38px;
-      border:0;
-      border-top:1px solid rgba(255,255,255,.08);
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background:rgba(0,0,0,.98);
-      color:#fff9f0;
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      padding:0 18px;
-      font-size:clamp(14px,1.1vw,18px);
-      cursor:pointer;
-      text-align:left;
-    }
-
-    .panel-scroll{
-      flex:1;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-    }
-
-    .detail{
-      min-height:calc(100vh - 82px);
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.72)),
-        var(--detail-image) center center / cover no-repeat;
-    }
-
-    .detail-left{min-height:360px}
-
-    .detail-right{
-      background:rgba(0,0,0,.88);
-      padding:28px 18px 20px;
-      display:flex;
-      flex-direction:column;
-    }
-
-    .detail-title{
-      margin:0 0 10px;
-      font-size:clamp(42px,4.2vw,76px);
-      line-height:.95;
-      color:#fff9f1;
-      font-weight:500;
-    }
-
-    .detail-text{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--muted);
-      font-size:clamp(17px,1.5vw,24px);
-      line-height:1.55;
-    }
-
-    .bubbles{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:22px 0 18px;
-    }
-
-    .bubble{
-      padding:10px 15px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:14px;
-      color:#f6ede2;
-    }
-
-    .ba{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:4px;
-    }
-
-    .ba-card{
-      border:1px solid rgba(255,255,255,.1);
-      background:#0a0a0a;
-      overflow:hidden;
-    }
-
-    .ba-lab{
-      padding:10px 8px;
-      text-align:center;
-      background:#000;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:13px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-
-    .ba-card img{
-      width:100%;
-      height:220px;
-      object-fit:cover;
-      display:block;
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:16px;
-    }
-
-    .btn{
-      min-height:54px;
-      border-radius:999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:17px;
-      font-weight:700;
-      border:1px solid rgba(255,255,255,.14);
-    }
-
-    .btn.light{
-      background:transparent;
-      color:#fff;
-    }
-
-    .btn.gold{
-      background:var(--cream);
-      color:#111;
-      border-color:transparent;
-    }
-
-    @media (max-width: 980px){
-      .topline{justify-content:center;font-size:11px}
-      .headline{font-size:52px}
-      .areas{font-size:16px}
-      .phone{font-size:17px}
-      .strip{height:40px;font-size:15px}
-      .home-return{height:40px;font-size:15px}
-      .mini-strip{height:34px;font-size:13px}
-      .detail{
-        grid-template-columns:1fr;
-        min-height:auto;
-      }
-      .detail-left{display:none}
-      .detail-right{padding-top:22px}
-      .detail-title{font-size:36px}
-      .detail-text{font-size:16px}
-      .ba-card img{height:150px}
-    }
-  </style>
-
-  <div class="app">
-    <div class="home">
-      <div class="topline">
-        <a href="https://wa.me/message/6QSXBTK7A47QM1" target="_blank" rel="noopener">☎ 786 690 0960</a>
-        <a href="mailto:droyalspamiami@gmail.com">✉ droyalspamiami@gmail.com</a>
-      </div>
-
-      <div class="hero-copy">
-        <h1 class="brand"></h1>
-        <div class="headline"></div>
-        <div class="subline"></div>
-      </div>
-
-      <div class="areas"></div>
-
-      <div class="contact">
-        <a class="phone" href="https://wa.me/message/6QSXBTK7A47QM1" target="_blank" rel="noopener">786 690 0960</a>
-        <a class="email" href="mailto:droyalspamiami@gmail.com">droyalspamiami@gmail.com</a>
-        <div class="offer"><b>25% OFF</b><span class="offer-text"></span></div>
-      </div>
-
-      <div class="pick"></div>
-      <div class="strip-list" id="stripList"></div>
-    </div>
-
-    <div class="overlay" id="overlay">
-      <div class="panel" id="panel"></div>
-    </div>
+  <div class="menu">
+    <button>Lipo con Láser 360</button>
+    <button>Lipo con Transfer</button>
+    <button>Lipo Papada</button>
+    <button>Aumento de Senos</button>
+    <button>Aumento de Glúteos</button>
+    <button>Brazos</button>
+    <button>Piernas</button>
   </div>
 </div>
 
-<script>
-(function(){
-  const app = document.getElementById('droyal-home3d');
-  const isSpanish = (navigator.language || '').toLowerCase().startsWith('es');
-
-  const T = {
-    brand: "D’ROYAL SPA",
-    headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
-    subline: isSpanish ? "Sin agujas · Sin dolor" : "No needles · No pain",
-    areas: "Brickell · Downtown · Doral · Miami Beach",
-    offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-    pick: isSpanish ? "Selecciona tu tratamiento" : "Choose your treatment",
-    homeBack: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
-    homeMini: isSpanish ? "Inicio" : "Home",
-    learn: isSpanish ? "Aprender más" : "Learn more",
-    book: isSpanish ? "Agendar cita" : "Book now",
-    before: isSpanish ? "Antes" : "Before",
-    after: isSpanish ? "Después" : "After"
-  };
-
-  app.querySelector('.brand').textContent = T.brand;
-  app.querySelector('.headline').textContent = T.headline;
-  app.querySelector('.subline').textContent = T.subline;
-  app.querySelector('.areas').textContent = T.areas;
-  app.querySelector('.offer-text').textContent = T.offer;
-  app.querySelector('.pick').textContent = T.pick;
-
-  const treatments = [
-    {
-      nameEs:"Lipo con Láser 360", nameEn:"Lipo Laser 360",
-      summaryEs:"Moldea y ayuda a reducir grasa localizada para estilizar la silueta desde la primera sesión.",
-      summaryEn:"Contours the body and helps reduce localized fat to refine your shape from the first session.",
-      bubblesEs:["Abdomen","Cintura","Espalda","Definición corporal"],
-      bubblesEn:["Abdomen","Waist","Back","Body definition"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/e4f9e519-3587-4a6b-a7cc-54c79374a264/Your%2Bparagraph%2Btext-37.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/ca6213db-91b4-4e1d-bba9-667ec1c10175/Untitled%2Bdesign-16.jpg",
-      pageImage:"https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/lipo-con-laser",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91559773"
-    },
-    {
-      nameEs:"Lipo con Láser 360 con Transfer", nameEn:"Lipo Laser 360 with Transfer",
-      summaryEs:"Combina reducción localizada y transferencia para crear un contorno más armónico y llamativo.",
-      summaryEn:"Combines targeted reduction and transfer to create a fuller, more balanced contour.",
-      bubblesEs:["Moldeo","Curvas","Contorno","Figura armónica"],
-      bubblesEn:["Sculpting","Curves","Contour","Balanced shape"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/e4f9e519-3587-4a6b-a7cc-54c79374a264/Your%2Bparagraph%2Btext-37.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/ca6213db-91b4-4e1d-bba9-667ec1c10175/Untitled%2Bdesign-16.jpg",
-      pageImage:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/lipo-laser-con-transfer",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91559810"
-    },
-    {
-      nameEs:"LipoPapada con Láser 360", nameEn:"Double Chin Laser Lipo 360",
-      summaryEs:"Define el perfil del rostro y ayuda a estilizar la zona de la papada para un look más limpio.",
-      summaryEn:"Defines the jawline and helps refine the double chin area for a cleaner facial profile.",
-      bubblesEs:["Papada","Perfil","Mandíbula","Definición facial"],
-      bubblesEn:["Double chin","Profile","Jawline","Facial definition"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/1ea03fe7-ad2f-4796-aeb1-2179eb09fb60/112.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/ec28aa8a-30c9-41f5-ab4e-d369944b68b8/106.jpg",
-      pageImage:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/lipo-papada",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91560745"
-    },
-    {
-      nameEs:"D-Cool", nameEn:"D-Cool",
-      summaryEs:"Tratamiento facial con limpieza, aloe y radiofrecuencia para una piel más firme, luminosa y renovada.",
-      summaryEn:"Facial treatment with cleansing, aloe, and radiofrequency for firmer, brighter, refreshed skin.",
-      bubblesEs:["Glow","Firmeza","Limpieza","Lifting facial"],
-      bubblesEn:["Glow","Firmness","Cleansing","Facial lifting"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/ec28aa8a-30c9-41f5-ab4e-d369944b68b8/106.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/ec28aa8a-30c9-41f5-ab4e-d369944b68b8/106.jpg",
-      pageImage:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/d-cool-regeneracion-con-celulas-madre",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91560920"
-    },
-    {
-      nameEs:"Aumento de Senos sin Cirugía", nameEn:"Non-Surgical Breast Enhancement",
-      summaryEs:"Ayuda a mejorar proyección, forma y apariencia para un escote más armónico sin cirugía.",
-      summaryEn:"Helps improve projection and shape for a fuller, more balanced look without surgery.",
-      bubblesEs:["Forma","Proyección","Escote","Volumen visual"],
-      bubblesEn:["Shape","Projection","Cleavage","Visual fullness"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/fc7d7e9f-b4be-490a-9f27-21da3cf149a3/110.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/fc7d7e9f-b4be-490a-9f27-21da3cf149a3/110.jpg",
-      pageImage:"https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/new-page",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91560087"
-    },
-    {
-      nameEs:"Aumento de Glúteos sin Cirugía", nameEn:"Non-Surgical Butt Enhancement",
-      summaryEs:"Trabaja proyección y contorno para resaltar la figura con una apariencia más redonda y definida.",
-      summaryEn:"Enhances projection and contour for a fuller, more sculpted look.",
-      bubblesEs:["Proyección","Contorno","Curvas","Figura"],
-      bubblesEn:["Projection","Contour","Curves","Figure"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/0ace7dfa-14ce-4871-a2c4-89ff74ea72e3/109.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/0ace7dfa-14ce-4871-a2c4-89ff74ea72e3/109.jpg",
-      pageImage:"https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/piernas",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91560697"
-    },
-    {
-      nameEs:"LipoEscultura de Brazos 360", nameEn:"Arm Sculpting 360",
-      summaryEs:"Ayuda a reducir volumen y mejorar definición en brazos para un look más limpio y estilizado.",
-      summaryEn:"Helps reduce bulk and improve arm definition for a slimmer, more refined look.",
-      bubblesEs:["Brazos","Definición","Firmeza","Moldeo"],
-      bubblesEn:["Arms","Definition","Firmness","Sculpting"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/a14800f1-f552-49fd-b02f-02ef3174c724/Your%2Bparagraph%2Btext-38.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/a14800f1-f552-49fd-b02f-02ef3174c724/Your%2Bparagraph%2Btext-38.jpg",
-      pageImage:"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/reduccion-de-brazos",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91873037"
-    },
-    {
-      nameEs:"LipoEscultura de Piernas 360", nameEn:"Leg Sculpting 360",
-      summaryEs:"Ayuda a estilizar piernas y mejorar su apariencia general para una silueta más lisa y definida.",
-      summaryEn:"Helps refine the legs for a smoother, more sculpted silhouette.",
-      bubblesEs:["Piernas","Celulitis","Liso visual","Definición"],
-      bubblesEn:["Legs","Cellulite","Smoother look","Definition"],
-      before:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/827ca5a1-cb08-4075-9a61-d53ba6820cc7/113.jpg",
-      after:"https://images.squarespace-cdn.com/content/v1/65e0b0203d824e56691e609a/827ca5a1-cb08-4075-9a61-d53ba6820cc7/113.jpg",
-      pageImage:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80",
-      learn:"https://droyalspa.com/1-reduccion-de-celulitis-en-piernas",
-      book:"https://DRoyalSpaMiami.as.me/?appointmentType=91873056"
-    }
-  ];
-
-  const list = app.querySelector('#stripList');
-  const overlay = app.querySelector('#overlay');
-  const panel = app.querySelector('#panel');
-
-  function nameOf(t){ return isSpanish ? t.nameEs : t.nameEn; }
-  function summaryOf(t){ return isSpanish ? t.summaryEs : t.summaryEn; }
-  function bubblesOf(t){ return isSpanish ? t.bubblesEs : t.bubblesEn; }
-
-  list.innerHTML = treatments.map((t,i)=>`
-    <button class="strip" data-open="${i}">
-      <span>${nameOf(t)}</span><span class="arrow">›</span>
-    </button>
-  `).join('');
-
-  function mini(i){
-    const t = treatments[i];
-    if(!t) return '';
-    return `
-      <button class="mini-strip" data-open="${i}">
-        <span>${nameOf(t)}</span><span class="arrow">›</span>
-      </button>
-    `;
-  }
-
-  function renderPanel(i){
-    const t = treatments[i];
-
-    panel.innerHTML = `
-      <div class="float-top">
-        <button class="home-return" id="homeReturn">
-          <span>‹</span>
-          <span>${T.homeBack}<div class="mini">${T.homeMini}</div></span>
-          <span></span>
-        </button>
-        ${i > 0 ? mini(i-1) : ''}
-      </div>
-
-      <div class="panel-scroll">
-        <section class="detail" style="--detail-image:url('${t.pageImage}')">
-          <div class="detail-left"></div>
-
-          <div class="detail-right">
-            <h2 class="detail-title">${nameOf(t)}</h2>
-            <p class="detail-text">${summaryOf(t)}</p>
-
-            <div class="bubbles">
-              ${bubblesOf(t).map(b => `<span class="bubble">${b}</span>`).join('')}
-            </div>
-
-            <div class="ba">
-              <div class="ba-card">
-                <div class="ba-lab">${T.before}</div>
-                <img src="${t.before}" alt="${T.before}">
-              </div>
-              <div class="ba-card">
-                <div class="ba-lab">${T.after}</div>
-                <img src="${t.after}" alt="${T.after}">
-              </div>
-            </div>
-
-            <div class="actions">
-              <a class="btn light" href="${t.learn}" target="_blank" rel="noopener">${T.learn}</a>
-              <a class="btn gold" href="${t.book}" target="_blank" rel="noopener">${T.book}</a>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div class="float-bottom">
-        ${mini(i+1)}
-        ${mini(i+2)}
-      </div>
-    `;
-
-    panel.querySelector('#homeReturn').addEventListener('click', closePanel);
-    panel.querySelectorAll('[data-open]').forEach(btn=>{
-      btn.addEventListener('click', ()=>openPanel(Number(btn.dataset.open)));
-    });
-  }
-
-  function openPanel(i){
-    renderPanel(i);
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closePanel(){
-    overlay.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  app.querySelectorAll('[data-open]').forEach(btn=>{
-    btn.addEventListener('click', ()=>openPanel(Number(btn.dataset.open)));
-  });
-
-  overlay.addEventListener('click', (e)=>{
-    if(e.target === overlay) closePanel();
-  });
-})();
-</script>
+</body>
+</html>
