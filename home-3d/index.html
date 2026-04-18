@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D’Royal Spa</title>
+  <title>D’Royal Spa · Home 3D</title>
   <style>
     :root{
       --bg:#050505;
-      --line:rgba(255,255,255,.11);
+      --panel:#0b0b0b;
+      --line:rgba(255,255,255,.10);
       --gold:#dcc2a2;
       --cream:#efe2d4;
       --text:#f8efe7;
       --muted:rgba(248,239,231,.78);
       --side:16px;
-      --strip-h:42px;
+      --strip-h:36px;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
     }
 
     *{box-sizing:border-box}
@@ -23,52 +25,68 @@
       background:#000;
       color:var(--text);
       font-family:Arial,Helvetica,sans-serif;
+      overflow-x:hidden;
       scroll-behavior:smooth;
     }
 
-    body{overflow-x:hidden}
-    a{text-decoration:none;color:inherit}
+    body.overlay-open{
+      overflow:hidden;
+    }
 
-    .hero{
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
+      font:inherit;
+      color:inherit;
+      background:none;
+      border:none;
+      padding:0;
+      cursor:pointer;
+    }
+
+    .home{
       min-height:100svh;
       position:relative;
       display:flex;
       flex-direction:column;
       justify-content:center;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.34) 36%, rgba(0,0,0,.70) 76%, rgba(0,0,0,.92) 100%),
-        url('./modelo.jpg') center 22% / cover no-repeat;
+        linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.36) 34%, rgba(0,0,0,.70) 78%, rgba(0,0,0,.94) 100%),
+        url('./modelo.jpg') center 30% / cover no-repeat;
     }
 
-    .hero-top{
+    .topline{
       position:absolute;
       top:14px;
       left:var(--side);
       right:var(--side);
+      z-index:3;
       display:flex;
       justify-content:space-between;
       gap:12px;
-      font-size:13px;
-      z-index:2;
-      color:rgba(255,255,255,.95);
       flex-wrap:wrap;
+      font-size:13px;
+      color:rgba(255,255,255,.95);
     }
 
     .hero-center{
       position:relative;
       z-index:2;
       text-align:center;
-      padding:120px 20px 160px;
       max-width:980px;
       margin:0 auto;
+      padding:120px 20px 150px;
     }
 
     .brand{
       margin:0 0 14px;
-      color:var(--gold);
       font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(28px,3.3vw,42px);
+      font-size:clamp(28px,3vw,42px);
       font-weight:500;
+      color:var(--gold);
     }
 
     .headline{
@@ -80,19 +98,11 @@
       color:#fff9f0;
     }
 
-    .subline{
-      margin-top:12px;
-      font-size:12px;
-      letter-spacing:.30em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.84);
-    }
-
     .areas{
-      margin-top:22px;
+      margin-top:20px;
       font-family:Georgia,"Times New Roman",serif;
       font-size:clamp(18px,2vw,28px);
-      color:#f2e6d7;
+      color:#f3e7d8;
     }
 
     .phone-wrap{
@@ -103,15 +113,14 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      min-height:54px;
-      padding:0 24px;
+      min-height:50px;
+      padding:0 22px;
       border-radius:999px;
       background:var(--cream);
       color:#111;
-      font-weight:800;
       font-size:clamp(18px,2vw,24px);
-      box-shadow:0 18px 50px rgba(0,0,0,.25);
+      font-weight:800;
+      box-shadow:var(--shadow);
     }
 
     .email{
@@ -123,32 +132,32 @@
     .offer{
       margin-top:14px;
       display:inline-flex;
-      gap:10px;
       align-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:999px;
+      gap:10px;
       padding:7px 10px;
-      background:rgba(10,10,10,.30);
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(10,10,10,.34);
     }
 
     .offer b{
-      background:rgba(220,194,162,.18);
-      color:#fff3e5;
-      border-radius:999px;
       padding:8px 12px;
+      border-radius:999px;
+      background:rgba(220,194,162,.18);
+      color:#fff4e8;
     }
 
     .pick{
-      margin-top:20px;
+      margin-top:22px;
       font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,2.3vw,30px);
-      color:#fff4e8;
+      font-size:clamp(18px,2.2vw,30px);
+      color:#fff5ea;
     }
 
     .pick-sub{
       margin-top:8px;
       font-size:11px;
-      letter-spacing:.24em;
+      letter-spacing:.20em;
       text-transform:uppercase;
       color:rgba(255,255,255,.68);
     }
@@ -162,10 +171,11 @@
       display:grid;
       gap:4px;
       padding-bottom:8px;
-      background:linear-gradient(180deg, transparent, rgba(0,0,0,.72) 22%, rgba(0,0,0,.96) 100%);
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.76) 24%, rgba(0,0,0,.96) 100%);
     }
 
     .strip{
+      width:100%;
       height:var(--strip-h);
       display:grid;
       grid-template-columns:1fr auto;
@@ -175,118 +185,157 @@
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
       font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(16px,1.6vw,25px);
-      color:#fff7ef;
+      font-size:clamp(15px,1.4vw,22px);
+      color:#fff8ef;
+      text-align:left;
     }
 
-    .strip .arrow{font-size:22px}
+    .strip .arrow{
+      font-size:19px;
+      line-height:1;
+    }
 
-    .page{
-      min-height:100svh;
+    .overlay{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      background:rgba(0,0,0,.86);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .28s ease;
+    }
+
+    .overlay.active{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .panel{
+      position:absolute;
+      inset:0;
       background:#000;
-      border-top:1px solid rgba(255,255,255,.05);
+      transform:translateY(100%);
+      transition:transform .34s ease;
+      display:flex;
+      flex-direction:column;
     }
 
-    .sticky-home{
+    .overlay.active .panel{
+      transform:translateY(0);
+    }
+
+    .floating-top,
+    .floating-bottom{
+      display:grid;
+      gap:4px;
+      background:rgba(0,0,0,.98);
+    }
+
+    .floating-top{
       position:sticky;
       top:0;
       z-index:10;
-      display:grid;
-      gap:4px;
-      background:rgba(0,0,0,.96);
-      padding-top:0;
     }
 
     .home-back{
-      height:42px;
+      width:100%;
+      height:38px;
       display:grid;
       grid-template-columns:auto 1fr auto;
       align-items:center;
-      gap:12px;
+      gap:10px;
       padding:0 var(--side);
       background:#050505;
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
       font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(16px,1.6vw,24px);
-      color:#fff8f0;
+      font-size:clamp(15px,1.4vw,22px);
+      color:#fff8ef;
+      text-align:left;
     }
 
     .mini-note{
-      font-size:11px;
+      margin-top:2px;
+      font-size:10px;
       letter-spacing:.16em;
       text-transform:uppercase;
-      color:rgba(255,255,255,.62);
-      margin-top:2px;
+      color:rgba(255,255,255,.58);
     }
 
     .mini-strip{
-      height:36px;
+      width:100%;
+      height:32px;
       display:grid;
       grid-template-columns:1fr auto;
       align-items:center;
       padding:0 var(--side);
-      background:#040404;
+      background:#030303;
       border-top:1px solid rgba(255,255,255,.08);
       border-bottom:1px solid rgba(255,255,255,.08);
-      font-size:14px;
-      color:#f7efe6;
+      font-size:13px;
+      color:#f8efe6;
+      text-align:left;
     }
 
-    .page-content{
-      min-height:calc(100svh - 78px);
-      display:grid;
-      grid-template-columns:1.02fr .98fr;
+    .panel-scroll{
+      flex:1;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
       background:#000;
     }
 
-    .page-image{
-      min-height:460px;
-      background-position:center center;
-      background-size:cover;
-      background-repeat:no-repeat;
+    .detail{
+      min-height:calc(100svh - 70px);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      background:#000;
     }
 
-    .page-info{
-      padding:28px var(--side) 18px;
+    .detail-image{
+      min-height:420px;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.76), rgba(0,0,0,.92));
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.48)),
+        var(--detail-image) center 28% / cover no-repeat;
+    }
+
+    .detail-info{
+      padding:24px var(--side) 18px;
+      background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.94));
       display:flex;
       flex-direction:column;
       justify-content:flex-start;
     }
 
-    .page-title{
+    .detail-title{
       margin:0 0 12px;
       font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(40px,4.8vw,74px);
+      font-size:clamp(34px,4.2vw,66px);
       line-height:.94;
       font-weight:500;
       color:#fff8ef;
     }
 
-    .page-text{
+    .detail-text{
       margin:0;
-      font-size:clamp(16px,1.45vw,22px);
+      font-size:clamp(15px,1.25vw,20px);
       line-height:1.6;
       color:var(--muted);
-      max-width:700px;
     }
 
     .chips{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin:20px 0 18px;
+      margin:18px 0 16px;
     }
 
     .chip{
-      padding:9px 14px;
+      padding:8px 13px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
       background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.10);
       color:#f5ecdf;
-      font-size:14px;
+      font-size:13px;
     }
 
     .ba{
@@ -297,9 +346,9 @@
     }
 
     .ba-card{
+      overflow:hidden;
       background:#0b0b0b;
       border:1px solid rgba(255,255,255,.10);
-      overflow:hidden;
     }
 
     .ba-lab{
@@ -308,44 +357,16 @@
       font-size:12px;
       letter-spacing:.16em;
       text-transform:uppercase;
-      border-bottom:1px solid rgba(255,255,255,.08);
       background:#000;
-      color:#f5ebdf;
+      color:#f6ecdf;
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
 
     .ba-card img{
       width:100%;
-      height:220px;
+      height:200px;
       object-fit:cover;
       display:block;
-    }
-
-    .icons{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin:16px 0 0;
-      text-align:center;
-      color:#e9dccd;
-    }
-
-    .icon-box{
-      padding:10px 6px;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-
-    .icon-box b{
-      display:block;
-      font-size:14px;
-      margin-top:4px;
-    }
-
-    .icon-box span{
-      display:block;
-      margin-top:4px;
-      font-size:12px;
-      color:rgba(255,255,255,.66);
-      line-height:1.45;
     }
 
     .actions{
@@ -356,60 +377,54 @@
     }
 
     .btn{
-      min-height:54px;
-      border-radius:999px;
+      min-height:48px;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:17px;
+      border-radius:999px;
+      font-size:16px;
       font-weight:800;
       border:1px solid rgba(255,255,255,.14);
     }
 
     .btn.light{
-      color:#fff;
       background:transparent;
+      color:#fff;
     }
 
     .btn.gold{
-      color:#111;
       background:var(--cream);
+      color:#111;
       border-color:transparent;
     }
 
-    .page-bottom{
-      display:grid;
-      gap:4px;
-      background:#000;
-      padding-bottom:8px;
-    }
-
-    @media (max-width: 900px){
+    @media (max-width:900px){
       .hero{
-        background-position:center 14%;
+        background-position:center 20%;
       }
+
       .hero-center{
         padding:120px 18px 210px;
       }
-      .page-content{
+
+      .detail{
         grid-template-columns:1fr;
       }
-      .page-image{
-        min-height:320px;
+
+      .detail-image{
+        min-height:280px;
+        background-position:center 18%;
       }
+
       .ba-card img{
-        height:150px;
-      }
-      .actions{
-        grid-template-columns:1fr 1fr;
+        height:145px;
       }
     }
   </style>
 </head>
 <body>
-
-  <section class="hero" id="home">
-    <div class="hero-top">
+  <section class="home" id="home">
+    <div class="topline">
       <a href="https://wa.me/17866900960?text=Hola%20quiero%20información%20sobre%20el%20tratamiento" target="_blank" rel="noopener">☎ 786 690 0960</a>
       <a href="mailto:droyalspamiami@gmail.com">✉ droyalspamiami@gmail.com</a>
     </div>
@@ -417,11 +432,10 @@
     <div class="hero-center">
       <h2 class="brand" id="brand"></h2>
       <h1 class="headline" id="headline"></h1>
-      <div class="subline" id="subline"></div>
       <div class="areas" id="areas"></div>
 
       <div class="phone-wrap">
-        <a class="phone" href="https://wa.me/17866900960?text=Hola%20quiero%20información%20sobre%20el%20tratamiento" target="_blank" rel="noopener">☎ 786 690 0960</a>
+        <a class="phone" href="https://wa.me/17866900960?text=Hola%20quiero%20información%20sobre%20el%20tratamiento" target="_blank" rel="noopener">786 690 0960</a>
       </div>
 
       <div class="email">droyalspamiami@gmail.com</div>
@@ -438,7 +452,9 @@
     <div class="hero-menu" id="heroMenu"></div>
   </section>
 
-  <main id="pages"></main>
+  <div class="overlay" id="overlay">
+    <div class="panel" id="panel"></div>
+  </div>
 
   <script>
     const isSpanish = (navigator.language || '').toLowerCase().startsWith('es');
@@ -446,7 +462,6 @@
     const T = {
       brand: "D’ROYAL SPA",
       headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
-      subline: isSpanish ? "Sin agujas · Sin dolor" : "No needles · No pain",
       areas: "Brickell · Downtown · Doral · Miami Beach",
       offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
       pick: isSpanish ? "Selecciona tu tratamiento" : "Choose your treatment",
@@ -456,18 +471,11 @@
       before: isSpanish ? "Antes" : "Before",
       after: isSpanish ? "Después" : "After",
       learn: isSpanish ? "Aprender más" : "Learn more",
-      book: isSpanish ? "Agendar cita" : "Book now",
-      noNeedles: isSpanish ? "Sin agujas" : "No needles",
-      noPain: isSpanish ? "Sin dolor" : "No pain",
-      visible: isSpanish ? "Resultados visibles" : "Visible results",
-      noNeedlesSub: isSpanish ? "No invasivo" : "Non-invasive",
-      noPainSub: isSpanish ? "Sesiones cómodas" : "Comfortable sessions",
-      visibleSub: isSpanish ? "Desde la 1ra sesión" : "From the first session"
+      book: isSpanish ? "Agendar cita" : "Book now"
     };
 
     document.getElementById('brand').textContent = T.brand;
     document.getElementById('headline').textContent = T.headline;
-    document.getElementById('subline').textContent = T.subline;
     document.getElementById('areas').textContent = T.areas;
     document.getElementById('offerText').textContent = T.offer;
     document.getElementById('pick').textContent = T.pick;
@@ -475,7 +483,6 @@
 
     const treatments = [
       {
-        slug:'lipo-laser',
         nameEs:'Lipo con Láser 360',
         nameEn:'Lipo Laser 360',
         summaryEs:'Moldea y ayuda a reducir grasa localizada para estilizar la silueta desde la primera sesión.',
@@ -489,7 +496,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91559773'
       },
       {
-        slug:'transfer',
         nameEs:'Lipo con Láser 360 con transfer',
         nameEn:'Lipo Laser 360 with transfer',
         summaryEs:'Combina reducción localizada y transferencia para crear un contorno más armónico y llamativo.',
@@ -503,7 +509,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91559810'
       },
       {
-        slug:'papada',
         nameEs:'LipoPapada con Láser 360',
         nameEn:'Double Chin Laser Lipo 360',
         summaryEs:'Define el perfil del rostro y ayuda a estilizar la zona de la papada para un look más limpio.',
@@ -517,7 +522,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91560745'
       },
       {
-        slug:'dcool',
         nameEs:'D-Cool',
         nameEn:'D-Cool',
         summaryEs:'Tratamiento facial con limpieza, aloe y radiofrecuencia para una piel más firme, luminosa y renovada.',
@@ -531,7 +535,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91560920'
       },
       {
-        slug:'senos',
         nameEs:'Aumento de Senos sin cirugía',
         nameEn:'Non-surgical Breast Enhancement',
         summaryEs:'Ayuda a mejorar proyección, forma y apariencia para un escote más armónico sin cirugía.',
@@ -545,7 +548,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91560087'
       },
       {
-        slug:'gluteos',
         nameEs:'Aumento de Glúteos sin cirugía',
         nameEn:'Non-surgical Butt Enhancement',
         summaryEs:'Trabaja proyección y contorno para resaltar la figura con una apariencia más redonda y definida.',
@@ -559,7 +561,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91560697'
       },
       {
-        slug:'brazos',
         nameEs:'LipoEscultura de brazos 360',
         nameEn:'Arm Sculpting 360',
         summaryEs:'Ayuda a reducir volumen y mejorar definición en brazos para un look más limpio y estilizado.',
@@ -573,7 +574,6 @@
         book:'https://DRoyalSpaMiami.as.me/?appointmentType=91873037'
       },
       {
-        slug:'piernas',
         nameEs:'LipoEscultura de piernas 360',
         nameEn:'Leg Sculpting 360',
         summaryEs:'Ayuda a estilizar piernas y mejorar su apariencia general para una silueta más lisa y definida.',
@@ -588,42 +588,52 @@
       }
     ];
 
+    const heroMenu = document.getElementById('heroMenu');
+    const overlay = document.getElementById('overlay');
+    const panel = document.getElementById('panel');
+
     const getName = t => isSpanish ? t.nameEs : t.nameEn;
     const getSummary = t => isSpanish ? t.summaryEs : t.summaryEn;
     const getChips = t => isSpanish ? t.chipsEs : t.chipsEn;
 
-    const heroMenu = document.getElementById('heroMenu');
-    const pages = document.getElementById('pages');
-
-    heroMenu.innerHTML = treatments.map(t => `
-      <a class="strip" href="#${t.slug}">
+    heroMenu.innerHTML = treatments.map((t,i) => `
+      <button class="strip" data-open="${i}">
         <span>${getName(t)}</span>
         <span class="arrow">›</span>
-      </a>
+      </button>
     `).join('');
 
-    pages.innerHTML = treatments.map((t, i) => {
-      const next1 = treatments[i + 1];
-      const next2 = treatments[i + 2];
+    function mini(i){
+      const t = treatments[i];
+      if(!t) return '';
       return `
-        <section class="page" id="${t.slug}">
-          <div class="sticky-home">
-            <a class="home-back" href="#home">
-              <span>‹</span>
-              <span>
-                ${T.home}
-                <div class="mini-note">${T.homeMini}</div>
-              </span>
-              <span></span>
-            </a>
-          </div>
+        <button class="mini-strip" data-open="${i}">
+          <span>${getName(t)}</span>
+          <span>›</span>
+        </button>
+      `;
+    }
 
-          <div class="page-content">
-            <div class="page-image" style="background-image:url('${t.image}')"></div>
+    function renderPanel(i){
+      const t = treatments[i];
 
-            <div class="page-info">
-              <h2 class="page-title">${getName(t)}</h2>
-              <p class="page-text">${getSummary(t)}</p>
+      panel.innerHTML = `
+        <div class="floating-top">
+          <button class="home-back" id="closePanel">
+            <span>‹</span>
+            <span>${T.home}<div class="mini-note">${T.homeMini}</div></span>
+            <span></span>
+          </button>
+          ${i > 0 ? mini(i-1) : ''}
+        </div>
+
+        <div class="panel-scroll">
+          <section class="detail">
+            <div class="detail-image" style="--detail-image:url('${t.image}')"></div>
+
+            <div class="detail-info">
+              <h2 class="detail-title">${getName(t)}</h2>
+              <p class="detail-text">${getSummary(t)}</p>
 
               <div class="chips">
                 ${getChips(t).map(c => `<span class="chip">${c}</span>`).join('')}
@@ -640,38 +650,44 @@
                 </div>
               </div>
 
-              <div class="icons">
-                <div class="icon-box">
-                  <div>○</div>
-                  <b>${T.noNeedles}</b>
-                  <span>${T.noNeedlesSub}</span>
-                </div>
-                <div class="icon-box">
-                  <div>○</div>
-                  <b>${T.noPain}</b>
-                  <span>${T.noPainSub}</span>
-                </div>
-                <div class="icon-box">
-                  <div>□</div>
-                  <b>${T.visible}</b>
-                  <span>${T.visibleSub}</span>
-                </div>
-              </div>
-
               <div class="actions">
                 <a class="btn light" href="${t.learn}" target="_blank" rel="noopener">${T.learn}</a>
                 <a class="btn gold" href="${t.book}" target="_blank" rel="noopener">${T.book}</a>
               </div>
             </div>
-          </div>
+          </section>
+        </div>
 
-          <div class="page-bottom">
-            ${next1 ? `<a class="mini-strip" href="#${next1.slug}"><span>${getName(next1)}</span><span>›</span></a>` : ''}
-            ${next2 ? `<a class="mini-strip" href="#${next2.slug}"><span>${getName(next2)}</span><span>›</span></a>` : ''}
-          </div>
-        </section>
+        <div class="floating-bottom">
+          ${mini(i+1)}
+          ${mini(i+2)}
+        </div>
       `;
-    }).join('');
+
+      panel.querySelector('#closePanel').addEventListener('click', closePanel);
+      panel.querySelectorAll('[data-open]').forEach(btn => {
+        btn.addEventListener('click', () => openPanel(Number(btn.dataset.open)));
+      });
+    }
+
+    function openPanel(i){
+      renderPanel(i);
+      overlay.classList.add('active');
+      document.body.classList.add('overlay-open');
+    }
+
+    function closePanel(){
+      overlay.classList.remove('active');
+      document.body.classList.remove('overlay-open');
+    }
+
+    document.querySelectorAll('[data-open]').forEach(btn => {
+      btn.addEventListener('click', () => openPanel(Number(btn.dataset.open)));
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if(e.target === overlay) closePanel();
+    });
   </script>
 </body>
 </html>
