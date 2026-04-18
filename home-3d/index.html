@@ -1,218 +1,423 @@
-<section id="droyal-final-page">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D’Royal Spa | Trabaje en su Imagen</title>
   <style>
-    #droyal-final-page{
-      --bg:#ffffff;
-      --soft:#fbf7f3;
-      --soft-2:#f6efe8;
+    :root{
+      --bg:#fbf8f5;
       --card:#ffffff;
+      --soft:#f5eee8;
+      --line:#eaded5;
       --text:#2f241f;
-      --muted:#7d6b60;
-      --line:#eaded7;
-      --gold:#b68a6a;
+      --muted:#7b6a5f;
+      --gold:#b98b68;
       --gold-dark:#8f684d;
-      --blue:#dff1ff;
-      --blue-border:#bfdcf3;
-      --shadow:0 18px 40px rgba(69,41,26,.08);
-      font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-      color:var(--text);
-      background:#fff;
-      padding:10px 0 56px;
+      --blue:#dff0ff;
+      --blue-line:#bfdcf2;
+      --shadow:0 20px 50px rgba(70,41,25,.08);
+      --radius:28px;
+      --radius-sm:18px;
     }
 
-    #droyal-final-page *{box-sizing:border-box}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
 
-    #droyal-final-page .df-wrap{
-      max-width:1180px;
+    img{max-width:100%;display:block}
+
+    .wrap{
+      width:min(1180px, calc(100% - 28px));
       margin:0 auto;
-      padding:0 20px;
     }
 
-    #droyal-final-page .df-title{
-      font-size:48px !important;
-      font-weight:500 !important;
-      color:#2f241f !important;
-      text-transform:none !important;
-      letter-spacing:normal !important;
-      line-height:1.05;
-      margin:0 0 10px;
-      text-align:center;
+    .section-space{margin-top:26px}
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:34px;
+      min-height:780px;
+      background:
+        linear-gradient(180deg, rgba(14,10,8,.20), rgba(14,10,8,.55)),
+        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 34%),
+        #17110e;
+      box-shadow:0 30px 80px rgba(0,0,0,.22);
     }
 
-    #droyal-final-page .df-subtitle{
-      text-align:center;
-      font-size:18px;
-      line-height:1.7;
-      color:var(--muted);
-      max-width:860px;
-      margin:0 auto 18px;
+    .hero-media{
+      position:absolute;
+      inset:0;
     }
 
-    #droyal-final-page .df-tags{
+    .hero-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 28%;
+      filter:saturate(.98) contrast(1.02);
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.42) 58%, rgba(0,0,0,.70) 100%);
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      min-height:780px;
       display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-      margin:0 0 28px;
-    }
-
-    #droyal-final-page .df-tags span{
-      padding:10px 16px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      font-size:14px;
-      color:var(--text);
-    }
-
-    #droyal-final-page .df-offer{
-      background:linear-gradient(135deg,#e8f5ff 0%,#dceeff 100%);
-      border:1px solid var(--blue-border);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:26px 24px;
+      flex-direction:column;
+      align-items:center;
+      justify-content:space-between;
       text-align:center;
-      margin:0 0 24px;
+      padding:26px 22px 26px;
+      color:#f5e9de;
     }
 
-    #droyal-final-page .df-offer h3{
+    .hero-top{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      font-size:15px;
+      line-height:1.4;
+      color:#f0e1d4;
+      opacity:.95;
+      flex-wrap:wrap;
+    }
+
+    .hero-brand{
+      margin-top:12px;
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing:.04em;
+      font-size:28px;
+    }
+
+    .hero-copy{
+      max-width:760px;
+      margin-top:auto;
+      margin-bottom:auto;
+    }
+
+    .hero-copy h1{
       margin:0 0 8px;
-      font-size:36px;
-      line-height:1.08;
-      font-weight:700;
-      color:#253341;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:74px;
+      line-height:.96;
+      font-weight:500;
+      letter-spacing:-.03em;
       text-transform:none !important;
-      letter-spacing:normal !important;
     }
 
-    #droyal-final-page .df-offer p{
-      margin:0 auto 16px;
-      max-width:820px;
-      color:#526170;
-      font-size:17px;
+    .hero-copy .sub{
+      font-size:28px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#f2dcc6;
+      margin-bottom:18px;
+    }
+
+    .hero-copy p{
+      margin:0 auto 18px;
+      max-width:760px;
+      font-size:20px;
       line-height:1.7;
+      color:#f3e8dd;
     }
 
-    #droyal-final-page .df-offer-price{
+    .hero-locations{
       font-size:22px;
-      font-weight:700;
-      color:#253341;
+      margin-bottom:16px;
+      font-family: Georgia, "Times New Roman", serif;
+      color:#f3e5d6;
+    }
+
+    .hero-cta-row{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
       margin-bottom:16px;
     }
 
-    #droyal-final-page .df-countdown{
+    .btn{
+      appearance:none;
+      border:none;
+      text-decoration:none;
+      min-height:54px;
+      padding:0 26px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:16px;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:var(--gold);
+      color:#fff;
+      box-shadow:0 14px 30px rgba(185,139,104,.26);
+    }
+
+    .btn-primary:hover{
+      background:var(--gold-dark);
+      transform:translateY(-1px);
+    }
+
+    .btn-light{
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      backdrop-filter:blur(4px);
+    }
+
+    .btn-light:hover{
+      background:rgba(255,255,255,.14);
+      transform:translateY(-1px);
+    }
+
+    .hero-offer{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      background:rgba(0,0,0,.32);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      padding:12px 20px;
+      color:#f8ead8;
+      font-size:18px;
+    }
+
+    .hero-offer strong{
+      background:rgba(255,255,255,.08);
+      border-radius:999px;
+      padding:7px 14px;
+      font-size:16px;
+      letter-spacing:.05em;
+    }
+
+    .hero-menu{
+      width:100%;
+      max-width:860px;
+      margin-top:20px;
+      background:rgba(5,4,4,.42);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:24px;
+      overflow:hidden;
+      backdrop-filter:blur(8px);
+    }
+
+    .hero-menu-head{
+      padding:18px 20px 14px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    .hero-menu-head h2{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:42px;
+      font-weight:500;
+      line-height:1.05;
+      text-transform:none !important;
+    }
+
+    .hero-menu-head p{
+      margin:8px 0 0;
+      font-size:14px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#ead9ca;
+    }
+
+    .hero-menu-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+
+    .hero-menu-list button{
+      width:100%;
+      background:transparent;
+      border:none;
+      border-top:1px solid rgba(255,255,255,.12);
+      color:#f7ecdf;
+      text-align:left;
+      padding:18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:18px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .hero-menu-list button:hover{
+      background:rgba(255,255,255,.06);
+    }
+
+    .hero-menu-list span:last-child{
+      font-size:22px;
+      opacity:.8;
+    }
+
+    .offer{
+      background:linear-gradient(135deg,var(--blue) 0%, #d8ebff 100%);
+      border:1px solid var(--blue-line);
+      border-radius:30px;
+      box-shadow:var(--shadow);
+      padding:28px 22px;
+      text-align:center;
+    }
+
+    .offer h3{
+      margin:0 0 8px;
+      font-size:38px;
+      line-height:1.08;
+      color:#243445;
+    }
+
+    .offer p{
+      margin:0 auto 14px;
+      max-width:820px;
+      font-size:18px;
+      line-height:1.7;
+      color:#516171;
+    }
+
+    .offer .price-line{
+      font-size:22px;
+      font-weight:800;
+      color:#243445;
+      margin-bottom:16px;
+    }
+
+    .countdown{
       display:flex;
       flex-wrap:wrap;
       justify-content:center;
       gap:12px;
-      margin-top:16px;
+      margin-top:14px;
     }
 
-    #droyal-final-page .df-time{
-      min-width:92px;
-      padding:14px 12px;
+    .time-box{
+      min-width:96px;
+      padding:15px 12px;
       border-radius:20px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(37,51,65,.08);
-      box-shadow:0 10px 24px rgba(37,51,65,.06);
+      background:rgba(255,255,255,.8);
+      border:1px solid rgba(36,52,69,.08);
+      box-shadow:0 10px 24px rgba(36,52,69,.06);
     }
 
-    #droyal-final-page .df-time strong{
+    .time-box strong{
       display:block;
-      font-size:34px;
+      font-size:38px;
       line-height:1;
-      color:#253341;
+      color:#243445;
       margin-bottom:6px;
     }
 
-    #droyal-final-page .df-time span{
+    .time-box span{
       font-size:12px;
-      text-transform:uppercase;
+      font-weight:800;
       letter-spacing:.12em;
-      color:#667482;
-      font-weight:700;
+      text-transform:uppercase;
+      color:#687684;
     }
 
-    #droyal-final-page .df-expired{
+    .expired{
       display:none;
       margin-top:16px;
-      padding:14px 16px;
+      padding:14px 18px;
       border-radius:18px;
       background:#fff;
-      border:1px solid rgba(180,80,70,.14);
-      color:#7b3931;
+      color:#7e3d37;
+      border:1px solid rgba(126,61,55,.15);
       font-weight:700;
     }
 
-    #droyal-final-page .df-builder{
-      background:linear-gradient(180deg,#fffdfa 0%, #faf5f0 100%);
+    .builder,
+    .calendar-shell,
+    .cards-head-shell,
+    .contact-shell{
+      background:var(--card);
       border:1px solid var(--line);
       border-radius:30px;
       box-shadow:var(--shadow);
+    }
+
+    .builder{
       padding:28px;
-      margin:0 0 22px;
     }
 
-    #droyal-final-page .df-builder h4,
-    #droyal-final-page .df-calendar-head h4,
-    #droyal-final-page .df-cards-head h4,
-    #droyal-final-page .df-contact-head h4,
-    #droyal-final-page .df-social-head h4{
+    .title-block{
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .title-block h3{
       margin:0 0 8px;
-      font-size:36px;
-      line-height:1.08;
-      font-weight:500;
-      color:#2f241f;
+      font-size:42px;
+      line-height:1.06;
       text-transform:none !important;
-      letter-spacing:normal !important;
-      text-align:center;
     }
 
-    #droyal-final-page .df-builder p,
-    #droyal-final-page .df-calendar-head p,
-    #droyal-final-page .df-cards-head p,
-    #droyal-final-page .df-contact-head p,
-    #droyal-final-page .df-social-head p{
-      text-align:center;
-      max-width:820px;
-      margin:0 auto 18px;
+    .title-block p{
+      margin:0 auto;
+      max-width:850px;
       color:var(--muted);
-      font-size:16px;
+      font-size:18px;
       line-height:1.7;
     }
 
-    #droyal-final-page .df-fields{
+    .fields{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:16px;
+      margin-top:20px;
     }
 
-    #droyal-final-page .df-field label{
+    .field label{
       display:block;
-      margin-bottom:8px;
-      font-size:14px;
+      font-size:15px;
       font-weight:700;
+      margin-bottom:8px;
       color:var(--text);
     }
 
-    #droyal-final-page .df-field select{
+    .field select{
       width:100%;
-      padding:14px 16px;
+      min-height:54px;
       border-radius:16px;
       border:1px solid var(--line);
       background:#fff;
       color:var(--text);
-      font-size:15px;
+      font-size:16px;
+      padding:0 16px;
       outline:none;
     }
 
-    #droyal-final-page .df-field select:focus{
+    .field select:focus{
       border-color:var(--gold);
     }
 
-    #droyal-final-page .df-summary{
+    .summary{
       margin-top:16px;
       border:1px solid var(--line);
-      background:#fff;
+      background:var(--soft);
       border-radius:20px;
       padding:16px 18px;
       color:var(--muted);
@@ -220,103 +425,71 @@
       line-height:1.7;
     }
 
-    #droyal-final-page .df-summary strong{
+    .summary strong{
       display:block;
       color:var(--text);
       margin-bottom:4px;
     }
 
-    #droyal-final-page .df-actions{
-      margin-top:18px;
+    .builder-actions{
       display:flex;
       gap:12px;
+      justify-content:center;
       flex-wrap:wrap;
-      justify-content:center;
+      margin-top:18px;
     }
 
-    #droyal-final-page .df-btn{
-      appearance:none;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:52px;
-      padding:0 22px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:15px;
-      transition:all .22s ease;
-      border:1px solid transparent;
-      cursor:pointer;
-    }
-
-    #droyal-final-page .df-btn-primary{
-      background:var(--gold);
-      color:#fff;
-      border-color:var(--gold);
-    }
-
-    #droyal-final-page .df-btn-primary:hover{
-      background:var(--gold-dark);
-      border-color:var(--gold-dark);
-      transform:translateY(-1px);
-    }
-
-    #droyal-final-page .df-btn-light{
-      background:#fff;
-      color:var(--text);
-      border-color:var(--line);
-    }
-
-    #droyal-final-page .df-btn-light:hover{
-      border-color:var(--gold);
-      color:var(--gold-dark);
-      transform:translateY(-1px);
-    }
-
-    #droyal-final-page .df-calendar{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:30px;
-      box-shadow:var(--shadow);
+    .calendar-shell{
       overflow:hidden;
-      margin:0 0 34px;
     }
 
-    #droyal-final-page .df-calendar-head{
-      padding:22px 22px 0;
+    .calendar-head{
+      padding:26px 22px 0;
+      text-align:center;
     }
 
-    #droyal-final-page .df-calendar-wrap{
+    .calendar-head h3{
+      margin:0 0 8px;
+      font-size:42px;
+      line-height:1.06;
+      text-transform:none !important;
+    }
+
+    .calendar-head p{
+      margin:0 auto 16px;
+      max-width:850px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .calendar-wrap{
       padding:0 18px 18px;
     }
 
-    #droyal-final-page .df-placeholder{
-      min-height:260px;
+    .placeholder{
+      min-height:300px;
       border-radius:24px;
       border:1px dashed var(--line);
-      background:linear-gradient(180deg,#fffdfa 0%,#faf5ef 100%);
+      background:linear-gradient(180deg,#fffdfa 0%, #faf5ef 100%);
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:28px;
+      padding:30px;
       color:var(--muted);
     }
 
-    #droyal-final-page .df-placeholder strong{
+    .placeholder strong{
       display:block;
-      color:var(--text);
       font-size:24px;
       line-height:1.2;
       margin-bottom:10px;
-      font-weight:500;
-      text-transform:none !important;
-      letter-spacing:normal !important;
+      color:var(--text);
     }
 
-    #droyal-final-page .df-iframe{
+    .booking-frame{
       display:none;
       width:100%;
       height:980px;
@@ -326,112 +499,106 @@
       box-shadow:0 16px 36px rgba(69,41,26,.08);
     }
 
-    #droyal-final-page .df-cards-head{
-      margin:0 0 18px;
+    .cards-head-shell{
+      padding:24px 22px;
+      text-align:center;
+      margin-bottom:18px;
     }
 
-    #droyal-final-page .df-grid{
+    .cards-head-shell h3{
+      margin:0 0 8px;
+      font-size:42px;
+      line-height:1.06;
+      text-transform:none !important;
+    }
+
+    .cards-head-shell p{
+      margin:0 auto;
+      max-width:860px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:20px;
-      margin-bottom:34px;
     }
 
-    #droyal-final-page .df-card{
+    .card{
       background:#fff;
       border:1px solid var(--line);
       border-radius:26px;
-      padding:20px;
       box-shadow:var(--shadow);
+      padding:20px;
       display:flex;
       flex-direction:column;
       min-height:100%;
-      transition:transform .24s ease, box-shadow .24s ease;
-      overflow:hidden;
     }
 
-    #droyal-final-page .df-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 24px 54px rgba(69,41,26,.12);
-    }
-
-    #droyal-final-page .df-card h5{
+    .card h4{
       margin:0 0 14px;
       font-size:24px;
-      line-height:1.12;
-      color:var(--text);
+      line-height:1.15;
       text-align:center;
+      text-transform:none !important;
     }
 
-    #droyal-final-page .df-card-img{
+    .card-img{
       width:100%;
       aspect-ratio:4 / 5;
       min-height:340px;
       border-radius:18px;
       overflow:hidden;
-      background:#f3ece6;
+      background:var(--soft);
       border:1px solid var(--line);
       margin-bottom:14px;
     }
 
-    #droyal-final-page .df-card-img img{
+    .card-img img{
       width:100%;
       height:100%;
-      display:block;
       object-fit:cover;
       object-position:center center;
+      display:block;
       transform:scale(1.02);
     }
 
-    #droyal-final-page .df-card-img img.pos-face{
-      object-position:center 22%;
-    }
+    .pos-face{ object-position:center 24% !important; }
+    .pos-body{ object-position:center 38% !important; }
+    .pos-low{ object-position:center 55% !important; }
+    .pos-legs{ object-position:center 62% !important; }
 
-    #droyal-final-page .df-card-img img.pos-body{
-      object-position:center 38%;
-    }
-
-    #droyal-final-page .df-card-img img.pos-abdomen{
-      object-position:center 45%;
-    }
-
-    #droyal-final-page .df-card-copy{
+    .card-copy{
       color:var(--muted);
-      font-size:14px;
+      font-size:15px;
       line-height:1.7;
       text-align:center;
       margin-bottom:16px;
-      min-height:72px;
+      min-height:78px;
     }
 
-    #droyal-final-page .df-card-actions{
+    .card-actions{
       margin-top:auto;
       display:flex;
       gap:10px;
-      flex-wrap:wrap;
       justify-content:center;
+      flex-wrap:wrap;
     }
 
-    #droyal-final-page .df-contact{
-      background:linear-gradient(135deg,#fff8f3 0%,#f5ece6 100%);
-      border:1px solid var(--line);
-      border-radius:30px;
-      box-shadow:var(--shadow);
+    .contact-shell{
       padding:24px;
     }
 
-    #droyal-final-page .df-contact-head{
-      margin-bottom:18px;
-    }
-
-    #droyal-final-page .df-contact-grid{
+    .contact-grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:14px;
       margin-bottom:20px;
     }
 
-    #droyal-final-page .df-contact-card{
+    .contact-card{
       background:rgba(255,255,255,.94);
       border:1px solid var(--line);
       border-radius:22px;
@@ -440,54 +607,60 @@
       text-decoration:none;
       color:inherit;
       box-shadow:0 10px 24px rgba(69,41,26,.05);
-      transition:all .22s ease;
     }
 
-    #droyal-final-page .df-contact-card:hover{
-      transform:translateY(-2px);
-      border-color:var(--gold);
-    }
-
-    #droyal-final-page .df-contact-card h5{
+    .contact-card h4{
       margin:0 0 6px;
-      font-size:17px;
-      color:var(--text);
+      font-size:18px;
     }
 
-    #droyal-final-page .df-contact-card p{
+    .contact-card p{
       margin:0;
-      font-size:14px;
       color:var(--muted);
       line-height:1.6;
-      word-break:break-word;
     }
 
-    #droyal-final-page .df-social{
+    .social{
       background:rgba(255,255,255,.94);
       border:1px solid var(--line);
       border-radius:28px;
-      box-shadow:var(--shadow);
       overflow:hidden;
+      box-shadow:var(--shadow);
     }
 
-    #droyal-final-page .df-social-head{
+    .social-head{
       padding:20px 20px 0;
+      text-align:center;
     }
 
-    #droyal-final-page .df-social-wrap{
+    .social-head h3{
+      margin:0 0 8px;
+      font-size:36px;
+      line-height:1.08;
+      text-transform:none !important;
+    }
+
+    .social-head p{
+      margin:0 auto 14px;
+      max-width:760px;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    .social-wrap{
       padding:0 18px 18px;
     }
 
-    #droyal-final-page .df-social-iframe{
+    .social-iframe{
       width:100%;
       height:920px;
       border:none;
       border-radius:24px;
       background:#fff;
-      box-shadow:0 16px 36px rgba(69,41,26,.08);
     }
 
-    #droyal-final-page .df-social-actions{
+    .social-actions{
       padding:0 18px 22px;
       display:flex;
       justify-content:center;
@@ -496,81 +669,132 @@
     }
 
     @media (max-width: 991px){
-      #droyal-final-page .df-fields,
-      #droyal-final-page .df-contact-grid{
+      .hero{min-height:720px}
+      .hero-content{min-height:720px}
+      .hero-copy h1{font-size:58px}
+      .hero-menu-head h2{font-size:34px}
+      .fields,
+      .contact-grid{
         grid-template-columns:1fr;
       }
-
-      #droyal-final-page .df-grid{
+      .grid{
         grid-template-columns:repeat(2,minmax(0,1fr));
       }
-
-      #droyal-final-page .df-iframe{
-        height:1100px;
-      }
+      .booking-frame{height:1100px}
     }
 
     @media (max-width: 767px){
-      #droyal-final-page .df-wrap{padding:0 14px}
-      #droyal-final-page .df-title{font-size:38px !important}
-      #droyal-final-page .df-offer h3,
-      #droyal-final-page .df-builder h4,
-      #droyal-final-page .df-calendar-head h4,
-      #droyal-final-page .df-cards-head h4,
-      #droyal-final-page .df-contact-head h4,
-      #droyal-final-page .df-social-head h4{font-size:28px}
-      #droyal-final-page .df-grid{grid-template-columns:1fr}
-      #droyal-final-page .df-btn{width:100%}
-      #droyal-final-page .df-iframe{height:1180px}
-      #droyal-final-page .df-social-iframe{height:860px}
-      #droyal-final-page .df-time{min-width:78px}
-      #droyal-final-page .df-time strong{font-size:28px}
-      #droyal-final-page .df-card-img{min-height:300px}
+      .wrap{width:min(1180px, calc(100% - 20px))}
+      .hero{min-height:680px}
+      .hero-content{min-height:680px;padding:18px 14px}
+      .hero-top{justify-content:center;font-size:13px}
+      .hero-brand{font-size:22px}
+      .hero-copy h1{font-size:44px}
+      .hero-copy .sub{font-size:16px;letter-spacing:.16em}
+      .hero-copy p{font-size:16px}
+      .hero-locations{font-size:18px}
+      .hero-menu-head h2,
+      .title-block h3,
+      .calendar-head h3,
+      .cards-head-shell h3,
+      .social-head h3{font-size:32px}
+      .grid{grid-template-columns:1fr}
+      .btn{width:100%}
+      .booking-frame{height:1180px}
+      .social-iframe{height:860px}
+      .card-img{min-height:300px}
+      .time-box{min-width:80px}
+      .time-box strong{font-size:30px}
     }
   </style>
+</head>
+<body>
 
-  <div class="df-wrap">
+  <main class="wrap section-space">
 
-    <h2 class="df-title">Trabaje en su Imagen</h2>
-    <p class="df-subtitle">
-      Lipo con láser sin cirugía, sin agujas, sin dolor y sin riesgo. Seleccione su tratamiento y agende directo con fecha y hora.
-    </p>
+    <section class="hero">
+      <div class="hero-media">
+        <img src="hero-model.jpg" alt="Modelo principal D’Royal Spa" onerror="this.onerror=null;this.src='modelo.jpg';" />
+      </div>
+      <div class="hero-overlay"></div>
 
-    <div class="df-tags">
-      <span>Miami · Brickell · Doral · Downtown · Miami Beach</span>
-      <span>Reserva online en minutos</span>
-      <span>Atención privada</span>
-    </div>
+      <div class="hero-content">
+        <div class="hero-top">
+          <div>+1 786 690 0960</div>
+          <div>droyalspamiami@gmail.com</div>
+        </div>
 
-    <div class="df-offer">
+        <div class="hero-copy">
+          <div class="hero-brand">D’ROYAL SPA</div>
+          <h1>Lipo Sin Cirugía</h1>
+          <div class="sub">Sin agujas · Sin dolor</div>
+          <p>
+            Tecnología estética avanzada para moldear, definir y resaltar su imagen con una experiencia privada, cómoda y elegante.
+          </p>
+          <div class="hero-locations">Brickell · Downtown · Doral · Miami Beach</div>
+
+          <div class="hero-cta-row">
+            <a class="btn btn-primary" href="#booking">Agendar cita</a>
+            <a class="btn btn-light" href="https://wa.me/17866900960?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20los%20tratamientos" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+          </div>
+
+          <div class="hero-offer">
+            <strong>25% OFF</strong>
+            <span>Primera sesión limitada</span>
+          </div>
+        </div>
+
+        <div class="hero-menu">
+          <div class="hero-menu-head">
+            <h2>Selecciona tu tratamiento</h2>
+            <p>Resultados reales · Tecnología avanzada</p>
+          </div>
+
+          <div class="hero-menu-list">
+            <button type="button" data-treatment="lipo"><span>Lipo con Láser 360</span><span>›</span></button>
+            <button type="button" data-treatment="lipo-transfer"><span>Lipo con Láser 360 con Transfer</span><span>›</span></button>
+            <button type="button" data-treatment="papada"><span>LipoPapada con Láser 360</span><span>›</span></button>
+            <button type="button" data-treatment="dcool"><span>D-Cool</span><span>›</span></button>
+            <button type="button" data-treatment="senos"><span>Aumento de Senos sin Cirugía</span><span>›</span></button>
+            <button type="button" data-treatment="gluteos"><span>Aumento de Glúteos sin Cirugía</span><span>›</span></button>
+            <button type="button" data-treatment="brazos"><span>LipoEscultura de Brazos 360</span><span>›</span></button>
+            <button type="button" data-treatment="piernas"><span>LipoEscultura de Piernas 360</span><span>›</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer section-space">
       <h3>Oferta especial de primera sesión</h3>
       <p>
         Aprovecha la <strong>primera sesión por solo $90</strong>. Cuando termine el contador, el precio promocional sube a <strong>$150</strong>.
       </p>
-      <div class="df-offer-price">Hoy: $90 · Después del contador: $150</div>
+      <div class="price-line">Hoy: $90 · Después del contador: $150</div>
 
-      <div class="df-countdown" id="df-countdown">
-        <div class="df-time"><strong id="df-days">7</strong><span>Días</span></div>
-        <div class="df-time"><strong id="df-hours">00</strong><span>Horas</span></div>
-        <div class="df-time"><strong id="df-mins">00</strong><span>Minutos</span></div>
-        <div class="df-time"><strong id="df-secs">00</strong><span>Segundos</span></div>
+      <div class="countdown" id="countdown">
+        <div class="time-box"><strong id="days">7</strong><span>Días</span></div>
+        <div class="time-box"><strong id="hours">00</strong><span>Horas</span></div>
+        <div class="time-box"><strong id="mins">00</strong><span>Minutos</span></div>
+        <div class="time-box"><strong id="secs">00</strong><span>Segundos</span></div>
       </div>
 
-      <div class="df-expired" id="df-expired">
+      <div class="expired" id="expired">
         La oferta terminó. La primera sesión ahora está en $150.
       </div>
-    </div>
+    </section>
 
-    <div class="df-builder">
-      <h4>Seleccione su tratamiento</h4>
-      <p>
-        Selecciona tratamiento y paquete. Apenas lo hagas, abajo se abre el almanaque directo con día y hora.
-      </p>
+    <section class="builder section-space" id="booking">
+      <div class="title-block">
+        <h3>Trabaje en su Imagen</h3>
+        <p>
+          Lipo con láser sin cirugía, sin agujas, sin dolor y sin riesgo. Seleccione su tratamiento y agende directo con fecha y hora.
+        </p>
+      </div>
 
-      <div class="df-fields">
-        <div class="df-field">
-          <label for="df-treatment">Tratamiento</label>
-          <select id="df-treatment">
+      <div class="fields">
+        <div class="field">
+          <label for="treatment">Tratamiento</label>
+          <select id="treatment">
             <option value="">Selecciona tu tratamiento</option>
             <option value="lipo">Lipo con Láser 360</option>
             <option value="lipo-transfer">Lipo con Láser 360 con transfer</option>
@@ -583,9 +807,9 @@
           </select>
         </div>
 
-        <div class="df-field">
-          <label for="df-package">Paquete</label>
-          <select id="df-package">
+        <div class="field">
+          <label for="pack">Paquete</label>
+          <select id="pack">
             <option value="">Selecciona tu paquete</option>
             <option value="first">1ra sesión</option>
             <option value="eight">8 sesiones</option>
@@ -594,341 +818,266 @@
         </div>
       </div>
 
-      <div class="df-summary" id="df-summary">
+      <div class="summary" id="summary">
         <strong>Resumen</strong>
         Elige un tratamiento y un paquete para cargar el almanaque automáticamente.
       </div>
 
-      <div class="df-actions">
-        <a id="df-book-btn" class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/" target="_blank" rel="noopener">
-          Agendar mi cita
-        </a>
-        <a class="df-btn df-btn-light" href="https://wa.me/17866900960?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20los%20tratamientos" target="_blank" rel="noopener">
-          Información privada
-        </a>
+      <div class="builder-actions">
+        <a id="book-btn" class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/" target="_blank" rel="noopener">Agendar mi cita</a>
+        <a class="btn btn-light" href="https://wa.me/17866900960?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20los%20tratamientos" target="_blank" rel="noopener">Información privada</a>
       </div>
-    </div>
+    </section>
 
-    <div class="df-calendar" id="df-calendar-section">
-      <div class="df-calendar-head">
-        <h4>Agende su cita</h4>
-        <p id="df-calendar-copy">
+    <section class="calendar-shell section-space" id="calendar-section">
+      <div class="calendar-head">
+        <h3>Agende su cita</h3>
+        <p id="calendar-copy">
           Aquí aparecerá el almanaque con fecha y hora apenas selecciones el tratamiento y el paquete.
         </p>
       </div>
 
-      <div class="df-calendar-wrap">
-        <div class="df-placeholder" id="df-placeholder">
+      <div class="calendar-wrap">
+        <div class="placeholder" id="placeholder">
           <strong>Seleccione su tratamiento arriba</strong>
           Cuando elija tratamiento y paquete, aquí cargará el almanaque directo con días y horas para reservar.
         </div>
 
-        <iframe
-          id="df-iframe"
-          class="df-iframe"
-          title="Agenda tu cita D'Royal Spa">
-        </iframe>
+        <iframe id="booking-frame" class="booking-frame" title="Agenda tu cita D'Royal Spa"></iframe>
       </div>
-    </div>
+    </section>
 
-    <div class="df-cards-head">
-      <h4>Todos los tratamientos</h4>
+    <section class="cards-head-shell section-space">
+      <h3>Todos los tratamientos</h3>
       <p>
         Explora cada tratamiento, agenda directo o entra a la página informativa para conocer más antes de reservar.
       </p>
-    </div>
+    </section>
 
-    <div class="df-grid">
-      <div class="df-card">
-        <h5>Lipo con Láser 360</h5>
-        <div class="df-card-img">
-          <img src="lipo-abdomen.jpg" alt="Lipo con Láser 360" class="pos-abdomen">
+    <section class="grid">
+      <article class="card">
+        <h4>Lipo con Láser 360</h4>
+        <div class="card-img">
+          <img src="lipo1.jpg" alt="Lipo con Láser 360" class="pos-low" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Moldeo corporal con tecnología láser para reducir medidas y definir la silueta.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559773" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/lipo-con-laser" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Moldeo corporal con tecnología láser para reducir medidas y definir la silueta.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559773" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/lipo-con-laser" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>Lipo con Láser 360 con transfer</h5>
-        <div class="df-card-img">
-          <img src="lipo-abdomen.jpg" alt="Lipo con Láser 360 con transfer" class="pos-abdomen">
+      <article class="card">
+        <h4>Lipo con Láser 360 con transfer</h4>
+        <div class="card-img">
+          <img src="transfer1.jpg" alt="Lipo con Láser 360 con transfer" class="pos-low" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Define y redistribuye volumen para un contorno más armónico y atractivo.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559810" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/lipo-laser-con-transfer" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Define y redistribuye volumen para un contorno más armónico y atractivo.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559810" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/lipo-laser-con-transfer" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>LipoPapada con Láser 360</h5>
-        <div class="df-card-img">
-          <img src="hero-model.jpg" alt="LipoPapada con Láser 360" class="pos-face">
+      <article class="card">
+        <h4>LipoPapada con Láser 360</h4>
+        <div class="card-img">
+          <img src="chin1.jpg" alt="LipoPapada con Láser 360" class="pos-face" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Perfil más definido y estilizado con enfoque en la zona de papada.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560745" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/lipo-papada" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Perfil más definido y estilizado con enfoque en la zona de papada.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560745" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/lipo-papada" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>Aumento de Senos</h5>
-        <div class="df-card-img">
-          <img src="hero-model.jpg" alt="Aumento de Senos" class="pos-body">
+      <article class="card">
+        <h4>Aumento de Senos</h4>
+        <div class="card-img">
+          <img src="breast1.jpg" alt="Aumento de Senos" class="pos-body" onerror="this.onerror=null;this.src='breast2.jpg';this.onerror=function(){this.onerror=null;this.src='hero-model.jpg';};">
         </div>
-        <div class="df-card-copy">Tratamiento corporal no quirúrgico para mayor volumen y mejor forma.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560087" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/new-page" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Tratamiento corporal no quirúrgico para mayor volumen y mejor forma.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560087" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/new-page" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>Aumento de Glúteos</h5>
-        <div class="df-card-img">
-          <img src="lipo-abdomen.jpg" alt="Aumento de Glúteos" class="pos-abdomen">
+      <article class="card">
+        <h4>Aumento de Glúteos</h4>
+        <div class="card-img">
+          <img src="glute1.jpg" alt="Aumento de Glúteos" class="pos-low" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Proyección y contorno para resaltar la figura con un resultado más armónico.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560697" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/new-page" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Proyección y contorno para resaltar la figura con un resultado más armónico.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560697" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/new-page" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>LipoEscultura de brazos 360</h5>
-        <div class="df-card-img">
-          <img src="hero-model.jpg" alt="LipoEscultura de brazos 360" class="pos-body">
+      <article class="card">
+        <h4>LipoEscultura de brazos 360</h4>
+        <div class="card-img">
+          <img src="arm1.jpg" alt="LipoEscultura de brazos 360" class="pos-body" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Reduce volumen y mejora definición en brazos para un look más estilizado.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873037" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/reduccion-de-brazos" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Reduce volumen y mejora definición en brazos para un look más estilizado.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873037" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/reduccion-de-brazos" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>LipoEscultura de piernas 360</h5>
-        <div class="df-card-img">
-          <img src="lipo-abdomen.jpg" alt="LipoEscultura de piernas 360" class="pos-abdomen">
+      <article class="card">
+        <h4>LipoEscultura de piernas 360</h4>
+        <div class="card-img">
+          <img src="legs1.jpg" alt="LipoEscultura de piernas 360" class="pos-legs" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Enfocado en reducir volumen y mejorar apariencia general de piernas.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873056" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/1-reduccion-de-celulitis-en-piernas" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Enfocado en reducir volumen y mejorar apariencia general de piernas.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873056" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/1-reduccion-de-celulitis-en-piernas" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
+      </article>
 
-      <div class="df-card">
-        <h5>D-Cool</h5>
-        <div class="df-card-img">
-          <img src="lipo-abdomen.jpg" alt="D-Cool" class="pos-abdomen">
+      <article class="card">
+        <h4>D-Cool</h4>
+        <div class="card-img">
+          <img src="face1.jpg" alt="D-Cool" class="pos-face" onerror="this.onerror=null;this.src='hero-model.jpg';">
         </div>
-        <div class="df-card-copy">Tratamiento de regeneración y bienestar corporal con enfoque integral.</div>
-        <div class="df-card-actions">
-          <a class="df-btn df-btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560920" target="_blank" rel="noopener">Agendar</a>
-          <a class="df-btn df-btn-light" href="https://droyalspa.com/d-cool-regeneracion-con-celulas-madre" target="_blank" rel="noopener">Aprender más</a>
+        <div class="card-copy">Tratamiento de regeneración y bienestar corporal con enfoque integral.</div>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560920" target="_blank" rel="noopener">Agendar</a>
+          <a class="btn btn-light" href="https://droyalspa.com/d-cool-regeneracion-con-celulas-madre" target="_blank" rel="noopener">Aprender más</a>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
 
-    <div class="df-contact">
-      <div class="df-contact-head">
-        <h4>Contacto y resultados reales</h4>
+    <section class="contact-shell section-space">
+      <div class="title-block">
+        <h3>Contacto y resultados reales</h3>
         <p>
           Reserva, escríbenos y mira resultados dentro del website sin sacar a la clienta del proceso.
         </p>
       </div>
 
-      <div class="df-contact-grid">
-        <a class="df-contact-card" href="tel:+17866900960">
-          <h5>Teléfono</h5>
+      <div class="contact-grid">
+        <a class="contact-card" href="tel:+17866900960">
+          <h4>Teléfono</h4>
           <p>+1 (786) 690-0960</p>
         </a>
 
-        <a class="df-contact-card" href="https://wa.me/17866900960?text=Hola%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener">
-          <h5>Business WhatsApp</h5>
+        <a class="contact-card" href="https://wa.me/17866900960?text=Hola%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener">
+          <h4>Business WhatsApp</h4>
           <p>Escríbenos directo</p>
         </a>
 
-        <a class="df-contact-card" href="mailto:droyalspamiami@gmail.com">
-          <h5>Email</h5>
+        <a class="contact-card" href="mailto:droyalspamiami@gmail.com">
+          <h4>Email</h4>
           <p>droyalspamiami@gmail.com</p>
         </a>
       </div>
 
-      <div class="df-social">
-        <div class="df-social-head">
-          <h4>Antes y después</h4>
-          <p>
-            Mini Instagram integrado para seguir reforzando confianza antes de reservar.
-          </p>
+      <div class="social">
+        <div class="social-head">
+          <h3>Antes y después</h3>
+          <p>Mini Instagram integrado para seguir reforzando confianza antes de reservar.</p>
         </div>
 
-        <div class="df-social-wrap">
-          <iframe
-            class="df-social-iframe"
-            src="https://patriziapadilla.github.io/mini-instagram/"
-            title="Mini Instagram D’Royal Spa">
-          </iframe>
+        <div class="social-wrap">
+          <iframe class="social-iframe" src="https://patriziapadilla.github.io/mini-instagram/" title="Mini Instagram D’Royal Spa"></iframe>
         </div>
 
-        <div class="df-social-actions">
-          <a class="df-btn df-btn-light" href="https://www.instagram.com/d.royal.spa.miami/" target="_blank" rel="noopener">
-            Ir a Instagram ↗
-          </a>
-          <a class="df-btn df-btn-primary" href="https://www.tiktok.com/@droyalspa" target="_blank" rel="noopener">
-            Ir a TikTok ↗
-          </a>
+        <div class="social-actions">
+          <a class="btn btn-light" href="https://www.instagram.com/d.royal.spa.miami/" target="_blank" rel="noopener">Ir a Instagram ↗</a>
+          <a class="btn btn-primary" href="https://www.tiktok.com/@droyalspa" target="_blank" rel="noopener">Ir a TikTok ↗</a>
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <script>
-    (function(){
-      const links = {
-        first: {
-          lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559773",
-          "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559810",
-          papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560745",
-          senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560087",
-          gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560697",
-          brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873037",
-          piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873056",
-          dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560920"
-        },
-        eight: {
-          lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880628",
-          "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880668",
-          papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880783",
-          senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880761",
-          gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880773",
-          brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880797",
-          piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880807",
-          dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880790"
-        },
-        ten: {
-          lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880813",
-          "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880820",
-          papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880849",
-          senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880830",
-          gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880840",
-          brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880886",
-          piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880896",
-          dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880872"
-        }
-      };
+    const links = {
+      first: {
+        lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559773",
+        "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91559810",
+        papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560745",
+        senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560087",
+        gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560697",
+        brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873037",
+        piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91873056",
+        dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91560920"
+      },
+      eight: {
+        lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880628",
+        "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880668",
+        papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880783",
+        senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880761",
+        gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880773",
+        brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880797",
+        piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880807",
+        dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880790"
+      },
+      ten: {
+        lipo: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880813",
+        "lipo-transfer": "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880820",
+        papada: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880849",
+        senos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880830",
+        gluteos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880840",
+        brazos: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880886",
+        piernas: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880896",
+        dcool: "https://DRoyalSpaMiami.as.me/schedule.php?appointmentType=91880872"
+      }
+    };
 
-      const treatmentNames = {
-        lipo: "Lipo con Láser 360",
-        "lipo-transfer": "Lipo con Láser 360 con transfer",
-        papada: "LipoPapada con Láser 360",
-        senos: "Aumento de Senos",
-        gluteos: "Aumento de Glúteos",
-        brazos: "LipoEscultura de brazos 360",
-        piernas: "LipoEscultura de piernas 360",
-        dcool: "D-Cool"
-      };
+    const names = {
+      lipo: "Lipo con Láser 360",
+      "lipo-transfer": "Lipo con Láser 360 con transfer",
+      papada: "LipoPapada con Láser 360",
+      senos: "Aumento de Senos",
+      gluteos: "Aumento de Glúteos",
+      brazos: "LipoEscultura de brazos 360",
+      piernas: "LipoEscultura de piernas 360",
+      dcool: "D-Cool"
+    };
 
-      const packageNames = {
-        first: "1ra sesión",
-        eight: "8 sesiones",
-        ten: "10 sesiones"
-      };
+    const packageNames = {
+      first: "1ra sesión",
+      eight: "8 sesiones",
+      ten: "10 sesiones"
+    };
 
-      const treatmentSelect = document.getElementById("df-treatment");
-      const packageSelect = document.getElementById("df-package");
-      const iframe = document.getElementById("df-iframe");
-      const placeholder = document.getElementById("df-placeholder");
-      const summary = document.getElementById("df-summary");
-      const calendarCopy = document.getElementById("df-calendar-copy");
-      const bookBtn = document.getElementById("df-book-btn");
-      const calendarSection = document.getElementById("df-calendar-section");
+    const treatment = document.getElementById("treatment");
+    const pack = document.getElementById("pack");
+    const frame = document.getElementById("booking-frame");
+    const placeholder = document.getElementById("placeholder");
+    const summary = document.getElementById("summary");
+    const calendarCopy = document.getElementById("calendar-copy");
+    const bookBtn = document.getElementById("book-btn");
+    const calendarSection = document.getElementById("calendar-section");
 
-      function updateBooking(){
-        const treatment = treatmentSelect.value;
-        const pack = packageSelect.value;
+    function setBooking(){
+      const t = treatment.value;
+      const p = pack.value;
 
-        if(!treatment || !pack){
-          iframe.style.display = "none";
-          iframe.removeAttribute("src");
-          placeholder.style.display = "flex";
-          bookBtn.href = "https://DRoyalSpaMiami.as.me/";
-          calendarCopy.textContent = "Aquí aparecerá el almanaque con fecha y hora apenas selecciones el tratamiento y el paquete.";
-          summary.innerHTML = "<strong>Resumen</strong> Elige un tratamiento y un paquete para cargar el almanaque automáticamente.";
-          return;
-        }
-
-        const link = links[pack] && links[pack][treatment] ? links[pack][treatment] : "";
-        const treatmentName = treatmentNames[treatment] || "Tratamiento";
-        const packageName = packageNames[pack] || "Paquete";
-
-        if(link){
-          iframe.src = link;
-          iframe.style.display = "block";
-          placeholder.style.display = "none";
-          bookBtn.href = link;
-          calendarCopy.textContent = "Mostrando almanaque para " + treatmentName + " · " + packageName + ".";
-          summary.innerHTML = "<strong>Resumen</strong> " + treatmentName + " · " + packageName + " seleccionado. Ya puedes elegir fecha, hora y reservar.";
-          setTimeout(function(){
-            calendarSection.scrollIntoView({behavior:"smooth", block:"start"});
-          }, 250);
-        }
+      if(!t || !p){
+        frame.style.display = "none";
+        frame.removeAttribute("src");
+        placeholder.style.display = "flex";
+        summary.innerHTML = "<strong>Resumen</strong> Elige un tratamiento y un paquete para cargar el almanaque automáticamente.";
+        calendarCopy.textContent = "Aquí aparecerá el almanaque con fecha y hora apenas selecciones el tratamiento y el paquete.";
+        bookBtn.href = "https://DRoyalSpaMiami.as.me/";
+        return;
       }
 
-      treatmentSelect.addEventListener("change", updateBooking);
-      packageSelect.addEventListener("change", updateBooking);
-
-      const daysEl = document.getElementById("df-days");
-      const hoursEl = document.getElementById("df-hours");
-      const minsEl = document.getElementById("df-mins");
-      const secsEl = document.getElementById("df-secs");
-      const countdownEl = document.getElementById("df-countdown");
-      const expiredEl = document.getElementById("df-expired");
-
-      const storageKey = "droyal_offer_deadline_final";
-      let deadline = localStorage.getItem(storageKey);
-
-      if(!deadline){
-        const d = new Date();
-        d.setDate(d.getDate() + 7);
-        deadline = d.getTime();
-        localStorage.setItem(storageKey, deadline);
-      } else {
-        deadline = parseInt(deadline, 10);
-      }
-
-      function pad(n){ return String(n).padStart(2,"0"); }
-
-      function updateCountdown(){
-        const now = new Date().getTime();
-        const distance = deadline - now;
-
-        if(distance <= 0){
-          countdownEl.style.display = "none";
-          expiredEl.style.display = "block";
-          return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((distance / (1000 * 60)) % 60);
-        const secs = Math.floor((distance / 1000) % 60);
-
-        daysEl.textContent = days;
-        hoursEl.textContent = pad(hours);
-        minsEl.textContent = pad(mins);
-        secsEl.textContent = pad(secs);
-      }
-
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    })();
-  </script>
-</section>
+      const url = links[p]?.[t] || "https://DRoyalSpaMiami.as.me/";
+      frame.src = url;
+      frame.style.display = "block";
+      placeholder.style.display = "none";
+      bookBtn.href = url;
+      summary.innerHTML = "<strong>Resumen</strong> " + names[t] + " · " + packageNames[p] + " seleccionado. Ya puedes elegir fecha, hora y reservar.";
+      calendarCopy.textContent = "Mostrando almanaque para " + names[t] + " · " + packageNames[p] + ".";
+      setTimeout(() => {
+        calendarSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 250);
+   
