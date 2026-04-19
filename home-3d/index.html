@@ -13,12 +13,11 @@
       --cream:#efe2d4;
       --text:#f8efe7;
       --muted:rgba(248,239,231,.78);
-      --side:16px;
-      --radius:26px;
       --shadow:0 24px 70px rgba(0,0,0,.34);
     }
 
     *{box-sizing:border-box}
+
     html,body{
       margin:0;
       padding:0;
@@ -178,8 +177,15 @@
       color:#fff4e8;
     }
 
+    .home-tagline{
+      margin-top:14px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(20px,2.4vw,34px);
+      color:#fff6eb;
+    }
+
     .offer-phone{
-      margin-top:12px;
+      margin-top:10px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -196,6 +202,14 @@
     .offer-phone:hover{
       transform:translateY(-1px);
       background:rgba(0,0,0,.52);
+    }
+
+    .home-cta{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      width:min(520px, 92%);
     }
 
     .pick{
@@ -282,34 +296,13 @@
       background:#0e0e0e;
     }
 
+    .media-stage video,
     .media-stage img{
       width:100%;
       height:100%;
       object-fit:cover;
       display:block;
-    }
-
-    .media-dots{
-      position:absolute;
-      left:50%;
-      bottom:12px;
-      transform:translateX(-50%);
-      display:flex;
-      gap:8px;
-      z-index:4;
-    }
-
-    .media-dots button{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:rgba(255,255,255,.42);
-      border:none;
-      padding:0;
-    }
-
-    .media-dots button.active{
-      background:#fff;
+      background:#000;
     }
 
     .info-pane{
@@ -339,16 +332,28 @@
       gap:10px;
       margin-bottom:12px;
       color:rgba(255,255,255,.82);
+      flex-wrap:wrap;
     }
 
-    .home-link{
+    .nav-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav-btn{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      font-size:13px;
+      font-size:12px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color:rgba(255,255,255,.78);
+      color:rgba(255,255,255,.85);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
     }
 
     .page-title{
@@ -383,22 +388,16 @@
       font-size:13px;
     }
 
-    .gallery{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:4px;
-    }
-
-    .gallery-card{
+    .results-card{
       overflow:hidden;
       background:#0b0b0b;
       border:1px solid rgba(255,255,255,.10);
       border-radius:20px;
+      margin-top:6px;
     }
 
-    .gallery-lab{
-      padding:10px 8px;
+    .results-lab{
+      padding:10px 12px;
       text-align:center;
       font-size:12px;
       letter-spacing:.16em;
@@ -408,9 +407,9 @@
       border-bottom:1px solid rgba(255,255,255,.08);
     }
 
-    .gallery-card img{
+    .results-card img{
       width:100%;
-      height:210px;
+      height:260px;
       object-fit:cover;
       display:block;
       background:#111;
@@ -432,6 +431,8 @@
       font-size:16px;
       font-weight:800;
       border:1px solid rgba(255,255,255,.14);
+      padding:0 16px;
+      text-align:center;
     }
 
     .btn.light{
@@ -490,11 +491,11 @@
 
       .media-pane{
         height:34vh;
-        min-height:240px;
+        min-height:280px;
       }
 
-      .gallery-card img{
-        height:140px;
+      .results-card img{
+        height:180px;
       }
 
       .headline{
@@ -503,6 +504,11 @@
 
       .home-center{
         padding:110px 18px 190px;
+      }
+
+      .home-cta,
+      .actions{
+        grid-template-columns:1fr;
       }
     }
   </style>
@@ -523,19 +529,26 @@
   <script>
     const isSpanish = (navigator.language || '').toLowerCase().startsWith('es');
 
+    // CAMBIA ESTOS 2 LINKS CUANDO YA LOS TENGAS
+    const HOME_BOOK_URL = "https://DRoyalSpaMiami.as.me/";
+    const HOME_LEARN_URL = "#";
+
     const T = {
       brand: "D’ROYAL SPA",
       headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
       areas: "Brickell · Downtown · Doral · Miami Beach",
       offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-      phoneLabel: isSpanish ? "Reserva por WhatsApp: 786 690 0960" : "Book on WhatsApp: 786 690 0960",
+      tagline: "In-Home VIP Luxury Treatments",
+      phoneLabel: "786-690-0960",
       pick: isSpanish ? "Desliza para ver tratamientos" : "Swipe to explore treatments",
       pickSub: isSpanish ? "Resultados reales · Tecnología avanzada" : "Real results · Advanced technology",
-      home: isSpanish ? "Inicio" : "Home",
-      before: isSpanish ? "Antes" : "Before",
-      after: isSpanish ? "Después" : "After",
+      home: isSpanish ? "Home" : "Home",
+      back: isSpanish ? "Atrás" : "Back",
+      results: isSpanish ? "Resultados Reales" : "Real Results",
       learn: isSpanish ? "Aprender más" : "Learn more",
       book: isSpanish ? "Agendar cita" : "Book now",
+      bookAll: isSpanish ? "Agendar Cita" : "Book Appointment",
+      learnHome: isSpanish ? "Aprender Más" : "Learn More",
       swipe: isSpanish ? "desliza lateralmente" : "swipe sideways"
     };
 
@@ -548,43 +561,38 @@
       {
         nameEs: "Lipo con Láser 360",
         nameEn: "Lipo Laser 360",
-        textEs: "Moldea, define y ayuda a reducir grasa localizada en abdomen, espalda y contorno corporal desde las primeras sesiones.",
-        textEn: "Contours and helps reduce localized fat across abdomen, back, and body contour from the first sessions.",
+        textEs: "Moldea, define y ayuda a reducir grasa localizada en abdomen, espalda y contorno corporal.",
+        textEn: "Contours and helps reduce localized fat across abdomen, back, and body contour.",
         chipsEs: ["Abdomen","Espalda","Contorno","Láser"],
         chipsEn: ["Abdomen","Back","Contour","Laser"],
         learn: "https://droyalspa.com/lipo-con-laser",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559773",
-        media: ["./lipo/lipo1.jpg","./lipo/lipo2.jpg"],
-        gallery: ["./lipo/lipo1.jpg","./lipo/lipo2.jpg"]
+        video: "./lipo/main.mp4",
+        result: "./lipo/result.jpg"
       },
       {
         nameEs: "Lipo con Láser 360 con Transfer",
         nameEn: "Lipo Laser 360 with Transfer",
-        textEs: "Combina definición corporal con transferencia para resaltar curvas, glúteos y cintura con un resultado más armónico.",
+        textEs: "Combina definición corporal con transferencia para resaltar curvas, glúteos y cintura.",
         textEn: "Combines body definition with transfer to enhance curves, butt projection, and waist contour.",
         chipsEs: ["Transfer","Glúteos","Cintura","Láser"],
         chipsEn: ["Transfer","Butt","Waist","Laser"],
         learn: "https://droyalspa.com/lipo-laser-con-transfer",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559810",
-        media: [
-          "./lipo-transfer/transfer1.jpg",
-          "./lipo-transfer/transfer2.jpg",
-          "./lipo-transfer/transfer3.jpg",
-          "./lipo-transfer/transfer4.jpg"
-        ],
-        gallery: ["./lipo-transfer/transfer1.jpg","./lipo-transfer/transfer2.jpg"]
+        video: "./lipo-transfer/main.mp4",
+        result: "./lipo-transfer/result.jpg"
       },
       {
         nameEs: "Lipo Papada con Láser 360",
         nameEn: "Chin Lipo Laser 360",
-        textEs: "Ayuda a definir mandíbula, perfil y cuello para una apariencia más limpia, elegante y estilizada.",
+        textEs: "Ayuda a definir mandíbula, perfil y cuello para una apariencia más estilizada.",
         textEn: "Helps define jawline, profile, and neck for a cleaner, more elegant look.",
         chipsEs: ["Papada","Perfil","Cuello","Láser"],
         chipsEn: ["Double chin","Profile","Neck","Laser"],
         learn: "https://droyalspa.com/lipo-papada",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560745",
-        media: ["./papada/chin1.jpg","./papada/chin2.jpg"],
-        gallery: ["./papada/chin1.jpg","./papada/chin2.jpg"]
+        video: "./papada/main.mp4",
+        result: "./papada/result.jpg"
       },
       {
         nameEs: "D-Cool & RF",
@@ -595,8 +603,8 @@
         chipsEn: ["Face","Neck","Eyes","RF"],
         learn: "https://droyalspa.com/d-cool-regeneracion-con-celulas-madre",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560920",
-        media: ["./d-cool-rf/face1.jpg","./d-cool-rf/face2.jpg","./d-cool-rf/face3.jpg"],
-        gallery: ["./d-cool-rf/face1.jpg","./d-cool-rf/face2.jpg"]
+        video: "./d-cool-rf/main.mp4",
+        result: "./d-cool-rf/result.jpg"
       },
       {
         nameEs: "Aumento de Senos sin Cirugía",
@@ -607,20 +615,20 @@
         chipsEn: ["Cleavage","Visual fullness","Shape","RF"],
         learn: "https://droyalspa.com/new-page",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560087",
-        media: ["./senos/breast1.jpg"],
-        gallery: ["./senos/breast1.jpg","./senos/breast1.jpg"]
+        video: "./senos/main.mp4",
+        result: "./senos/result.jpg"
       },
       {
         nameEs: "Aumento de Glúteos sin Cirugía",
         nameEn: "Non-Surgical Butt Enhancement",
-        textEs: "Busca más proyección, forma y una apariencia más levantada, combinando contorno visual y trabajo de tejido.",
-        textEn: "Targets more projection, shape, and a lifted appearance through contouring and tissue work.",
+        textEs: "Busca más proyección, forma y una apariencia más levantada.",
+        textEn: "Targets more projection, shape, and a lifted appearance.",
         chipsEs: ["Proyección","Forma","Lifting visual","RF"],
         chipsEn: ["Projection","Shape","Lifted look","RF"],
         learn: "https://droyalspa.com/piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560697",
-        media: ["./gluteos/glute1.jpg","./gluteos/glute2.jpg"],
-        gallery: ["./gluteos/glute1.jpg","./gluteos/glute2.jpg"]
+        video: "./gluteos/main.mp4",
+        result: "./gluteos/result.jpg"
       },
       {
         nameEs: "Esculpido de Brazos 360 con Láser",
@@ -631,20 +639,20 @@
         chipsEn: ["Arms","Definition","Firmness","Laser"],
         learn: "https://droyalspa.com/reduccion-de-brazos",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873037",
-        media: ["./brazos/arm1.jpg"],
-        gallery: ["./brazos/arm1.jpg","./brazos/arm1.jpg"]
+        video: "./brazos/main.mp4",
+        result: "./brazos/result.jpg"
       },
       {
         nameEs: "Esculpido de Piernas 360 con Láser",
         nameEn: "Leg Sculpting 360 With Laser",
-        textEs: "Trabaja textura, contorno y reducción visual de celulitis para unas piernas más estilizadas.",
-        textEn: "Targets texture, contour, and visual cellulite reduction for more sculpted legs.",
+        textEs: "Trabaja textura, contorno y reducción visual para unas piernas más estilizadas.",
+        textEn: "Targets texture, contour, and visible smoothing for more sculpted legs.",
         chipsEs: ["Piernas","Celulitis","Contorno","Láser"],
         chipsEn: ["Legs","Cellulite","Contour","Laser"],
         learn: "https://droyalspa.com/1-reduccion-de-celulitis-en-piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873056",
-        media: ["./piernas/legs1.jpg"],
-        gallery: ["./piernas/legs1.jpg","./piernas/legs1.jpg"]
+        video: "./piernas/main.mp4",
+        result: "./piernas/result.jpg"
       }
     ];
 
@@ -682,19 +690,12 @@
         .join("");
     }
 
-    function mediaMarkup(media, cardIndex) {
+    function videoMarkup(videoSrc) {
       return `
-        <div class="media-stage" data-media-stage="${cardIndex}">
-          <img src="${media[0]}" alt="">
-          ${
-            media.length > 1
-              ? `
-                <div class="media-dots">
-                  ${media.map((_, i) => `<button data-dot="${i}" class="${i === 0 ? 'active' : ''}"></button>`).join("")}
-                </div>
-              `
-              : ""
-          }
+        <div class="media-stage">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="${videoSrc}" type="video/mp4">
+          </video>
         </div>
       `;
     }
@@ -708,7 +709,14 @@
                 <h2 class="headline">${T.headline}</h2>
                 <div class="areas">${T.areas}</div>
                 <div class="offer"><b>25% OFF</b><span>${T.offer}</span></div>
+                <div class="home-tagline">${T.tagline}</div>
                 <a class="offer-phone" href="https://wa.me/17866900960" target="_blank" rel="noopener">${T.phoneLabel}</a>
+
+                <div class="home-cta">
+                  <a class="btn gold" href="${HOME_BOOK_URL}" target="_blank" rel="noopener">${T.bookAll}</a>
+                  <a class="btn light" href="${HOME_LEARN_URL}" target="_blank" rel="noopener">${T.learnHome}</a>
+                </div>
+
                 <div class="pick">${T.pick}</div>
                 <div class="pick-sub">${T.pickSub}</div>
               </div>
@@ -726,14 +734,17 @@
           <div class="slide-inner">
             <div class="treatment-wrap">
               <div class="media-pane">
-                ${mediaMarkup(slide.media, index)}
+                ${videoMarkup(slide.video)}
               </div>
 
               <div class="info-pane">
                 <div class="page-card">
                   <div class="page-card-inner">
                     <div class="page-topline">
-                      <button class="home-link" data-go="0">‹ ${T.home}</button>
+                      <div class="nav-left">
+                        <button class="nav-btn" data-back="true">‹ ${T.back}</button>
+                        <button class="nav-btn" data-go="0">⌂ ${T.home}</button>
+                      </div>
                       <span>${index}/${slides.length - 1}</span>
                     </div>
 
@@ -744,15 +755,9 @@
                       ${getChips(slide).map(c => `<span class="chip">${c}</span>`).join("")}
                     </div>
 
-                    <div class="gallery">
-                      <div class="gallery-card">
-                        <div class="gallery-lab">${T.before}</div>
-                        <img src="${slide.gallery[0]}" alt="${T.before}">
-                      </div>
-                      <div class="gallery-card">
-                        <div class="gallery-lab">${T.after}</div>
-                        <img src="${slide.gallery[1] || slide.gallery[0]}" alt="${T.after}">
-                      </div>
+                    <div class="results-card">
+                      <div class="results-lab">${T.results}</div>
+                      <img src="${slide.result}" alt="${T.results}">
                     </div>
 
                     <div class="actions">
@@ -774,11 +779,12 @@
 
     const slideEls = [...document.querySelectorAll('.slide')];
 
-    function setActiveSlide() {
-      const left = deck.scrollLeft;
-      const width = deck.clientWidth;
-      const active = Math.round(left / width);
+    function getActiveSlideIndex() {
+      return Math.round(deck.scrollLeft / deck.clientWidth);
+    }
 
+    function setActiveSlide() {
+      const active = getActiveSlideIndex();
       slideEls.forEach((el, i) => {
         el.classList.toggle('active', i === active);
       });
@@ -795,18 +801,17 @@
       const go = e.target.closest('[data-go]');
       if (go) {
         goToSlide(Number(go.dataset.go));
+        return;
       }
 
-      const dot = e.target.closest('[data-dot]');
-      if (dot) {
-        const stage = dot.closest('[data-media-stage]');
-        const slideIndex = Number(stage.dataset.mediaStage);
-        const slide = slides[slideIndex];
-        const img = stage.querySelector('img');
-        img.src = slide.media[Number(dot.dataset.dot)];
-        stage.querySelectorAll('[data-dot]').forEach((b, i) => {
-          b.classList.toggle('active', i === Number(dot.dataset.dot));
-        });
+      const back = e.target.closest('[data-back]');
+      if (back) {
+        const current = getActiveSlideIndex();
+        if (current <= 1) {
+          goToSlide(0);
+        } else {
+          goToSlide(current - 1);
+        }
       }
     });
 
