@@ -26,7 +26,7 @@
       overflow:hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
+    a{color:inherit;text-decoration:none}
     button{
       font:inherit;
       border:none;
@@ -55,7 +55,7 @@
       pointer-events:none;
     }
 
-    .topbar > *{ pointer-events:auto; }
+    .topbar > *{pointer-events:auto}
 
     .brand{
       margin:0;
@@ -80,7 +80,7 @@
       scrollbar-width:none;
     }
 
-    .deck::-webkit-scrollbar{ display:none; }
+    .deck::-webkit-scrollbar{display:none}
 
     .slide{
       flex:0 0 100vw;
@@ -159,8 +159,15 @@
       color:#fff4e8;
     }
 
+    .home-tagline{
+      margin-top:14px;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(20px,2.4vw,34px);
+      color:#fff6eb;
+    }
+
     .offer-phone{
-      margin-top:12px;
+      margin-top:10px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -263,17 +270,9 @@
       background:#111;
     }
 
-    .fallback-image{
-      display:none;
-    }
-
-    .fallback-image.show{
-      display:block;
-    }
-
-    .hidden-video{
-      display:none;
-    }
+    .fallback-image{display:none}
+    .fallback-image.show{display:block}
+    .hidden-video{display:none}
 
     .info-pane{
       display:flex;
@@ -489,7 +488,8 @@
       headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
       areas: "Brickell · Downtown · Doral · Miami Beach",
       offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-      phoneLabel: isSpanish ? "Reserva por WhatsApp: 786 690 0960" : "Book on WhatsApp: 786 690 0960",
+      tagline: "In-Home VIP Luxury Treatments",
+      phoneLabel: "786-690-0960",
       pick: isSpanish ? "Desliza para ver tratamientos" : "Swipe to explore treatments",
       pickSub: isSpanish ? "Resultados reales · Tecnología avanzada" : "Real results · Advanced technology",
       home: isSpanish ? "Inicio" : "Home",
@@ -512,9 +512,9 @@
         chipsEn: ["Abdomen","Back","Contour","Laser"],
         learn: "https://droyalspa.com/lipo-con-laser",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559773",
-        video: "./lipo/main.mp4",
-        poster: "./lipo/lipo1.jpg",
-        result: "./lipo/lipo1.jpg"
+        video: "./lipo-video.mp4",
+        poster: "./lipo-results.jpg",
+        result: "./lipo-results.jpg"
       },
       {
         nameEs: "Lipo con Láser 360 con Transfer",
@@ -525,9 +525,9 @@
         chipsEn: ["Transfer","Butt","Waist","Laser"],
         learn: "https://droyalspa.com/lipo-laser-con-transfer",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559810",
-        video: "./lipo-transfer/main.mp4",
-        poster: "./lipo-transfer/transfer1.jpg",
-        result: "./lipo-transfer/transfer1.jpg"
+        video: "./transfer-video.mp4",
+        poster: "./transfer-results.jpg",
+        result: "./transfer-results.jpg"
       },
       {
         nameEs: "Lipo Papada con Láser 360",
@@ -538,9 +538,9 @@
         chipsEn: ["Double chin","Profile","Neck","Laser"],
         learn: "https://droyalspa.com/lipo-papada",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560745",
-        video: "./papada/main.mp4",
-        poster: "./papada/chin1.jpg",
-        result: "./papada/chin1.jpg"
+        video: "./chin-video.mp4",
+        poster: "./chin-results.jpg",
+        result: "./chin-results.jpg"
       },
       {
         nameEs: "D-Cool & RF",
@@ -551,9 +551,9 @@
         chipsEn: ["Face","Neck","Eyes","RF"],
         learn: "https://droyalspa.com/d-cool-regeneracion-con-celulas-madre",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560920",
-        video: "./d-cool-rf/main.mp4",
-        poster: "./d-cool-rf/face1.jpg",
-        result: "./d-cool-rf/face1.jpg"
+        video: "./face-video.mp4",
+        poster: "./face-results.jpg",
+        result: "./face-results.jpg"
       },
       {
         nameEs: "Aumento de Senos sin Cirugía",
@@ -564,9 +564,9 @@
         chipsEn: ["Cleavage","Visual fullness","Shape","RF"],
         learn: "https://droyalspa.com/new-page",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560087",
-        video: "./senos/main.mp4",
-        poster: "./senos/breast1.jpg",
-        result: "./senos/breast1.jpg"
+        video: "./breast-video.mp4",
+        poster: "./breast-results.jpg",
+        result: "./breast-results.jpg"
       },
       {
         nameEs: "Aumento de Glúteos sin Cirugía",
@@ -577,9 +577,9 @@
         chipsEn: ["Projection","Shape","Lifted look","RF"],
         learn: "https://droyalspa.com/piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560697",
-        video: "./gluteos/main.mp4",
-        poster: "./gluteos/glute1.jpg",
-        result: "./gluteos/glute1.jpg"
+        video: "./glute-video.mp4",
+        poster: "./glute-results.jpg",
+        result: "./glute-results.jpg"
       },
       {
         nameEs: "Esculpido de Brazos 360 con Láser",
@@ -590,9 +590,9 @@
         chipsEn: ["Arms","Definition","Firmness","Laser"],
         learn: "https://droyalspa.com/reduccion-de-brazos",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873037",
-        video: "./brazos/main.mp4",
-        poster: "./brazos/arm1.jpg",
-        result: "./brazos/arm1.jpg"
+        video: "./arm-video.mp4",
+        poster: "./arm-results.jpg",
+        result: "./arm-results.jpg"
       },
       {
         nameEs: "Esculpido de Piernas 360 con Láser",
@@ -603,9 +603,9 @@
         chipsEn: ["Legs","Cellulite","Contour","Laser"],
         learn: "https://droyalspa.com/1-reduccion-de-celulitis-en-piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873056",
-        video: "./piernas/main.mp4",
-        poster: "./piernas/legs1.jpg",
-        result: "./piernas/legs1.jpg"
+        video: "./legs-video.mp4",
+        poster: "./legs-results.jpg",
+        result: "./legs-results.jpg"
       }
     ];
 
@@ -670,6 +670,7 @@
                 <h2 class="headline">${T.headline}</h2>
                 <div class="areas">${T.areas}</div>
                 <div class="offer"><b>25% OFF</b><span>${T.offer}</span></div>
+                <div class="home-tagline">${T.tagline}</div>
                 <a class="offer-phone" href="https://wa.me/17866900960" target="_blank" rel="noopener">${T.phoneLabel}</a>
                 <div class="pick">${T.pick}</div>
                 <div class="pick-sub">${T.pickSub}</div>
