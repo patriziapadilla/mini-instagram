@@ -156,7 +156,7 @@
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:92px 20px 195px;
+      padding:90px 20px 190px;
       position:relative;
       z-index:2;
     }
@@ -205,7 +205,7 @@
     }
 
     .offer-phone{
-      margin-top:16px;
+      margin-top:14px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -500,7 +500,7 @@
       }
 
       .home-center{
-        padding:96px 18px 205px;
+        padding:95px 18px 205px;
       }
 
       .actions{
@@ -740,8 +740,6 @@
                   <a class="offer-phone" href="https://wa.me/17866900960" target="_blank" rel="noopener">${T.phoneLabel}</a>
                 </div>
 
-                <div class="swipe-hint"></div>
-
                 <div class="home-rail">
                   ${makeHomeRail()}
                 </div>
@@ -781,4 +779,64 @@
 
                     <div class="actions">
                       <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
-                      <a class="
+                      <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
+                    </div>
+
+                    <div class="bottom-nav">
+                      ${makeMiniRail(index)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }).join("");
+
+    window.handleVideoError = function(index) {
+      const video = document.getElementById(`video-${index}`);
+      const fallback = document.getElementById(`fallback-${index}`);
+      if (video) video.classList.add('hidden-video');
+      if (fallback) fallback.classList.add('show');
+    };
+
+    const slideEls = [...document.querySelectorAll('.slide')];
+
+    function setActiveSlide() {
+      const left = deck.scrollLeft;
+      const width = deck.clientWidth;
+      const active = Math.round(left / width);
+      slideEls.forEach((el, i) => {
+        el.classList.toggle('active', i === active);
+      });
+    }
+
+    function goToSlide(index) {
+      deck.scrollTo({
+        left: index * deck.clientWidth,
+        behavior: 'smooth'
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const go = e.target.closest('[data-go]');
+      if (go) {
+        goToSlide(Number(go.dataset.go));
+      }
+    });
+
+    deck.addEventListener('scroll', setActiveSlide);
+    window.addEventListener('resize', setActiveSlide);
+
+    deck.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        deck.scrollLeft += e.deltaY;
+      }
+    }, { passive:false });
+
+    setActiveSlide();
+  </script>
+</body>
+</html>
