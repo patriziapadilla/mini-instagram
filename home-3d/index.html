@@ -373,8 +373,8 @@
 
     .page-text{
       margin:0;
-      font-size:clamp(15px,1.18vw,19px);
-      line-height:1.6;
+      font-size:clamp(15px,1.12vw,18px);
+      line-height:1.55;
       color:var(--muted);
     }
 
@@ -392,6 +392,7 @@
       border:1px solid rgba(255,255,255,.10);
       color:#f5ecdf;
       font-size:13px;
+      line-height:1;
     }
 
     .result-card{
@@ -450,6 +451,14 @@
       background:var(--cream);
       color:#111;
       border-color:transparent;
+    }
+
+    .results-note{
+      margin-top:10px;
+      text-align:center;
+      font-size:11px;
+      letter-spacing:.04em;
+      color:rgba(255,255,255,.62);
     }
 
     .bottom-nav{
@@ -523,6 +532,11 @@
         font-size:11px;
         padding:0 12px;
       }
+
+      .page-text{
+        font-size:15px;
+        line-height:1.5;
+      }
     }
   </style>
 </head>
@@ -555,6 +569,7 @@
       results: isSpanish ? "Resultados Reales" : "Real Results",
       learn: isSpanish ? "Aprender más" : "Learn more",
       book: isSpanish ? "Agendar cita" : "Book now",
+      note: isSpanish ? "Resultados visibles desde primeras sesiones*" : "Visible results from the first sessions*",
       swipe: ""
     };
 
@@ -565,10 +580,10 @@
       {
         nameEs: "Lipo con Láser 360",
         nameEn: "Lipo Laser 360",
-        textEs: "Ayuda a reducir grasa localizada y definir abdomen, cintura y espalda con una apariencia más estilizada.",
-        textEn: "Helps reduce localized fat and define the abdomen, waist, and back for a more sculpted look.",
-        chipsEs: ["Abdomen","Cintura","Espalda","Láser"],
-        chipsEn: ["Abdomen","Waist","Back","Laser"],
+        textEs: "Derrite grasa localizada y mejora contorno corporal sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa, ayudando a definir abdomen, cintura y espalda, mientras elimina flacidez, celulitis y mejora textura de la piel.",
+        textEn: "Melts localized fat and improves body contour without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted to help define the abdomen, waist, and back while reducing flaccidity, cellulite, and improving skin texture.",
+        chipsEs: ["Abdomen","Cintura","Espalda","Costados"],
+        chipsEn: ["Abdomen","Waist","Back","Flanks"],
         learn: "https://droyalspa.com/lipo-con-laser",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559773",
         video: "./lipo-video.mp4",
@@ -578,10 +593,10 @@
       {
         nameEs: "Lipo con Láser 360 con Transfer",
         nameEn: "Lipo Laser 360 with Transfer",
-        textEs: "Combina definición corporal con transferencia para resaltar curvas, glúteos y contorno de cintura.",
-        textEn: "Combines body contouring with transfer to enhance curves, buttocks, and waist definition.",
-        chipsEs: ["Transfer","Glúteos","Cintura","Láser"],
-        chipsEn: ["Transfer","Buttocks","Waist","Laser"],
+        textEs: "Derrite grasa localizada, define cintura y realza glúteos sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa mientras mejora contorno corporal, celulitis, flacidez y textura de la piel. Butt Blaster utiliza tecnología vacuum para levantar, redondear y proyectar glúteos de forma natural.",
+        textEn: "Melts localized fat, defines the waist, and enhances the buttocks without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving body contour, cellulite, flaccidity, and skin texture. Butt Blaster uses vacuum technology to lift, round, and project the buttocks naturally.",
+        chipsEs: ["Cintura","Glúteos","Muslos 360","Piernas","Espalda Baja"],
+        chipsEn: ["Waist","Buttocks","Thighs 360","Legs","Lower Back"],
         learn: "https://droyalspa.com/lipo-laser-con-transfer",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91559810",
         video: "./transfer-video.mp4",
@@ -591,10 +606,10 @@
       {
         nameEs: "Lipo Papada con Láser 360",
         nameEn: "Chin Lipo Laser 360",
-        textEs: "Ayuda a definir la mandíbula y el cuello para un perfil más limpio, fino y elegante.",
-        textEn: "Helps define the jawline and neck for a cleaner, slimmer, and more refined profile.",
-        chipsEs: ["Papada","Mandíbula","Cuello","Láser"],
-        chipsEn: ["Double Chin","Jawline","Neck","Laser"],
+        textEs: "Reduce grasa localizada en papada sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras mejora firmeza y define mandíbula y cuello. D-Cool ayuda a tensar la piel, suavizar líneas de expresión y mejorar estructura facial. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural.",
+        textEn: "Reduces localized fat in the chin area without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving firmness and defining the jawline and neck. D-Cool helps tighten the skin, soften expression lines, and improve facial structure. It provides an effect similar to Botox and Morpheus8, but naturally.",
+        chipsEs: ["Papada","Línea Mandibular","Cuello","Submentón"],
+        chipsEn: ["Double Chin","Jawline","Neck","Subchin"],
         learn: "https://droyalspa.com/lipo-papada",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560745",
         video: "./chin-video.mp4",
@@ -604,10 +619,10 @@
       {
         nameEs: "D-Cool & RF",
         nameEn: "D-Cool & RF",
-        textEs: "Tratamiento facial enfocado en firmeza, textura y rejuvenecimiento visible del rostro y cuello.",
-        textEn: "Facial treatment focused on firmness, texture, and visible rejuvenation of the face and neck.",
-        chipsEs: ["Rostro","Cuello","Firmeza","RF"],
-        chipsEn: ["Face","Neck","Firmness","RF"],
+        textEs: "Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. D-Cool da firmeza a la piel, mejora estructura, suaviza líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.",
+        textEn: "Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. D-Cool firms the skin, improves structure, and softens expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.",
+        chipsEs: ["Rostro","Ojos","Cuello","Área de Senos"],
+        chipsEn: ["Face","Eyes","Neck","Breast Area"],
         learn: "https://droyalspa.com/d-cool-regeneracion-con-celulas-madre",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560920",
         video: "./face-video.mp4",
@@ -617,10 +632,10 @@
       {
         nameEs: "Aumento de Senos sin Cirugía",
         nameEn: "Non-Surgical Breast Enhancement",
-        textEs: "Ayuda a mejorar el volumen visual, la forma y el escote para una apariencia más armoniosa.",
-        textEn: "Helps improve visual fullness, shape, and cleavage for a more balanced appearance.",
-        chipsEs: ["Escote","Forma","Volumen","RF"],
-        chipsEn: ["Cleavage","Shape","Fullness","RF"],
+        textEs: "Mejora firmeza, forma y volumen visual del busto sin cirugía y sin agujas. Vacuum Breast Lift ayuda a levantar visualmente los senos, mejorar proyección y realzar escote de forma natural. Con Radiofrecuencia (RF) y D-Cool mejora firmeza, textura, estrías, arrugas localizadas y marcas visibles en la piel.",
+        textEn: "Improves firmness, shape, and visual bust volume without surgery or needles. Vacuum Breast Lift helps visually lift the breasts, improve projection, and enhance the neckline naturally. With Radiofrequency (RF) and D-Cool, it improves firmness, texture, stretch marks, localized wrinkles, and visible skin marks.",
+        chipsEs: ["Senos","Escote","Área Pectoral","Contorno Superior"],
+        chipsEn: ["Breasts","Neckline","Pectoral Area","Upper Contour"],
         learn: "https://droyalspa.com/new-page",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560087",
         video: "./breast-video.mp4",
@@ -630,10 +645,10 @@
       {
         nameEs: "Aumento de Glúteos sin Cirugía",
         nameEn: "Non-Surgical Butt Enhancement",
-        textEs: "Ayuda a mejorar proyección, forma y apariencia levantada de los glúteos sin cirugía.",
-        textEn: "Helps improve projection, shape, and a lifted appearance without surgery.",
-        chipsEs: ["Glúteos","Forma","Proyección","RF"],
-        chipsEn: ["Buttocks","Shape","Projection","RF"],
+        textEs: "Aumenta, agranda y redondea glúteos sin cirugía y sin agujas. Butt Blaster utiliza tecnología vacuum para levantar, proyectar y realzar glúteos de forma natural. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) mejora celulitis, flacidez, estrías y marcas visibles en muslos y glúteos. También ayuda a mejorar curva corporal natural.",
+        textEn: "Increases, enlarges, and rounds the buttocks without surgery or needles. Butt Blaster uses vacuum technology to lift, project, and enhance the buttocks naturally. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), it improves cellulite, flaccidity, stretch marks, and visible marks on the thighs and buttocks. It also helps improve the natural body curve.",
+        chipsEs: ["Glúteos","Muslos 360","Caderas","Espalda Baja"],
+        chipsEn: ["Buttocks","Thighs 360","Hips","Lower Back"],
         learn: "https://droyalspa.com/piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91560697",
         video: "./glute-video.mp4",
@@ -643,10 +658,10 @@
       {
         nameEs: "Esculpido de Brazos 360 con Láser",
         nameEn: "Arm Sculpting 360 With Laser",
-        textEs: "Ayuda a definir, afinar y mejorar la apariencia de los brazos para una línea más estilizada.",
-        textEn: "Helps define, slim, and improve the appearance of the arms for a more sculpted line.",
-        chipsEs: ["Brazos","Definición","Firmeza","Láser"],
-        chipsEn: ["Arms","Definition","Firmness","Laser"],
+        textEs: "Reduce grasa localizada, afina y define brazos sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras mejora firmeza, flacidez y marcas visibles debajo de brazos y axilas.",
+        textEn: "Reduces localized fat, slims, and defines the arms without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving firmness, flaccidity, and visible marks under the arms and around the armpits.",
+        chipsEs: ["Brazos 360","Axilas","Hombros","Manos"],
+        chipsEn: ["Arms 360","Armpits","Shoulders","Hands"],
         learn: "https://droyalspa.com/reduccion-de-brazos",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873037",
         video: "./arm-video.mp4",
@@ -656,10 +671,10 @@
       {
         nameEs: "Esculpido de Piernas 360 con Láser",
         nameEn: "Leg Sculpting 360 With Laser",
-        textEs: "Ayuda a suavizar, definir y estilizar las piernas para un contorno más uniforme.",
-        textEn: "Helps smooth, define, and contour the legs for a more streamlined look.",
-        chipsEs: ["Piernas","Contorno","Suavidad","Láser"],
-        chipsEn: ["Legs","Contour","Smoothness","Laser"],
+        textEs: "Reduce grasa localizada, estiliza y define piernas sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras reduce celulitis, flacidez, estrías y marcas en la piel.",
+        textEn: "Reduces localized fat, slims, and defines the legs without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while reducing cellulite, flaccidity, stretch marks, and skin marks.",
+        chipsEs: ["Muslos","Rodillas","Pantorrillas","Entrepiernas"],
+        chipsEn: ["Thighs","Knees","Calves","Inner Thighs"],
         learn: "https://droyalspa.com/1-reduccion-de-celulitis-en-piernas",
         book: "https://DRoyalSpaMiami.as.me/?appointmentType=91873056",
         video: "./legs-video.mp4",
@@ -781,6 +796,8 @@
                       <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
                       <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
                     </div>
+
+                    <div class="results-note">${T.note}</div>
 
                     <div class="bottom-nav">
                       ${makeMiniRail(index)}
