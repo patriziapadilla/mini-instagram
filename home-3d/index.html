@@ -156,7 +156,7 @@
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:110px 20px 150px;
+      padding:92px 20px 195px;
       position:relative;
       z-index:2;
     }
@@ -205,7 +205,7 @@
     }
 
     .offer-phone{
-      margin-top:10px;
+      margin-top:16px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -219,18 +219,11 @@
     }
 
     .pick{
-      margin-top:22px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,2.2vw,30px);
-      color:#fff5ea;
+      display:none;
     }
 
     .pick-sub{
-      margin-top:8px;
-      font-size:11px;
-      letter-spacing:.20em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.68);
+      display:none;
     }
 
     .home-rail{
@@ -239,40 +232,42 @@
       right:0;
       bottom:0;
       z-index:3;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-      padding:14px 16px 18px;
+      display:grid;
+      gap:2px;
+      padding:0 0 8px;
       background:linear-gradient(180deg, transparent, rgba(0,0,0,.76) 24%, rgba(0,0,0,.96) 100%);
     }
 
     .rail-btn,
     .mini-rail-btn{
-      width:auto;
-      min-width:unset;
+      width:100%;
       text-align:left;
-      display:inline-flex;
+      display:grid;
+      grid-template-columns:1fr auto;
       align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 16px;
+      padding:0 14px;
       background:#030303;
-      border:1px solid var(--line);
-      border-radius:999px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      border-left:none;
+      border-right:none;
+      border-radius:0;
       font-family:Georgia,"Times New Roman",serif;
       color:#fff8ef;
       margin:0;
+      min-width:0;
     }
 
     .rail-btn{
-      height:auto;
-      font-size:clamp(14px,1.1vw,18px);
+      height:30px;
+      font-size:clamp(13px,1.05vw,18px);
+      line-height:1;
     }
 
     .mini-rail-btn{
-      height:auto;
-      font-size:13px;
+      height:28px;
+      font-size:12px;
+      line-height:1;
     }
 
     .treatment{
@@ -459,11 +454,8 @@
 
     .bottom-nav{
       margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-      padding-top:6px;
+      display:grid;
+      gap:4px;
     }
 
     .whatsapp-float{
@@ -484,16 +476,7 @@
     }
 
     .swipe-hint{
-      position:absolute;
-      left:50%;
-      bottom:86px;
-      transform:translateX(-50%);
-      z-index:4;
-      font-size:11px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.66);
-      white-space:nowrap;
+      display:none;
     }
 
     @media (max-width: 920px){
@@ -517,15 +500,28 @@
       }
 
       .home-center{
-        padding:110px 18px 220px;
+        padding:96px 18px 205px;
       }
 
       .actions{
         grid-template-columns:1fr;
       }
 
-      .swipe-hint{
-        bottom:122px;
+      .home-rail{
+        gap:2px;
+        padding:0 0 6px;
+      }
+
+      .rail-btn{
+        height:28px;
+        font-size:12px;
+        padding:0 12px;
+      }
+
+      .mini-rail-btn{
+        height:26px;
+        font-size:11px;
+        padding:0 12px;
       }
     }
   </style>
@@ -551,15 +547,15 @@
       headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
       areas: "Brickell · Downtown · Doral · Miami Beach",
       offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-      tagline: "In-Home VIP Luxury Treatments",
+      tagline: "In-Home Luxury Treatments",
       phoneLabel: "786-690-0960",
-      pick: isSpanish ? "Desliza para ver tratamientos" : "Swipe to explore treatments",
-      pickSub: isSpanish ? "Resultados reales · Tecnología avanzada" : "Real results · Advanced technology",
+      pick: "",
+      pickSub: "",
       home: isSpanish ? "Inicio" : "Home",
       results: isSpanish ? "Resultados Reales" : "Real Results",
       learn: isSpanish ? "Aprender más" : "Learn more",
       book: isSpanish ? "Agendar cita" : "Book now",
-      swipe: isSpanish ? "desliza lateralmente" : "swipe sideways"
+      swipe: ""
     };
 
     document.getElementById('brand').textContent = T.brand;
@@ -742,11 +738,9 @@
                   <div class="offer"><b>25% OFF</b><span>${T.offer}</span></div>
                   <div class="home-tagline">${T.tagline}</div>
                   <a class="offer-phone" href="https://wa.me/17866900960" target="_blank" rel="noopener">${T.phoneLabel}</a>
-                  <div class="pick">${T.pick}</div>
-                  <div class="pick-sub">${T.pickSub}</div>
                 </div>
 
-                <div class="swipe-hint">${T.swipe}</div>
+                <div class="swipe-hint"></div>
 
                 <div class="home-rail">
                   ${makeHomeRail()}
@@ -787,64 +781,4 @@
 
                     <div class="actions">
                       <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
-                      <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                    </div>
-
-                    <div class="bottom-nav">
-                      ${makeMiniRail(index)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-    }).join("");
-
-    window.handleVideoError = function(index) {
-      const video = document.getElementById(`video-${index}`);
-      const fallback = document.getElementById(`fallback-${index}`);
-      if (video) video.classList.add('hidden-video');
-      if (fallback) fallback.classList.add('show');
-    };
-
-    const slideEls = [...document.querySelectorAll('.slide')];
-
-    function setActiveSlide() {
-      const left = deck.scrollLeft;
-      const width = deck.clientWidth;
-      const active = Math.round(left / width);
-      slideEls.forEach((el, i) => {
-        el.classList.toggle('active', i === active);
-      });
-    }
-
-    function goToSlide(index) {
-      deck.scrollTo({
-        left: index * deck.clientWidth,
-        behavior: 'smooth'
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      const go = e.target.closest('[data-go]');
-      if (go) {
-        goToSlide(Number(go.dataset.go));
-      }
-    });
-
-    deck.addEventListener('scroll', setActiveSlide);
-    window.addEventListener('resize', setActiveSlide);
-
-    deck.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        deck.scrollLeft += e.deltaY;
-      }
-    }, { passive:false });
-
-    setActiveSlide();
-  </script>
-</body>
-</html>
+                      <a class="
