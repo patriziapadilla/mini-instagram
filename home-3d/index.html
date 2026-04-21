@@ -934,10 +934,10 @@
         basePrice: 89
       },
       {
-        nameEs: 'D-Cool & RF',
-        nameEn: 'D-Cool & RF',
-        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. D-Cool da firmeza a la piel, mejora estructura, suaviza líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
-        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. D-Cool firms the skin, improves structure, and softens expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
+        nameEs: 'Botox con Láser',
+        nameEn: 'Laser Botox',
+        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. Botox con Láser ayuda a dar firmeza a la piel, mejorar estructura, suavizar líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
+        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. Laser Botox helps firm the skin, improve structure, and soften expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
         chipsEs: ['Rostro','Ojos','Cuello','Área de Senos'],
         chipsEn: ['Face','Eyes','Neck','Breast Area'],
         learn: 'https://droyalspa.com/d-cool-regeneracion-con-celulas-madre',
@@ -1011,12 +1011,24 @@
     const getChips = (s) => isSpanish ? s.chipsEs : s.chipsEn;
 
     function makeHomeRail() {
-      return slides.slice(1).map((s, i) => `
+      const buttons = slides.slice(1).map((s, i) => {
+        const button = `
         <button class="rail-btn" data-go="${i + 1}">
           <span>${getName(s)}</span>
           <span>›</span>
         </button>
-      `).join('');
+      `;
+        if (getName(s) === 'Botox con Láser' || getName(s) === 'Laser Botox') {
+          return button + `
+        <button class="rail-btn" type="button">
+          <span>Cool Sculpting</span>
+          <span>›</span>
+        </button>
+      `;
+        }
+        return button;
+      });
+      return buttons.join('');
     }
 
     function makeMiniRail(index) {
@@ -1474,7 +1486,7 @@
             <div class="phase2-chatbot-actions">
               <button data-chat-msg="Hola, quiero saber precios de Laser Lipo.">Laser Lipo</button>
               <button data-chat-msg="Hola, quiero saber sobre papada.">Double Chin</button>
-              <button data-chat-msg="Hola, quiero saber sobre D-Cool y RF facial.">Facial</button>
+              <button data-chat-msg="Hola, quiero saber sobre Botox con Láser.">Facial</button>
               <button data-chat-msg="Hola, quiero ver disponibilidad para una cita.">Book Now</button>
             </div>
           </div>
