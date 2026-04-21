@@ -1535,5 +1535,185 @@
       });
     })();
   </script>
+  <script>
+    (function addPhase3Features(){
+      const homeRail = document.querySelector('.home-rail');
+      const deck = document.getElementById('deck');
+      if (!homeRail || !deck) return;
+
+      const seoSlides = [
+        {
+          title: 'Laser Lipo Miami',
+          subtitle: 'Mobile body contouring in Miami',
+          text: 'Droyalspa offers mobile laser lipo, body contouring, cavitation, RF skin tightening and non-surgical sculpting in Miami. Ideal for abdomen, waist, arms, legs and double chin treatments in the comfort of your home.',
+          whatsapp: 'Hola, quiero información sobre Laser Lipo Miami.'
+        },
+        {
+          title: 'Body Contouring Brickell',
+          subtitle: 'Luxury in-home treatments in Brickell',
+          text: 'Serving Brickell clients with luxury at-home body contouring, RF facials, D-Cool treatments, waist sculpting and premium mobile appointments designed for visible results and convenience.',
+          whatsapp: 'Hola, quiero información sobre Body Contouring en Brickell.'
+        },
+        {
+          title: 'Botox Effect Miami Beach',
+          subtitle: 'Needle-free rejuvenation in Miami Beach',
+          text: 'Needle-free Botox effect facials, D-Cool and RF treatments in Miami Beach. We help tighten skin, improve texture and create a lifted, smoother look with luxury mobile service.',
+          whatsapp: 'Hola, quiero información sobre efecto Botox sin agujas en Miami Beach.'
+        }
+      ];
+
+      seoSlides.forEach((item, idx) => {
+        const section = document.createElement('section');
+        section.className = 'slide treatment phase3-seo-slide';
+        section.setAttribute('data-slide', document.querySelectorAll('.slide').length);
+        section.innerHTML = `
+          <div class="slide-inner">
+            <div class="treatment-wrap phase3-seo-wrap">
+              <div class="media-pane phase3-seo-pane">
+                <div class="phase3-seo-hero">
+                  <div class="phase3-seo-kicker">SEO Landing Page</div>
+                  <h2>${item.title}</h2>
+                  <p>${item.subtitle}</p>
+                  <div class="phase3-seo-tags">
+                    <span>Mobile Service</span>
+                    <span>Miami Area</span>
+                    <span>Book Fast</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info-pane">
+                <div class="page-card">
+                  <div class="page-card-inner">
+                    <div class="floating-home">
+                      <button class="home-link" data-go="0">⌂ Home</button>
+                    </div>
+                    <div class="page-topline"><span>Location SEO</span></div>
+                    <h2 class="page-title">${item.title}</h2>
+                    <p class="page-text">${item.text}</p>
+                    <div class="phase3-info-grid">
+                      <div class="phase3-info-card">
+                        <strong>Best for</strong>
+                        <span>Laser lipo, body contouring, RF facials, mobile beauty treatments.</span>
+                      </div>
+                      <div class="phase3-info-card">
+                        <strong>Service model</strong>
+                        <span>We travel to your home, condo or office in select Miami areas.</span>
+                      </div>
+                    </div>
+                    <div class="actions">
+                      <a class="btn light" href="https://droyalspa.com" target="_blank" rel="noopener">Visit Website</a>
+                      <a class="btn gold" href="https://wa.me/17866900960?text=${encodeURIComponent(item.whatsapp)}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+                    </div>
+                    <div class="bottom-nav phase3-mini-nav"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        deck.appendChild(section);
+
+        const railBtn = document.createElement('button');
+        railBtn.className = 'rail-btn';
+        railBtn.setAttribute('data-go', document.querySelectorAll('.slide').length - 1);
+        railBtn.innerHTML = `<span>${item.title}</span><span>›</span>`;
+        homeRail.appendChild(railBtn);
+      });
+
+      const resultCards = document.querySelectorAll('.result-card');
+      resultCards.forEach((card, i) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'phase3-before-after';
+        wrap.innerHTML = `
+          <div class="phase3-before-after-head">Transformation Focus</div>
+          <div class="phase3-before-after-grid">
+            <div class="phase3-ba-card">
+              <strong>Before</strong>
+              <span>Localized fat, loose skin or less definition in the target area.</span>
+            </div>
+            <div class="phase3-ba-card">
+              <strong>After*</strong>
+              <span>More sculpted look, improved firmness and smoother appearance after sessions.</span>
+            </div>
+          </div>
+        `;
+        card.insertAdjacentElement('afterend', wrap);
+      });
+
+      const quoteForm = document.getElementById('quoteForm');
+      if (quoteForm && !document.getElementById('leadDate')) {
+        const fullField = quoteForm.querySelector('.field.full');
+        const dateField = document.createElement('div');
+        dateField.className = 'field';
+        dateField.innerHTML = `
+          <label for="leadDate">Preferred date</label>
+          <input id="leadDate" name="leadDate" type="date" />
+        `;
+        const timeField = document.createElement('div');
+        timeField.className = 'field';
+        timeField.innerHTML = `
+          <label for="leadTime">Preferred time</label>
+          <select id="leadTime" name="leadTime">
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+          </select>
+        `;
+        fullField.insertAdjacentElement('beforebegin', dateField);
+        fullField.insertAdjacentElement('beforebegin', timeField);
+      }
+
+      const quoteText = document.querySelector('.modal-text');
+      if (quoteText) {
+        quoteText.textContent = 'Déjanos tu interés, horario preferido y tratamiento. Esta fase ya te deja captar mejor citas y zonas de servicio.';
+      }
+
+      const style = document.createElement('style');
+      style.textContent = `
+        .phase3-seo-wrap{grid-template-columns:1fr 1fr}
+        .phase3-seo-pane{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0a0a0a 0%,#030303 100%)}
+        .phase3-seo-hero{padding:34px;text-align:left;width:100%}
+        .phase3-seo-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#f0dfc9;margin-bottom:12px}
+        .phase3-seo-hero h2{margin:0 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,5vw,68px);line-height:.95;color:#fff8ef;font-weight:500}
+        .phase3-seo-hero p{margin:0 0 16px;color:var(--muted);font-size:18px;line-height:1.45;max-width:540px}
+        .phase3-seo-tags{display:flex;flex-wrap:wrap;gap:10px}
+        .phase3-seo-tags span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);font-size:13px;color:#f5ecdf}
+        .phase3-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 18px}
+        .phase3-info-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);display:grid;gap:8px}
+        .phase3-info-card strong{font-family:Georgia,"Times New Roman",serif;font-size:18px;color:#fff8ef;font-weight:500}
+        .phase3-info-card span{font-size:14px;line-height:1.45;color:var(--muted)}
+        .phase3-before-after{margin-top:12px;padding:14px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10)}
+        .phase3-before-after-head{margin-bottom:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0dfc9}
+        .phase3-before-after-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .phase3-ba-card{padding:14px;border-radius:16px;background:#070707;border:1px solid rgba(255,255,255,.08);display:grid;gap:8px}
+        .phase3-ba-card strong{font-size:16px;color:#fff8ef}
+        .phase3-ba-card span{font-size:14px;line-height:1.45;color:var(--muted)}
+        @media (max-width: 920px){
+          .phase3-seo-wrap,.phase3-info-grid,.phase3-before-after-grid{grid-template-columns:1fr}
+          .phase3-seo-hero{padding:24px}
+        }
+      `;
+      document.head.appendChild(style);
+
+      function rebuildMiniNav(){
+        const slidesAll = [...document.querySelectorAll('.slide')];
+        slidesAll.forEach((slide, index) => slide.setAttribute('data-slide', index));
+        slidesAll.forEach((slide, index) => {
+          const nav = slide.querySelector('.bottom-nav, .phase3-mini-nav');
+          if (!nav) return;
+          const items = slidesAll.slice(1).map((s, i) => {
+            const real = i + 1;
+            if (real === index) return '';
+            const titleEl = s.querySelector('.page-title, .phase3-seo-hero h2');
+            const title = titleEl ? titleEl.textContent.trim() : `Page ${real}`;
+            return `<button class="mini-rail-btn" data-go="${real}"><span>${title}</span><span>›</span></button>`;
+          }).join('');
+          nav.innerHTML = items;
+        });
+      }
+
+      rebuildMiniNav();
+    })();
+  </script>
 </body>
 </html>
