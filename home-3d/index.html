@@ -720,36 +720,53 @@
       color:#fff8ef;
     }
 
+
     .l360-flow{
       display:grid;
       gap:14px;
     }
 
-    .l360-photo-block{
+    .l360-tech-grid{
       display:grid;
-      grid-template-columns:1.1fr .9fr;
+      grid-template-columns:1fr 1fr;
       gap:12px;
       margin-top:14px;
     }
 
-    .l360-photo-col,
-    .l360-photo-main{
-      display:grid;
-      gap:12px;
-    }
-
-    .l360-photo-block .result-card,
-    .l360-extra-beforeafter .result-card{
-      margin-top:0;
+    .l360-tech-card{
+      background:#0b0b0b;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:20px;
       overflow:hidden;
+      display:grid;
     }
 
-    .l360-photo-block .result-card img{
-      height:180px;
+    .l360-tech-card img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      display:block;
+      background:#111;
     }
 
-    .l360-photo-main .result-card img{
-      height:372px;
+    .l360-tech-copy{
+      padding:12px;
+      display:grid;
+      gap:6px;
+    }
+
+    .l360-tech-copy strong{
+      display:block;
+      color:#fff8ef;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .l360-tech-copy span{
+      display:block;
+      color:var(--muted);
+      line-height:1.4;
+      font-size:13px;
     }
 
     .l360-extra-beforeafter{
@@ -757,6 +774,11 @@
       grid-template-columns:1fr 1fr;
       gap:12px;
       margin-top:14px;
+    }
+
+    .l360-extra-beforeafter .result-card{
+      margin-top:0;
+      overflow:hidden;
     }
 
     .l360-faq{
@@ -833,12 +855,8 @@
       .floating-home .home-link{font-size:11px;padding:9px 12px}
       .whatsapp-float{bottom:24px;right:12px}
       .quote-float{bottom:96px;right:12px}
-      .l360-photo-block,.l360-extra-beforeafter{grid-template-columns:1fr}
-      .l360-photo-block .result-card img{height:170px}
-      .l360-photo-main .result-card img{height:170px}
-      .l360-photo-block,.l360-extra-beforeafter{grid-template-columns:1fr}
-      .l360-photo-block .result-card img{height:170px}
-      .l360-photo-main .result-card img{height:170px}
+      .l360-tech-grid,.l360-extra-beforeafter{grid-template-columns:1fr}
+      .l360-tech-card img{height:170px}
     }
       .page-text{font-size:15px;line-height:1.5}
       .floating-home{top:6px;margin-bottom:10px}
@@ -1279,21 +1297,36 @@
 
                         ${packageBox(slide, index)}
 
-                        <div class="l360-photo-block">
-                          <div class="l360-photo-col">
-                            <div class="result-card no-phase3">
-                              <div class="result-lab">${isSpanish ? 'Lipo Laser' : 'Lipo Laser'}</div>
-                              <img src="./lipo-laser-pads-treatment.jpg" alt="Lipo Laser pads treatment">
-                            </div>
-                            <div class="result-card no-phase3">
-                              <div class="result-lab">${isSpanish ? 'Ultrasound Cavitation' : 'Ultrasound Cavitation'}</div>
-                              <img src="./ultrasound-cavitation-treatment.jpg" alt="Ultrasound cavitation treatment">
+                        <div class="l360-tech-grid">
+                          <div class="l360-tech-card">
+                            <img src="./lipo-laser-pads-treatment.jpg" alt="Lipo Laser">
+                            <div class="l360-tech-copy">
+                              <strong>Lipo Laser</strong>
+                              <span>${isSpanish ? 'Derrite la grasa.' : 'Melts fat.'}</span>
                             </div>
                           </div>
-                          <div class="l360-photo-main">
-                            <div class="result-card no-phase3">
-                              <div class="result-lab">${isSpanish ? 'Radiofrequency' : 'Radiofrequency'}</div>
-                              <img src="./radio-frequency-rf-treatment-heads.jpg" alt="Radiofrequency RF treatment heads">
+
+                          <div class="l360-tech-card">
+                            <img src="./ultrasound-cavitation-treatment.jpg" alt="Ultrasound Cavitation">
+                            <div class="l360-tech-copy">
+                              <strong>Ultrasound Cavitation</strong>
+                              <span>${isSpanish ? 'Rompe la grasa y ayuda a eliminarla.' : 'Breaks fat and helps remove it.'}</span>
+                            </div>
+                          </div>
+
+                          <div class="l360-tech-card">
+                            <img src="./body-contouring-treatment.jpg" alt="Radiofrequency">
+                            <div class="l360-tech-copy">
+                              <strong>Radiofrequency</strong>
+                              <span>${isSpanish ? 'Tensa la piel y la deja firme.' : 'Tightens the skin and leaves it firm.'}</span>
+                            </div>
+                          </div>
+
+                          <div class="l360-tech-card">
+                            <img src="./44(1).jpg" alt="Lymphatic Drainage">
+                            <div class="l360-tech-copy">
+                              <strong>Lymphatic Drainage</strong>
+                              <span>${isSpanish ? 'Drena la grasa y desinflama el cuerpo.' : 'Drains fat and reduces bloating.'}</span>
                             </div>
                           </div>
                         </div>
@@ -1753,7 +1786,7 @@
       seoSlides.forEach((item, idx) => {
       });
 
-      const resultCards = document.querySelectorAll('.result-card');
+      const resultCards = document.querySelectorAll('.result-card:not(.no-phase3)');
       resultCards.forEach((card, i) => {
         if (card.classList.contains('no-phase3')) return;
         const wrap = document.createElement('div');
