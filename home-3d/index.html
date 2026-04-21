@@ -634,22 +634,7 @@
     }
 
     .sticky-book{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:16px;
-      z-index:59;
-      min-height:54px;
-      padding:0 20px;
-      border-radius:999px;
-      background:linear-gradient(180deg, #e6c98f 0%, #c99d46 100%);
-      color:#111;
-      font-weight:900;
-      box-shadow:0 16px 36px rgba(0,0,0,.35);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      min-width:230px;
+      display:none !important;
     }
 
     .modal{
@@ -787,9 +772,8 @@
       .page-text{font-size:15px;line-height:1.5}
       .floating-home{top:6px;margin-bottom:10px}
       .floating-home .home-link{font-size:11px;padding:9px 12px}
-      .sticky-book{display:flex}
-      .whatsapp-float{bottom:84px}
-      .quote-float{bottom:150px}
+      .whatsapp-float{bottom:24px;right:12px}
+      .quote-float{bottom:96px;right:12px}
     }
   </style>
 </head>
@@ -1136,7 +1120,6 @@
                     <div class="tool-card">
                       <h3>Packages</h3>
                       <p>Preview package pricing before booking. Good for faster yes decisions.</p>
-                      <button type="button" class="go-treatment" data-go="1">See Treatments</button>
                     </div>
                     <div class="tool-card">
                       <h3>Areas Served</h3>
@@ -1948,16 +1931,9 @@
         app.appendChild(foot);
       }
 
-      const wa=document.createElement('div'); wa.className='wa-auto'; wa.id='waAuto'; wa.textContent='Need help? Instant quote available on WhatsApp.'; document.body.appendChild(wa);
-      setTimeout(()=>wa.classList.add('show'),6000);
-      wa.addEventListener('click',()=>window.open('https://wa.me/17866900960?text=Hola,%20quiero%20un%20quote%20r%C3%A1pido.','_blank'));
+      
 
-      setTimeout(()=>{
-        if(!window.location.hash.includes('booked')){
-          const btn=document.querySelector('.sticky-book');
-          if(btn){btn.textContent='Reserve Today · Limited Spots';}
-        }
-      },3000);
+      
     })();
   </script>
 </body>
