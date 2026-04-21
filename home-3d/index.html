@@ -43,7 +43,6 @@
       overflow:hidden;
       background:#000;
       position:relative;
-      -webkit-overflow-scrolling:touch;
     }
 
     .topbar{
@@ -336,26 +335,6 @@
       align-items:stretch;
     }
 
-    .l360-stack{
-      grid-template-columns:1fr;
-      align-items:start;
-      height:auto;
-      min-height:100%;
-    }
-
-    .l360-stack .media-pane{
-      min-height:420px;
-      max-height:72vh;
-    }
-
-    @media (min-width: 921px){
-      .treatment-wrap.l360-stack .media-stage video,
-      .treatment-wrap.l360-stack .media-stage img{
-        object-position:center center;
-      }
-    }
-
-
     .media-pane{
       position:relative;
       border-radius:28px;
@@ -389,25 +368,13 @@
     .page-card{
       flex:1;
       min-height:0;
-      height:100%;
-      max-height:100%;
       border-radius:28px;
-      overflow-y:auto;
-      overflow-x:hidden;
-      overscroll-behavior:contain;
-      -webkit-overflow-scrolling:touch;
-      touch-action:pan-y;
-      scrollbar-width:thin;
-      scrollbar-color:rgba(220,194,162,.55) rgba(255,255,255,.08);
+      overflow:auto;
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
       border:1px solid rgba(255,255,255,.06);
       box-shadow:var(--shadow);
       position:relative;
     }
-
-    .page-card::-webkit-scrollbar{width:8px}
-    .page-card::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:999px}
-    .page-card::-webkit-scrollbar-thumb{background:rgba(220,194,162,.58);border-radius:999px}
 
     .page-card-inner{padding:24px 18px 18px}
 
@@ -753,267 +720,6 @@
       color:#fff8ef;
     }
 
-
-
-    .l360-hero-overlay{
-      position:absolute;
-      inset:0;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      padding:24px;
-      background:linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.18) 32%, rgba(0,0,0,.78) 100%);
-      z-index:2;
-      pointer-events:none;
-    }
-
-    .l360-kicker{
-      display:inline-flex;
-      width:max-content;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(0,0,0,.42);
-      border:1px solid rgba(255,255,255,.14);
-      color:#f3dfc4;
-      font-size:11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:10px;
-    }
-
-    .l360-hero-title{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(34px,4.2vw,64px);
-      line-height:.92;
-      color:#fff8ef;
-      text-shadow:0 10px 28px rgba(0,0,0,.36);
-    }
-
-    .l360-hero-sub{
-      margin-top:10px;
-      max-width:620px;
-      color:rgba(255,248,239,.82);
-      font-size:15px;
-      line-height:1.5;
-    }
-
-
-    .treatment-wrap.l360-stack{
-      grid-template-columns:1fr;
-      gap:16px;
-      padding:88px 24px 24px;
-      align-content:start;
-    }
-
-    .treatment-wrap.l360-stack .media-pane{
-      width:100%;
-      height:52vh;
-      min-height:340px;
-      border-radius:30px;
-    }
-
-    .treatment-wrap.l360-stack .page-card{
-      height:calc(100vh - 52vh - 150px);
-      min-height:280px;
-      overflow:auto;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-    }
-
-    .treatment-wrap.l360-stack .page-card-inner{
-      padding:20px 18px 26px;
-    }
-
-    .treatment-wrap.l360-stack .info-pane{
-      min-height:0;
-    }
-
-
-    .l360-top-actions,
-    .l360-bottom-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin:16px 0 18px;
-    }
-
-    .l360-ghost-btn,
-    .l360-gold-btn,
-    .l360-package-btn{
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      font-size:15px;
-      font-weight:900;
-      text-align:center;
-      padding:0 16px;
-    }
-
-    .l360-ghost-btn{
-      color:#fff8ef;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-    }
-
-    .l360-gold-btn,
-    .l360-package-btn{
-      color:#111;
-      background:linear-gradient(180deg,#e6c98f 0%,#c99d46 100%);
-      border:1px solid transparent;
-    }
-
-    .l360-summary-box,
-    .l360-section,
-    .l360-pricing-wrap,
-    .l360-faq,
-    .l360-gallery-wrap{
-      margin-top:16px;
-      padding:18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .l360-section-title{
-      margin:0 0 12px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:28px;
-      color:#fff8ef;
-      font-weight:500;
-    }
-
-    .l360-summary-box p,
-    .l360-faq details p,
-    .l360-note,
-    .l360-price-note{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
-      font-size:15px;
-    }
-
-    .l360-step-grid,
-    .l360-results-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-
-    .l360-step-card,
-    .l360-result-card{
-      overflow:hidden;
-      border-radius:20px;
-      background:#090909;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 14px 34px rgba(0,0,0,.22);
-    }
-
-    .l360-step-card img,
-    .l360-result-card img{
-      width:100%;
-      height:220px;
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-
-    .l360-step-copy,
-    .l360-result-copy{
-      padding:14px;
-      display:grid;
-      gap:6px;
-    }
-
-    .l360-step-copy strong,
-    .l360-result-copy strong,
-    .l360-price-card strong{
-      font-family:Georgia,"Times New Roman",serif;
-      color:#fff8ef;
-      font-weight:500;
-    }
-
-    .l360-step-copy strong{font-size:26px}
-    .l360-step-copy span,
-    .l360-result-copy span{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .l360-pricing-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-top:12px;
-    }
-
-    .l360-price-card{
-      padding:18px;
-      border-radius:20px;
-      background:#090909;
-      border:1px solid rgba(255,255,255,.08);
-      text-align:center;
-      display:grid;
-      gap:8px;
-    }
-
-    .l360-price-card strong{font-size:30px}
-    .l360-price-card .l360-price{
-      font-size:44px;
-      line-height:1;
-      color:#f3dfc4;
-      font-weight:900;
-    }
-
-    .l360-price-note{margin-top:12px;text-align:center}
-
-    .l360-faq-list{display:grid;gap:10px}
-    .l360-faq details{
-      padding:14px 16px;
-      border-radius:18px;
-      background:#090909;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .l360-faq summary{
-      cursor:pointer;
-      list-style:none;
-      color:#fff8ef;
-      font-weight:800;
-    }
-    .l360-faq summary::-webkit-details-marker{display:none}
-
-    .l360-results-grid .l360-result-card img{height:240px}
-
-    .l360-results-grid .l360-result-card.featured{
-      grid-column:1 / -1;
-    }
-
-    @media (max-width: 920px){
-      .l360-top-actions,
-      .l360-bottom-actions,
-      .l360-step-grid,
-      .l360-pricing-grid,
-      .l360-results-grid{grid-template-columns:1fr}
-      .l360-hero-overlay{padding:18px}
-      .l360-step-card img,
-      .l360-result-card img{height:190px}
-      .l360-results-grid .l360-result-card.featured{grid-column:auto}
-      .treatment-wrap.l360-stack{
-        padding:82px 12px 92px;
-        gap:12px;
-      }
-      .treatment-wrap.l360-stack .media-pane{
-        height:38vh;
-        min-height:300px;
-      }
-      .treatment-wrap.l360-stack .page-card{
-        height:calc(100vh - 38vh - 190px);
-        min-height:260px;
-      }
-    }
-
     @media (max-width: 920px){
       .treatment-wrap{
         grid-template-columns:1fr;
@@ -1022,7 +728,6 @@
       }
 
       .media-pane{height:38vh;min-height:300px}
-      .page-card{height:auto;max-height:none;min-height:0}
       .result-card img{height:170px}
       .headline{font-size:clamp(38px,9.2vw,60px)}
       .home-center{padding:50px 16px 178px}
@@ -1046,17 +751,6 @@
       .floating-home .home-link{font-size:11px;padding:9px 12px}
       .whatsapp-float{bottom:24px;right:12px}
       .quote-float{bottom:96px;right:12px}
-
-      .treatment-wrap.l360-stack{
-        gap:12px;
-        padding:82px 12px 92px;
-      }
-
-      .l360-stack .media-pane{
-        flex:0 0 34vh;
-        min-height:240px;
-        max-height:34vh;
-      }
     }
       .page-text{font-size:15px;line-height:1.5}
       .floating-home{top:6px;margin-bottom:10px}
@@ -1182,15 +876,15 @@
       results: isSpanish ? "Resultados Reales" : "Real Results",
       learn: isSpanish ? "Aprender más" : "Learn more",
       book: isSpanish ? "Agendar cita" : "Book now",
-      bookMain: isSpanish ? "Agendar cita" : "Book Appointment",
-      quoteMain: isSpanish ? "Cotización rápida por WhatsApp" : "Quick Quote on WhatsApp",
-      quickLead: isSpanish ? "Obtén precios rápido" : "Get Prices Fast",
+      bookMain: "Book Appointment",
+      quoteMain: "Quick Quote on WhatsApp",
+      quickLead: "Get Prices Fast",
       note: isSpanish ? "Resultados visibles desde primeras sesiones*" : "Visible results from first sessions*",
-      treatmentsLabel: isSpanish ? "Tratamientos" : "Treatments",
-      calcTitle: isSpanish ? "Escoger paquete" : "Choose Package",
-      calcNote: isSpanish ? "Vista previa del paquete" : "Package preview",
-      quoteBtn: isSpanish ? "Preguntar por este tratamiento" : "Ask About This Treatment",
-      packageBtn: isSpanish ? "Escoger paquete" : "Choose Package"
+      treatmentsLabel: "Treatments",
+      calcTitle: "Package Estimator",
+      calcNote: "Estimated promo preview",
+      quoteBtn: "Ask About This Treatment",
+      packageBtn: "See Package Price"
     };
 
     document.getElementById('brand').textContent = T.brand;
@@ -1200,30 +894,16 @@
       {
         nameEs: 'Lipo con Láser 360',
         nameEn: 'Lipo Laser 360',
-        textEs: 'Derrite grasa localizada y mejora contorno corporal sin cirugía y sin agujas. Con Lipo Láser, Ultrasound Cavitation y Radiofrecuencia (RF), la grasa se reduce mientras mejora flacidez, celulitis y textura de la piel.',
-        textEn: 'Melts localized fat and improves body contour without surgery or needles. With Lipo Laser, Ultrasound Cavitation, and Radiofrequency (RF), fat is reduced while improving flaccidity, cellulite, and skin texture.',
-        chipsEs: ['1ra Sesión $90','8 Sesiones $900','10 Sesiones $1000'],
-        chipsEn: ['1st Session $90','8 Sessions $900','10 Sessions $1000'],
-        learn: '#',
+        textEs: 'Derrite grasa localizada y mejora contorno corporal sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa, ayudando a definir abdomen, cintura y espalda, mientras elimina flacidez, celulitis y mejora textura de la piel.',
+        textEn: 'Melts localized fat and improves body contour without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted to help define the abdomen, waist, and back while reducing flaccidity, cellulite, and improving skin texture.',
+        chipsEs: ['Abdomen','Cintura','Espalda','Costados'],
+        chipsEn: ['Abdomen','Waist','Back','Flanks'],
+        learn: 'https://droyalspa.com/lipo-con-laser',
         book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91559773',
         video: './lipo-video.mp4',
         poster: './lipo-results.jpg',
         result: './lipo-results.jpg',
-        basePrice: 90,
-        faqEs: [
-          '¿Cuántas sesiones eligen la mayoría? Muchas empiezan con 1 sesión y luego pasan al paquete de 8 o 10 sesiones.',
-          '¿Es una lipo sin cirugía? Sí, es un tratamiento sin cirugía y sin agujas.',
-          '¿Qué incluye? Lipo Laser, Ultrasound Cavitation y Radiofrequency (RF).',
-          '¿Cuándo se empiezan a ver resultados? Muchas personas notan cambios desde las primeras sesiones.',
-          '¿Tiene tiempo de recuperación? No.'
-        ],
-        faqEn: [
-          'How many sessions do most clients choose? Many start with 1 session and then move into the 8 or 10 session package.',
-          'Is it surgery-free? Yes, it is non-surgical and needle-free.',
-          'What is included? Lipo Laser, Ultrasound Cavitation, and Radiofrequency (RF).',
-          'When do results start to show? Many people notice changes from the first sessions.',
-          'Is there downtime? No.'
-        ]
+        basePrice: 99
       },
       {
         nameEs: 'Lipo con Láser 360 con Transfer',
@@ -1254,10 +934,10 @@
         basePrice: 89
       },
       {
-        nameEs: 'Botox con Láser',
-        nameEn: 'Laser Botox',
-        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. Botox con Láser ayuda a dar firmeza a la piel, mejorar estructura, suavizar líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
-        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. Laser Botox helps firm the skin, improve structure, and soften expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
+        nameEs: 'D-Cool & RF',
+        nameEn: 'D-Cool & RF',
+        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. D-Cool da firmeza a la piel, mejora estructura, suaviza líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
+        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. D-Cool firms the skin, improves structure, and softens expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
         chipsEs: ['Rostro','Ojos','Cuello','Área de Senos'],
         chipsEn: ['Face','Eyes','Neck','Breast Area'],
         learn: 'https://droyalspa.com/d-cool-regeneracion-con-celulas-madre',
@@ -1331,24 +1011,12 @@
     const getChips = (s) => isSpanish ? s.chipsEs : s.chipsEn;
 
     function makeHomeRail() {
-      const buttons = slides.slice(1).map((s, i) => {
-        const button = `
+      return slides.slice(1).map((s, i) => `
         <button class="rail-btn" data-go="${i + 1}">
           <span>${getName(s)}</span>
           <span>›</span>
         </button>
-      `;
-        if (getName(s) === 'Botox con Láser' || getName(s) === 'Laser Botox') {
-          return button + `
-        <button class="rail-btn" type="button">
-          <span>Cool Sculpting</span>
-          <span>›</span>
-        </button>
-      `;
-        }
-        return button;
-      });
-      return buttons.join('');
+      `).join('');
     }
 
     function makeMiniRail(index) {
@@ -1386,30 +1054,19 @@
     }
 
     function packageBox(slide, index){
-      const isMainLipo = index === 1;
       return `
         <div class="package-box" data-treatment-index="${index}">
           <h4>${T.calcTitle}</h4>
           <div class="calc-grid">
             <select class="package-session-select">
-              ${isMainLipo ? `
-                <option value="1">${isSpanish ? '1ra Sesión Oferta' : '1st Session Offer'}</option>
-                <option value="8">${isSpanish ? '8 Sesiones' : '8 Sessions'}</option>
-                <option value="10">${isSpanish ? '10 Sesiones' : '10 Sessions'}</option>
-              ` : `
-                <option value="3">3 Sessions</option>
-                <option value="6">6 Sessions</option>
-                <option value="8">8 Sessions</option>
-              `}
+              <option value="3">3 Sessions</option>
+              <option value="6">6 Sessions</option>
+              <option value="8">8 Sessions</option>
             </select>
             <select class="package-area-select">
-              ${isMainLipo ? `
-                <option value="1">${isSpanish ? 'Paquete' : 'Package'}</option>
-              ` : `
-                <option value="1">${isSpanish ? '1 Área' : '1 Area'}</option>
-                <option value="2">${isSpanish ? '2 Áreas' : '2 Areas'}</option>
-                <option value="3">${isSpanish ? '3 Áreas' : '3 Areas'}</option>
-              `}
+              <option value="1">1 Area</option>
+              <option value="2">2 Areas</option>
+              <option value="3">3 Areas</option>
             </select>
           </div>
           <div class="calc-result">
@@ -1422,142 +1079,6 @@
         </div>
       `;
     }
-
-    
-function lipo360IntegratedContent(slide, index) {
-      const faqItems = isSpanish ? [
-        {
-          q: '¿Cuántas sesiones eligen la mayoría de las clientas?',
-          a: 'Muchas empiezan con 1 sesión para probar y luego eligen el paquete de 10 sesiones para ver un cambio más completo.'
-        },
-        {
-          q: '¿Es una lipo sin cirugía?',
-          a: 'Sí. Está presentada como un tratamiento corporal sin cirugía y sin agujas.'
-        },
-        {
-          q: '¿Qué incluye la sesión?',
-          a: 'Incluye Lipo Laser, Ultrasound Cavitation y Radiofrequency (RF).'
-        },
-        {
-          q: '¿Qué hace la radiofrecuencia?',
-          a: 'Ayuda a tensar la piel y mejorar la apariencia después del trabajo corporal.'
-        },
-        {
-          q: '¿Cuándo se pueden empezar a ver resultados?',
-          a: 'Muchas personas empiezan a notar cambios desde las primeras sesiones, dependiendo del cuerpo y la constancia.'
-        }
-      ] : [
-        {
-          q: 'How many sessions do most clients choose?',
-          a: 'Many start with 1 session to try it, then choose the 10-session package for a more complete change.'
-        },
-        {
-          q: 'Is it a surgery-free lipo treatment?',
-          a: 'Yes. It is presented as a non-surgical body treatment without needles.'
-        },
-        {
-          q: 'What is included in the session?',
-          a: 'It includes Lipo Laser, Ultrasound Cavitation, and Radiofrequency (RF).'
-        },
-        {
-          q: 'What does radiofrequency do?',
-          a: 'It helps tighten the skin and improve the look of the treated area after the body contouring work.'
-        },
-        {
-          q: 'When can results start to show?',
-          a: 'Many people start noticing changes from the first sessions, depending on the body and consistency.'
-        }
-      ];
-
-      return `
-        <div class="floating-home">
-          <button class="home-link" data-go="0">⌂ ${T.home}</button>
-        </div>
-
-        <div class="page-topline">
-          <span>${index}/${slides.length - 1}</span>
-        </div>
-
-        <h2 class="page-title">${getName(slide)}</h2>
-        <p class="page-text">${getText(slide)}</p>
-
-        <div class="l360-top-actions">
-          <a class="l360-gold-btn" href="${slide.book}" target="_blank" rel="noopener">${isSpanish ? 'Agendar cita' : 'Book Appointment'}</a>
-        </div>
-
-        <div class="l360-pricing-wrap">
-          <h3 class="l360-section-title">${isSpanish ? 'Precios' : 'Pricing'}</h3>
-          <div class="l360-pricing-grid">
-            <div class="l360-price-card">
-              <strong>${isSpanish ? '1ra Sesión Oferta' : '1st Session Offer'}</strong>
-              <div class="l360-price">$90</div>
-              <span class="l360-note">${isSpanish ? 'Ideal para empezar.' : 'Best way to get started.'}</span>
-            </div>
-            <div class="l360-price-card">
-              <strong>${isSpanish ? '8 Sesiones' : '8 Sessions'}</strong>
-              <div class="l360-price">$900</div>
-              <span class="l360-note">${isSpanish ? 'Paquete ahorro.' : 'Savings package.'}</span>
-            </div>
-            <div class="l360-price-card">
-              <strong>${isSpanish ? '10 Sesiones' : '10 Sessions'}</strong>
-              <div class="l360-price">$1000</div>
-              <span class="l360-note">${isSpanish ? 'Paquete completo.' : 'Complete package.'}</span>
-            </div>
-          </div>
-          <div class="l360-bottom-actions">
-            <button class="l360-package-btn scroll-to-package" data-treatment-index="${index}">${T.packageBtn}</button>
-            <a class="l360-ghost-btn" href="${slide.book}" target="_blank" rel="noopener">${isSpanish ? 'Agendar cita' : 'Book Appointment'}</a>
-          </div>
-          ${packageBox(slide, index)}
-        </div>
-
-        <div class="l360-gallery-wrap">
-          <h3 class="l360-section-title">${isSpanish ? 'Antes y Después' : 'Before & After'}</h3>
-          <div class="l360-results-grid">
-            <article class="l360-result-card featured">
-              <img src="${slide.result}" alt="${isSpanish ? 'Resultado destacado' : 'Featured result'}">
-              <div class="l360-result-copy">
-                <strong>${isSpanish ? 'Resultado destacado' : 'Featured Result'}</strong>
-                <span>${isSpanish ? 'La imagen original de resultados de tu página 3D.' : 'The original results image from your 3D page.'}</span>
-              </div>
-            </article>
-            <article class="l360-result-card">
-              <img src="./lipo-laser-360-before-after-front-abdomen.jpg" alt="${isSpanish ? 'Antes y después frontal abdomen' : 'Front abdomen before and after'}">
-              <div class="l360-result-copy">
-                <strong>${isSpanish ? 'Mujer · Vista frontal' : 'Woman · Front View'}</strong>
-                <span>${isSpanish ? 'Comparación frontal añadida para ver mejor el cambio.' : 'Front comparison added to show the change more clearly.'}</span>
-              </div>
-            </article>
-            <article class="l360-result-card">
-              <img src="./lipo-laser-360-before-after-side-waist.jpg" alt="${isSpanish ? 'Antes y después lateral cintura' : 'Side waist before and after'}">
-              <div class="l360-result-copy">
-                <strong>${isSpanish ? 'Hombre · Vista lateral' : 'Man · Side View'}</strong>
-                <span>${isSpanish ? 'Comparación lateral para mostrar cómo se ve también en hombre.' : 'Side comparison to show how it can look on a man too.'}</span>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="l360-faq">
-          <h3 class="l360-section-title">FAQ</h3>
-          <div class="l360-faq-list">
-            ${faqItems.map((item, i) => `
-              <details ${i === 0 ? 'open' : ''}>
-                <summary>${item.q}</summary>
-                <p>${item.a}</p>
-              </details>
-            `).join('')}
-          </div>
-        </div>
-
-        <div class="results-note">${T.note}</div>
-
-        <div class="bottom-nav">
-          ${makeMiniRail(index)}
-        </div>
-      `;
-    }
-
 
     deck.innerHTML = slides.map((slide, index) => {
       if (slide.type === 'home') {
@@ -1612,14 +1133,12 @@ function lipo360IntegratedContent(slide, index) {
           </section>
         `;
       }
-      const isLipo360Main = index === 1;
+
       return `
         <section class="slide treatment" data-slide="${index}">
           <div class="slide-inner">
             <div class="treatment-wrap">
-              <div class="media-pane">
-                ${mediaMarkup(slide, index)}
-              </div>
+              <div class="media-pane">${mediaMarkup(slide, index)}</div>
 
               <div class="info-pane">
                 <div class="page-card">
@@ -1646,47 +1165,17 @@ function lipo360IntegratedContent(slide, index) {
 
                     ${packageBox(slide, index)}
 
-                    ${isLipo360Main ? `
-                      <div class="result-card">
-                        <div class="result-lab">${T.results}</div>
-                        <img src="${slide.result}" alt="${T.results}">
-                      </div>
-
-                      <div class="result-card" style="margin-top:14px">
-                        <div class="result-lab">${T.results}</div>
-                        <img src="./lipo-laser-360-before-after-front-abdomen.jpg" alt="${isSpanish ? 'Antes y después frontal abdomen' : 'Front abdomen before and after'}">
-                      </div>
-
-                      <div class="result-card" style="margin-top:14px">
-                        <div class="result-lab">${T.results}</div>
-                        <img src="./lipo-laser-360-before-after-side-waist.jpg" alt="${isSpanish ? 'Antes y después lateral cintura' : 'Side waist before and after'}">
-                      </div>
-                    ` : `
-                      <div class="result-card">
-                        <div class="result-lab">${T.results}</div>
-                        <img src="${slide.result}" alt="${T.results}">
-                      </div>
-                    `}
+                    <div class="result-card">
+                      <div class="result-lab">${T.results}</div>
+                      <img src="${slide.result}" alt="${T.results}">
+                    </div>
 
                     <div class="actions">
-                      ${isLipo360Main ? `
-                        <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                      ` : `
-                        <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
-                        <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                      `}
+                      <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
+                      <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
                     </div>
 
                     <div class="results-note">${T.note}</div>
-
-                    ${isLipo360Main ? `
-                      <div class="package-box" style="margin-top:14px">
-                        <h4>${isSpanish ? 'FAQ' : 'FAQ'}</h4>
-                        <div class="page-text" style="display:grid;gap:10px">
-                          ${(isSpanish ? slide.faqEs : slide.faqEn).map(item => `<div>• ${item}</div>`).join('')}
-                        </div>
-                      </div>
-                    ` : ``}
 
                     <div class="bottom-nav">
                       ${makeMiniRail(index)}
@@ -1846,18 +1335,8 @@ function lipo360IntegratedContent(slide, index) {
       const slide = slides[index];
       const sessionValue = Number(box.querySelector('.package-session-select').value);
       const areaValue = Number(box.querySelector('.package-area-select').value);
-      let total;
-      if (index === 1) {
-        total = sessionValue === 1 ? 90 : sessionValue === 8 ? 900 : 1000;
-      } else {
-        const multiplier = sessionValue === 3 ? 1 : sessionValue === 6 ? 1.75 : 2.25;
-        total = Math.round(slide.basePrice * multiplier * areaValue);
-      }
-      box.querySelector('.calc-price').textContent = `$${total}`;
-    } else {
-        const multiplier = sessionValue === 3 ? 1 : sessionValue === 6 ? 1.75 : 2.25;
-        total = Math.round(slide.basePrice * multiplier * areaValue);
-      }
+      const multiplier = sessionValue === 3 ? 1 : sessionValue === 6 ? 1.75 : 2.25;
+      const total = Math.round(slide.basePrice * multiplier * areaValue);
       box.querySelector('.calc-price').textContent = `$${total}`;
     }
 
@@ -1928,22 +1407,7 @@ function lipo360IntegratedContent(slide, index) {
     deck.addEventListener('scroll', setActiveSlide);
     window.addEventListener('resize', () => { setActiveSlide(); forcePlayVideos(); });
 
-    document.querySelectorAll('.page-card').forEach((card) => {
-      card.addEventListener('wheel', (e) => {
-        const canScroll = card.scrollHeight > card.clientHeight + 4;
-        if (!canScroll) return;
-
-        e.preventDefault();
-        e.stopPropagation();
-        card.scrollTop += e.deltaY;
-      }, { passive:false });
-    });
-
     deck.addEventListener('wheel', (e) => {
-      if (e.target.closest('.page-card')) {
-        e.stopPropagation();
-        return;
-      }
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault();
         deck.scrollLeft += e.deltaY;
@@ -2010,7 +1474,7 @@ function lipo360IntegratedContent(slide, index) {
             <div class="phase2-chatbot-actions">
               <button data-chat-msg="Hola, quiero saber precios de Laser Lipo.">Laser Lipo</button>
               <button data-chat-msg="Hola, quiero saber sobre papada.">Double Chin</button>
-              <button data-chat-msg="Hola, quiero saber sobre Botox con Láser.">Facial</button>
+              <button data-chat-msg="Hola, quiero saber sobre D-Cool y RF facial.">Facial</button>
               <button data-chat-msg="Hola, quiero ver disponibilidad para una cita.">Book Now</button>
             </div>
           </div>
