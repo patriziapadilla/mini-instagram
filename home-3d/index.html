@@ -225,7 +225,7 @@
       color:#fff8ef;
       font-size:clamp(16px,1.3vw,23px);
       font-weight:700;
-    }}
+    }
 
     .phone-icon{font-size:1em;line-height:1}
 
@@ -710,7 +710,7 @@
     }
 
     .primary-modal-btn{
-      background:linear-gradient(180deg, #e6c98f 0%, #c99d46 100%);
+      background:linear-gradient(180deg, #5f7256 0%, #394a34 100%);
       color:#111;
     }
 
@@ -718,6 +718,25 @@
       background:rgba(255,255,255,.05);
       border:1px solid rgba(255,255,255,.12);
       color:#fff8ef;
+    }
+
+    @media (min-width: 921px){
+      .home-center{padding:34px 20px 88px !important;justify-content:flex-start !important;}
+      .headline{font-size:clamp(54px,5.4vw,98px) !important;margin-top:6px;}
+      .primary-book{
+      margin-top:12px;
+      width:min(420px, 60vw);
+      max-width:86vw;
+      padding:10px 20px;
+      background:linear-gradient(180deg,#6f7b59 0%, #505b40 100%);
+      color:#111;
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(17px,1.55vw,26px);
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.22);
+    }
+      .results-btn{margin-top:16px !important;width:min(760px,56vw) !important;}
+      .home-rail{position:relative !important;bottom:auto !important;margin-top:26px !important;background:transparent !important;padding-bottom:18px !important;}
     }
 
     @media (max-width: 920px){
@@ -934,13 +953,13 @@
         basePrice: 89
       },
       {
-        nameEs: 'D-Cool & RF',
-        nameEn: 'D-Cool & RF',
-        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. D-Cool da firmeza a la piel, mejora estructura, suaviza líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
-        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. D-Cool firms the skin, improves structure, and softens expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
+        nameEs: 'Botox Natural con Láser',
+        nameEn: 'Natural Botox with Laser',
+        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro y cuello sin cirugía y sin agujas. Botox Natural con Láser ayuda a tensar la piel, suavizar líneas de expresión, mejorar elasticidad y dar una apariencia más lisa, firme y rejuvenecida. La Radiofrecuencia (RF) complementa el tratamiento redefiniendo contorno facial, cuello y escote con un efecto natural y elegante.'},{
+        textEn: 'Improves firmness, texture, and visible rejuvenation in the face and neck without surgery or needles. Natural Botox with Laser helps tighten the skin, soften expression lines, improve elasticity, and create a smoother, firmer, more rejuvenated look. Radiofrequency (RF) enhances the treatment by redefining the facial contour, neck, and neckline with a refined natural effect.'},{
         chipsEs: ['Rostro','Ojos','Cuello','Área de Senos'],
         chipsEn: ['Face','Eyes','Neck','Breast Area'],
-        learn: 'https://droyalspa.com/d-cool-regeneracion-con-celulas-madre',
+        learn: 'https://droyalspa.com/botox-natural-con-laser',
         book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91560920',
         video: './face-video.mp4',
         poster: './face-results.jpg',
@@ -1474,7 +1493,7 @@
             <div class="phase2-chatbot-actions">
               <button data-chat-msg="Hola, quiero saber precios de Laser Lipo.">Laser Lipo</button>
               <button data-chat-msg="Hola, quiero saber sobre papada.">Double Chin</button>
-              <button data-chat-msg="Hola, quiero saber sobre D-Cool y RF facial.">Facial</button>
+              <button data-chat-msg="Hola, quiero saber sobre Botox Natural con Láser.">Facial</button>
               <button data-chat-msg="Hola, quiero ver disponibilidad para una cita.">Book Now</button>
             </div>
           </div>
