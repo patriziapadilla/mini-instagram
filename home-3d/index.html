@@ -720,6 +720,23 @@
       color:#fff8ef;
     }
 
+    .l360-gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .l360-gallery .result-card{
+      margin-top:0;
+      overflow:hidden;
+    }
+
+    .l360-gallery .result-card img{
+      height:180px;
+    }
+
+
     @media (max-width: 920px){
       .treatment-wrap{
         grid-template-columns:1fr;
@@ -751,6 +768,8 @@
       .floating-home .home-link{font-size:11px;padding:9px 12px}
       .whatsapp-float{bottom:24px;right:12px}
       .quote-float{bottom:96px;right:12px}
+      .l360-gallery{grid-template-columns:1fr}
+      .l360-gallery .result-card img{height:170px}
     }
       .page-text{font-size:15px;line-height:1.5}
       .floating-home{top:6px;margin-bottom:10px}
@@ -876,15 +895,15 @@
       results: isSpanish ? "Resultados Reales" : "Real Results",
       learn: isSpanish ? "Aprender más" : "Learn more",
       book: isSpanish ? "Agendar cita" : "Book now",
-      bookMain: "Book Appointment",
-      quoteMain: "Quick Quote on WhatsApp",
-      quickLead: "Get Prices Fast",
+      bookMain: isSpanish ? "Agendar cita" : "Book Appointment",
+      quoteMain: isSpanish ? "Cotización rápida por WhatsApp" : "Quick Quote on WhatsApp",
+      quickLead: isSpanish ? "Obtén precios rápido" : "Get Prices Fast",
       note: isSpanish ? "Resultados visibles desde primeras sesiones*" : "Visible results from first sessions*",
-      treatmentsLabel: "Treatments",
-      calcTitle: "Package Estimator",
-      calcNote: "Estimated promo preview",
-      quoteBtn: "Ask About This Treatment",
-      packageBtn: "See Package Price"
+      treatmentsLabel: isSpanish ? "Tratamientos" : "Treatments",
+      calcTitle: isSpanish ? "Escoger paquete" : "Choose Package",
+      calcNote: isSpanish ? "Vista previa del paquete" : "Package preview",
+      quoteBtn: isSpanish ? "Preguntar por este tratamiento" : "Ask About This Treatment",
+      packageBtn: isSpanish ? "Escoger paquete" : "Choose Package"
     };
 
     document.getElementById('brand').textContent = T.brand;
@@ -896,14 +915,14 @@
         nameEn: 'Lipo Laser 360',
         textEs: 'Derrite grasa localizada y mejora contorno corporal sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa, ayudando a definir abdomen, cintura y espalda, mientras elimina flacidez, celulitis y mejora textura de la piel.',
         textEn: 'Melts localized fat and improves body contour without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted to help define the abdomen, waist, and back while reducing flaccidity, cellulite, and improving skin texture.',
-        chipsEs: ['Abdomen','Cintura','Espalda','Costados'],
-        chipsEn: ['Abdomen','Waist','Back','Flanks'],
-        learn: 'https://droyalspa.com/lipo-con-laser',
+        chipsEs: [],
+        chipsEn: [],
+        learn: '#',
         book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91559773',
         video: './lipo-video.mp4',
         poster: './lipo-results.jpg',
         result: './lipo-results.jpg',
-        basePrice: 99
+        basePrice: 90
       },
       {
         nameEs: 'Lipo con Láser 360 con Transfer',
@@ -1054,19 +1073,30 @@
     }
 
     function packageBox(slide, index){
+      const isMainLipo = index === 1;
       return `
         <div class="package-box" data-treatment-index="${index}">
           <h4>${T.calcTitle}</h4>
           <div class="calc-grid">
             <select class="package-session-select">
-              <option value="3">3 Sessions</option>
-              <option value="6">6 Sessions</option>
-              <option value="8">8 Sessions</option>
+              ${isMainLipo ? `
+                <option value="1_offer">${isSpanish ? '1ra Sesión Oferta' : '1st Session Offer'}</option>
+                <option value="8">${isSpanish ? '8 Sesiones' : '8 Sessions'}</option>
+                <option value="10">${isSpanish ? '10 Sesiones' : '10 Sessions'}</option>
+              ` : `
+                <option value="3">3 Sessions</option>
+                <option value="6">6 Sessions</option>
+                <option value="8">8 Sessions</option>
+              `}
             </select>
             <select class="package-area-select">
-              <option value="1">1 Area</option>
-              <option value="2">2 Areas</option>
-              <option value="3">3 Areas</option>
+              ${isMainLipo ? `
+                <option value="1">${isSpanish ? 'Paquete' : 'Package'}</option>
+              ` : `
+                <option value="1">1 Area</option>
+                <option value="2">2 Areas</option>
+                <option value="3">3 Areas</option>
+              `}
             </select>
           </div>
           <div class="calc-result">
@@ -1074,7 +1104,7 @@
               <div>${T.calcNote}</div>
               <strong>${getName(slide)}</strong>
             </div>
-            <div class="calc-price">$${slide.basePrice}</div>
+            <div class="calc-price">$${isMainLipo ? 90 : slide.basePrice}</div>
           </div>
         </div>
       `;
@@ -1170,8 +1200,25 @@
                       <img src="${slide.result}" alt="${T.results}">
                     </div>
 
+                    ${index === 1 ? `
+                      <div class="l360-gallery">
+                        <div class="result-card">
+                          <div class="result-lab">${isSpanish ? 'Lipo Laser' : 'Lipo Laser'}</div>
+                          <img src="./lipo-laser-pads-treatment.jpg" alt="Lipo Laser pads treatment">
+                        </div>
+                        <div class="result-card">
+                          <div class="result-lab">${isSpanish ? 'Ultrasound Cavitation' : 'Ultrasound Cavitation'}</div>
+                          <img src="./ultrasound-cavitation-treatment.jpg" alt="Ultrasound cavitation treatment">
+                        </div>
+                        <div class="result-card">
+                          <div class="result-lab">${isSpanish ? 'Radiofrequency' : 'Radiofrequency'}</div>
+                          <img src="./radio-frequency-rf-treatment-heads.jpg" alt="Radiofrequency RF treatment heads">
+                        </div>
+                      </div>
+                    ` : ''}
+
                     <div class="actions">
-                      <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
+                      ${index === 1 ? '' : `<a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>`}
                       <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
                     </div>
 
@@ -1333,10 +1380,20 @@
     function updatePackagePrice(box){
       const index = Number(box.dataset.treatmentIndex);
       const slide = slides[index];
-      const sessionValue = Number(box.querySelector('.package-session-select').value);
+      const sessionValue = box.querySelector('.package-session-select').value;
       const areaValue = Number(box.querySelector('.package-area-select').value);
-      const multiplier = sessionValue === 3 ? 1 : sessionValue === 6 ? 1.75 : 2.25;
-      const total = Math.round(slide.basePrice * multiplier * areaValue);
+      let total;
+
+      if (index === 1) {
+        if (sessionValue === '1_offer') total = 90;
+        if (sessionValue === '8') total = 900;
+        if (sessionValue === '10') total = 1000;
+      } else {
+        const sessionNum = Number(sessionValue);
+        const multiplier = sessionNum === 3 ? 1 : sessionNum === 6 ? 1.75 : 2.25;
+        total = Math.round(slide.basePrice * multiplier * areaValue);
+      }
+
       box.querySelector('.calc-price').textContent = `$${total}`;
     }
 
