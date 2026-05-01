@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>D'Royal Spa · Montfort-style mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0807;
+  --gold:#c9a875;
+  --gold-bright:#e8c789;
+  --cream:#efe2cf;
+  --bronze:#8a6c47;
+  --muted:rgba(239,226,207,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',sans-serif;background:#0a0807;color:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* ============== TOP NAV (montfort style) ============== */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:26px 56px;
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+}
+.topnav .left{display:flex;gap:36px;align-items:center}
+.topnav .left a{color:var(--cream);text-decoration:none;opacity:.78;transition:.3s}
+.topnav .left a:hover{color:var(--gold);opacity:1}
+.topnav .center{
+  font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);
+  white-space:nowrap;
+}
+.topnav .center .dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold);margin:0 14px;vertical-align:middle}
+.topnav .right{display:flex;gap:24px;align-items:center;justify-content:flex-end;color:var(--cream)}
+.topnav .right .sub{display:flex;gap:24px;opacity:.7}
+.topnav .right .pill{padding:8px 16px;border:1px solid rgba(201,168,117,.32);border-radius:0;color:var(--gold)}
+
+.topnav-line{position:fixed;top:80px;left:56px;right:56px;z-index:99;height:1px;background:rgba(201,168,117,.16)}
+
+/* ============== SIDE PROGRESS NAV (montfort vertical chapters) ============== */
+.progressnav{
+  position:fixed;left:42px;top:50%;transform:translateY(-50%);z-index:90;
+  display:flex;flex-direction:column;gap:0;padding:24px 0;
+}
+.pn-item{
+  position:relative;padding:14px 0 14px 22px;
+  font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:color .3s;
+}
+.pn-item .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:0;width:18px;color:var(--bronze)}
+.pn-item .ln{display:block;width:24px;height:1px;background:rgba(201,168,117,.22);transition:.4s}
+.pn-item.active{color:var(--cream)}
+.pn-item.active .num{color:var(--gold-bright)}
+.pn-item.active .ln{width:54px;background:var(--gold-bright)}
+.pn-item.active::before{content:"◆";position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--gold-bright);font-size:7px}
+
+/* ============== LIVE VIDEO WIDGET (small corner, like CCTV) ============== */
+.live-widget{
+  position:fixed;bottom:32px;right:56px;z-index:95;
+  width:280px;height:170px;
+  border:1px solid rgba(201,168,117,.45);
+  background:#000;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 0 60px rgba(201,168,117,.08);
+  transition:all .4s ease;
+}
+.live-widget::before{content:"";position:absolute;inset:8px;border:1px solid rgba(201,168,117,.32);z-index:5;pointer-events:none}
+.live-widget video{width:100%;height:100%;object-fit:cover;filter:contrast(1.06) saturate(.96)}
+.live-tag{position:absolute;top:14px;left:14px;z-index:6;display:flex;align-items:center;gap:8px;padding:5px 10px;background:rgba(0,0,0,.6);font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-bright);backdrop-filter:blur(6px);border:1px solid rgba(201,168,117,.22)}
+.live-tag .dot{width:6px;height:6px;border-radius:50%;background:#ff4444;box-shadow:0 0 0 3px rgba(255,68,68,.22);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.live-caption{position:absolute;bottom:14px;left:14px;right:14px;z-index:6;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.live-caption .ts{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--gold-bright)}
+
+/* ============== SECTION (montfort hero clone) ============== */
+.section{
+  position:relative;height:100vh;width:100%;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.atmos{
+  position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  background-size:cover;background-position:center;
+  filter:contrast(1.18) saturate(.6) sepia(.45) brightness(.55);
+  transform:scale(1.08);
+}
+.atmos-veil{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 0%,rgba(10,8,7,.55) 70%,rgba(10,8,7,.92) 100%),
+    linear-gradient(180deg,rgba(10,8,7,.7) 0%,rgba(10,8,7,.15) 28%,rgba(10,8,7,.15) 65%,rgba(10,8,7,.92) 100%);
+}
+.atmos-mist{
+  position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;
+  background:
+    radial-gradient(ellipse 1200px 600px at 30% 20%,rgba(232,199,137,.55),transparent 70%),
+    radial-gradient(ellipse 1000px 500px at 80% 90%,rgba(201,168,117,.4),transparent 70%);
+}
+.atmos-grain{position:absolute;inset:0;z-index:4;opacity:.10;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+
+.atmos-particles{position:absolute;inset:0;z-index:5;pointer-events:none;
+  background-image:
+    radial-gradient(circle 1.5px at 10% 20%,rgba(232,199,137,.7),transparent),
+    radial-gradient(circle 2px at 25% 60%,rgba(232,199,137,.5),transparent),
+    radial-gradient(circle 1.2px at 50% 30%,rgba(232,199,137,.6),transparent),
+    radial-gradient(circle 1.8px at 70% 70%,rgba(232,199,137,.55),transparent),
+    radial-gradient(circle 1.2px at 85% 25%,rgba(232,199,137,.6),transparent),
+    radial-gradient(circle 1.5px at 40% 85%,rgba(232,199,137,.5),transparent),
+    radial-gradient(circle 1px at 65% 15%,rgba(232,199,137,.6),transparent),
+    radial-gradient(circle 1.5px at 15% 80%,rgba(232,199,137,.5),transparent);
+}
+
+/* HERO COMPOSITION */
+.hero-content{position:relative;z-index:10;text-align:center;padding:0 120px;max-width:1600px;width:100%}
+
+.hero-meta-top{
+  position:absolute;top:120px;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);
+}
+.hero-meta-top .ln{display:block;width:120px;height:1px;background:rgba(201,168,117,.32);margin-top:8px}
+
+.hero-eyebrow{font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold);margin-bottom:36px;display:flex;align-items:center;gap:18px;justify-content:center}
+.hero-eyebrow .b{display:block;width:42px;height:1px;background:var(--gold)}
+
+/* SPACED CHARS like montfort */
+.hero-h{
+  font-family:'Cormorant Garamond',serif;font-weight:400;
+  font-size:clamp(40px,5.6vw,96px);line-height:1.05;color:var(--cream);
+  letter-spacing:.16em;
+}
+.hero-h em{font-style:italic;color:var(--gold-bright);font-weight:300}
+
+.hero-sub{
+  margin-top:36px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(18px,1.6vw,26px);color:var(--cream);opacity:.86;
+  max-width:780px;margin-left:auto;margin-right:auto;line-height:1.55;
+}
+
+.hero-btn{
+  margin-top:48px;display:inline-flex;align-items:center;gap:14px;
+  padding:0;
+  font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold-bright);
+  border:none;background:none;cursor:pointer;
+  border-bottom:1px solid var(--gold-bright);padding-bottom:6px;
+  text-decoration:none;
+}
+.hero-btn .a{display:inline-block;font-size:14px;transform:translateY(-1px)}
+
+/* BOTTOM HUD */
+.hud{
+  position:absolute;bottom:42px;left:0;right:0;z-index:9;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:0 56px;
+  font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);
+}
+.hud .scroll{display:flex;align-items:center;gap:14px}
+.hud .scroll .arr{display:inline-block;width:1px;height:36px;background:linear-gradient(180deg,var(--gold-bright) 0%,transparent 100%);position:relative}
+.hud .scroll .arr::after{content:"";position:absolute;bottom:0;left:-3px;width:7px;height:7px;border-right:1px solid var(--gold-bright);border-bottom:1px solid var(--gold-bright);transform:rotate(45deg)}
+.hud .stars{color:var(--gold-bright);letter-spacing:.18em}
+
+/* numbered chapter marker (montfort style) */
+.ch-num{
+  position:absolute;left:80px;top:160px;z-index:8;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-bright);
+  display:flex;flex-direction:column;gap:6px;
+}
+.ch-num .big{font-size:64px;line-height:.9;color:var(--gold-bright);font-style:italic;font-weight:300}
+.ch-num .lbl{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);font-style:normal;font-family:'Inter',sans-serif}
+
+/* SECOND TYPE: split treatment with caption like montfort divisions */
+.section-split .hero-content{text-align:left;display:grid;grid-template-columns:.55fr .45fr;gap:80px;align-items:center;padding:0 120px}
+.split-left .ch-mark{display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.split-left .ch-mark .ln{width:42px;height:1px;background:var(--gold)}
+.split-left .ch-mark .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;letter-spacing:0;color:var(--gold-bright)}
+.split-left .title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,6vw,108px);line-height:.95;color:var(--cream);letter-spacing:.06em}
+.split-left .title em{font-style:italic;color:var(--gold-bright);font-weight:300}
+.split-left .desc{margin-top:32px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--cream);opacity:.86;max-width:480px;line-height:1.55}
+.split-left .stats{display:flex;gap:48px;margin-top:36px}
+.split-left .stat .n{font-family:'Cormorant Garamond',serif;font-size:54px;color:var(--gold-bright);line-height:1;font-weight:300}
+.split-left .stat .n sup{font-size:.4em;color:var(--bronze);margin-left:2px}
+.split-left .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+.split-left .ctas{display:flex;gap:24px;margin-top:42px;align-items:center}
+.split-left .cta-line{display:inline-flex;align-items:center;gap:14px;color:var(--gold-bright);text-decoration:none;font-size:10px;letter-spacing:.5em;text-transform:uppercase;border-bottom:1px solid var(--gold-bright);padding-bottom:6px}
+
+.split-right{position:relative;width:100%}
+.split-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:32px;color:var(--cream);opacity:.78;line-height:1.3;max-width:480px;margin-left:auto}
+.split-quote::before{content:"";display:block;width:42px;height:1px;background:var(--gold);margin-bottom:32px}
+.split-quote-author{margin-top:24px;font-family:'Inter',sans-serif;font-style:normal;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze)}
+
+/* corner deco */
+.dc{position:absolute;width:30px;height:30px;border:1px solid rgba(201,168,117,.4);z-index:6;pointer-events:none}
+.dc.tl{top:96px;left:54px;border-right:none;border-bottom:none}
+.dc.tr{top:96px;right:54px;border-left:none;border-bottom:none}
+.dc.bl{bottom:96px;left:54px;border-right:none;border-top:none}
+.dc.br{bottom:96px;right:54px;border-left:none;border-top:none}
+
+</style>
+</head>
+<body>
+
+<!-- ========== TOP NAV ========== -->
+<nav class="topnav">
+  <div class="left">
+    <a href="#">D'Royal</a>
+    <a href="#">Treatments</a>
+    <a href="#">Results</a>
+    <a href="#">Areas</a>
+  </div>
+  <div class="center">D'Royal<span class="dot"></span>Spa</div>
+  <div class="right">
+    <div class="sub"><span>+1 786 690 0960</span><span>EN / ES</span></div>
+    <span class="pill">Booking</span>
+  </div>
+</nav>
+<div class="topnav-line"></div>
+
+<!-- ========== SIDE PROGRESS NAV ========== -->
+<aside class="progressnav">
+  <div class="pn-item active"><span class="num">01</span><span class="ln"></span><span>Welcome</span></div>
+  <div class="pn-item"><span class="num">02</span><span class="ln"></span><span>Lipo Laser</span></div>
+  <div class="pn-item"><span class="num">03</span><span class="ln"></span><span>Lipo Transfer</span></div>
+  <div class="pn-item"><span class="num">04</span><span class="ln"></span><span>Chin</span></div>
+  <div class="pn-item"><span class="num">05</span><span class="ln"></span><span>Breast</span></div>
+  <div class="pn-item"><span class="num">06</span><span class="ln"></span><span>Glute</span></div>
+  <div class="pn-item"><span class="num">07</span><span class="ln"></span><span>Arms</span></div>
+  <div class="pn-item"><span class="num">08</span><span class="ln"></span><span>Legs</span></div>
+</aside>
+
+<!-- ========== LIVE VIDEO WIDGET ========== -->
+<div class="live-widget">
+  <video autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg">
+    <source src="home-video.mp4" type="video/mp4">
+  </video>
+  <div class="live-tag"><span class="dot"></span><span>Live · Session</span></div>
+  <div class="live-caption"><span>Ch.01 — Welcome</span><span class="ts">In-Home Ritual</span></div>
+</div>
+
+<!-- ========== SECTION 01 · WELCOME / HERO ========== -->
+<section class="section" id="s01">
+  <div class="atmos" style="background-image:url('home-video-frame.jpg')"></div>
+  <div class="atmos-veil"></div>
+  <div class="atmos-mist"></div>
+  <div class="atmos-grain"></div>
+  <div class="atmos-particles"></div>
+
+  <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+
+  <div class="ch-num"><span class="big">01</span><span class="lbl">Chapter / Welcome</span></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="b"></span><span>Miami's In-Home Luxury Spa</span><span class="b"></span></div>
+    <h1 class="hero-h">D' R o y a l &nbsp; S p a &nbsp;&nbsp; i s &nbsp;&nbsp; a &nbsp;&nbsp; <em>l u x u r y</em> &nbsp;&nbsp; b o d y &nbsp;&nbsp; <br>s c u l p t i n g &nbsp;&nbsp; <em>r i t u a l</em> &nbsp;&nbsp; b r o u g h t &nbsp;&nbsp; t o &nbsp;&nbsp; y o u r &nbsp;&nbsp; h o m e .</h1>
+    <p class="hero-sub">Eight signature surgery-free treatments — performed by certified specialists in the discretion of your residence across Brickell, Downtown, Doral and Miami Beach.</p>
+    <a class="hero-btn" href="#"><span>Discover the Rituals</span><span class="a">↓</span></a>
+  </div>
+
+  <div class="hud">
+    <div class="scroll"><span>Scroll · Discover</span><span class="arr"></span></div>
+    <div><span class="stars">★ ★ ★ ★ ★</span> &nbsp; Rated 5 Stars · Miami</div>
+  </div>
+</section>
+
+<!-- ========== SECTION 02 · TREATMENT LIPO LASER ========== -->
+<section class="section section-split" id="s02">
+  <div class="atmos" style="background-image:url('lipo-video-frame.jpg')"></div>
+  <div class="atmos-veil"></div>
+  <div class="atmos-mist"></div>
+  <div class="atmos-grain"></div>
+  <div class="atmos-particles"></div>
+
+  <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+
+  <div class="ch-num"><span class="big">02</span><span class="lbl">Chapter / Lipo Laser</span></div>
+
+  <div class="hero-content">
+    <div class="split-left">
+      <div class="ch-mark"><span class="ln"></span><span class="num">02</span><span>Signature · Body Sculpting</span></div>
+      <h2 class="title">L i p o &nbsp; L a s e r &nbsp; <em>3 6 0 °</em></h2>
+      <p class="desc">A non-invasive sculpting protocol that melts localized fat while refining contour, texture and skin tone — choreographed in a single ritual.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">$90</div><div class="l">First Session</div></div>
+        <div class="stat"><div class="n">45<sup>m</sup></div><div class="l">Per Area</div></div>
+        <div class="stat"><div class="n">8<sup>+</sup></div><div class="l">Sessions</div></div>
+      </div>
+      <div class="ctas">
+        <a class="cta-line" href="#"><span>Reserve Now</span><span>→</span></a>
+        <a class="cta-line" href="#" style="color:var(--cream);border-bottom-color:rgba(239,226,207,.32)"><span>View Results</span><span>↗</span></a>
+      </div>
+    </div>
+    <div class="split-right">
+      <div class="split-quote">
+        "Sculpted in silence. Revealed in gold."
+        <div class="split-quote-author">— D'Royal Spa, Miami</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hud">
+    <div class="scroll"><span>Continue · Chapter 03</span><span class="arr"></span></div>
+    <div>02 / 08 &nbsp;·&nbsp; Lipo Laser 360°</div>
+  </div>
+</section>
+
+<script>
+  // dynamic live widget content per section + active progress nav
+  const sections = document.querySelectorAll('.section');
+  const progress = document.querySelectorAll('.pn-item');
+  const liveVid = document.querySelector('.live-widget video');
+  const liveCap = document.querySelector('.live-caption');
+  const liveTag = document.querySelector('.live-tag span:last-child');
+
+  const meta = [
+    {label:'Ch.01 — Welcome', ts:'In-Home Ritual'},
+    {label:'Ch.02 — Lipo Laser', ts:'Live · Procedure'},
+  ];
+  const sources = ['home-video.mp4','lipo-video.mp4'];
+
+  function update(){
+    const top = window.scrollY;
+    const h = window.innerHeight;
+    const idx = Math.round(top / h);
+    progress.forEach((p,i)=>p.classList.toggle('active', i===idx));
+    if (sources[idx] && !liveVid.src.endsWith(sources[idx])) {
+      liveVid.src = sources[idx];
+      liveVid.play().catch(()=>{});
+    }
+    if (meta[idx]) {
+      liveCap.querySelector('span:first-child').textContent = meta[idx].label;
+      liveCap.querySelector('.ts').textContent = meta[idx].ts;
+    }
+  }
+  window.addEventListener('scroll', update);
+  update();
+</script>
+</body>
+</html>
