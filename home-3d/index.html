@@ -1,2450 +1,923 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D’Royal Spa · Home 3D</title>
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:#0b0b0b;
-      --line:rgba(255,255,255,.10);
-      --gold:#dcc2a2;
-      --cream:#efe2d4;
-      --text:#f8efe7;
-      --muted:rgba(248,239,231,.78);
-      --shadow:0 24px 70px rgba(0,0,0,.34);
-      --whatsapp:#25D366;
-      --danger:#ffefe3;
-    }
-
-    *{box-sizing:border-box}
-    html,body{
-      margin:0;
-      padding:0;
-      background:#000;
-      color:var(--text);
-      font-family:Arial,Helvetica,sans-serif;
-      overflow:hidden;
-    }
-
-    a{color:inherit;text-decoration:none}
-    button,input,select{font:inherit}
-    button{
-      border:none;
-      background:none;
-      color:inherit;
-      cursor:pointer;
-    }
-
-    .app{
-      width:100%;
-      height:100vh;
-      overflow:hidden;
-      background:#000;
-      position:relative;
-    }
-
-    .topbar{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:50;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:12px;
-      padding:14px 16px;
-      background:linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.08));
-      pointer-events:none;
-    }
-
-    .topbar > *{pointer-events:auto}
-    .topbar-center{text-align:center;flex:1;min-width:0}
-
-    .brand{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(22px,2.6vw,34px);
-      font-weight:500;
-      color:var(--gold);
-      letter-spacing:.02em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .deck{
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      overflow-x:hidden;
-      overflow-y:auto;
-      scroll-snap-type:y mandatory;
-      scroll-behavior:smooth;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      perspective:1400px;
-      perspective-origin:50% 50%;
-    }
-
-    .deck::-webkit-scrollbar{display:none}
-
-    .slide{
-      flex:0 0 100vh;
-      width:100%;
-      height:100vh;
-      scroll-snap-align:start;
-      position:relative;
-      overflow:hidden;
-      background:#000;
-      transform-style:preserve-3d;
-      --p:0; /* scroll progress -1 (above) .. 0 (centered) .. 1 (below) */
-      --abs-p:0;
-    }
-
-    .slide-inner{
-      width:100%;
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      opacity:0;
-      transform:translate3d(0, calc(var(--p) * 60px), -140px) rotateX(calc(var(--p) * 10deg)) scale(.96);
-      transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
-      will-change:opacity, transform;
-      transform-style:preserve-3d;
-    }
-
-    .slide.active .slide-inner{
-      opacity:1;
-      transform:translate3d(0, calc(var(--p) * 24px), 0) rotateX(calc(var(--p) * 3deg)) scale(1);
-    }
-
-    /* Parallax layers driven by --p */
-    .home-video,
-    .media-stage video,
-    .media-stage img{
-      transform:translate3d(0, calc(var(--p) * 8%), 0) scale(calc(1.06 + var(--abs-p) * 0.04));
-      transition:transform .15s linear;
-      will-change:transform;
-    }
-
-    .home-center,
-    .treatment-wrap{
-      transform:translate3d(0, calc(var(--p) * -28px), 0);
-      transition:transform .2s linear;
-      will-change:transform;
-    }
-
-    .home-rail,
-    .bottom-nav,
-    .phase3-mini-nav{
-      transform:translate3d(0, calc(var(--p) * 40px), 0);
-      transition:transform .2s linear;
-      will-change:transform;
-    }
-
-    /* Staggered child reveal when slide becomes active */
-    .slide .home-center > *,
-    .slide .home-tools,
-    .slide .home-rail,
-    .slide .treatment-wrap > *,
-    .slide .page-card{
-      opacity:0;
-      transform:translateY(22px);
-      transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
-    }
-
-    .slide.active .home-center > *,
-    .slide.active .home-tools,
-    .slide.active .home-rail,
-    .slide.active .treatment-wrap > *,
-    .slide.active .page-card{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    .slide.active .home-center > *:nth-child(1){transition-delay:.08s}
-    .slide.active .home-center > *:nth-child(2){transition-delay:.16s}
-    .slide.active .home-center > *:nth-child(3){transition-delay:.22s}
-    .slide.active .home-center > *:nth-child(4){transition-delay:.28s}
-    .slide.active .home-center > *:nth-child(5){transition-delay:.34s}
-    .slide.active .home-center > *:nth-child(6){transition-delay:.40s}
-    .slide.active .home-center > *:nth-child(7){transition-delay:.46s}
-    .slide.active .home-center > *:nth-child(n+8){transition-delay:.52s}
-    .slide.active .home-tools{transition-delay:.58s}
-    .slide.active .home-rail{transition-delay:.64s}
-    .slide.active .treatment-wrap > *:nth-child(1){transition-delay:.12s}
-    .slide.active .treatment-wrap > *:nth-child(2){transition-delay:.22s}
-    .slide.active .page-card{transition-delay:.18s}
-
-    .home-video-wrap{
-      position:relative;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      background:#000;
-    }
-
-    .home-video{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:0;
-      background:#000;
-    }
-
-    .home-overlay{
-      position:absolute;
-      inset:0;
-      z-index:1;
-      background:linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.32) 32%, rgba(0,0,0,.70) 76%, rgba(0,0,0,.95) 100%);
-    }
-
-    .home-center{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:56px 20px 148px;
-      position:relative;
-      z-index:2;
-    }
-
-    .headline{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(44px,6.2vw,82px);
-      line-height:.92;
-      font-weight:500;
-      color:#fff9f1;
-      max-width:920px;
-    }
-
-    .review-link{
-      margin-top:10px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:7px 14px;
-      border-radius:999px;
-      background:rgba(0,0,0,.32);
-      border:1px solid rgba(255,255,255,.10);
-      color:#f3ddba;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(15px,1.15vw,20px);
-      line-height:1;
-    }
-
-    .review-stars{letter-spacing:.06em;font-size:1em}
-
-    .home-tagline{
-      margin-top:10px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,1.8vw,30px);
-      color:#fff6eb;
-    }
-
-    .areas{
-      margin-top:8px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(16px,1.8vw,25px);
-      color:#f3e7d8;
-    }
-
-    .offer{
-      margin-top:10px;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(10,10,10,.34);
-      font-size:14px;
-    }
-
-    .offer b{
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(220,194,162,.18);
-      color:#fff4e8;
-    }
-
-    .primary-book,
-    .secondary-cta,
-    .results-btn{margin-top:12px;display:flex;align-items:center;gap:14px;max-width:620px;width:min(90vw,620px);padding:12px 18px;border-radius:24px;background:rgba(8,8,8,.58);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px);color:#f6ead7;text-align:left;box-shadow:0 18px 40px rgba(0,0,0,.32)}
-    .results-thumb{width:56px;height:56px;border-radius:16px;background:url('./lipo-results.jpg') center/cover no-repeat;flex:0 0 56px}
-    .results-copy{display:flex;flex-direction:column;line-height:1.15}
-    .results-copy strong{font-size:28px;font-family:Georgia,"Times New Roman",serif;font-weight:700}
-    .results-copy small{font-size:14px;opacity:.82;margin-top:4px}
-    .results-arrow{margin-left:auto;font-size:44px;line-height:1;color:#d8b15c}
-    .phone-link{
-      margin-top:9px;
-      gap:8px;
-      padding:9px 18px;
-      background:rgba(0,0,0,.48);
-      border:1px solid rgba(255,255,255,.14);
-      color:#fff8ef;
-      font-size:clamp(16px,1.3vw,23px);
-      font-weight:700;
-    }}
-
-    .phone-icon{font-size:1em;line-height:1}
-
-    .treatments-label{
-      margin-top:14px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(18px,1.7vw,30px);
-      color:#fff2df;
-    }
-
-    .home-tools{
-      margin-top:18px;
-      width:min(900px, 94vw);
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      position:relative;
-      z-index:2;
-    }
-
-    .tool-card{
-      padding:14px 14px 16px;
-      border-radius:22px;
-      background:rgba(6,6,6,.58);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(6px);
-      box-shadow:var(--shadow);
-      text-align:left;
-    }
-
-    .tool-card h3{
-      margin:0 0 8px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:18px;
-      color:#fff8ef;
-      font-weight:500;
-    }
-
-    .tool-card p{
-      margin:0 0 12px;
-      font-size:14px;
-      line-height:1.45;
-      color:var(--muted);
-    }
-
-    .tool-card button,
-    .tool-card a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:42px;
-      padding:0 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      color:#fff8ef;
-      font-weight:700;
-      width:100%;
-    }
-
-    .home-rail{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:38px;
-      z-index:3;
-      display:grid;
-      gap:1px;
-      padding:0 0 4px;
-      background:linear-gradient(180deg, transparent, rgba(0,0,0,.76) 24%, rgba(0,0,0,.97) 100%);
-    }
-
-    .rail-btn,
-    .mini-rail-btn{
-      width:100%;
-      text-align:left;
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      padding:0 14px;
-      background:#030303;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      border-left:none;
-      border-right:none;
-      border-radius:0;
-      font-family:Georgia,"Times New Roman",serif;
-      color:#fff8ef;
-      margin:0;
-      min-width:0;
-    }
-
-    .rail-btn{height:26px;font-size:clamp(12px,0.96vw,16px);line-height:1}
-    .mini-rail-btn{height:26px;font-size:12px;line-height:1}
-
-    .treatment{
-      background:radial-gradient(circle at top left, rgba(255,255,255,.04), transparent 24%),linear-gradient(180deg, #080808 0%, #000 100%);
-    }
-
-    .treatment-wrap{
-      width:100%;
-      height:100%;
-      padding:88px 16px 72px;
-      display:grid;
-      grid-template-columns:1.04fr .96fr;
-      gap:18px;
-      align-items:stretch;
-    }
-
-    .media-pane{
-      position:relative;
-      border-radius:28px;
-      overflow:hidden;
-      background:#111;
-      box-shadow:var(--shadow);
-      min-height:0;
-    }
-
-    .media-stage{
-      width:100%;
-      height:100%;
-      position:relative;
-      background:#0e0e0e;
-    }
-
-    .media-stage video,
-    .media-stage img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-
-    .fallback-image{display:none}
-    .fallback-image.show{display:block}
-    .hidden-video{display:none}
-    .info-pane{display:flex;flex-direction:column;min-height:0}
-
-    .page-card{
-      flex:1;
-      min-height:0;
-      border-radius:28px;
-      overflow:auto;
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow:var(--shadow);
-      position:relative;
-    }
-
-    .page-card-inner{padding:24px 18px 18px}
-
-    .floating-home{
-      position:sticky;
-      top:10px;
-      z-index:12;
-      display:flex;
-      justify-content:flex-start;
-      margin-bottom:14px;
-      pointer-events:none;
-    }
-
-    .floating-home .home-link{
-      pointer-events:auto;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(0,0,0,.72);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 10px 24px rgba(0,0,0,.28);
-      color:#fff8ef;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      backdrop-filter:blur(6px);
-    }
-
-    .page-topline{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:10px;
-      margin-bottom:12px;
-      color:rgba(255,255,255,.82);
-    }
-
-    .page-title{
-      margin:0 0 12px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:clamp(34px,4vw,62px);
-      line-height:.94;
-      font-weight:500;
-      color:#fff8ef;
-    }
-
-    .page-text{
-      margin:0;
-      font-size:clamp(15px,1.12vw,18px);
-      line-height:1.55;
-      color:var(--muted);
-    }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:18px 0 16px;
-    }
-
-    .chip{
-      padding:8px 13px;
-      border-radius:999px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.10);
-      color:#f5ecdf;
-      font-size:13px;
-      line-height:1;
-    }
-
-    .quick-tools{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin:12px 0 14px;
-    }
-
-    .quick-tools button{
-      min-height:44px;
-      padding:0 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      color:#fff8ef;
-      font-weight:700;
-    }
-
-    .package-box{
-      margin:10px 0 16px;
-      padding:14px;
-      border-radius:20px;
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .package-box h4{
-      margin:0 0 10px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:20px;
-      font-weight:500;
-      color:#fff8ef;
-    }
-
-    .calc-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .calc-grid select,
-    .calc-grid input{
-      width:100%;
-      min-height:44px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:#050505;
-      color:#fff8ef;
-      padding:0 12px;
-    }
-
-    .calc-result{
-      margin-top:12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .calc-price{
-      font-size:24px;
-      font-weight:800;
-      color:#fff4e8;
-    }
-
-    .result-card{
-      overflow:hidden;
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-      margin-top:4px;
-    }
-
-    .result-lab{
-      padding:10px 8px;
-      text-align:center;
-      font-size:12px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      background:#000;
-      color:#f6ecdf;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .result-card img{
-      width:100%;
-      height:240px;
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:18px;
-    }
-
-    .btn{
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      font-size:16px;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,.14);
-      padding:0 14px;
-      text-align:center;
-    }
-
-    .btn.light{background:transparent;color:#fff}
-    .btn.gold{background:var(--cream);color:#111;border-color:transparent}
-
-    .results-note{
-      margin-top:10px;
-      text-align:center;
-      font-size:11px;
-      letter-spacing:.04em;
-      color:rgba(255,255,255,.62);
-    }
-
-    .bottom-nav{margin-top:12px;display:grid;gap:4px}
-
-    .whatsapp-float,
-    .quote-float{
-      position:fixed;
-      right:16px;
-      width:56px;
-      height:56px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 16px 36px rgba(0,0,0,.35);
-      font-size:24px;
-      z-index:60;
-    }
-
-    .whatsapp-float{
-      bottom:16px;
-      background:var(--whatsapp);
-      color:#fff;
-    }
-
-    .quote-float{
-      bottom:82px;
-      background:#f3dfc4;
-      color:#111;
-      border:none;
-      font-weight:900;
-      font-size:22px;
-    }
-
-    .sticky-book{
-      display:none !important;
-    }
-
-    .modal{
-      position:fixed;
-      inset:0;
-      z-index:120;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      background:rgba(0,0,0,.72);
-      backdrop-filter:blur(6px);
-    }
-
-    .modal.open{display:flex}
-
-    .modal-card{
-      width:min(560px, 100%);
-      max-height:90vh;
-      overflow:auto;
-      background:#090909;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-
-    .modal-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
-    }
-
-    .modal-title{
-      margin:0;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:30px;
-      font-weight:500;
-      color:#fff8ef;
-    }
-
-    .close-btn{
-      width:40px;
-      height:40px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      color:#fff8ef;
-      font-size:20px;
-    }
-
-    .modal-text{
-      margin:0 0 16px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .field{display:grid;gap:7px}
-    .field.full{grid-column:1 / -1}
-    .field label{font-size:13px;color:#f0e0ca}
-
-    .field input,
-    .field select,
-    .field textarea{
-      width:100%;
-      min-height:46px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:#040404;
-      color:#fff8ef;
-      padding:0 12px;
-    }
-
-    .field textarea{
-      min-height:100px;
-      padding:12px;
-      resize:vertical;
-    }
-
-    .inline-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:16px;
-    }
-
-    .primary-modal-btn,
-    .secondary-modal-btn{
-      min-height:48px;
-      border-radius:999px;
-      font-weight:900;
-      padding:0 14px;
-    }
-
-    .primary-modal-btn{
-      background:linear-gradient(180deg, #e6c98f 0%, #c99d46 100%);
-      color:#111;
-    }
-
-    .secondary-modal-btn{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
-      color:#fff8ef;
-    }
-
-
-    .l360-flow{
-      display:grid;
-      gap:14px;
-    }
-
-    .l360-tech-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .l360-tech-card{
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-      overflow:hidden;
-      display:grid;
-    }
-
-    .l360-tech-card img{
-      width:100%;
-      height:150px;
-      object-fit:cover;
-      display:block;
-      background:#111;
-    }
-
-    .l360-tech-copy{
-      padding:12px;
-      display:grid;
-      gap:6px;
-    }
-
-    .l360-tech-copy strong{
-      display:block;
-      color:#fff8ef;
-      font-size:15px;
-      font-weight:800;
-    }
-
-    .l360-tech-copy span{
-      display:block;
-      color:var(--muted);
-      line-height:1.4;
-      font-size:13px;
-    }
-
-    .l360-extra-beforeafter{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .l360-extra-beforeafter .result-card{
-      margin-top:0;
-      overflow:hidden;
-    }
-
-    .l360-faq{
-      margin-top:14px;
-      padding:16px;
-      border-radius:20px;
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-    }
-
-    .l360-faq h4{
-      margin:0 0 12px;
-      font-family:Georgia,"Times New Roman",serif;
-      font-size:22px;
-      font-weight:500;
-      color:#fff8ef;
-    }
-
-    .l360-faq-list{
-      display:grid;
-      gap:10px;
-    }
-
-    .l360-faq-item{
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .l360-faq-item strong{
-      display:block;
-      margin-bottom:6px;
-      color:#fff8ef;
-      font-size:15px;
-    }
-
-    .l360-faq-item span{
-      display:block;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-    }
-
-    .transfer-flow{
-      display:grid;
-      gap:14px;
-    }
-
-    .transfer-tech-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .transfer-tech-card{
-      background:#0b0b0b;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-      overflow:hidden;
-      display:grid;
-      cursor:default;
-    }
-
-    .transfer-tech-card img{
-      width:100%;
-      height:150px;
-      object-fit:cover;
-      display:block;
-      background:#111;
-      cursor:zoom-in;
-    }
-
-    .transfer-tech-copy{
-      padding:12px;
-      display:grid;
-      gap:6px;
-    }
-
-    .transfer-tech-copy strong{
-      display:block;
-      color:#fff8ef;
-      font-size:15px;
-      font-weight:800;
-    }
-
-    .transfer-tech-copy span{
-      display:block;
-      color:var(--muted);
-      line-height:1.4;
-      font-size:13px;
-    }
-
-    .transfer-extra-beforeafter{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-top:14px;
-    }
-
-    .transfer-extra-beforeafter .result-card{
-      margin-top:0;
-      overflow:hidden;
-    }
-
-    .transfer-extra-beforeafter .result-card img,
-    .result-card img,
-    .results-gallery-image{
-      cursor:zoom-in;
-    }
-
-    .image-zoom-modal{
-      position:fixed;
-      inset:0;
-      z-index:3000;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,.88);
-      padding:18px;
-    }
-
-    .image-zoom-modal.open{
-      display:flex;
-    }
-
-    .image-zoom-shell{
-      position:relative;
-      width:min(1200px,100%);
-      height:min(90vh,100%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:auto;
-      border-radius:22px;
-    }
-
-    .image-zoom-img{
-      max-width:none;
-      width:auto;
-      height:auto;
-      max-height:none;
-      transform-origin:center center;
-      transition:transform .18s ease;
-      user-select:none;
-      -webkit-user-drag:none;
-    }
-
-    .image-zoom-close,
-    .image-zoom-plus,
-    .image-zoom-minus{
-      position:absolute;
-      width:44px;
-      height:44px;
-      border-radius:999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.1);
-      border:1px solid rgba(255,255,255,.18);
-      color:#fff;
-      font-size:20px;
-      z-index:3;
-      backdrop-filter:blur(6px);
-    }
-
-    .image-zoom-close{top:16px;right:16px}
-    .image-zoom-plus{bottom:16px;right:70px}
-    .image-zoom-minus{bottom:16px;right:16px}
-
-
-
-    @media (max-width: 920px){
-      .treatment-wrap{
-        grid-template-columns:1fr;
-        gap:12px;
-        padding:82px 12px 92px;
-      }
-
-      .media-pane{height:38vh;min-height:300px}
-      .result-card img{height:170px}
-      .headline{font-size:clamp(38px,9.2vw,60px)}
-      .home-center{padding:50px 16px 178px}
-      .review-link{font-size:13px;padding:7px 12px;gap:7px;margin-top:9px}
-      .home-tagline{margin-top:9px;font-size:clamp(15px,4.6vw,20px)}
-      .areas{margin-top:7px;font-size:clamp(13px,4.5vw,18px)}
-      .offer{margin-top:9px;font-size:13px;padding:6px 9px}
-      .primary-book,.secondary-cta{width:min(314px, 74vw);font-size:18px;padding:10px 18px;margin-top:11px}
-      .results-btn{width:min(90vw,90vw);padding:11px 14px;border-radius:22px;margin-top:10px}
-      .results-thumb{width:46px;height:46px;flex-basis:46px}
-      .results-copy strong{font-size:20px}
-      .results-copy small{font-size:12px}
-      .results-arrow{font-size:32px}
-      .phone-link{font-size:16px;padding:9px 16px;margin-top:8px}
-      .treatments-label{margin-top:12px;font-size:20px}
-      .actions,.quick-tools,.calc-grid,.home-tools,.form-grid,.inline-actions{grid-template-columns:1fr}
-      .home-rail{gap:1px;padding:0 0 3px;bottom:60px}
-      .rail-btn,.mini-rail-btn{height:24px;font-size:11px;padding:0 10px}
-      .page-text{font-size:15px;line-height:1.5}
-      .floating-home{top:6px;margin-bottom:10px}
-      .floating-home .home-link{font-size:11px;padding:9px 12px}
-      .whatsapp-float{bottom:24px;right:12px}
-      .quote-float{bottom:96px;right:12px}
-      .l360-tech-grid,.l360-extra-beforeafter{grid-template-columns:1fr}
-      .l360-tech-card img{height:170px}
-    }
-      .page-text{font-size:15px;line-height:1.5}
-      .floating-home{top:6px;margin-bottom:10px}
-      .floating-home .home-link{font-size:11px;padding:9px 12px}
-      .whatsapp-float{bottom:24px;right:12px}
-      .quote-float{bottom:96px;right:12px}
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="description" content="D'Royal Spa · Lipo sin Cirugía · 100% Móvil en Miami · Brickell · Downtown · Doral · Miami Beach" />
+<title>D'Royal Spa · Lipo sin Cirugía · Miami</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="mockups/hero-v3-royal.png">
+<style>
+:root{
+  --bg:#1a0f0a;
+  --cream:#efe2cf;
+  --cream-soft:#f5e9d3;
+  --gold:#c9a875;
+  --gold-bright:#e8c789;
+  --gold-deep:#b8945a;
+  --bronze:#8a6c47;
+  --espresso:#5c4a3a;
+  --noir:#0d0805;
+  --white:#fffaf0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* ============== GRAIN ============== */
+.grain{position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+
+/* ============== TOP NAV ============== */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:22px 40px;
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  background:linear-gradient(180deg,rgba(13,8,5,.65),rgba(13,8,5,0));
+  backdrop-filter:blur(6px);
+  transition:background .4s, padding .4s;
+}
+.topnav.solid{background:rgba(13,8,5,.92);padding:14px 40px}
+.topnav .left{display:flex;gap:32px}
+.topnav .left a{color:var(--cream);opacity:.78;transition:.3s}
+.topnav .left a:hover, .topnav .left a.active{color:var(--gold-bright);opacity:1}
+.topnav .center{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;letter-spacing:.32em;color:var(--gold-bright);white-space:nowrap}
+.topnav .center .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:0 12px;vertical-align:middle;opacity:.7}
+.topnav .right{display:flex;justify-content:flex-end;gap:18px;align-items:center}
+.topnav .right .phone{color:var(--cream);opacity:.85}
+.topnav .right .pill{padding:9px 18px;border:1px solid rgba(201,168,117,.4);color:var(--gold-bright);transition:.3s;cursor:pointer}
+.topnav .right .pill:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+
+@media(max-width:980px){
+  .topnav{grid-template-columns:auto 1fr auto;padding:18px 20px}
+  .topnav .left{display:none}
+  .topnav .right .phone{display:none}
+  .topnav .center{font-size:16px;letter-spacing:.24em}
+  .topnav.solid{padding:12px 20px}
+}
+
+/* ============== SIDE PROGRESS NAV ============== */
+.sidenav{
+  position:fixed;left:30px;top:50%;transform:translateY(-50%);z-index:150;
+  display:flex;flex-direction:column;gap:0;
+}
+.sn-item{
+  display:flex;align-items:center;gap:11px;padding:10px 0 10px 18px;position:relative;
+  font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(239,226,207,.5);
+  cursor:pointer;transition:color .3s;
+}
+.sn-item .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:0;width:18px;color:var(--bronze)}
+.sn-item .ln{display:block;width:22px;height:1px;background:rgba(201,168,117,.22);transition:.4s}
+.sn-item.active{color:var(--cream)}
+.sn-item.active .num{color:var(--gold-bright)}
+.sn-item.active .ln{width:54px;background:var(--gold-bright)}
+.sn-item.active::before{content:"◆";position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--gold-bright);font-size:7px}
+@media(max-width:980px){.sidenav{display:none}}
+
+/* ============== LIVE WIDGET ============== */
+.live{
+  position:fixed;bottom:24px;right:30px;z-index:140;
+  width:240px;height:144px;border:1px solid rgba(201,168,117,.45);background:#000;overflow:hidden;
+  box-shadow:0 16px 50px rgba(0,0,0,.5),inset 0 0 60px rgba(201,168,117,.06);
+  transition:opacity .4s, transform .4s;
+}
+.live::before{content:"";position:absolute;inset:7px;border:1px solid rgba(201,168,117,.32);z-index:5;pointer-events:none}
+.live video{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.96)}
+.live-tag{position:absolute;top:11px;left:11px;z-index:6;display:flex;align-items:center;gap:7px;padding:4px 9px;background:rgba(13,8,5,.7);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-bright);border:1px solid rgba(201,168,117,.22);backdrop-filter:blur(6px)}
+.live-tag .dot{width:5px;height:5px;border-radius:50%;background:#ff4d4d;box-shadow:0 0 0 3px rgba(255,77,77,.22);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.live-cap{position:absolute;bottom:11px;left:11px;right:11px;z-index:6;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.85)}
+@media(max-width:980px){.live{width:180px;height:108px;bottom:18px;right:18px}}
+
+/* ============== DECK + SECTIONS ============== */
+.deck{
+  height:100vh;
+  display:flex;flex-direction:column;
+  overflow-y:auto;overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.deck::-webkit-scrollbar{display:none}
+
+.section{
+  flex:0 0 100vh;width:100%;height:100vh;
+  scroll-snap-align:start;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;
+}
+.bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  transition:transform 1.4s cubic-bezier(.22,.61,.36,1);will-change:transform}
+.section.active .bg-img{transform:scale(1.05)}
+.veil{position:absolute;inset:0;z-index:2;pointer-events:none}
+
+/* corner deco */
+.dc{position:absolute;width:28px;height:28px;border:1px solid rgba(201,168,117,.4);z-index:5;pointer-events:none}
+.dc.tl{top:96px;left:50px;border-right:none;border-bottom:none}
+.dc.tr{top:96px;right:50px;border-left:none;border-bottom:none}
+.dc.bl{bottom:96px;left:50px;border-right:none;border-top:none}
+.dc.br{bottom:96px;right:50px;border-left:none;border-top:none}
+@media(max-width:980px){.dc{width:20px;height:20px;left:16px;right:16px;top:80px;bottom:120px}.dc.tl,.dc.bl{left:16px}.dc.tr,.dc.br{right:16px}}
+
+.ch-num{position:absolute;left:90px;top:118px;z-index:8;display:flex;flex-direction:column;gap:4px}
+.ch-num .big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:54px;color:var(--gold-bright);font-weight:300;line-height:.9}
+.ch-num .lbl{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze)}
+@media(max-width:980px){.ch-num{left:24px;top:90px}.ch-num .big{font-size:36px}.ch-num .lbl{font-size:9px}}
+
+/* content base */
+.content{position:relative;z-index:8;padding:0 80px;max-width:1500px;margin:0 auto;width:100%}
+@media(max-width:980px){.content{padding:0 24px}}
+
+.eb{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.eb .b{display:block;width:36px;height:1px;background:var(--gold)}
+
+.title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,6.4vw,108px);line-height:.92;letter-spacing:.02em;color:var(--cream)}
+.title em{font-style:italic;color:var(--gold-bright);font-weight:300}
+.sub{margin-top:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,1.6vw,24px);color:var(--cream);opacity:.88;max-width:560px;line-height:1.5}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;align-items:center}
+.btn-gold{display:inline-flex;align-items:center;gap:12px;padding:18px 26px;background:var(--gold);color:var(--noir);font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;cursor:pointer;border:none;transition:gap .3s,background .3s}
+.btn-gold:hover{background:var(--gold-bright);gap:18px}
+.btn-line{display:inline-flex;align-items:center;gap:10px;padding:18px 0;color:var(--cream);font-size:11px;letter-spacing:.32em;text-transform:uppercase;border-bottom:1px solid rgba(239,226,207,.4);cursor:pointer;transition:color .3s,border-color .3s}
+.btn-line:hover{color:var(--gold-bright);border-color:var(--gold-bright)}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border:1px solid rgba(201,168,117,.4);color:var(--gold-bright);font-size:10px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.btn-ghost:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+
+/* HUD bottom */
+.hud{position:absolute;bottom:32px;left:0;right:300px;z-index:8;display:flex;justify-content:space-between;align-items:flex-end;padding:0 50px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream)}
+.hud .scroll-hint{display:flex;align-items:center;gap:14px}
+.hud .arr{display:inline-block;width:1px;height:32px;background:linear-gradient(180deg,var(--gold-bright),transparent);position:relative;animation:bobble 2s infinite}
+.hud .arr::after{content:"";position:absolute;bottom:0;left:-3px;width:7px;height:7px;border-right:1px solid var(--gold-bright);border-bottom:1px solid var(--gold-bright);transform:rotate(45deg)}
+@keyframes bobble{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+@media(max-width:980px){.hud{right:0;padding:0 24px;font-size:9px;bottom:24px}}
+
+/* ========================================================
+   SECTION 01 · HERO
+   ======================================================== */
+.s-hero .veil{
+  background:
+    linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),
+    linear-gradient(180deg,rgba(13,8,5,.45) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%);
+}
+.s-hero .content{padding-top:90px}
+.s-hero .title{max-width:880px}
+.s-hero .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px}
+.s-hero .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.22);max-width:560px}
+.s-hero .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300}
+.s-hero .stat .n sup{font-size:.4em;color:var(--bronze);margin-left:2px}
+.s-hero .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+
+.s-hero .map-mini{
+  position:absolute;right:60px;top:50%;transform:translateY(-50%);z-index:7;
+  width:280px;background:rgba(13,8,5,.45);border:1px solid rgba(201,168,117,.32);backdrop-filter:blur(14px);padding:24px;
+}
+.s-hero .map-mini h4{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-bright);margin-bottom:14px}
+.s-hero .map-mini ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream)}
+.s-hero .map-mini ul li{display:flex;align-items:center;gap:10px}
+.s-hero .map-mini ul li::before{content:"◆";color:var(--gold);font-size:7px}
+.s-hero .map-mini .note{margin-top:18px;padding-top:14px;border-top:1px solid rgba(201,168,117,.18);font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze)}
+@media(max-width:980px){.s-hero .map-mini{display:none}.s-hero .stats{gap:24px}.s-hero .stat .n{font-size:30px}}
+
+/* ========================================================
+   TRANSITION SECTIONS (T1-T5)
+   ======================================================== */
+.s-trans .veil{background:linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 35%,rgba(13,8,5,0) 65%,rgba(13,8,5,.7) 100%)}
+.s-trans .content{text-align:center;padding:0 40px}
+.s-trans .title{font-size:clamp(36px,5vw,82px);text-align:center;margin:0 auto;letter-spacing:.05em}
+.s-trans .sub{margin-left:auto;margin-right:auto;text-align:center}
+.s-trans .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,2vw,32px);color:var(--cream);opacity:.85;max-width:720px;margin:24px auto;line-height:1.4;text-align:center}
+.s-trans .quote::before,.s-trans .quote::after{content:"";display:block;width:48px;height:1px;background:var(--gold-bright);margin:24px auto}
+
+/* ========================================================
+   TREATMENT SECTIONS (Lipo, Aumentos, Botox)
+   ======================================================== */
+.s-treat .veil{
+  background:
+    linear-gradient(90deg,rgba(13,8,5,.7) 0%,rgba(13,8,5,.25) 50%,rgba(13,8,5,0) 70%,rgba(13,8,5,.55) 100%),
+    linear-gradient(180deg,rgba(13,8,5,.45) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 70%,rgba(13,8,5,.9) 100%);
+}
+.s-treat .content{max-width:1500px}
+.s-treat .layout{display:grid;grid-template-columns:1.2fr .9fr;gap:60px;align-items:center;padding-top:90px}
+@media(max-width:980px){.s-treat .layout{grid-template-columns:1fr;gap:30px;padding-top:70px}}
+
+/* sub-zone chips */
+.zones{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 30px}
+.zone-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border:1px solid rgba(201,168,117,.4);color:var(--cream);
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:.3s;
+}
+.zone-chip::before{content:"◆";color:var(--gold);font-size:7px}
+.zone-chip:hover,.zone-chip.active{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+
+/* carousel inside treatment */
+.car{position:relative;width:100%;background:rgba(13,8,5,.42);border:1px solid rgba(201,168,117,.28);backdrop-filter:blur(10px);overflow:hidden;min-height:520px}
+.car-track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
+.car-slide{flex:0 0 100%;padding:32px 36px;display:flex;flex-direction:column;justify-content:center;min-height:520px}
+.car-slide h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-bright);margin-bottom:14px;font-weight:400;letter-spacing:.04em}
+.car-slide .num-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.car-slide .num-tag::before{content:"";display:inline-block;width:24px;height:1px;background:var(--gold)}
+.car-slide p{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);line-height:1.6;opacity:.9;margin-bottom:14px}
+.car-slide ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--cream);opacity:.85}
+.car-slide ul li{padding-left:18px;position:relative}
+.car-slide ul li::before{content:"◆";position:absolute;left:0;top:5px;color:var(--gold);font-size:7px}
+.car-video-frame{aspect-ratio:16/9;background:#000;border:1px solid rgba(201,168,117,.32);overflow:hidden;margin-bottom:14px;position:relative}
+.car-video-frame video,.car-video-frame img{width:100%;height:100%;object-fit:cover}
+.car-video-frame .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--bronze);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+
+.car-pkg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.car-pkg .p-card{padding:18px 14px;border:1px solid rgba(201,168,117,.32);background:rgba(13,8,5,.4);text-align:center}
+.car-pkg .p-card.featured{border-color:var(--gold-bright);background:rgba(201,168,117,.12)}
+.car-pkg .p-name{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px}
+.car-pkg .p-price{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold-bright);line-height:1;font-weight:300}
+.car-pkg .p-price small{font-size:.4em;color:var(--bronze);margin-left:2px}
+.car-pkg .p-desc{margin-top:8px;font-size:9px;letter-spacing:.18em;color:var(--cream);opacity:.7}
+
+/* carousel nav */
+.car-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 36px;border-top:1px solid rgba(201,168,117,.22);background:rgba(13,8,5,.65)}
+.car-dots{display:flex;gap:6px}
+.car-dot{width:8px;height:8px;border-radius:50%;background:rgba(201,168,117,.32);cursor:pointer;transition:.3s}
+.car-dot.active{background:var(--gold-bright);transform:scale(1.4)}
+.car-arrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-bright);cursor:pointer;display:flex;align-items:center;gap:8px;transition:gap .3s}
+.car-arrow:hover{gap:12px}
+
+/* ========================================================
+   RESULTADOS
+   ======================================================== */
+.s-results .veil{background:linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 30%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%)}
+.s-results .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;max-width:1300px}
+.s-results .g-item{aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(201,168,117,.32);position:relative;cursor:pointer;transition:transform .4s}
+.s-results .g-item:hover{transform:translateY(-6px)}
+.s-results .g-item img{width:100%;height:100%;object-fit:cover}
+.s-results .g-item .lbl{position:absolute;bottom:10px;left:14px;right:14px;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+@media(max-width:980px){.s-results .gallery{grid-template-columns:repeat(2,1fr)}}
+
+/* ========================================================
+   FOOTER (last section, black bg, white text)
+   ======================================================== */
+.s-footer{
+  flex:0 0 auto;height:auto;min-height:auto;
+  scroll-snap-align:end;background:#0a0807;color:var(--cream);
+  padding:80px 50px 40px;display:block;
+}
+.s-footer .ftr-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:60px;max-width:1500px;margin:0 auto}
+.s-footer .brand-blk h2{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold-bright);margin-bottom:14px}
+.s-footer .brand-blk p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--cream);opacity:.78;line-height:1.5;max-width:340px}
+.s-footer h4{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid rgba(201,168,117,.18)}
+.s-footer ul{list-style:none}
+.s-footer ul li{margin-bottom:10px}
+.s-footer ul a{color:var(--cream);opacity:.78;font-size:13px;transition:.3s;display:inline-flex;align-items:center;gap:8px}
+.s-footer ul a:hover{color:var(--gold-bright);opacity:1;gap:12px}
+.s-footer ul a::before{content:"›";color:var(--gold);opacity:.6}
+.s-footer .bottom{display:flex;justify-content:space-between;align-items:center;padding-top:32px;margin-top:48px;border-top:1px solid rgba(201,168,117,.18);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze)}
+.s-footer .socials{display:flex;gap:18px}
+.s-footer .socials a{font-size:11px;color:var(--gold-bright);transition:.3s}
+.s-footer .socials a:hover{color:var(--cream)}
+@media(max-width:980px){
+  .s-footer{padding:50px 22px 24px}
+  .s-footer .ftr-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .s-footer .brand-blk{grid-column:1/-1}
+  .s-footer .bottom{flex-direction:column;gap:18px;text-align:center}
+}
+
+/* ============== modal (legal/contact) ============== */
+.modal{position:fixed;inset:0;z-index:400;background:rgba(13,8,5,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.modal-card{background:#1a0f0a;border:1px solid rgba(201,168,117,.32);max-width:480px;width:100%;padding:36px;position:relative}
+.modal-close{position:absolute;top:12px;right:18px;font-size:22px;color:var(--gold-bright);cursor:pointer;background:none;border:none}
+.modal h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold-bright);margin-bottom:18px}
+.modal .opt{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.modal .opt a{padding:14px 18px;border:1px solid rgba(201,168,117,.4);color:var(--cream);font-size:11px;letter-spacing:.32em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+.modal .opt a:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+</style>
 </head>
 <body>
-  <div class="app">
-    <div class="topbar">
-      <div class="topbar-center">
-        <h1 class="brand" id="brand"></h1>
+
+<div class="grain"></div>
+
+<!-- ============== TOP NAV ============== -->
+<nav class="topnav" id="topnav">
+  <div class="left">
+    <a href="#s-hero" class="active" data-go="0">Inicio</a>
+    <a href="#s-lipo" data-go="3">Tratamientos</a>
+    <a href="#s-results" data-go="9">Resultados</a>
+    <a href="#" data-go="0" data-scroll="map">Áreas</a>
+  </div>
+  <div class="center">D'Royal<span class="dot"></span>Spa</div>
+  <div class="right">
+    <span class="phone">+1 786 690 0960</span>
+    <a class="pill" href="https://droyalspamiami.as.me/" target="_blank">Agendar</a>
+  </div>
+</nav>
+
+<!-- ============== SIDE NAV ============== -->
+<aside class="sidenav" id="sidenav">
+  <div class="sn-item active" data-go="0"><span class="num">01</span><span class="ln"></span><span>Bienvenida</span></div>
+  <div class="sn-item" data-go="1"><span class="num">02</span><span class="ln"></span><span>Miami</span></div>
+  <div class="sn-item" data-go="2"><span class="num">03</span><span class="ln"></span><span>Sobre Nubes</span></div>
+  <div class="sn-item" data-go="3"><span class="num">04</span><span class="ln"></span><span>Lipo Láser</span></div>
+  <div class="sn-item" data-go="4"><span class="num">05</span><span class="ln"></span><span>Descenso</span></div>
+  <div class="sn-item" data-go="5"><span class="num">06</span><span class="ln"></span><span>Aumentos</span></div>
+  <div class="sn-item" data-go="6"><span class="num">07</span><span class="ln"></span><span>Atardecer</span></div>
+  <div class="sn-item" data-go="7"><span class="num">08</span><span class="ln"></span><span>Botox Láser</span></div>
+  <div class="sn-item" data-go="8"><span class="num">09</span><span class="ln"></span><span>Noche Miami</span></div>
+  <div class="sn-item" data-go="9"><span class="num">10</span><span class="ln"></span><span>Resultados</span></div>
+</aside>
+
+<!-- ============== LIVE WIDGET ============== -->
+<div class="live" id="live">
+  <video id="liveVid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg">
+    <source src="home-video.mp4" type="video/mp4">
+  </video>
+  <div class="live-tag"><span class="dot"></span><span>Live · Sesión</span></div>
+  <div class="live-cap" id="liveCap">Ch.01 · Bienvenida</div>
+</div>
+
+<!-- ============== DECK ============== -->
+<main class="deck" id="deck">
+
+  <!-- ===== 01 · HERO ===== -->
+  <section class="section s-hero active" id="s-hero" data-live="home-video.mp4" data-cap="Ch.01 · Bienvenida">
+    <img class="bg-img" src="mockups/hero-v3-royal.png" alt="">
+    <div class="veil"></div>
+    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+
+    <div class="ch-num"><span class="big">01</span><span class="lbl">Bienvenida · Welcome</span></div>
+
+    <div class="content">
+      <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
+      <h1 class="title">Lipo sin <em>Cirugía</em>.<br>Belleza Real, en Casa.</h1>
+      <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
+      <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
+
+      <div class="cta-row">
+        <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
+        <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+        <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
+        <a class="btn-line" href="mailto:droyalspamiami@gmail.com">Email <span>↗</span></a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="n">$90<sup></sup></div><div class="l">1ra Sesión</div></div>
+        <div class="stat"><div class="n">100%<sup></sup></div><div class="l">In-Home</div></div>
+        <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
       </div>
     </div>
 
-    <main class="deck" id="deck"></main>
+    <div class="map-mini" id="map">
+      <h4>Áreas de Servicio</h4>
+      <ul>
+        <li>Brickell</li>
+        <li>Downtown Miami</li>
+        <li>Doral</li>
+        <li>Miami Beach</li>
+      </ul>
+      <div class="note">Servicio 100% Móvil<br>Lun–Sáb · 9am–7pm</div>
+    </div>
 
-    <button class="quote-float" id="quoteFloat" aria-label="Cotización rápida">$</button>
-    <a class="whatsapp-float" id="whatsFloat" href="https://wa.me/17866900960" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
-    <a class="sticky-book" href="https://DRoyalSpaMiami.as.me/" target="_blank" rel="noopener">Book Now</a>
-  </div>
+    <div class="hud">
+      <div class="scroll-hint"><span>Desliza · Descubre</span><span class="arr"></span></div>
+      <div>★ ★ ★ ★ ★ &nbsp; 5 Stars · Miami</div>
+    </div>
+  </section>
 
-  <div class="modal" id="quoteModal" aria-hidden="true">
-    <div class="modal-card">
-      <div class="modal-top">
-        <h2 class="modal-title">Quick Quote</h2>
-        <button class="close-btn" id="closeModal" aria-label="Cerrar">×</button>
+  <!-- ===== T1 · BALCONY ===== -->
+  <section class="section s-trans" id="t1" data-live="home-video.mp4" data-cap="Brickell · Día">
+    <img class="bg-img" src="mockups/transition-1-balcony.png" alt="">
+    <div class="veil"></div>
+    <div class="content">
+      <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II</span><span class="b"></span></div>
+      <h2 class="title serif">Bienvenida a <em>Miami</em></h2>
+      <p class="quote">Donde el sol acaricia los rascacielos<br>y comienza tu ritual.</p>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+  </section>
+
+  <!-- ===== T2 · CLOUDS ===== -->
+  <section class="section s-trans" id="t2" data-live="home-video.mp4" data-cap="Sea of Clouds">
+    <img class="bg-img" src="mockups/transition-2-clouds.png" alt="">
+    <div class="veil"></div>
+    <div class="content">
+      <h2 class="title serif">Sobre las <em>Nubes</em></h2>
+      <p class="quote">Te elevamos sobre la ciudad<br>para devolverte tu mejor versión.</p>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+  </section>
+
+  <!-- ===== 02 · LIPO CON LÁSER ===== -->
+  <section class="section s-treat" id="s-lipo" data-live="lipo-video.mp4" data-cap="Live · Lipo Láser">
+    <img class="bg-img" src="mockups/treatment-lipo.png" alt="">
+    <div class="veil"></div>
+    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+    <div class="ch-num"><span class="big">02</span><span class="lbl">Lipo con Láser</span></div>
+
+    <div class="content">
+      <div class="layout">
+        <div>
+          <div class="eb"><span class="b"></span><span>Signature · Body Sculpting</span></div>
+          <h2 class="title">Lipo con <em>Láser</em>.</h2>
+          <p class="sub">Esculpe localizadamente abdomen, brazos, piernas o papada con tecnología láser de baja frecuencia + ultrasonido + radiofrecuencia. Sin cirugía, sin dolor, resultados desde la primera sesión.</p>
+
+          <div class="zones">
+            <span class="zone-chip active" data-zone="abdomen">Abdomen</span>
+            <span class="zone-chip" data-zone="brazos">Brazos</span>
+            <span class="zone-chip" data-zone="piernas">Piernas</span>
+            <span class="zone-chip" data-zone="papada">Papada</span>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Reservar <span>→</span></a>
+            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">Consultar <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="car" data-car="lipo">
+          <div class="car-track">
+            <div class="car-slide">
+              <div class="num-tag">01 · Cómo Funciona</div>
+              <div class="car-video-frame"><video src="mockups/explainer-lipo-laser.mp4" autoplay muted loop playsinline></video></div>
+              <p>Láser rojo (650nm) penetra la piel, calienta las células de grasa que liberan triglicéridos al sistema linfático.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">02 · Beneficios</div>
+              <h3>Sin agujas, sin cirugía</h3>
+              <ul>
+                <li>Reduce circunferencia desde la primera sesión</li>
+                <li>Reafirma la piel y mejora la textura</li>
+                <li>Sin dolor, sin tiempo de recuperación</li>
+                <li>Resultados acumulativos · paquete de 8 sesiones</li>
+                <li>Servicio 100% en la privacidad de tu hogar</li>
+              </ul>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">03 · Resultados Reales</div>
+              <h3>Antes &amp; Después</h3>
+              <div class="car-video-frame"><img src="lipo-results.jpg" alt="Resultados Lipo"></div>
+              <p>Cliente real verificada · resultados desde la 4ta sesión · paquete completo de 8.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">04 · Paquetes</div>
+              <h3>Inversión Royal</h3>
+              <div class="car-pkg">
+                <div class="p-card"><div class="p-name">1ra Sesión</div><div class="p-price">$90<small>/área</small></div><div class="p-desc">Oferta limitada 7 días</div></div>
+                <div class="p-card featured"><div class="p-name">8 Sesiones</div><div class="p-price">$899<small></small></div><div class="p-desc">Recomendado · Ahorra $300</div></div>
+                <div class="p-card"><div class="p-name">10 Sesiones</div><div class="p-price">$1099<small></small></div><div class="p-desc">Resultados premium</div></div>
+              </div>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">05 · Reservar</div>
+              <h3>Comienza tu ritual</h3>
+              <p>Agenda online vía Acuity, escríbenos por WhatsApp o llámanos directo.</p>
+              <div class="cta-row" style="margin-top:18px">
+                <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Online <span>→</span></a>
+              </div>
+              <div class="cta-row" style="margin-top:10px">
+                <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+                <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="car-nav">
+            <span class="car-arrow" data-dir="-1">← Atrás</span>
+            <div class="car-dots">
+              <span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+            </div>
+            <span class="car-arrow" data-dir="1">Siguiente →</span>
+          </div>
+        </div>
       </div>
-      <p class="modal-text">Déjanos tu interés o abre WhatsApp con un mensaje listo. Esto es fase 1: limpio, rápido y pro.</p>
-
-      <form id="quoteForm">
-        <div class="form-grid">
-          <div class="field">
-            <label for="leadName">Name</label>
-            <input id="leadName" name="leadName" type="text" placeholder="Your name" />
-          </div>
-
-          <div class="field">
-            <label for="leadPhone">Phone</label>
-            <input id="leadPhone" name="leadPhone" type="tel" placeholder="786-000-0000" />
-          </div>
-
-          <div class="field">
-            <label for="leadTreatment">Treatment</label>
-            <select id="leadTreatment" name="leadTreatment"></select>
-          </div>
-
-          <div class="field">
-            <label for="leadArea">Area</label>
-            <select id="leadArea" name="leadArea">
-              <option value="Abdomen">Abdomen</option>
-              <option value="Arms">Arms</option>
-              <option value="Legs">Legs</option>
-              <option value="Waist">Waist</option>
-              <option value="Double Chin">Double Chin</option>
-              <option value="Face">Face</option>
-              <option value="Breasts">Breasts</option>
-              <option value="Buttocks">Buttocks</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="leadSessions">Sessions</label>
-            <select id="leadSessions" name="leadSessions">
-              <option value="3">3 sessions</option>
-              <option value="6">6 sessions</option>
-              <option value="8">8 sessions</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="leadZone">Service area</label>
-            <select id="leadZone" name="leadZone">
-              <option value="Miami, FL">Miami, FL</option>
-              <option value="Brickell">Brickell</option>
-              <option value="Downtown Miami">Downtown Miami</option>
-              <option value="Miami Beach">Miami Beach</option>
-              <option value="Doral">Doral</option>
-              <option value="Hialeah">Hialeah</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <label for="leadNotes">Extra details</label>
-            <textarea id="leadNotes" name="leadNotes" placeholder="Tell us what area you want to improve..."></textarea>
-          </div>
-        </div>
-
-        <div class="inline-actions">
-          <button type="button" class="secondary-modal-btn" id="copyLeadBtn">Copy Lead</button>
-          <button type="button" class="primary-modal-btn" id="sendWhatsBtn">Send to WhatsApp</button>
-        </div>
-      </form>
     </div>
-  </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>02 / 10</div></div>
+  </section>
 
-  <div class="modal" id="resultsModal" aria-hidden="true">
-    <div class="modal-card">
-      <div class="modal-top">
-        <h2 class="modal-title">Before & After Results</h2>
-        <button class="close-btn" id="closeResultsModal" aria-label="Cerrar">×</button>
+  <!-- ===== T3 · DESCENDING ===== -->
+  <section class="section s-trans" id="t3" data-live="lipo-video.mp4" data-cap="Descending">
+    <img class="bg-img" src="mockups/transition-3-descending.png" alt="">
+    <div class="veil"></div>
+    <div class="content">
+      <h2 class="title serif">Bajamos a la <em>Tierra</em></h2>
+      <p class="quote">Tu cuerpo emerge entre las nubes,<br>renacido.</p>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+  </section>
+
+  <!-- ===== 03 · AUMENTOS ===== -->
+  <section class="section s-treat" id="s-aumentos" data-live="glute-video.mp4" data-cap="Live · Aumento Vacuum">
+    <img class="bg-img" src="mockups/treatment-aumentos-v2.png" alt="">
+    <div class="veil"></div>
+    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+    <div class="ch-num"><span class="big">03</span><span class="lbl">Aumentos sin Cirugía</span></div>
+
+    <div class="content">
+      <div class="layout">
+        <div>
+          <div class="eb"><span class="b"></span><span>Aumentos · Vacuum Therapy</span></div>
+          <h2 class="title">Aumentos sin <em>Cirugía</em>.</h2>
+          <p class="sub">Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulación, aumentando volumen natural en glúteos y senos. Sin implantes, sin inyecciones.</p>
+
+          <div class="zones">
+            <span class="zone-chip active" data-zone="gluteos">Glúteos</span>
+            <span class="zone-chip" data-zone="senos">Senos</span>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Reservar <span>→</span></a>
+            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">Consultar <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="car" data-car="aumentos">
+          <div class="car-track">
+            <div class="car-slide">
+              <div class="num-tag">01 · Cómo Funciona</div>
+              <div class="car-video-frame"><video src="mockups/explainer-vacuum-glutes.mp4" autoplay muted loop playsinline poster="mockups/treatment-aumentos-v2.png"><source src="mockups/explainer-vacuum-breasts.mp4" type="video/mp4"></video></div>
+              <p>Copas de succión activan el tejido adiposo, estimulan circulación y aumentan volumen natural.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">02 · Beneficios</div>
+              <h3>Volumen Real, Sin Implantes</h3>
+              <ul>
+                <li>Aumento natural de volumen</li>
+                <li>Mejora textura y firmeza</li>
+                <li>Estimula colágeno</li>
+                <li>Sin cirugía, sin dolor</li>
+                <li>Resultados acumulativos</li>
+              </ul>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">03 · Resultados</div>
+              <h3>Glúteos · Senos</h3>
+              <div class="car-video-frame"><img src="glute-results.jpg" alt="Resultados Aumentos"></div>
+              <p>Aumento promedio: 1-2 tallas tras paquete de 10 sesiones.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">04 · Paquetes</div>
+              <h3>Inversión Royal</h3>
+              <div class="car-pkg">
+                <div class="p-card"><div class="p-name">1ra Sesión</div><div class="p-price">$90<small>/área</small></div><div class="p-desc">Oferta 7 días</div></div>
+                <div class="p-card featured"><div class="p-name">10 Sesiones</div><div class="p-price">$1099<small></small></div><div class="p-desc">Recomendado</div></div>
+                <div class="p-card"><div class="p-name">Combo</div><div class="p-price">$1899<small></small></div><div class="p-desc">Senos + Glúteos</div></div>
+              </div>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">05 · Reservar</div>
+              <h3>Comienza tu ritual</h3>
+              <p>Agenda online o por WhatsApp.</p>
+              <div class="cta-row" style="margin-top:18px">
+                <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Online <span>→</span></a>
+              </div>
+              <div class="cta-row" style="margin-top:10px">
+                <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="car-nav">
+            <span class="car-arrow" data-dir="-1">← Atrás</span>
+            <div class="car-dots"><span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span></div>
+            <span class="car-arrow" data-dir="1">Siguiente →</span>
+          </div>
+        </div>
       </div>
-      <p class="modal-text">Open a treatment to view its result photo and details.</p>
-      <div class="area-grid phase2-area-grid" id="resultsGrid"></div>
     </div>
-  </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>03 / 10</div></div>
+  </section>
 
-  <div class="image-zoom-modal" id="imageZoomModal" aria-hidden="true">
-    <button class="image-zoom-close" id="imageZoomClose" aria-label="Close">×</button>
-    <button class="image-zoom-plus" id="imageZoomPlus" aria-label="Zoom in">+</button>
-    <button class="image-zoom-minus" id="imageZoomMinus" aria-label="Zoom out">−</button>
-    <div class="image-zoom-shell" id="imageZoomShell">
-      <img class="image-zoom-img" id="imageZoomImg" alt="">
+  <!-- ===== T4 · SUNSET → MOON ===== -->
+  <section class="section s-trans" id="t4" data-live="face-video.mp4" data-cap="Sunset · Moonrise">
+    <img class="bg-img" src="mockups/transition-4-sunset-moon.png" alt="">
+    <div class="veil"></div>
+    <div class="content">
+      <h2 class="title serif">El Sol se <em>Despide</em>.</h2>
+      <p class="quote">La luna comienza el ritual de la noche.<br>Tu piel también renace.</p>
     </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+  </section>
+
+  <!-- ===== 04 · BOTOX NATURAL CON LÁSER ===== -->
+  <section class="section s-treat" id="s-botox" data-live="face-video.mp4" data-cap="Live · Botox Natural">
+    <img class="bg-img" src="mockups/treatment-botox-laser.png" alt="">
+    <div class="veil"></div>
+    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+    <div class="ch-num"><span class="big">04</span><span class="lbl">Botox Natural · Láser</span></div>
+
+    <div class="content">
+      <div class="layout">
+        <div>
+          <div class="eb"><span class="b"></span><span>Tecnología NUEVA · Sin agujas</span></div>
+          <h2 class="title">Botox Natural<br>con <em>Láser</em>.</h2>
+          <p class="sub">Combinación exclusiva de CoolSculpting + Radiofrecuencia que regenera células maduras y rejuvenece la piel sin agujas, sin inyecciones, sin tiempo de recuperación.</p>
+
+          <div class="cta-row">
+            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Reservar <span>→</span></a>
+            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">Consultar <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="car" data-car="botox">
+          <div class="car-track">
+            <div class="car-slide">
+              <div class="num-tag">01 · Cómo Funciona</div>
+              <div class="car-video-frame"><video src="mockups/explainer-botox-natural.mp4" autoplay muted loop playsinline poster="mockups/treatment-botox-laser.png"></video></div>
+              <p>Láser dorado + RF estimulan regeneración celular profunda. Las células maduras se renuevan, el colágeno se reorganiza.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">02 · Beneficios</div>
+              <h3>Rejuvenecimiento Sin Agujas</h3>
+              <ul>
+                <li>Reduce arrugas y líneas finas</li>
+                <li>Estimula colágeno y elastina</li>
+                <li>Mejora textura y luminosidad</li>
+                <li>Cero downtime · cero dolor</li>
+                <li>Tecnología FDA-approved</li>
+              </ul>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">03 · Tecnologías</div>
+              <h3>CoolSculpting + RF + Láser</h3>
+              <ul>
+                <li>CoolSculpting · congela células maduras</li>
+                <li>Radiofrecuencia · calor profundo tensa colágeno</li>
+                <li>Láser dorado · estimula regeneración celular</li>
+              </ul>
+              <p style="margin-top:10px">Triple acción en una sola sesión.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">04 · Paquetes</div>
+              <h3>Inversión Royal</h3>
+              <div class="car-pkg">
+                <div class="p-card"><div class="p-name">1ra Sesión</div><div class="p-price">$120<small></small></div><div class="p-desc">Consulta + sesión</div></div>
+                <div class="p-card featured"><div class="p-name">6 Sesiones</div><div class="p-price">$650<small></small></div><div class="p-desc">Recomendado · Ahorra</div></div>
+                <div class="p-card"><div class="p-name">10 Sesiones</div><div class="p-price">$999<small></small></div><div class="p-desc">Premium</div></div>
+              </div>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">05 · Reservar</div>
+              <h3>Renace tu piel</h3>
+              <div class="cta-row" style="margin-top:18px">
+                <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar <span>→</span></a>
+              </div>
+              <div class="cta-row" style="margin-top:10px">
+                <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="car-nav">
+            <span class="car-arrow" data-dir="-1">← Atrás</span>
+            <div class="car-dots"><span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span></div>
+            <span class="car-arrow" data-dir="1">Siguiente →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>04 / 10</div></div>
+  </section>
+
+  <!-- ===== T5 · NIGHT MIAMI ===== -->
+  <section class="section s-trans" id="t5" data-live="face-video.mp4" data-cap="Miami · Night">
+    <img class="bg-img" src="mockups/transition-5-night.png" alt="">
+    <div class="veil"></div>
+    <div class="content">
+      <h2 class="title serif">Miami se <em>Enciende</em>.</h2>
+      <p class="quote">Tu transformación · una sinfonía de luces.</p>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+  </section>
+
+  <!-- ===== 05 · RESULTADOS ===== -->
+  <section class="section s-results" id="s-results" data-live="home-video.mp4" data-cap="Diosa · Resultados">
+    <img class="bg-img" src="mockups/treatment-results.png" alt="">
+    <div class="veil"></div>
+    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+    <div class="ch-num"><span class="big">05</span><span class="lbl">Resultados Reales</span></div>
+
+    <div class="content">
+      <div class="eb"><span class="b"></span><span>Real Clients · Real Results</span></div>
+      <h2 class="title">La Diferencia<br>se Ve <em>desde la 1ra</em>.</h2>
+
+      <div class="gallery">
+        <div class="g-item"><img src="lipo-results.jpg" alt=""><div class="lbl">Abdomen · Lipo Láser</div></div>
+        <div class="g-item"><img src="arm-results.jpg" alt=""><div class="lbl">Brazos · Lipo Láser</div></div>
+        <div class="g-item"><img src="legs-results.jpg" alt=""><div class="lbl">Piernas · Lipo Láser</div></div>
+        <div class="g-item"><img src="chin-results.jpg" alt=""><div class="lbl">Papada · Lipo Láser</div></div>
+        <div class="g-item"><img src="glute-results.jpg" alt=""><div class="lbl">Glúteos · Aumento</div></div>
+        <div class="g-item"><img src="breast-results.jpg" alt=""><div class="lbl">Senos · Aumento</div></div>
+        <div class="g-item"><img src="face-results.jpg" alt=""><div class="lbl">Botox Natural · Láser</div></div>
+        <div class="g-item"><img src="transfer-results.jpg" alt=""><div class="lbl">Transfer · Lipo</div></div>
+      </div>
+    </div>
+    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>05 / 10</div></div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="s-footer">
+    <div class="ftr-grid">
+      <div class="brand-blk">
+        <h2>D'Royal<span style="color:var(--gold);margin:0 8px">·</span>Spa</h2>
+        <p>Lipo sin cirugía, esculpido royal en la privacidad de tu hogar. Miami's premier in-home luxury wellness brand.</p>
+      </div>
+      <div>
+        <h4>Comunidad</h4>
+        <ul>
+          <li><a href="#" data-modal="afiliados">Afiliados</a></li>
+          <li><a href="#" data-modal="nosotros">Nosotros</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Soporte</h4>
+        <ul>
+          <li><a href="#" data-modal="cita">Cómo Funciona la Cita</a></li>
+          <li><a href="#" data-modal="contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>FAQs</h4>
+        <ul>
+          <li><a href="#" data-modal="faq-lipo">Lipo con Láser</a></li>
+          <li><a href="#" data-modal="faq-aumentos">Aumentos sin Cirugía</a></li>
+          <li><a href="#" data-modal="faq-botox">Botox Natural Láser</a></li>
+          <li><a href="#" data-modal="faq-general">Generales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 D'Royal Spa Miami · 100% Móvil · All rights reserved</span>
+      <div class="socials">
+        <a href="https://instagram.com/d.royal.spa.miami" target="_blank">@d.royal.spa.miami</a>
+        <a href="https://tiktok.com/@droyalspa" target="_blank">@droyalspa</a>
+        <a href="mailto:droyalspamiami@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ============== MODAL ============== -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="modal-close" id="mClose">×</button>
+    <h3 id="mTitle">Contacto</h3>
+    <div id="mBody"></div>
   </div>
+</div>
 
-  <script>
-    const isSpanish = (navigator.language || '').toLowerCase().startsWith('es');
-    const whatsappNumber = '17866900960';
+<script>
+// ============== STATE ==============
+const deck = document.getElementById('deck');
+const sections = [...deck.querySelectorAll('.section')];
+const sideItems = document.querySelectorAll('.sn-item');
+const topnav = document.getElementById('topnav');
+const live = document.getElementById('live');
+const liveVid = document.getElementById('liveVid');
+const liveCap = document.getElementById('liveCap');
 
-    const T = {
-      brand: "D’ROYAL SPA",
-      headline: isSpanish ? "Lipo sin cirugía" : "Surgery-Free Lipo",
-      reviews: "Rated 5 Stars in Miami",
-      areas: "Brickell · Downtown · Doral · Miami Beach",
-      offer: isSpanish ? "Primera sesión limitada" : "Limited first session",
-      tagline: "In-Home Luxury Treatments",
-      phoneLabel: "786-690-0960",
-      home: isSpanish ? "Inicio" : "Home",
-      results: isSpanish ? "Resultados Reales" : "Real Results",
-      learn: isSpanish ? "Aprender más" : "Learn more",
-      book: isSpanish ? "Agendar cita" : "Book now",
-      bookMain: isSpanish ? "Agendar cita" : "Book Appointment",
-      quoteMain: isSpanish ? "Cotización rápida por WhatsApp" : "Quick Quote on WhatsApp",
-      quickLead: isSpanish ? "Obtén precios rápido" : "Get Prices Fast",
-      note: isSpanish ? "Resultados visibles desde primeras sesiones*" : "Visible results from first sessions*",
-      treatmentsLabel: isSpanish ? "Tratamientos" : "Treatments",
-      calcTitle: isSpanish ? "Escoger paquete" : "Choose Package",
-      calcNote: isSpanish ? "Vista previa del paquete" : "Package preview",
-      quoteBtn: isSpanish ? "Preguntar por este tratamiento" : "Ask About This Treatment",
-      packageBtn: isSpanish ? "Escoger paquete" : "Choose Package"
-    };
+// ============== ACTIVE SECTION ==============
+function setActive() {
+  const top = deck.scrollTop;
+  const h = deck.clientHeight;
+  const idx = Math.round(top / h);
+  sections.forEach((s,i) => s.classList.toggle('active', i===idx));
+  sideItems.forEach((s,i) => s.classList.toggle('active', i===idx));
+  // top nav solid after first scroll
+  topnav.classList.toggle('solid', top > 80);
 
-    document.getElementById('brand').textContent = T.brand;
-
-    const slides = [
-      { type: 'home' },
-      {
-        nameEs: 'Lipo con Láser 360',
-        nameEn: 'Lipo Laser 360',
-        textEs: 'Derrite grasa localizada y mejora contorno corporal sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa mientras mejora flacidez, celulitis y textura de la piel.',
-        textEn: 'Melts localized fat and improves body contour without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving flaccidity, cellulite, and skin texture.',
-        chipsEs: [],
-        chipsEn: [],
-        learn: '#',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91559773',
-        video: './lipo-video.mp4',
-        poster: './lipo-results.jpg',
-        result: './lipo-results.jpg',
-        basePrice: 90,
-        faqEs: [
-          { q: '¿Cuántas sesiones eligen la mayoría?', a: 'Muchas personas empiezan con la 1ra sesión oferta y luego pasan al paquete de 8 o 10 sesiones.' },
-          { q: '¿Qué incluye?', a: 'Incluye Lipo Laser, Ultrasound Cavitation y Radiofrequency (RF).' },
-          { q: '¿Es una lipo sin cirugía?', a: 'Sí. Es un tratamiento sin cirugía y sin agujas.' },
-          { q: '¿Cuándo se empiezan a notar resultados?', a: 'Muchas personas notan cambios desde las primeras sesiones.' }
-        ],
-        faqEn: [
-          { q: 'How many sessions do most clients choose?', a: 'Many people start with the 1st session offer and then move into the 8 or 10 session package.' },
-          { q: 'What is included?', a: 'It includes Lipo Laser, Ultrasound Cavitation, and Radiofrequency (RF).' },
-          { q: 'Is it surgery-free?', a: 'Yes. It is non-surgical and needle-free.' },
-          { q: 'When do results start to show?', a: 'Many people notice changes from the first sessions.' }
-        ]
-      },
-      {
-        nameEs: 'Lipo con Láser 360 con Transfer',
-        nameEn: 'Lipo Laser 360 with Transfer',
-        textEs: 'Derrite grasa localizada, define cintura y realza glúteos sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite la grasa mientras mejora contorno corporal, celulitis, flacidez y textura de la piel. Butt Blaster utiliza tecnología vacuum para levantar, redondear y proyectar glúteos de forma natural.',
-        textEn: 'Melts localized fat, defines the waist, and enhances the buttocks without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving body contour, cellulite, flaccidity, and skin texture. Butt Blaster uses vacuum technology to lift, round, and project the buttocks naturally.',
-        chipsEs: [],
-        chipsEn: [],
-        learn: '#',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91559810',
-        video: './transfer-video.mp4',
-        poster: './transfer-results.jpg',
-        result: './transfer-results.jpg',
-        basePrice: 139,
-        faqEs: [
-          { q: '¿Qué incluye este tratamiento?', a: 'Incluye Lipo Laser, Ultrasound Cavitation, Radiofrequency (RF) y trabajo para realzar glúteos.' },
-          { q: '¿Qué hace el transfer?', a: 'Ayuda a levantar, redondear y proyectar visualmente los glúteos.' },
-          { q: '¿Se puede ver más cintura y mejor forma?', a: 'Sí. Está pensado para marcar más la cintura y mejorar la forma general de la figura.' },
-          { q: '¿Es sin cirugía y sin agujas?', a: 'Sí. Es un tratamiento corporal sin cirugía y sin agujas.' }
-        ],
-        faqEn: [
-          { q: 'What is included in this treatment?', a: 'It includes Lipo Laser, Ultrasound Cavitation, Radiofrequency (RF), and enhancement work for the buttocks.' },
-          { q: 'What does the transfer do?', a: 'It helps lift, round, and visually project the buttocks.' },
-          { q: 'Can it make the waist look smaller and the shape look better?', a: 'Yes. It is designed to enhance the waist and improve the overall body shape.' },
-          { q: 'Is it non-surgical and needle-free?', a: 'Yes. It is a non-surgical, needle-free body treatment.' }
-        ]
-      },
-      {
-        nameEs: 'Lipo Papada con Láser 360',
-        nameEn: 'Chin Lipo Laser 360',
-        textEs: 'Reduce grasa localizada en papada sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras mejora firmeza y define mandíbula y cuello. D-Cool ayuda a tensar la piel, suavizar líneas de expresión y mejorar estructura facial. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural.',
-        textEn: 'Reduces localized fat in the chin area without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving firmness and defining the jawline and neck. D-Cool helps tighten the skin, soften expression lines, and improve facial structure. It provides an effect similar to Botox and Morpheus8, but naturally.',
-        chipsEs: ['Papada','Línea Mandibular','Cuello','Submentón'],
-        chipsEn: ['Double Chin','Jawline','Neck','Subchin'],
-        learn: 'https://droyalspa.com/lipo-papada',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91560745',
-        video: './chin-video.mp4',
-        poster: './chin-results.jpg',
-        result: './chin-results.jpg',
-        basePrice: 89
-      },
-      {
-        nameEs: 'D-Cool & RF',
-        nameEn: 'D-Cool & RF',
-        textEs: 'Mejora firmeza, textura y rejuvenecimiento visible en rostro, cuello y área de senos sin cirugía y sin agujas. D-Cool da firmeza a la piel, mejora estructura, suaviza líneas de expresión y arrugas localizadas. Brinda un efecto similar a Botox y Morpheus8, pero de forma natural. La Radiofrecuencia (RF) ayuda a tensar la piel, mejorar elasticidad y redefinir contorno facial, cuello y escote.',
-        textEn: 'Improves firmness, texture, and visible rejuvenation in the face, neck, and breast area without surgery or needles. D-Cool firms the skin, improves structure, and softens expression lines and localized wrinkles. It provides an effect similar to Botox and Morpheus8, but naturally. Radiofrequency (RF) helps tighten the skin, improve elasticity, and redefine the facial contour, neck, and neckline.',
-        chipsEs: ['Rostro','Ojos','Cuello','Área de Senos'],
-        chipsEn: ['Face','Eyes','Neck','Breast Area'],
-        learn: 'https://droyalspa.com/d-cool-regeneracion-con-celulas-madre',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91560920',
-        video: './face-video.mp4',
-        poster: './face-results.jpg',
-        result: './face-results.jpg',
-        basePrice: 109
-      },
-      {
-        nameEs: 'Aumento de Senos sin Cirugía',
-        nameEn: 'Non-Surgical Breast Enhancement',
-        textEs: 'Mejora firmeza, forma y volumen visual del busto sin cirugía y sin agujas. Vacuum Breast Lift ayuda a levantar visualmente los senos, mejorar proyección y realzar escote de forma natural. Con Radiofrecuencia (RF) y D-Cool mejora firmeza, textura, estrías, arrugas localizadas y marcas visibles en la piel.',
-        textEn: 'Improves firmness, shape, and visual bust volume without surgery or needles. Vacuum Breast Lift helps visually lift the breasts, improve projection, and enhance the neckline naturally. With Radiofrequency (RF) and D-Cool, it improves firmness, texture, stretch marks, localized wrinkles, and visible skin marks.',
-        chipsEs: ['Senos','Escote','Área Pectoral','Contorno Superior'],
-        chipsEn: ['Breasts','Neckline','Pectoral Area','Upper Contour'],
-        learn: 'https://droyalspa.com/new-page',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91560087',
-        video: './breast-video.mp4',
-        poster: './breast-results.jpg',
-        result: './breast-results.jpg',
-        basePrice: 119
-      },
-      {
-        nameEs: 'Aumento de Glúteos sin Cirugía',
-        nameEn: 'Non-Surgical Butt Enhancement',
-        textEs: 'Aumenta, agranda y redondea glúteos sin cirugía y sin agujas. Butt Blaster utiliza tecnología vacuum para levantar, proyectar y realzar glúteos de forma natural. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) mejora celulitis, flacidez, estrías y marcas visibles en muslos y glúteos. También ayuda a mejorar curva corporal natural.',
-        textEn: 'Increases, enlarges, and rounds the buttocks without surgery or needles. Butt Blaster uses vacuum technology to lift, project, and enhance the buttocks naturally. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), it improves cellulite, flaccidity, stretch marks, and visible marks on the thighs and buttocks. It also helps improve the natural body curve.',
-        chipsEs: ['Glúteos','Muslos 360','Caderas','Espalda Baja'],
-        chipsEn: ['Buttocks','Thighs 360','Hips','Lower Back'],
-        learn: 'https://droyalspa.com/piernas',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91560697',
-        video: './glute-video.mp4',
-        poster: './glute-results.jpg',
-        result: './glute-results.jpg',
-        basePrice: 129
-      },
-      {
-        nameEs: 'Esculpido de Brazos 360 con Láser',
-        nameEn: 'Arm Sculpting 360 With Laser',
-        textEs: 'Reduce grasa localizada, afina y define brazos sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras mejora firmeza, flacidez y marcas visibles debajo de brazos y axilas.',
-        textEn: 'Reduces localized fat, slims, and defines the arms without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while improving firmness, flaccidity, and visible marks under the arms and around the armpits.',
-        chipsEs: ['Brazos 360','Axilas','Hombros','Manos'],
-        chipsEn: ['Arms 360','Armpits','Shoulders','Hands'],
-        learn: 'https://droyalspa.com/reduccion-de-brazos',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91873037',
-        video: './arm-video.mp4',
-        poster: './arm-results.jpg',
-        result: './arm-results.jpg',
-        basePrice: 99
-      },
-      {
-        nameEs: 'Esculpido de Piernas 360 con Láser',
-        nameEn: 'Leg Sculpting 360 With Laser',
-        textEs: 'Reduce grasa localizada, estiliza y define piernas sin cirugía y sin agujas. Con Lipo Láser, Ultrasonic Cavitation y Radiofrecuencia (RF) se derrite grasa mientras reduce celulitis, flacidez, estrías y marcas en la piel.',
-        textEn: 'Reduces localized fat, slims, and defines the legs without surgery or needles. With Lipo Laser, Ultrasonic Cavitation, and Radiofrequency (RF), fat is melted while reducing cellulite, flaccidity, stretch marks, and skin marks.',
-        chipsEs: ['Muslos','Rodillas','Pantorrillas','Entrepiernas'],
-        chipsEn: ['Thighs','Knees','Calves','Inner Thighs'],
-        learn: 'https://droyalspa.com/1-reduccion-de-celulitis-en-piernas',
-        book: 'https://DRoyalSpaMiami.as.me/?appointmentType=91873056',
-        video: './legs-video.mp4',
-        poster: './legs-results.jpg',
-        result: './legs-results.jpg',
-        basePrice: 99
-      }
-    ];
-
-    const deck = document.getElementById('deck');
-    const getName = (s) => isSpanish ? s.nameEs : s.nameEn;
-    const getText = (s) => isSpanish ? s.textEs : s.textEn;
-    const getChips = (s) => isSpanish ? s.chipsEs : s.chipsEn;
-
-    function makeHomeRail() {
-      return slides.slice(1).map((s, i) => `
-        <button class="rail-btn" data-go="${i + 1}">
-          <span>${getName(s)}</span>
-          <span>›</span>
-        </button>
-      `).join('');
+  // update live widget
+  const sec = sections[idx];
+  if (sec) {
+    const newSrc = sec.dataset.live;
+    if (newSrc && !liveVid.src.endsWith(newSrc)) {
+      liveVid.src = newSrc;
+      liveVid.play().catch(()=>{});
     }
-
-    function makeMiniRail(index) {
-      return slides.slice(1).map((s, i) => {
-        const real = i + 1;
-        if (real === index) return '';
-        return `
-          <button class="mini-rail-btn" data-go="${real}">
-            <span>${getName(s)}</span>
-            <span>›</span>
-          </button>
-        `;
-      }).join('');
-    }
-
-    function mediaMarkup(slide, index) {
-      return `
-        <div class="media-stage">
-          <video
-            id="video-${index}"
-            autoplay
-            muted
-            loop
-            playsinline
-            webkit-playsinline
-            preload="auto"
-            poster="${slide.poster}"
-            onerror="handleVideoError(${index})"
-          >
-            <source src="${slide.video}" type="video/mp4">
-          </video>
-          <img id="fallback-${index}" class="fallback-image" src="${slide.poster}" alt="">
-        </div>
-      `;
-    }
-
-    function packageBox(slide, index){
-      const isMainLipo = index === 1;
-      return `
-        <div class="package-box" data-treatment-index="${index}">
-          <h4>${T.calcTitle}</h4>
-          <div class="calc-grid">
-            <select class="package-session-select">
-              ${isMainLipo ? `
-                <option value="1_offer">${isSpanish ? '1ra Sesión Oferta' : '1st Session Offer'}</option>
-                <option value="8">${isSpanish ? '8 Sesiones' : '8 Sessions'}</option>
-                <option value="10">${isSpanish ? '10 Sesiones' : '10 Sessions'}</option>
-              ` : `
-                <option value="3">3 Sessions</option>
-                <option value="6">6 Sessions</option>
-                <option value="8">8 Sessions</option>
-              `}
-            </select>
-            <select class="package-area-select">
-              ${isMainLipo ? `
-                <option value="1">${isSpanish ? 'Paquete' : 'Package'}</option>
-              ` : `
-                <option value="1">1 Area</option>
-                <option value="2">2 Areas</option>
-                <option value="3">3 Areas</option>
-              `}
-            </select>
-          </div>
-          <div class="calc-result">
-            <div>
-              <div>${T.calcNote}</div>
-              <strong>${getName(slide)}</strong>
-            </div>
-            <div class="calc-price">$${isMainLipo ? 90 : slide.basePrice}</div>
-          </div>
-        </div>
-      `;
-    }
-
-    deck.innerHTML = slides.map((slide, index) => {
-      if (slide.type === 'home') {
-        return `
-          <section class="slide home-slide active" data-slide="${index}">
-            <div class="slide-inner">
-              <div class="home-video-wrap">
-                <video class="home-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
-                  <source src="./home-video.mp4" type="video/mp4">
-                </video>
-                <div class="home-overlay"></div>
-
-                <div class="home-center">
-                  <h2 class="headline">${T.headline}</h2>
-
-                  <a class="review-link" href="https://maps.app.goo.gl/vwFCST7Rr8Jmz5eM9?g_st=ic" target="_blank" rel="noopener" aria-label="Google Reviews">
-                    <span class="review-stars">★★★★★</span>
-                    <span>${T.reviews}</span>
-                  </a>
-
-                  <div class="home-tagline">${T.tagline}</div>
-                  <div class="areas">${T.areas}</div>
-                  <div class="offer"><b>New Client Limited Offer $90</b></div>
-
-                  <a class="primary-book" href="https://DRoyalSpaMiami.as.me/" target="_blank" rel="noopener">${T.bookMain}</a>
-                  <a class="phone-link" href="https://wa.me/${whatsappNumber}" target="_blank" rel="noopener">
-                    <span class="phone-icon">✆</span>
-                    <span>${T.phoneLabel}</span>
-                  </a>
-
-                  <button class="results-btn" id="openResultsBtn" type="button">
-                    <span class="results-thumb"></span>
-                    <span class="results-copy">
-                      <strong>Before & After Results</strong>
-                      <small>See real client transformations</small>
-                    </span>
-                    <span class="results-arrow">›</span>
-                  </button>
-
-                  <div class="home-tools">
-                    
-                  </div>
-
-                  
-                </div>
-
-                <div class="home-rail">
-                  ${makeHomeRail()}
-                </div>
-              </div>
-            </div>
-          </section>
-        `;
-      }
-
-      return `
-        <section class="slide treatment" data-slide="${index}">
-          <div class="slide-inner">
-            <div class="treatment-wrap">
-              <div class="media-pane">${mediaMarkup(slide, index)}</div>
-
-              <div class="info-pane">
-                <div class="page-card">
-                  <div class="page-card-inner">
-                    <div class="floating-home">
-                      <button class="home-link" data-go="0">⌂ ${T.home}</button>
-                    </div>
-
-                    <div class="page-topline">
-                      <span>${index}/${slides.length - 1}</span>
-                    </div>
-
-                    <h2 class="page-title">${getName(slide)}</h2>
-                    <p class="page-text">${getText(slide)}</p>
-
-                    ${index === 1 ? `
-                      <div class="l360-flow">
-                        <div class="result-card no-phase3">
-                          <div class="result-lab">${T.results}</div>
-                          <img src="${slide.result}" alt="${T.results}" class="zoomable">
-                        </div>
-
-                        <div class="quick-tools">
-                          <button class="open-treatment-quote" data-treatment-index="${index}">${T.quoteBtn}</button>
-                          <button class="scroll-to-package" data-treatment-index="${index}">${T.packageBtn}</button>
-                        </div>
-
-                        ${packageBox(slide, index)}
-
-                        <div class="l360-tech-grid">
-                          <div class="l360-tech-card">
-                            <img src="./lipo-laser-pads-treatment.jpg" alt="Lipo Laser" class="zoomable">
-                            <div class="l360-tech-copy">
-                              <strong>Lipo Laser</strong>
-                              <span>${isSpanish ? 'Derrite la grasa.' : 'Melts fat.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="l360-tech-card">
-                            <img src="./ultrasound-cavitation-treatment.jpg" alt="Ultrasound Cavitation" class="zoomable">
-                            <div class="l360-tech-copy">
-                              <strong>Ultrasound Cavitation</strong>
-                              <span>${isSpanish ? 'Rompe la grasa y ayuda a eliminarla.' : 'Breaks fat and helps remove it.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="l360-tech-card">
-                            <img src="./body-contouring-treatment.jpg" alt="Radiofrequency" class="zoomable">
-                            <div class="l360-tech-copy">
-                              <strong>Radiofrequency</strong>
-                              <span>${isSpanish ? 'Tensa la piel y la deja firme.' : 'Tightens the skin and leaves it firm.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="l360-tech-card">
-                            <img src="./44(1).jpg" alt="Lymphatic Drainage" class="zoomable">
-                            <div class="l360-tech-copy">
-                              <strong>Lymphatic Drainage</strong>
-                              <span>${isSpanish ? 'Drena la grasa y desinflama el cuerpo.' : 'Drains fat and reduces bloating.'}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="l360-extra-beforeafter">
-                          <div class="result-card no-phase3">
-                            <div class="result-lab">${isSpanish ? 'Antes y Después' : 'Before & After'}</div>
-                            <img src="./lipo-laser-360-before-after-front-abdomen.jpg" alt="Before and after front abdomen" class="zoomable">
-                          </div>
-                          <div class="result-card no-phase3">
-                            <div class="result-lab">${isSpanish ? 'Antes y Después' : 'Before & After'}</div>
-                            <img src="./lipo-laser-360-before-after-side-waist.jpg" alt="Before and after side waist" class="zoomable">
-                          </div>
-                        </div>
-
-                        <div class="l360-faq">
-                          <h4>${isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}</h4>
-                          <div class="l360-faq-list">
-                            ${(isSpanish ? slide.faqEs : slide.faqEn).map(item => `
-                              <div class="l360-faq-item">
-                                <strong>${item.q}</strong>
-                                <span>${item.a}</span>
-                              </div>
-                            `).join('')}
-                          </div>
-                        </div>
-
-                        <div class="actions">
-                          <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                        </div>
-
-                        <div class="results-note">${T.note}</div>
-
-                        <div class="bottom-nav">
-                          ${makeMiniRail(index)}
-                        </div>
-                      </div>
-                    ` : index === 2 ? `
-                      <div class="transfer-flow">
-                        <div class="result-card no-phase3">
-                          <div class="result-lab">${T.results}</div>
-                          <img src="${slide.result}" alt="${T.results}" class="zoomable">
-                        </div>
-
-                        <div class="quick-tools">
-                          <button class="open-treatment-quote" data-treatment-index="${index}">${T.quoteBtn}</button>
-                          <button class="scroll-to-package" data-treatment-index="${index}">${T.packageBtn}</button>
-                        </div>
-
-                        ${packageBox(slide, index)}
-
-                        <div class="transfer-tech-grid">
-                          <div class="transfer-tech-card">
-                            <img src="./lipo-laser-pads-treatment.jpg" alt="Lipo Laser" class="zoomable">
-                            <div class="transfer-tech-copy">
-                              <strong>Lipo Laser</strong>
-                              <span>${isSpanish ? 'Derrite la grasa.' : 'Melts fat.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="transfer-tech-card">
-                            <img src="./luxury-spa-relaxation.jpg" alt="Ultrasound Cavitation" class="zoomable">
-                            <div class="transfer-tech-copy">
-                              <strong>Ultrasound Cavitation</strong>
-                              <span>${isSpanish ? 'Rompe la grasa y ayuda a eliminarla.' : 'Breaks fat and helps remove it.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="transfer-tech-card">
-                            <img src="./body-contouring-treatment.jpg" alt="Radiofrequency" class="zoomable">
-                            <div class="transfer-tech-copy">
-                              <strong>Radiofrequency</strong>
-                              <span>${isSpanish ? 'Tensa la piel y la deja firme.' : 'Tightens the skin and leaves it firm.'}</span>
-                            </div>
-                          </div>
-
-                          <div class="transfer-tech-card">
-                            <img src="./44(1).jpg" alt="Lymphatic Massage" class="zoomable">
-                            <div class="transfer-tech-copy">
-                              <strong>${isSpanish ? 'Lymphatic Massage' : 'Lymphatic Massage'}</strong>
-                              <span>${isSpanish ? 'Drena la grasa y desinflama el cuerpo.' : 'Drains fat and reduces bloating.'}</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="transfer-extra-beforeafter">
-                          <div class="result-card no-phase3">
-                            <div class="result-lab">${isSpanish ? 'Antes y Después' : 'Before & After'}</div>
-                            <img src="./lipo-results.jpg" alt="Before and after abdomen" class="zoomable">
-                          </div>
-                          <div class="result-card no-phase3">
-                            <div class="result-lab">${isSpanish ? 'Antes y Después' : 'Before & After'}</div>
-                            <img src="./back-sculpting-before-after-lipo-laser.jpg" alt="Before and after back sculpting" class="zoomable">
-                          </div>
-                        </div>
-
-                        <div class="l360-faq">
-                          <h4>${isSpanish ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}</h4>
-                          <div class="l360-faq-list">
-                            ${(isSpanish ? slide.faqEs : slide.faqEn).map(item => `
-                              <div class="l360-faq-item">
-                                <strong>${item.q}</strong>
-                                <span>${item.a}</span>
-                              </div>
-                            `).join('')}
-                          </div>
-                        </div>
-
-                        <div class="actions">
-                          <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                        </div>
-
-                        <div class="results-note">${T.note}</div>
-
-                        <div class="bottom-nav">
-                          ${makeMiniRail(index)}
-                        </div>
-                      </div>
-                    ` : `
-                      <div class="chips">
-                        ${getChips(slide).map(c => `<span class="chip">${c}</span>`).join('')}
-                      </div>
-
-                      <div class="quick-tools">
-                        <button class="open-treatment-quote" data-treatment-index="${index}">${T.quoteBtn}</button>
-                        <button class="scroll-to-package" data-treatment-index="${index}">${T.packageBtn}</button>
-                      </div>
-
-                      ${packageBox(slide, index)}
-
-                      <div class="result-card">
-                        <div class="result-lab">${T.results}</div>
-                        <img src="${slide.result}" alt="${T.results}">
-                      </div>
-
-                      <div class="actions">
-                        <a class="btn light" href="${slide.learn}" target="_blank" rel="noopener">${T.learn}</a>
-                        <a class="btn gold" href="${slide.book}" target="_blank" rel="noopener">${T.book}</a>
-                      </div>
-
-                      <div class="results-note">${T.note}</div>
-
-                      <div class="bottom-nav">
-                        ${makeMiniRail(index)}
-                      </div>
-                    `}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-    }).join('');
-
-    const quoteModal = document.getElementById('quoteModal');
-    const quoteFloat = document.getElementById('quoteFloat');
-    const closeModal = document.getElementById('closeModal');
-    const openResultsBtn = document.getElementById('openResultsBtn');
-    const resultsModal = document.getElementById('resultsModal');
-    const closeResultsModal = document.getElementById('closeResultsModal');
-    const resultsGrid = document.getElementById('resultsGrid');
-
-    if (resultsGrid) {
-      resultsGrid.classList.add('results-gallery-grid');
-      const resultsStyle = document.createElement('style');
-      resultsStyle.textContent = `
-        .results-gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-        .results-gallery-card{padding:12px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);display:grid;gap:10px;text-align:left}
-        .results-gallery-image{width:100%;height:180px;border-radius:16px;object-fit:cover;background:#111;display:block}
-        .results-gallery-title{font-family:Georgia,"Times New Roman",serif;font-size:22px;color:#fff8ef;line-height:1.05;margin:2px 0 0}
-        .results-gallery-sub{font-size:13px;color:var(--muted);line-height:1.4}
-        .results-gallery-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border-radius:999px;background:linear-gradient(180deg,#e6c98f 0%,#c99d46 100%);color:#111;font-weight:900;border:none;cursor:pointer}
-        @media (max-width:920px){.results-gallery-grid{grid-template-columns:1fr}.results-gallery-image{height:160px}.results-gallery-title{font-size:20px}}
-      `;
-      document.head.appendChild(resultsStyle);
-    }
-    const quoteForm = document.getElementById('quoteForm');
-    const leadTreatment = document.getElementById('leadTreatment');
-    const sendWhatsBtn = document.getElementById('sendWhatsBtn');
-    const copyLeadBtn = document.getElementById('copyLeadBtn');
-
-    slides.slice(1).forEach((slide, idx) => {
-      const opt = document.createElement('option');
-      opt.value = getName(slide);
-      opt.textContent = getName(slide);
-      opt.dataset.index = idx + 1;
-      leadTreatment.appendChild(opt);
-
-      if (resultsGrid) {
-        const card = document.createElement('div');
-        card.className = 'results-gallery-card';
-
-        const img = document.createElement('img');
-        img.className = 'results-gallery-image';
-        img.src = slide.result;
-        img.alt = `${getName(slide)} result`;
-
-        const title = document.createElement('div');
-        title.className = 'results-gallery-title';
-        title.textContent = getName(slide);
-
-        const sub = document.createElement('div');
-        sub.className = 'results-gallery-sub';
-        sub.textContent = 'See the result and open the treatment page.';
-
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'results-gallery-btn';
-        btn.textContent = `Learn More About ${getName(slide)}`;
-        btn.addEventListener('click', () => {
-          resultsModal.classList.remove('open');
-          resultsModal.setAttribute('aria-hidden', 'true');
-          goToSlide(idx + 1);
-        });
-
-        card.appendChild(img);
-        card.appendChild(title);
-        card.appendChild(sub);
-        card.appendChild(btn);
-        resultsGrid.appendChild(card);
-      }
-    });
-
-    function openModal(treatmentIndex = null){
-      if (typeof treatmentIndex === 'number' && slides[treatmentIndex]) {
-        leadTreatment.value = getName(slides[treatmentIndex]);
-      }
-      quoteModal.classList.add('open');
-      quoteModal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeQuoteModal(){
-      quoteModal.classList.remove('open');
-      quoteModal.setAttribute('aria-hidden', 'true');
-    }
-
-    quoteFloat.addEventListener('click', () => openModal());
-    openResultsBtn?.addEventListener('click', () => {
-      resultsModal.classList.add('open');
-      resultsModal.setAttribute('aria-hidden', 'false');
-    });
-    closeResultsModal?.addEventListener('click', () => {
-      resultsModal.classList.remove('open');
-      resultsModal.setAttribute('aria-hidden', 'true');
-    });
-    closeModal.addEventListener('click', closeQuoteModal);
-    
-
-    quoteModal.addEventListener('click', (e) => {
-      if (e.target === quoteModal) closeQuoteModal();
-    });
-    resultsModal?.addEventListener('click', (e) => {
-      if (e.target === resultsModal) {
-        resultsModal.classList.remove('open');
-        resultsModal.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    function buildLeadMessage(){
-      const name = document.getElementById('leadName').value.trim();
-      const phone = document.getElementById('leadPhone').value.trim();
-      const treatment = document.getElementById('leadTreatment').value;
-      const area = document.getElementById('leadArea').value;
-      const sessions = document.getElementById('leadSessions').value;
-      const zone = document.getElementById('leadZone').value;
-      const notes = document.getElementById('leadNotes').value.trim();
-
-      return [
-        'Hola, estoy interesada en saber más sobre este tratamiento.',
-        name ? `Name: ${name}` : null,
-        phone ? `Phone: ${phone}` : null,
-        treatment ? `Treatment: ${treatment}` : null,
-        area ? `Area: ${area}` : null,
-        sessions ? `Sessions: ${sessions}` : null,
-        zone ? `Zone: ${zone}` : null,
-        notes ? `Notes: ${notes}` : null
-      ].filter(Boolean).join('\n');
-    }
-
-    sendWhatsBtn.addEventListener('click', () => {
-      const msg = buildLeadMessage();
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-    });
-
-    copyLeadBtn.addEventListener('click', async () => {
-      const msg = buildLeadMessage();
-      try {
-        await navigator.clipboard.writeText(msg);
-        copyLeadBtn.textContent = 'Copied';
-        setTimeout(() => copyLeadBtn.textContent = 'Copy Lead', 1400);
-      } catch {
-        alert(msg);
-      }
-    });
-
-    const imageZoomModal = document.getElementById('imageZoomModal');
-    const imageZoomImg = document.getElementById('imageZoomImg');
-    const imageZoomClose = document.getElementById('imageZoomClose');
-    const imageZoomPlus = document.getElementById('imageZoomPlus');
-    const imageZoomMinus = document.getElementById('imageZoomMinus');
-    let currentZoom = 1;
-
-    function applyZoom() {
-      if (imageZoomImg) imageZoomImg.style.transform = `scale(${currentZoom})`;
-    }
-
-    function openImageZoom(src, alt = '') {
-      if (!imageZoomModal || !imageZoomImg) return;
-      imageZoomImg.src = src;
-      imageZoomImg.alt = alt;
-      currentZoom = 1;
-      applyZoom();
-      imageZoomModal.classList.add('open');
-      imageZoomModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeImageZoom() {
-      if (!imageZoomModal) return;
-      imageZoomModal.classList.remove('open');
-      imageZoomModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    imageZoomClose?.addEventListener('click', closeImageZoom);
-    imageZoomPlus?.addEventListener('click', () => {
-      currentZoom = Math.min(currentZoom + 0.25, 4);
-      applyZoom();
-    });
-    imageZoomMinus?.addEventListener('click', () => {
-      currentZoom = Math.max(currentZoom - 0.25, 1);
-      applyZoom();
-    });
-
-    imageZoomModal?.addEventListener('click', (e) => {
-      if (e.target === imageZoomModal) closeImageZoom();
-    });
-
-    imageZoomImg?.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      currentZoom = Math.max(1, Math.min(4, currentZoom + (e.deltaY < 0 ? 0.15 : -0.15)));
-      applyZoom();
-    }, { passive:false });
-
-    function updatePackagePrice(box){
-      const index = Number(box.dataset.treatmentIndex);
-      const slide = slides[index];
-      const sessionValue = box.querySelector('.package-session-select').value;
-      const areaValue = Number(box.querySelector('.package-area-select').value);
-      let total;
-
-      if (index === 1) {
-        if (sessionValue === '1_offer') total = 90;
-        if (sessionValue === '8') total = 900;
-        if (sessionValue === '10') total = 1000;
-      } else {
-        const sessionNum = Number(sessionValue);
-        const multiplier = sessionNum === 3 ? 1 : sessionNum === 6 ? 1.75 : 2.25;
-        total = Math.round(slide.basePrice * multiplier * areaValue);
-      }
-
-      box.querySelector('.calc-price').textContent = `$${total}`;
-    }
-
-    document.querySelectorAll('.package-box').forEach(box => {
-      updatePackagePrice(box);
-      box.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', () => updatePackagePrice(box));
-      });
-    });
-
-    window.handleVideoError = function(index) {
-      const video = document.getElementById(`video-${index}`);
-      const fallback = document.getElementById(`fallback-${index}`);
-      if (video) video.classList.add('hidden-video');
-      if (fallback) fallback.classList.add('show');
-    };
-
-    function forcePlayVideos() {
-      const videos = document.querySelectorAll('video');
-      videos.forEach((video) => {
-        video.muted = true;
-        video.defaultMuted = true;
-        video.setAttribute('muted', '');
-        video.setAttribute('autoplay', '');
-        video.setAttribute('loop', '');
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        const p = video.play();
-        if (p !== undefined) p.catch(() => {});
-      });
-    }
-
-    const slideEls = [...document.querySelectorAll('.slide')];
-
-    function setActiveSlide() {
-      const top = deck.scrollTop;
-      const height = deck.clientHeight;
-      const active = Math.round(top / height);
-      const all = document.querySelectorAll('.slide');
-      all.forEach((el, i) => {
-        el.classList.toggle('active', i === active);
-        const p = Math.max(-1.2, Math.min(1.2, (i * height - top) / height));
-        el.style.setProperty('--p', p.toFixed(3));
-        el.style.setProperty('--abs-p', Math.abs(p).toFixed(3));
-      });
-      forcePlayVideos();
-    }
-
-    function goToSlide(index) {
-      deck.scrollTo({ top: index * deck.clientHeight, behavior: 'smooth' });
-      setTimeout(forcePlayVideos, 250);
-    }
-
-    document.addEventListener('click', (e) => {
-      const go = e.target.closest('[data-go]');
-      if (go) goToSlide(Number(go.dataset.go));
-
-      const goTreatment = e.target.closest('.go-treatment');
-      if (goTreatment) goToSlide(Number(goTreatment.dataset.go));
-
-      const openTreatmentQuote = e.target.closest('.open-treatment-quote');
-      if (openTreatmentQuote) openModal(Number(openTreatmentQuote.dataset.treatmentIndex));
-
-      if (e.target.closest('.open-quote-modal')) openModal();
-
-      const scrollToPackage = e.target.closest('.scroll-to-package');
-      if (scrollToPackage) {
-        const index = Number(scrollToPackage.dataset.treatmentIndex);
-        const box = document.querySelector(`.package-box[data-treatment-index="${index}"]`);
-        if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-
-      const zoomableImg = e.target.closest('img.zoomable, .result-card img, .results-gallery-image');
-      if (zoomableImg && !e.target.closest('#imageZoomModal')) {
-        openImageZoom(zoomableImg.getAttribute('src'), zoomableImg.getAttribute('alt') || '');
-      }
-    });
-
-    deck.addEventListener('scroll', setActiveSlide);
-    window.addEventListener('resize', () => { setActiveSlide(); forcePlayVideos(); });
-
-    document.addEventListener('DOMContentLoaded', forcePlayVideos);
-    window.addEventListener('load', forcePlayVideos);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) forcePlayVideos(); });
-    document.addEventListener('touchstart', forcePlayVideos, { passive: true });
-    document.addEventListener('touchend', forcePlayVideos, { passive: true });
-
-    setActiveSlide();
-    forcePlayVideos();
-  </script>
-  <script>
-    (function addPhase2Features(){
-      const homeCenter = document.querySelector('.home-center');
-      const homeRail = document.querySelector('.home-rail');
-      if (!homeCenter || !homeRail) return;
-
-      
-
-      const areasSlide = document.createElement('button');
-      areasSlide.className = 'rail-btn';
-      areasSlide.setAttribute('data-open-areas', 'true');
-      areasSlide.innerHTML = `<span>Areas We Serve</span><span>›</span>`;
-      homeRail.appendChild(areasSlide);
-
-      const areasModal = document.createElement('div');
-      areasModal.className = 'modal';
-      areasModal.id = 'areasModal';
-      areasModal.setAttribute('aria-hidden','true');
-      areasModal.innerHTML = `
-        <div class="modal-card">
-          <div class="modal-top">
-            <h2 class="modal-title">Areas We Serve</h2>
-            <button class="close-btn" id="closeAreasModal" aria-label="Cerrar">×</button>
-          </div>
-          <p class="modal-text">Serving Miami, Brickell, Downtown Miami, Miami Beach, Doral, Hialeah and nearby areas with mobile luxury treatments.</p>
-          <div class="area-grid phase2-area-grid">
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Miami." target="_blank" rel="noopener"><strong>Miami</strong><span>Laser lipo, body contouring, facials</span></a>
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Brickell." target="_blank" rel="noopener"><strong>Brickell</strong><span>Luxury in-home service</span></a>
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Downtown%20Miami." target="_blank" rel="noopener"><strong>Downtown Miami</strong><span>Fast booking availability</span></a>
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Miami%20Beach." target="_blank" rel="noopener"><strong>Miami Beach</strong><span>Facial and body treatments</span></a>
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Doral." target="_blank" rel="noopener"><strong>Doral</strong><span>Mobile appointments</span></a>
-            <a class="phase2-area-card" href="https://wa.me/17866900960?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20tratamientos%20en%20Hialeah." target="_blank" rel="noopener"><strong>Hialeah</strong><span>Ask about availability</span></a>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(areasModal);
-
-      const chatbot = document.createElement('div');
-      chatbot.className = 'phase2-chatbot';
-      chatbot.innerHTML = `
-        <button class="phase2-chatbot-toggle" id="chatbotToggle" aria-label="Open chat">💬</button>
-        <div class="phase2-chatbot-window" id="chatbotWindow" aria-hidden="true">
-          <div class="phase2-chatbot-head">
-            <strong>Droyalspa Assistant</strong>
-            <button class="phase2-chatbot-close" id="chatbotClose" aria-label="Close">×</button>
-          </div>
-          <div class="phase2-chatbot-body" id="chatbotBody">
-            <div class="phase2-msg bot">Hi 👋 What would you like help with?</div>
-            <div class="phase2-chatbot-actions">
-              <button data-chat-msg="Hola, quiero saber precios de Laser Lipo.">Laser Lipo</button>
-              <button data-chat-msg="Hola, quiero saber sobre papada.">Double Chin</button>
-              <button data-chat-msg="Hola, quiero saber sobre D-Cool y RF facial.">Facial</button>
-              <button data-chat-msg="Hola, quiero ver disponibilidad para una cita.">Book Now</button>
-            </div>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(chatbot);
-
-      const style = document.createElement('style');
-      style.textContent = `
-        .phase2-reviews{margin-top:18px;width:min(980px,94vw);display:grid;gap:10px}
-        .phase2-reviews-head{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:#fff2df;text-align:center}
-        .phase2-reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-        .phase2-review-card{padding:14px;border-radius:20px;background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(6px);box-shadow:var(--shadow);text-align:left}
-        .phase2-review-card p{margin:8px 0 10px;font-size:14px;line-height:1.45;color:var(--muted)}
-        .phase2-review-card span{font-size:12px;color:#f0dfc9}
-        .phase2-stars{color:#f3ddba;letter-spacing:.08em}
-        .phase2-area-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-        .phase2-area-card{display:grid;gap:6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);min-height:92px}
-        .phase2-area-card strong{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:#fff8ef}
-        .phase2-area-card span{font-size:14px;color:var(--muted)}
-        .phase2-chatbot{position:fixed;right:16px;left:auto;bottom:220px;z-index:61}
-        .phase2-chatbot-toggle{width:56px;height:56px;border-radius:50%;background:#f3dfc4;color:#111;box-shadow:0 16px 36px rgba(0,0,0,.35);font-size:24px;font-weight:900}
-        .phase2-chatbot-window{display:none;position:absolute;right:0;left:auto;bottom:68px;width:min(360px,90vw);background:#090909;border:1px solid rgba(255,255,255,.12);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
-        .phase2-chatbot-window.open{display:block}
-        .phase2-chatbot-head{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);color:#fff8ef}
-        .phase2-chatbot-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
-        .phase2-chatbot-body{padding:14px;display:grid;gap:12px}
-        .phase2-msg{max-width:92%;padding:10px 12px;border-radius:16px;font-size:14px;line-height:1.45}
-        .phase2-msg.bot{background:rgba(255,255,255,.06);color:#fff8ef}
-        .phase2-chatbot-actions{display:grid;gap:8px}
-        .phase2-chatbot-actions button{min-height:42px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff8ef;font-weight:700;text-align:left}
-        @media (max-width: 920px){
-          .phase2-reviews-grid,.phase2-area-grid{grid-template-columns:1fr}
-          .phase2-chatbot{right:12px;left:auto;bottom:220px}
-          .phase2-chatbot-toggle{width:52px;height:52px}
-          .phase2-chatbot-window{bottom:62px}
-        }
-      `;
-      document.head.appendChild(style);
-
-      const areasModalEl = document.getElementById('areasModal');
-      const closeAreasModal = document.getElementById('closeAreasModal');
-      document.querySelector('[data-open-areas="true"]')?.addEventListener('click', () => {
-        areasModalEl.classList.add('open');
-        areasModalEl.setAttribute('aria-hidden','false');
-      });
-      closeAreasModal?.addEventListener('click', () => {
-        areasModalEl.classList.remove('open');
-        areasModalEl.setAttribute('aria-hidden','true');
-      });
-      areasModalEl.addEventListener('click', (e) => {
-        if (e.target === areasModalEl) {
-          areasModalEl.classList.remove('open');
-          areasModalEl.setAttribute('aria-hidden','true');
-        }
-      });
-
-      const chatbotToggle = document.getElementById('chatbotToggle');
-      const chatbotWindow = document.getElementById('chatbotWindow');
-      const chatbotClose = document.getElementById('chatbotClose');
-      chatbotToggle?.addEventListener('click', () => {
-        chatbotWindow.classList.toggle('open');
-        chatbotWindow.setAttribute('aria-hidden', chatbotWindow.classList.contains('open') ? 'false' : 'true');
-      });
-      chatbotClose?.addEventListener('click', () => {
-        chatbotWindow.classList.remove('open');
-        chatbotWindow.setAttribute('aria-hidden','true');
-      });
-
-      document.querySelectorAll('[data-chat-msg]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const msg = btn.getAttribute('data-chat-msg');
-          window.open(`https://wa.me/17866900960?text=${encodeURIComponent(msg)}`, '_blank');
-        });
-      });
-    })();
-  </script>
-  <script>
-    (function addPhase3Features(){
-      const homeRail = document.querySelector('.home-rail');
-      const deck = document.getElementById('deck');
-      if (!homeRail || !deck) return;
-
-      // SEO landing pages hidden from home rail by request
-      const seoSlides = [];
-
-      seoSlides.forEach((item, idx) => {
-      });
-
-      const resultCards = document.querySelectorAll('.result-card:not(.no-phase3)');
-      resultCards.forEach((card, i) => {
-        if (card.classList.contains('no-phase3')) return;
-        const wrap = document.createElement('div');
-        wrap.className = 'phase3-before-after';
-        wrap.innerHTML = `
-          <div class="phase3-before-after-head">Transformation Focus</div>
-          <div class="phase3-before-after-grid">
-            <div class="phase3-ba-card">
-              <strong>Before</strong>
-              <span>Localized fat, loose skin or less definition in the target area.</span>
-            </div>
-            <div class="phase3-ba-card">
-              <strong>After*</strong>
-              <span>More sculpted look, improved firmness and smoother appearance after sessions.</span>
-            </div>
-          </div>
-        `;
-        card.insertAdjacentElement('afterend', wrap);
-      });
-
-      const quoteForm = document.getElementById('quoteForm');
-      if (quoteForm && !document.getElementById('leadDate')) {
-        const fullField = quoteForm.querySelector('.field.full');
-        const dateField = document.createElement('div');
-        dateField.className = 'field';
-        dateField.innerHTML = `
-          <label for="leadDate">Preferred date</label>
-          <input id="leadDate" name="leadDate" type="date" />
-        `;
-        const timeField = document.createElement('div');
-        timeField.className = 'field';
-        timeField.innerHTML = `
-          <label for="leadTime">Preferred time</label>
-          <select id="leadTime" name="leadTime">
-            <option value="Morning">Morning</option>
-            <option value="Afternoon">Afternoon</option>
-            <option value="Evening">Evening</option>
-          </select>
-        `;
-        fullField.insertAdjacentElement('beforebegin', dateField);
-        fullField.insertAdjacentElement('beforebegin', timeField);
-      }
-
-      const quoteText = document.querySelector('.modal-text');
-      if (quoteText) {
-        quoteText.textContent = 'Déjanos tu interés, horario preferido y tratamiento. Esta fase ya te deja captar mejor citas y zonas de servicio.';
-      }
-
-      const style = document.createElement('style');
-      style.textContent = `
-        .phase3-seo-wrap{grid-template-columns:1fr 1fr}
-        .phase3-seo-pane{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0a0a0a 0%,#030303 100%)}
-        .phase3-seo-hero{padding:34px;text-align:left;width:100%}
-        .phase3-seo-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#f0dfc9;margin-bottom:12px}
-        .phase3-seo-hero h2{margin:0 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(36px,5vw,68px);line-height:.95;color:#fff8ef;font-weight:500}
-        .phase3-seo-hero p{margin:0 0 16px;color:var(--muted);font-size:18px;line-height:1.45;max-width:540px}
-        .phase3-seo-tags{display:flex;flex-wrap:wrap;gap:10px}
-        .phase3-seo-tags span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);font-size:13px;color:#f5ecdf}
-        .phase3-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 18px}
-        .phase3-info-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);display:grid;gap:8px}
-        .phase3-info-card strong{font-family:Georgia,"Times New Roman",serif;font-size:18px;color:#fff8ef;font-weight:500}
-        .phase3-info-card span{font-size:14px;line-height:1.45;color:var(--muted)}
-        .phase3-before-after{margin-top:12px;padding:14px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10)}
-        .phase3-before-after-head{margin-bottom:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#f0dfc9}
-        .phase3-before-after-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-        .phase3-ba-card{padding:14px;border-radius:16px;background:#070707;border:1px solid rgba(255,255,255,.08);display:grid;gap:8px}
-        .phase3-ba-card strong{font-size:16px;color:#fff8ef}
-        .phase3-ba-card span{font-size:14px;line-height:1.45;color:var(--muted)}
-        @media (max-width: 920px){
-          .phase3-seo-wrap,.phase3-info-grid,.phase3-before-after-grid{grid-template-columns:1fr}
-          .phase3-seo-hero{padding:24px}
-        }
-      `;
-      document.head.appendChild(style);
-
-      function rebuildMiniNav(){
-        const slidesAll = [...document.querySelectorAll('.slide')];
-        slidesAll.forEach((slide, index) => slide.setAttribute('data-slide', index));
-        slidesAll.forEach((slide, index) => {
-          const nav = slide.querySelector('.bottom-nav, .phase3-mini-nav');
-          if (!nav) return;
-          const items = slidesAll.slice(1).map((s, i) => {
-            const real = i + 1;
-            if (real === index) return '';
-            const titleEl = s.querySelector('.page-title, .phase3-seo-hero h2');
-            const title = titleEl ? titleEl.textContent.trim() : `Page ${real}`;
-            return `<button class="mini-rail-btn" data-go="${real}"><span>${title}</span><span>›</span></button>`;
-          }).join('');
-          nav.innerHTML = items;
-        });
-      }
-
-      rebuildMiniNav();
-    })();
-  </script>
-  <script>
-    (function addPhase4Features(){
-      const homeCenter = document.querySelector('.home-center');
-      const homeTools = document.querySelector('.home-tools');
-      if (!homeCenter) return;
-
-      
-
-      if (!document.getElementById('phase4PromoBar')) {
-        const promo = document.createElement('div');
-        promo.id = 'phase4PromoBar';
-        promo.className = 'phase4-promo-bar';
-        promo.innerHTML = `
-          <span>Limited Offer: Ask about your first-session promo today</span>
-          <a href="https://wa.me/17866900960?text=Hola,%20quiero%20la%20promoci%C3%B3n%20de%20primera%20sesi%C3%B3n." target="_blank" rel="noopener">Claim Offer</a>
-        `;
-        document.body.appendChild(promo);
-      }
-
-      const seoSlidesData = [];
-
-      const deck = document.getElementById('deck');
-      const homeRail = document.querySelector('.home-rail');
-      seoSlidesData.forEach((item) => {
-        const exists = [...document.querySelectorAll('.page-title')].some(el => el.textContent.trim() === item.title);
-        if (exists || !deck || !homeRail) return;
-        const section = document.createElement('section');
-        section.className = 'slide treatment phase4-seo-slide';
-        section.setAttribute('data-slide', document.querySelectorAll('.slide').length);
-        section.innerHTML = `
-          <div class="slide-inner">
-            <div class="treatment-wrap phase3-seo-wrap">
-              <div class="media-pane phase3-seo-pane">
-                <div class="phase3-seo-hero">
-                  <div class="phase3-seo-kicker">Local SEO Page</div>
-                  <h2>${item.title}</h2>
-                  <p>${item.subtitle}</p>
-                  <div class="phase3-seo-tags">
-                    <span>Mobile Service</span>
-                    <span>Local Area</span>
-                    <span>Fast Booking</span>
-                  </div>
-                </div>
-              </div>
-              <div class="info-pane">
-                <div class="page-card">
-                  <div class="page-card-inner">
-                    <div class="floating-home"><button class="home-link" data-go="0">⌂ Home</button></div>
-                    <div class="page-topline"><span>Location SEO</span></div>
-                    <h2 class="page-title">${item.title}</h2>
-                    <p class="page-text">${item.text}</p>
-                    <div class="phase3-info-grid">
-                      <div class="phase3-info-card"><strong>Popular requests</strong><span>Laser lipo, waist contouring, RF tightening and mobile beauty sessions.</span></div>
-                      <div class="phase3-info-card"><strong>How it works</strong><span>We travel to your location with selected professional equipment and booking support.</span></div>
-                    </div>
-                    <div class="actions">
-                      <a class="btn light" href="https://droyalspa.com" target="_blank" rel="noopener">Visit Website</a>
-                      <a class="btn gold" href="https://wa.me/17866900960?text=${encodeURIComponent(item.whatsapp)}" target="_blank" rel="noopener">Ask on WhatsApp</a>
-                    </div>
-                    <div class="bottom-nav phase3-mini-nav"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        deck.appendChild(section);
-        const railBtn = document.createElement('button');
-        railBtn.className = 'rail-btn';
-        railBtn.setAttribute('data-go', document.querySelectorAll('.slide').length - 1);
-        railBtn.innerHTML = `<span>${item.title}</span><span>›</span>`;
-        homeRail.appendChild(railBtn);
-      });
-
-      const style = document.createElement('style');
-      style.textContent = `
-        .phase4-section-head{margin:18px 0 12px;font-family:Georgia,"Times New Roman",serif;font-size:22px;color:#fff2df;text-align:center}
-        .phase4-packages{margin-top:18px;width:min(1100px,94vw);display:grid;gap:10px}
-        .phase4-package-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-        .phase4-package-card{padding:18px;border-radius:24px;background:rgba(6,6,6,.62);border:1px solid rgba(255,255,255,.10);box-shadow:var(--shadow);display:grid;gap:10px;text-align:left}
-        .phase4-package-featured{outline:1px solid rgba(220,194,162,.36);transform:translateY(-2px)}
-        .phase4-badge{display:inline-flex;align-items:center;justify-content:center;width:max-content;padding:6px 10px;border-radius:999px;background:rgba(220,194,162,.18);color:#fff4e8;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-        .phase4-package-card h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;color:#fff8ef}
-        .phase4-price{font-size:34px;font-weight:900;color:#f3dfc4}
-        .phase4-package-card p{margin:0;color:var(--muted);line-height:1.45;font-size:14px}
-        .phase4-package-card ul{margin:0;padding-left:18px;color:#f1e7db;display:grid;gap:8px;font-size:14px}
-        .phase4-package-card a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border-radius:999px;background:linear-gradient(180deg,#e6c98f 0%,#c99d46 100%);color:#111;font-weight:900;padding:0 16px;margin-top:4px}
-        .phase4-faq{margin-top:18px;width:min(980px,94vw);display:grid;gap:10px}
-        .phase4-faq-list{display:grid;gap:10px}
-        .phase4-faq-list details{padding:14px 16px;border-radius:18px;background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.10)}
-        .phase4-faq-list summary{cursor:pointer;font-weight:800;color:#fff8ef;list-style:none}
-        .phase4-faq-list summary::-webkit-details-marker{display:none}
-        .phase4-faq-list p{margin:12px 0 0;color:var(--muted);line-height:1.5;font-size:14px}
-        .phase4-promo-bar{display:none !important}
-        .phase4-promo-bar span{display:none !important}
-        .phase4-promo-bar a{display:none !important}
-        @media (max-width:920px){
-          .phase4-package-grid{grid-template-columns:1fr}
-          .phase4-promo-bar{top:58px;padding:10px 12px;gap:10px}
-          .phase4-promo-bar span{font-size:13px}
-        }
-      `;
-      document.head.appendChild(style);
-
-      function rebuildAllMiniNavsPhase4(){
-        const slidesAll = [...document.querySelectorAll('.slide')];
-        slidesAll.forEach((slide, index) => slide.setAttribute('data-slide', index));
-        slidesAll.forEach((slide, index) => {
-          const nav = slide.querySelector('.bottom-nav, .phase3-mini-nav');
-          if (!nav) return;
-          const items = slidesAll.slice(1).map((s, i) => {
-            const real = i + 1;
-            if (real === index) return '';
-            const titleEl = s.querySelector('.page-title, .phase3-seo-hero h2');
-            const title = titleEl ? titleEl.textContent.trim() : `Page ${real}`;
-            return `<button class="mini-rail-btn" data-go="${real}"><span>${title}</span><span>›</span></button>`;
-          }).join('');
-          nav.innerHTML = items;
-        });
-      }
-      rebuildAllMiniNavsPhase4();
-    })();
-  </script>
-  <script>
-    (function addFinalConversion(){
-      if(!document.getElementById('finalConversionStyles')){
-        const style=document.createElement('style');
-        style.id='finalConversionStyles';
-        style.textContent=`
-        .fc-review-slider{margin:18px auto;width:min(980px,94vw);overflow:hidden;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:rgba(6,6,6,.58)}
-        .fc-track{display:flex;animation:fcslide 18s linear infinite}
-        .fc-item{min-width:100%;padding:18px}.fc-item b{display:block;margin-bottom:8px;color:#f3dfc4}.fc-item p{margin:0;color:var(--muted)}
-        @keyframes fcslide{0%,28%{transform:translateX(0)}33%,61%{transform:translateX(-100%)}66%,94%{transform:translateX(-200%)}100%{transform:translateX(0)}}
-        .fc-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px auto;width:min(980px,94vw)}
-        .fc-card{padding:14px;border-radius:20px;background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.1)}
-        .fc-card strong{display:block;margin-bottom:8px}.fc-card span{color:var(--muted);font-size:14px}
-        .fc-exit{display:none !important}
-        .fc-exit.open{display:none !important}.fc-box{max-width:520px;width:100%;background:#090909;padding:22px;border-radius:24px;border:1px solid rgba(255,255,255,.1);text-align:center}
-        .fc-box h3{margin:0 0 10px;font-size:32px}.fc-box p{color:var(--muted)}.fc-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-        .fc-actions a,.fc-actions button{min-height:46px;border-radius:999px;font-weight:900}
-        .fc-actions a{display:flex;align-items:center;justify-content:center;background:#f3dfc4;color:#111}.fc-actions button{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1)}
-        .fc-lead{margin:18px auto;width:min(760px,94vw);padding:18px;border-radius:22px;background:rgba(6,6,6,.58);border:1px solid rgba(255,255,255,.1);display:grid;gap:12px}
-        .fc-lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fc-lead input{min-height:44px;border-radius:14px;background:#050505;color:#fff;border:1px solid rgba(255,255,255,.1);padding:0 12px}
-        .fc-lead button{min-height:46px;border-radius:999px;background:linear-gradient(180deg,#e6c98f 0%,#c99d46 100%);color:#111;font-weight:900}
-        @media(max-width:920px){.fc-gallery,.fc-lead-grid,.fc-actions{grid-template-columns:1fr}}
-        `;document.head.appendChild(style);
-      }
-      const home=document.querySelector('.home-center'); if(home){}
-      const exit=document.createElement('div'); exit.className='fc-exit'; exit.id='fcExit'; exit.innerHTML='<div class="fc-box"><h3>Wait ✨</h3><p><img src="seidenperle-ai-generated-8626811_1920.png" alt="Luxury Spa Offer" style="width:100%;height:180px;object-fit:cover;border-radius:18px;margin:6px 0 14px;display:block;opacity:.96"><div style="font-size:18px;font-weight:800;color:#f3dfc4;margin-bottom:8px">New Client Offer $90</div><div style="color:var(--muted);font-size:15px">Limited availability today.</div></p><div class="fc-actions"><a href="https://wa.me/17866900960?text=Hola,%20quiero%20la%20promo%20de%20primera%20sesi%C3%B3n." target="_blank">Claim Offer</a><button id="fcClose">Maybe Later</button></div></div>'; document.body.appendChild(exit);
-      document.getElementById('fcClose')?.addEventListener('click',()=>exit.classList.remove('open'));
-      let shown=false; document.addEventListener('mouseout',e=>{if(e.clientY<=0 && !shown){shown=true;exit.classList.add('open');}});
-      document.getElementById('fcSend')?.addEventListener('click',()=>{const n=document.getElementById('fcName').value||'';const c=document.getElementById('fcEmail').value||'';window.open('https://wa.me/17866900960?text='+encodeURIComponent('Hola, quiero un quote rápido. Name: '+n+' Contact: '+c),'_blank');});
-    })();
-  </script>
-  <script>
-    (function finalEmpireLayer(){
-      if(!document.getElementById('empireStyles')){
-        const s=document.createElement('style'); s.id='empireStyles'; s.textContent=`
-        body{background:radial-gradient(circle at top,#111 0%,#000 42%,#000 100%)}
-        .topbar{backdrop-filter:blur(10px)}
-        .brand{text-shadow:0 0 24px rgba(220,194,162,.18)}
-        .empire-strip{margin:18px auto 0;width:min(1100px,94vw);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-        .empire-card{padding:18px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.10);box-shadow:0 22px 60px rgba(0,0,0,.35)}
-        .empire-card h3{margin:0 0 8px;font-family:Georgia,"Times New Roman",serif;font-size:26px;color:#fff8ef;font-weight:500}
-        .empire-card p{margin:0;color:var(--muted);line-height:1.5;font-size:14px}
-        .empire-card a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:999px;background:#f3dfc4;color:#111;font-weight:900;margin-top:12px}
-        .empire-badge{display:inline-flex;padding:6px 10px;border-radius:999px;background:rgba(220,194,162,.18);color:#fff4e8;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
-        .lux-footer{margin:24px auto 30px;width:min(1100px,94vw);padding:24px;border-radius:28px;background:rgba(6,6,6,.62);border:1px solid rgba(255,255,255,.10);display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
-        .lux-footer h4{margin:0 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:22px;font-weight:500;color:#fff8ef}
-        .lux-footer p,.lux-footer a{margin:0;color:var(--muted);line-height:1.5;font-size:14px;display:block;padding:3px 0}
-        .trust-row{margin:16px auto 0;width:min(980px,94vw);display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-        .trust{padding:12px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center;font-size:13px;color:#f5ecdf}
-        .wa-auto{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:62;padding:10px 16px;border-radius:999px;background:rgba(7,7,7,.84);border:1px solid rgba(255,255,255,.10);box-shadow:0 18px 40px rgba(0,0,0,.35);font-size:13px;color:#fff8ef;display:none}
-        .wa-auto.show{display:block}
-        @media(max-width:920px){.empire-strip,.lux-footer,.trust-row{grid-template-columns:1fr}.lux-footer{padding:18px}}
-        `;document.head.appendChild(s);
-      }
-
-      const home=document.querySelector('.home-center');
-      if(home && !document.querySelector('.empire-strip')){
-        const strip=document.createElement('section'); 
-
-        
-      }
-
-      const app=document.querySelector('.app');
-      if(app && !document.querySelector('.lux-footer')){
-        const foot=document.createElement('section'); foot.className='lux-footer'; foot.innerHTML=`
-          <div>
-            <h4>Droyalspa Miami</h4>
-            <p>Luxury mobile beauty and body contouring experiences in Miami, Brickell, Downtown, Miami Beach, Doral and nearby zones.</p>
-          </div>
-          <div>
-            <h4>Popular</h4>
-            <a href='https://droyalspa.com'>Laser Lipo</a>
-            <a href='https://droyalspa.com'>Papada Reduction</a>
-            <a href='https://droyalspa.com'>D-Cool Facial</a>
-          </div>
-          <div>
-            <h4>Contact</h4>
-            <a href='https://wa.me/17866900960'>WhatsApp</a>
-            <a href='https://DRoyalSpaMiami.as.me/'>Book Now</a>
-            <a href='tel:+17866900960'>786-690-0960</a>
-          </div>`;
-        app.appendChild(foot);
-      }
-
-      
-
-      
-    })();
-  </script>
+    liveCap.textContent = sec.dataset.cap || '';
+  }
+}
+deck.addEventListener('scroll', setActive);
+setActive();
+
+// ============== SIDE NAV CLICK ==============
+sideItems.forEach((it,i) => it.addEventListener('click', () => {
+  deck.scrollTo({top: i * deck.clientHeight, behavior:'smooth'});
+}));
+
+// ============== TOP NAV LINKS ==============
+document.querySelectorAll('[data-go]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    const i = parseInt(el.dataset.go,10);
+    if (!isNaN(i)) deck.scrollTo({top: i * deck.clientHeight, behavior:'smooth'});
+  });
+});
+
+// ============== CAROUSELS ==============
+document.querySelectorAll('.car').forEach(car => {
+  const track = car.querySelector('.car-track');
+  const dots = [...car.querySelectorAll('.car-dot')];
+  const arrows = [...car.querySelectorAll('.car-arrow')];
+  let idx = 0;
+  const total = dots.length;
+  function go(n){
+    idx = (n + total) % total;
+    track.style.transform = `translateX(-${idx*100}%)`;
+    dots.forEach((d,i) => d.classList.toggle('active', i===idx));
+  }
+  arrows.forEach(a => a.addEventListener('click', () => go(idx + parseInt(a.dataset.dir,10))));
+  dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
+
+  // touch swipe
+  let startX = 0;
+  car.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  car.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+  });
+});
+
+// ============== ZONE CHIPS ==============
+document.querySelectorAll('.zones').forEach(zg => {
+  const chips = zg.querySelectorAll('.zone-chip');
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(o => o.classList.remove('active'));
+    c.classList.add('active');
+  }));
+});
+
+// ============== MODAL ==============
+const modal = document.getElementById('modal');
+const mTitle = document.getElementById('mTitle');
+const mBody = document.getElementById('mBody');
+document.getElementById('mClose').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+
+const MODALS = {
+  contacto: { t:'Contacto', b:`<div class="opt">
+    <a href="https://wa.me/17866900960" target="_blank"><span>WhatsApp</span><span>↗</span></a>
+    <a href="tel:+17866900960"><span>Llamar +1 786 690 0960</span><span>↗</span></a>
+    <a href="mailto:droyalspamiami@gmail.com"><span>Email</span><span>↗</span></a>
+    <a href="https://instagram.com/d.royal.spa.miami" target="_blank"><span>Instagram @d.royal.spa.miami</span><span>↗</span></a>
+  </div>`},
+  cita: { t:'Cómo Funciona la Cita', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.7;color:var(--cream);opacity:.92">
+    <strong>1.</strong> Agenda online vía Acuity, WhatsApp o teléfono.<br>
+    <strong>2.</strong> Recibirás confirmación por correo con todos los detalles.<br>
+    <strong>3.</strong> Nuestra especialista llega a tu domicilio en el horario acordado con todo el equipo profesional.<br>
+    <strong>4.</strong> Sesión de 45-60 minutos en la privacidad de tu hogar.<br>
+    <strong>5.</strong> Resultados visibles desde la primera sesión.</p>
+    <div class="opt" style="margin-top:18px"><a href="https://droyalspamiami.as.me/" target="_blank"><span>Agendar Ahora</span><span>→</span></a></div>`},
+  afiliados: { t:'Programa de Afiliados', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.7;color:var(--cream);opacity:.92">
+    Gana <strong>20% de comisión</strong> por cada venta realizada con tu código único.<br><br>
+    Ideal para influencers, esteticistas, beauty creators, ex-clientas que aman D'Royal.<br><br>
+    Sin mínimo de ventas. Pagos mensuales vía Zelle o transferencia.</p>
+    <div class="opt" style="margin-top:18px"><a href="https://wa.me/17866900960?text=Hola,%20quiero%20solicitar%20mi%20c%C3%B3digo%20de%20afiliado" target="_blank"><span>Solicitar mi Código</span><span>↗</span></a></div>`},
+  nosotros: { t:'Nosotros', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.7;color:var(--cream);opacity:.92">
+    D'Royal Spa nació para reinventar la experiencia del cuidado corporal: traer un spa de lujo absoluto directamente a la privacidad de tu hogar.<br><br>
+    Combinamos tecnología FDA-approved (lipo láser, vacuum therapy, RF, CoolSculpting) con un servicio premium completamente móvil en Brickell, Downtown, Doral y Miami Beach.<br><br>
+    Cada cliente vive un ritual royal personalizado · sin cirugía · sin agujas · sin tiempo perdido.</p>`},
+  'faq-lipo': { t:'FAQs · Lipo con Láser', b:`<div style="font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.6;color:var(--cream);opacity:.92">
+    <p><strong>¿Cuántas sesiones necesito?</strong><br>Recomendamos 8-10 sesiones para resultados óptimos.</p>
+    <p style="margin-top:14px"><strong>¿Es doloroso?</strong><br>No. Solo sentirás calor suave en la piel.</p>
+    <p style="margin-top:14px"><strong>¿Cuánto duran los resultados?</strong><br>Permanentes con dieta y ejercicio adecuados.</p>
+    <p style="margin-top:14px"><strong>¿Puedo combinar zonas?</strong><br>Sí. Consultamos paquetes combo personalizados.</p>
+  </div>`},
+  'faq-aumentos': { t:'FAQs · Aumentos sin Cirugía', b:`<div style="font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.6;color:var(--cream);opacity:.92">
+    <p><strong>¿Cuánto crece el área?</strong><br>1-2 tallas tras paquete de 10 sesiones.</p>
+    <p style="margin-top:14px"><strong>¿Es seguro?</strong><br>100% no-invasivo, sin implantes ni inyecciones.</p>
+    <p style="margin-top:14px"><strong>¿Cuándo veo resultados?</strong><br>Desde la 3ra sesión visiblemente.</p>
+  </div>`},
+  'faq-botox': { t:'FAQs · Botox Natural con Láser', b:`<div style="font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.6;color:var(--cream);opacity:.92">
+    <p><strong>¿Es como el botox tradicional?</strong><br>No. Es una alternativa sin agujas usando láser + RF + CoolSculpting.</p>
+    <p style="margin-top:14px"><strong>¿Cuánto dura?</strong><br>3-6 meses por sesión, acumulativo.</p>
+    <p style="margin-top:14px"><strong>¿Hay efectos secundarios?</strong><br>Ninguno. Cero downtime.</p>
+  </div>`},
+  'faq-general': { t:'FAQs · Generales', b:`<div style="font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.6;color:var(--cream);opacity:.92">
+    <p><strong>¿Tienen sede física?</strong><br>No. Servicio 100% móvil a domicilio en Brickell, Downtown, Doral y Miami Beach.</p>
+    <p style="margin-top:14px"><strong>¿Cuál es el horario?</strong><br>Lunes a Sábado · 9am – 7pm.</p>
+    <p style="margin-top:14px"><strong>¿Idiomas?</strong><br>Español e Inglés.</p>
+    <p style="margin-top:14px"><strong>¿Métodos de pago?</strong><br>Zelle, transferencia, tarjeta vía Acuity.</p>
+  </div>`},
+};
+
+document.querySelectorAll('[data-modal]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    const k = el.dataset.modal;
+    const m = MODALS[k];
+    if (!m) return;
+    mTitle.textContent = m.t;
+    mBody.innerHTML = m.b;
+    modal.classList.add('open');
+  });
+});
+
+// ============== KEYBOARD ==============
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') modal.classList.remove('open');
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') deck.scrollTo({top: deck.scrollTop + deck.clientHeight, behavior:'smooth'});
+  if (e.key === 'ArrowUp' || e.key === 'PageUp') deck.scrollTo({top: deck.scrollTop - deck.clientHeight, behavior:'smooth'});
+});
+</script>
 </body>
 </html>
