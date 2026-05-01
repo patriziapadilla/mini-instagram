@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>D'Royal Spa · Asset Gallery — Todas las imágenes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1a0f0a;
+  --gold:#c9a875;
+  --cream:#efe2cf;
+  --bronze:#8a6c47;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0807;color:var(--cream);font-family:'Inter',sans-serif;padding:60px 40px}
+h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:48px;letter-spacing:.04em;text-align:center;color:var(--cream);margin-bottom:8px}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{text-align:center;color:var(--bronze);font-size:11px;letter-spacing:.4em;text-transform:uppercase;margin-bottom:60px}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:1700px;margin:0 auto}
+.card{background:#100a07;border:1px solid rgba(201,168,117,.22);overflow:hidden;position:relative}
+.card img{width:100%;height:auto;display:block}
+.card .label{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);border-top:1px solid rgba(201,168,117,.18)}
+.card .label .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;letter-spacing:0;color:var(--gold)}
+.card .label .role{color:var(--bronze)}
+.card.spa{border-color:rgba(201,168,117,.4)}
+.card.transition{border-color:rgba(232,199,137,.32);background:#0d0805}
+
+.section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:28px;color:var(--gold);text-align:center;margin:60px 0 24px;letter-spacing:.04em}
+.section-title::before,.section-title::after{content:"";display:inline-block;width:60px;height:1px;background:var(--gold);vertical-align:middle;margin:0 18px}
+
+.flow{max-width:1700px;margin:80px auto 0;padding:40px;border:1px solid rgba(201,168,117,.22);background:#0d0805}
+.flow h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:32px;color:var(--gold);margin-bottom:24px;letter-spacing:.04em}
+.flow ol{list-style:none;counter-reset:f;padding:0}
+.flow ol li{counter-increment:f;padding:14px 0 14px 60px;border-bottom:1px solid rgba(201,168,117,.12);position:relative;font-size:14px;line-height:1.6}
+.flow ol li::before{content:counter(f,decimal-leading-zero);position:absolute;left:0;top:14px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold);width:42px;text-align:right}
+.flow ol li strong{color:var(--cream);font-weight:500}
+.flow ol li em{color:var(--gold);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:16px}
+</style>
+</head>
+<body>
+
+<h1>D'Royal Spa · <em>Asset Gallery</em></h1>
+<div class="sub">10 imágenes para el sitio cinematográfico 3D</div>
+
+<div class="section-title">Anclas de Spa · 5 escenas reales</div>
+<div class="grid">
+  <div class="card spa">
+    <img src="hero-v3-royal.png" alt="">
+    <div class="label"><span class="num">01</span><span>Hero · Welcome</span><span class="role">Lipo Láser · Cream Royal</span></div>
+  </div>
+  <div class="card spa">
+    <img src="treatment-lipo.png" alt="">
+    <div class="label"><span class="num">02</span><span>Lipo con Láser</span><span class="role">Pads + LED rojas</span></div>
+  </div>
+  <div class="card spa">
+    <img src="treatment-aumentos-v2.png" alt="">
+    <div class="label"><span class="num">03</span><span>Aumentos sin Cirugía</span><span class="role">2 Vacuum Cups grandes</span></div>
+  </div>
+  <div class="card spa">
+    <img src="treatment-botox-laser.png" alt="">
+    <div class="label"><span class="num">04</span><span>Botox Natural con Láser</span><span class="role">Wand dorado · Sin agujas</span></div>
+  </div>
+  <div class="card spa">
+    <img src="treatment-results.png" alt="">
+    <div class="label"><span class="num">05</span><span>Resultados Reales</span><span class="role">Cuerpo esculpido</span></div>
+  </div>
+</div>
+
+<div class="section-title">Transiciones Cinematográficas · 5 escenas surreales</div>
+<div class="grid">
+  <div class="card transition">
+    <img src="transition-1-balcony.png" alt="">
+    <div class="label"><span class="num">T1</span><span>Balcón → Miami día</span><span class="role">Día dorado</span></div>
+  </div>
+  <div class="card transition">
+    <img src="transition-2-clouds.png" alt="">
+    <div class="label"><span class="num">T2</span><span>Sea of Clouds</span><span class="role">Sobre las nubes</span></div>
+  </div>
+  <div class="card transition">
+    <img src="transition-3-descending.png" alt="">
+    <div class="label"><span class="num">T3</span><span>Descending</span><span class="role">Bajando entre nubes</span></div>
+  </div>
+  <div class="card transition">
+    <img src="transition-4-sunset-moon.png" alt="">
+    <div class="label"><span class="num">T4</span><span>Sunset → Moonrise</span><span class="role">Atardecer + Luna</span></div>
+  </div>
+  <div class="card transition">
+    <img src="transition-5-night.png" alt="">
+    <div class="label"><span class="num">T5</span><span>Night Miami</span><span class="role">Skyline noche</span></div>
+  </div>
+</div>
+
+<div class="flow">
+  <h2>Flujo Cinematográfico Final</h2>
+  <ol>
+    <li><strong>HERO</strong> · <em>Spa: Lipo Láser cream royal</em> — entras al sitio, mujer en bata con pads</li>
+    <li><strong>T1 Balcón</strong> · La pared se vuelve ventana → Miami día dorado</li>
+    <li><strong>T2 Sea of Clouds</strong> · Cámara sube → mar de nubes con skyline emergiendo</li>
+    <li><strong>LIPO CON LÁSER</strong> · <em>Spa: pads + LED rojas</em> — sub-zonas Abdomen/Brazos/Piernas/Papada</li>
+    <li><strong>T3 Descending</strong> · Bajamos entre nubes hacia ciudad</li>
+    <li><strong>AUMENTOS SIN CIRUGÍA</strong> · <em>Spa: vacuum cups en glúteos</em></li>
+    <li><strong>T4 Sunset → Moonrise</strong> · Sol se pone, luna sale (time-lapse)</li>
+    <li><strong>BOTOX NATURAL CON LÁSER</strong> · <em>Spa: wand dorado, luz divina</em></li>
+    <li><strong>T5 Night Miami</strong> · Skyline noche de gala</li>
+    <li><strong>RESULTADOS</strong> · <em>Diosa esculpida en luz</em></li>
+    <li><strong>BOTTOM NAV</strong> · Comunidad · Soporte · FAQs (fondo negro)</li>
+  </ol>
+</div>
+
+</body>
+</html>
