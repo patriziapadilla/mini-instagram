@@ -78,24 +78,30 @@
     .deck{
       height:100vh;
       display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      scroll-snap-type:x mandatory;
+      flex-direction:column;
+      overflow-x:hidden;
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
       scroll-behavior:smooth;
       -webkit-overflow-scrolling:touch;
       scrollbar-width:none;
+      perspective:1400px;
+      perspective-origin:50% 50%;
     }
 
     .deck::-webkit-scrollbar{display:none}
 
     .slide{
-      flex:0 0 100vw;
-      width:100vw;
+      flex:0 0 100vh;
+      width:100%;
       height:100vh;
       scroll-snap-align:start;
       position:relative;
       overflow:hidden;
       background:#000;
+      transform-style:preserve-3d;
+      --p:0; /* scroll progress -1 (above) .. 0 (centered) .. 1 (below) */
+      --abs-p:0;
     }
 
     .slide-inner{
@@ -103,12 +109,75 @@
       height:100%;
       display:flex;
       flex-direction:column;
-      opacity:.55;
-      transform:scale(.94);
-      transition:opacity .45s ease, transform .45s ease;
+      opacity:0;
+      transform:translate3d(0, calc(var(--p) * 60px), -140px) rotateX(calc(var(--p) * 10deg)) scale(.96);
+      transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+      will-change:opacity, transform;
+      transform-style:preserve-3d;
     }
 
-    .slide.active .slide-inner{opacity:1;transform:scale(1)}
+    .slide.active .slide-inner{
+      opacity:1;
+      transform:translate3d(0, calc(var(--p) * 24px), 0) rotateX(calc(var(--p) * 3deg)) scale(1);
+    }
+
+    /* Parallax layers driven by --p */
+    .home-video,
+    .media-stage video,
+    .media-stage img{
+      transform:translate3d(0, calc(var(--p) * 8%), 0) scale(calc(1.06 + var(--abs-p) * 0.04));
+      transition:transform .15s linear;
+      will-change:transform;
+    }
+
+    .home-center,
+    .treatment-wrap{
+      transform:translate3d(0, calc(var(--p) * -28px), 0);
+      transition:transform .2s linear;
+      will-change:transform;
+    }
+
+    .home-rail,
+    .bottom-nav,
+    .phase3-mini-nav{
+      transform:translate3d(0, calc(var(--p) * 40px), 0);
+      transition:transform .2s linear;
+      will-change:transform;
+    }
+
+    /* Staggered child reveal when slide becomes active */
+    .slide .home-center > *,
+    .slide .home-tools,
+    .slide .home-rail,
+    .slide .treatment-wrap > *,
+    .slide .page-card{
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .slide.active .home-center > *,
+    .slide.active .home-tools,
+    .slide.active .home-rail,
+    .slide.active .treatment-wrap > *,
+    .slide.active .page-card{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .slide.active .home-center > *:nth-child(1){transition-delay:.08s}
+    .slide.active .home-center > *:nth-child(2){transition-delay:.16s}
+    .slide.active .home-center > *:nth-child(3){transition-delay:.22s}
+    .slide.active .home-center > *:nth-child(4){transition-delay:.28s}
+    .slide.active .home-center > *:nth-child(5){transition-delay:.34s}
+    .slide.active .home-center > *:nth-child(6){transition-delay:.40s}
+    .slide.active .home-center > *:nth-child(7){transition-delay:.46s}
+    .slide.active .home-center > *:nth-child(n+8){transition-delay:.52s}
+    .slide.active .home-tools{transition-delay:.58s}
+    .slide.active .home-rail{transition-delay:.64s}
+    .slide.active .treatment-wrap > *:nth-child(1){transition-delay:.12s}
+    .slide.active .treatment-wrap > *:nth-child(2){transition-delay:.22s}
+    .slide.active .page-card{transition-delay:.18s}
 
     .home-video-wrap{
       position:relative;
@@ -1873,15 +1942,21 @@
     const slideEls = [...document.querySelectorAll('.slide')];
 
     function setActiveSlide() {
-      const left = deck.scrollLeft;
-      const width = deck.clientWidth;
-      const active = Math.round(left / width);
-      slideEls.forEach((el, i) => el.classList.toggle('active', i === active));
+      const top = deck.scrollTop;
+      const height = deck.clientHeight;
+      const active = Math.round(top / height);
+      const all = document.querySelectorAll('.slide');
+      all.forEach((el, i) => {
+        el.classList.toggle('active', i === active);
+        const p = Math.max(-1.2, Math.min(1.2, (i * height - top) / height));
+        el.style.setProperty('--p', p.toFixed(3));
+        el.style.setProperty('--abs-p', Math.abs(p).toFixed(3));
+      });
       forcePlayVideos();
     }
 
     function goToSlide(index) {
-      deck.scrollTo({ left: index * deck.clientWidth, behavior: 'smooth' });
+      deck.scrollTo({ top: index * deck.clientHeight, behavior: 'smooth' });
       setTimeout(forcePlayVideos, 250);
     }
 
@@ -1912,13 +1987,6 @@
 
     deck.addEventListener('scroll', setActiveSlide);
     window.addEventListener('resize', () => { setActiveSlide(); forcePlayVideos(); });
-
-    deck.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        deck.scrollLeft += e.deltaY;
-      }
-    }, { passive:false });
 
     document.addEventListener('DOMContentLoaded', forcePlayVideos);
     window.addEventListener('load', forcePlayVideos);
