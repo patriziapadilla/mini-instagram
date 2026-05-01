@@ -251,10 +251,11 @@ a{color:inherit;text-decoration:none}
    ======================================================== */
 .s-results .veil{background:linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 30%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%)}
 .s-results .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;max-width:1300px}
-.s-results .g-item{aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(201,168,117,.32);position:relative;cursor:pointer;transition:transform .4s}
+.s-results .g-item{aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(201,168,117,.32);position:relative;cursor:pointer;transition:transform .4s;background:#0d0805}
 .s-results .g-item:hover{transform:translateY(-6px)}
-.s-results .g-item img{width:100%;height:100%;object-fit:cover}
-.s-results .g-item .lbl{position:absolute;bottom:10px;left:14px;right:14px;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.s-results .g-item .bg-blur{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(22px) brightness(.45) saturate(1.1);transform:scale(1.15);z-index:1}
+.s-results .g-item .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;padding:6px}
+.s-results .g-item .lbl{position:absolute;bottom:10px;left:14px;right:14px;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.9);z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(13,8,5,.7) 100%);padding:20px 4px 0;margin:0 -14px -10px}
 @media(max-width:980px){.s-results .gallery{grid-template-columns:repeat(2,1fr)}}
 
 /* ========================================================
@@ -445,20 +446,20 @@ a{color:inherit;text-decoration:none}
             </div>
             <div class="car-slide">
               <div class="num-tag">02 · Beneficios</div>
-              <h3>Sin agujas, sin cirugía</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-lymphatic.mp4" autoplay muted loop playsinline></video></div>
               <ul>
                 <li>Reduce circunferencia desde la primera sesión</li>
                 <li>Reafirma la piel y mejora la textura</li>
                 <li>Sin dolor, sin tiempo de recuperación</li>
-                <li>Resultados acumulativos · paquete de 8 sesiones</li>
+                <li>Drenaje linfático integrado · elimina toxinas</li>
                 <li>Servicio 100% en la privacidad de tu hogar</li>
               </ul>
             </div>
             <div class="car-slide">
               <div class="num-tag">03 · Resultados Reales</div>
               <h3>Antes &amp; Después</h3>
-              <div class="car-video-frame"><img src="lipo-results.jpg" alt="Resultados Lipo"></div>
-              <p>Cliente real verificada · resultados desde la 4ta sesión · paquete completo de 8.</p>
+              <div class="car-video-frame"><video src="mockups/explainer-ultrasound.mp4" autoplay muted loop playsinline></video></div>
+              <p>Ultrasonido cavitacional · cliente real verificada · resultados desde la 4ta sesión · paquete completo de 8.</p>
             </div>
             <div class="car-slide">
               <div class="num-tag">04 · Paquetes</div>
@@ -535,7 +536,7 @@ a{color:inherit;text-decoration:none}
           <div class="car-track">
             <div class="car-slide">
               <div class="num-tag">01 · Cómo Funciona</div>
-              <div class="car-video-frame"><video src="mockups/explainer-vacuum-glutes.mp4" autoplay muted loop playsinline poster="mockups/treatment-aumentos-v2.png"><source src="mockups/explainer-vacuum-breasts.mp4" type="video/mp4"></video></div>
+              <div class="car-video-frame"><video src="mockups/explainer-vacuum-lift.mp4" autoplay muted loop playsinline poster="mockups/treatment-aumentos-v2.png"></video></div>
               <p>Copas de succión activan el tejido adiposo, estimulan circulación y aumentan volumen natural.</p>
             </div>
             <div class="car-slide">
@@ -552,8 +553,8 @@ a{color:inherit;text-decoration:none}
             <div class="car-slide">
               <div class="num-tag">03 · Resultados</div>
               <h3>Glúteos · Senos</h3>
-              <div class="car-video-frame"><img src="glute-results.jpg" alt="Resultados Aumentos"></div>
-              <p>Aumento promedio: 1-2 tallas tras paquete de 10 sesiones.</p>
+              <div class="car-video-frame"><video src="mockups/explainer-vacuum-breasts.mp4" autoplay muted loop playsinline></video></div>
+              <p>Vacuum therapy para busto &amp; glúteos · aumento promedio: 1-2 tallas tras paquete de 10 sesiones.</p>
             </div>
             <div class="car-slide">
               <div class="num-tag">04 · Paquetes</div>
@@ -639,6 +640,7 @@ a{color:inherit;text-decoration:none}
             <div class="car-slide">
               <div class="num-tag">03 · Tecnologías</div>
               <h3>CoolSculpting + RF + Láser</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-rf.mp4" autoplay muted loop playsinline></video></div>
               <ul>
                 <li>CoolSculpting · congela células maduras</li>
                 <li>Radiofrecuencia · calor profundo tensa colágeno</li>
@@ -700,14 +702,14 @@ a{color:inherit;text-decoration:none}
       <h2 class="title">La Diferencia<br>se Ve <em>desde la 1ra</em>.</h2>
 
       <div class="gallery">
-        <div class="g-item"><img src="lipo-results.jpg" alt=""><div class="lbl">Abdomen · Lipo Láser</div></div>
-        <div class="g-item"><img src="arm-results.jpg" alt=""><div class="lbl">Brazos · Lipo Láser</div></div>
-        <div class="g-item"><img src="legs-results.jpg" alt=""><div class="lbl">Piernas · Lipo Láser</div></div>
-        <div class="g-item"><img src="chin-results.jpg" alt=""><div class="lbl">Papada · Lipo Láser</div></div>
-        <div class="g-item"><img src="glute-results.jpg" alt=""><div class="lbl">Glúteos · Aumento</div></div>
-        <div class="g-item"><img src="breast-results.jpg" alt=""><div class="lbl">Senos · Aumento</div></div>
-        <div class="g-item"><img src="face-results.jpg" alt=""><div class="lbl">Botox Natural · Láser</div></div>
-        <div class="g-item"><img src="transfer-results.jpg" alt=""><div class="lbl">Transfer · Lipo</div></div>
+        <div class="g-item"><img class="bg-blur" src="lipo-results.jpg" alt=""><img class="fg" src="lipo-results.jpg" alt=""><div class="lbl">Abdomen · Lipo Láser</div></div>
+        <div class="g-item"><img class="bg-blur" src="arm-results.jpg" alt=""><img class="fg" src="arm-results.jpg" alt=""><div class="lbl">Brazos · Lipo Láser</div></div>
+        <div class="g-item"><img class="bg-blur" src="legs-results.jpg" alt=""><img class="fg" src="legs-results.jpg" alt=""><div class="lbl">Piernas · Lipo Láser</div></div>
+        <div class="g-item"><img class="bg-blur" src="chin-results.jpg" alt=""><img class="fg" src="chin-results.jpg" alt=""><div class="lbl">Papada · Lipo Láser</div></div>
+        <div class="g-item"><img class="bg-blur" src="glute-results.jpg" alt=""><img class="fg" src="glute-results.jpg" alt=""><div class="lbl">Glúteos · Aumento</div></div>
+        <div class="g-item"><img class="bg-blur" src="breast-results.jpg" alt=""><img class="fg" src="breast-results.jpg" alt=""><div class="lbl">Senos · Aumento</div></div>
+        <div class="g-item"><img class="bg-blur" src="face-results.jpg" alt=""><img class="fg" src="face-results.jpg" alt=""><div class="lbl">Botox Natural · Láser</div></div>
+        <div class="g-item"><img class="bg-blur" src="transfer-results.jpg" alt=""><img class="fg" src="transfer-results.jpg" alt=""><div class="lbl">Transfer · Lipo</div></div>
       </div>
     </div>
     <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>05 / 10</div></div>
@@ -872,10 +874,13 @@ const MODALS = {
     Ideal para influencers, esteticistas, beauty creators, ex-clientas que aman D'Royal.<br><br>
     Sin mínimo de ventas. Pagos mensuales vía Zelle o transferencia.</p>
     <div class="opt" style="margin-top:18px"><a href="https://wa.me/17866900960?text=Hola,%20quiero%20solicitar%20mi%20c%C3%B3digo%20de%20afiliado" target="_blank"><span>Solicitar mi Código</span><span>↗</span></a></div>`},
-  nosotros: { t:'Nosotros', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.7;color:var(--cream);opacity:.92">
-    D'Royal Spa nació para reinventar la experiencia del cuidado corporal: traer un spa de lujo absoluto directamente a la privacidad de tu hogar.<br><br>
-    Combinamos tecnología FDA-approved (lipo láser, vacuum therapy, RF, CoolSculpting) con un servicio premium completamente móvil en Brickell, Downtown, Doral y Miami Beach.<br><br>
-    Cada cliente vive un ritual royal personalizado · sin cirugía · sin agujas · sin tiempo perdido.</p>`},
+  nosotros: { t:'Nosotros · D\'Royal Spa', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.75;color:var(--cream);opacity:.94">
+    <strong style="color:var(--gold-bright)">Fundado en 2024 por Doña Patrizia Padilla</strong>, D'Royal Spa nació con una misión clara: brindar acceso a los mismos resultados de la cirugía estética — <em>sin cirugía, sin agujas y sin tiempo de recuperación</em>.<br><br>
+    Con más de <strong>10 años de experiencia</strong> en estética avanzada en Miami, Doña Patrizia creó el <strong style="color:var(--gold-bright)">primer spa premium 100% móvil del Sur de la Florida</strong> — un concepto que hoy se extiende a <strong>más de 4 ubicaciones</strong>, combinando un equipo de esteticistas certificadas con maquinaria <strong>aprobada por la FDA</strong>.<br><br>
+    Cada sesión es un ritual personalizado que llega a la privacidad de tu hogar · atendido en <strong>Español e Inglés</strong> · siempre con resultados reales, jamás inventados.</p>
+    <div class="opt" style="margin-top:18px">
+      <a href="https://wa.me/17866900960" target="_blank"><span>Habla con nosotros</span><span>↗</span></a>
+    </div>`},
   'faq-lipo': { t:'FAQs · Lipo con Láser', b:`<div style="font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.6;color:var(--cream);opacity:.92">
     <p><strong>¿Cuántas sesiones necesito?</strong><br>Recomendamos 8-10 sesiones para resultados óptimos.</p>
     <p style="margin-top:14px"><strong>¿Es doloroso?</strong><br>No. Solo sentirás calor suave en la piel.</p>
