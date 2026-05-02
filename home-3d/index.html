@@ -93,69 +93,32 @@ a{color:inherit;text-decoration:none}
 .live-cap{position:absolute;bottom:11px;left:11px;right:11px;z-index:6;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.85)}
 @media(max-width:980px){.live{width:180px;height:108px;bottom:18px;right:18px}}
 
-/* ============== DECK + SECTIONS · TRUE ACCORDION (no scroll) ============== */
+/* ============== DECK + SECTIONS · NORMAL SCROLL ============== */
 .deck{
   height:100vh;width:100%;
   display:flex;flex-direction:column;
-  overflow:hidden;
+  overflow-y:auto;overflow-x:hidden;
+  scroll-snap-type:y proximity;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
 }
+.deck::-webkit-scrollbar{display:none}
 
 .section{
-  flex:1 1 0%;min-height:56px;width:100%;
+  flex:0 0 100vh;width:100%;height:100vh;
+  scroll-snap-align:start;
   position:relative;overflow:hidden;
   display:flex;align-items:center;
-  transition:flex .75s cubic-bezier(.22,.61,.36,1), background .4s;
-  will-change:flex;
 }
-
-/* COLLAPSED state = ultra-thin button bar */
-.section.collapsed{
-  flex:0 0 20px;
-  cursor:pointer;
-  background:rgba(13,8,5,.68);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(201,168,117,.16);
-  align-items:center;justify-content:center;
-}
-.section.collapsed:hover{background:rgba(22,14,9,.92);border-bottom-color:rgba(232,199,137,.45)}
-.section.collapsed .bg-vid,
-.section.collapsed .veil,
-.section.collapsed .content,
-.section.collapsed .dc{display:none !important}
-.section.collapsed .sec-compact{opacity:1;pointer-events:auto}
-.section.collapsed:hover .sec-compact{color:var(--gold-bright)}
-.section.collapsed:hover .sec-compact .num{color:var(--gold-bright);transform:translateX(-4px)}
-.section.collapsed:hover .sec-compact .lbl{transform:translateX(4px)}
-
-/* Compact button view (shown only when collapsed) */
-.sec-compact{
-  position:absolute;inset:0;z-index:6;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  opacity:0;pointer-events:none;
-  color:var(--cream);font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;
-  transition:color .3s,opacity .4s .25s;
-  text-shadow:0 1px 3px rgba(0,0,0,.5);
-}
-.sec-compact .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:9.5px;color:var(--gold);letter-spacing:0;transition:color .3s,transform .35s cubic-bezier(.22,.61,.36,1)}
-.sec-compact .lbl{transition:transform .35s cubic-bezier(.22,.61,.36,1)}
-.sec-compact .arrow{display:inline-block;width:12px;height:1px;background:var(--gold);margin:0 2px;opacity:.45;transition:opacity .3s,width .3s}
-.section.collapsed:hover .sec-compact .arrow{opacity:1;width:20px}
-
-/* EXPANDED state */
+.sec-compact{display:none}
 .section.active .bg-vid{filter:saturate(1) contrast(1.05)}
 .bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .bg-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:saturate(.94) contrast(1.02);will-change:filter;transition:filter .6s}
 .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
 
-/* mobile portrait: bg video can be taller aspect */
 @media (max-width: 768px) and (orientation: portrait){
   .bg-vid{object-position:center}
-}
-@media(max-width:980px){
-  .section.collapsed{flex:0 0 18px}
-  .sec-compact{gap:6px;font-size:7px;letter-spacing:.2em}
-  .sec-compact .num{font-size:9px}
-  .sec-compact .arrow{display:none}
 }
 .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
 
@@ -297,34 +260,37 @@ a{color:inherit;text-decoration:none}
 .btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border:1px solid rgba(201,168,117,.4);color:var(--gold-bright);font-size:10px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .btn-ghost:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
-/* HOME section - compact for accordion */
-.s-home{align-items:center;justify-content:flex-start;padding-left:90px;padding-right:90px}
-.s-home .home-content{padding:20px 0;max-height:calc(100vh - 200px);overflow-y:auto;width:100%;max-width:1100px}
-.s-home .home-content::-webkit-scrollbar{display:none}
-.s-home .home-content{scrollbar-width:none}
-.s-home .title{font-size:clamp(34px,4.4vw,76px);max-width:880px}
-.s-home .sub{margin-top:18px;max-width:560px;font-size:clamp(16px,1.3vw,20px)}
-.s-home .areas{margin-top:18px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-.s-home .stats{display:flex;gap:36px;margin-top:22px;padding-top:22px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
-.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+/* HOME section - full page */
+.s-home{align-items:center;justify-content:flex-start;padding:80px 90px 40px}
+.s-home .home-content{padding:0;width:100%;max-width:1100px}
+.s-home .title{font-size:clamp(42px,5.2vw,92px);max-width:880px}
+.s-home .sub{margin-top:22px;max-width:600px;font-size:clamp(16px,1.4vw,22px)}
+.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
+.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
 .s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);opacity:.9;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.s-home .cta-row{margin-top:24px}
+.s-home .cta-row{margin-top:28px}
 .s-home .veil{
   background:
     linear-gradient(90deg,rgba(13,8,5,.78) 0%,rgba(13,8,5,.35) 40%,rgba(13,8,5,.15) 60%,rgba(13,8,5,.55) 100%),
     linear-gradient(180deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 22%,rgba(13,8,5,.15) 65%,rgba(13,8,5,.92) 100%);
 }
 @media(max-width:980px){
-  .s-home{padding-left:24px;padding-right:24px}
-  .s-home .home-content{padding:14px 0;max-height:calc(100vh - 360px)}
-  .s-home .stats{gap:18px;margin-top:18px;padding-top:18px}
-  .s-home .stat .n{font-size:26px}
+  .s-home{padding:80px 24px 40px}
+  .s-home .stats{gap:18px;margin-top:22px;padding-top:22px}
+  .s-home .stat .n{font-size:28px}
 }
 
-.s-treat{align-items:center;padding:70px 90px 16px}
-.s-results{align-items:flex-start;padding:70px 90px 16px}
-.s-treat .content, .s-results .content{padding-bottom:10px}
-@media(max-width:980px){.s-treat, .s-results{padding:70px 24px 16px}}
+/* Treatment sections - full page */
+.s-treat{align-items:center;padding:90px 90px 40px}
+.s-results{align-items:flex-start;padding:90px 90px 40px}
+.s-treat .content, .s-results .content{padding-bottom:0}
+@media(max-width:980px){.s-treat, .s-results{padding:80px 24px 40px}}
+
+.s-treat{align-items:center;padding:90px 90px 40px}
+.s-results{align-items:flex-start;padding:90px 90px 40px}
+.s-treat .content, .s-results .content{padding-bottom:0}
+@media(max-width:980px){.s-treat, .s-results{padding:80px 24px 40px}}
 .hud{display:none}
 .hud .scroll-hint{display:flex;align-items:center;gap:14px}
 .hud .arr{display:inline-block;width:1px;height:32px;background:linear-gradient(180deg,var(--gold-bright),transparent);position:relative;animation:bobble 2s infinite}
@@ -380,7 +346,7 @@ a{color:inherit;text-decoration:none}
 .s-treat .title{font-size:clamp(36px,4.8vw,72px)}
 .s-treat .sub{margin-top:14px}
 .s-treat .eb{margin-bottom:14px}
-.s-treat .content{max-width:1500px;max-height:calc(100vh - 100px);overflow-y:auto}
+.s-treat .content{max-width:1500px;overflow:visible}
 .s-treat .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;padding-top:12px}
 @media(max-width:980px){.s-treat .layout{grid-template-columns:1fr;gap:24px;padding-top:12px}.s-treat .content{max-height:calc(100vh - 160px)}}
 
@@ -566,7 +532,7 @@ a{color:inherit;text-decoration:none}
   </section>
 
   <!-- ===== 02 · LIPO CON LÁSER ===== -->
-  <section class="section s-treat collapsed" id="s-lipo" data-label="Lipo Láser">
+  <section class="section s-treat" id="s-lipo" data-label="Lipo Láser">
     <div class="sec-compact"><span class="num">02</span><span class="lbl" data-i18n="nav.sec.lipo">Lipo Láser</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="lipo-video-frame.jpg" data-desktop="lipo-video.mp4" data-mobile="lipo-video-mobile.mp4">
       <source src="lipo-video.mp4" type="video/mp4">
@@ -654,7 +620,7 @@ a{color:inherit;text-decoration:none}
   </section>
 
   <!-- ===== 03 · COOLSCULPTING ===== -->
-  <section class="section s-treat collapsed" id="s-coolsculpt" data-label="CoolSculpting">
+  <section class="section s-treat" id="s-coolsculpt" data-label="CoolSculpting">
     <div class="sec-compact"><span class="num">03</span><span class="lbl" data-i18n="nav.sec.cool">CoolSculpting</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="lipo-video-frame.jpg" data-desktop="lipo-video.mp4" data-mobile="lipo-video-mobile.mp4">
       <source src="lipo-video.mp4" type="video/mp4">
@@ -736,7 +702,7 @@ a{color:inherit;text-decoration:none}
   </section>
 
   <!-- ===== 04 · AUMENTOS ===== -->
-  <section class="section s-treat collapsed" id="s-aumentos" data-label="Aumentos">
+  <section class="section s-treat" id="s-aumentos" data-label="Aumentos">
     <div class="sec-compact"><span class="num">04</span><span class="lbl" data-i18n="nav.sec.aumentos">Aumentos</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="glute-video-frame.jpg" data-desktop="glute-video.mp4" data-mobile="glute-video-mobile.mp4">
       <source src="glute-video.mp4" type="video/mp4">
@@ -819,7 +785,7 @@ a{color:inherit;text-decoration:none}
   </section>
 
   <!-- ===== 04 · BOTOX NATURAL CON LÁSER ===== -->
-  <section class="section s-treat collapsed" id="s-botox" data-label="Botox Láser">
+  <section class="section s-treat" id="s-botox" data-label="Botox Láser">
     <div class="sec-compact"><span class="num">05</span><span class="lbl" data-i18n="nav.sec.botox">Botox Láser</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="face-video-frame.jpg" data-desktop="face-video.mp4" data-mobile="face-video-mobile.mp4">
       <source src="face-video.mp4" type="video/mp4">
@@ -902,7 +868,7 @@ a{color:inherit;text-decoration:none}
   </section>
 
   <!-- ===== 05 · RESULTADOS ===== -->
-  <section class="section s-results collapsed" id="s-results" data-label="Resultados">
+  <section class="section s-results" id="s-results" data-label="Resultados">
     <div class="sec-compact"><span class="num">06</span><span class="lbl" data-i18n="nav.resultados">Resultados</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg" data-desktop="home-video.mp4" data-mobile="home-video-mobile.mp4">
       <source src="home-video.mp4" type="video/mp4">
@@ -1053,54 +1019,30 @@ const SECTIONS = [
 const secEls = SECTIONS.map(s => document.getElementById(s.id));
 let activeIdx = 0;
 
-// ============== ACCORDION STATE ==============
-function setActive(i){
-  activeIdx = Math.max(0, Math.min(SECTIONS.length - 1, i));
-  secEls.forEach((el, idx) => {
-    if (!el) return;
-    const isActive = idx === activeIdx;
-    el.classList.toggle('active', isActive);
-    el.classList.toggle('collapsed', !isActive);
+// ============== ACTIVE SECTION TRACKING (scroll-based) ==============
+function updateActive(){
+  const top = deck.scrollTop;
+  const vh = deck.clientHeight;
+  const mid = top + vh * 0.4;
+  let newIdx = 0;
+  secEls.forEach((el, i) => {
+    if (el && el.offsetTop <= mid) newIdx = i;
   });
-  // Update top nav active state
+  activeIdx = newIdx;
+  secEls.forEach((el, i) => el && el.classList.toggle('active', i === activeIdx));
   document.querySelectorAll('.topnav .left a[data-target]').forEach(a => {
     a.classList.toggle('active', a.dataset.target === SECTIONS[activeIdx].id);
   });
-  topnav.classList.toggle('solid', activeIdx > 0);
+  topnav.classList.toggle('solid', top > 80);
 }
+deck.addEventListener('scroll', updateActive, { passive: true });
 
-// ============== SECTION CLICK (when collapsed) ==============
-secEls.forEach((el, i) => {
-  if (!el) return;
-  el.addEventListener('click', (e) => {
-    if (el.classList.contains('collapsed')) {
-      setActive(i);
-      e.stopPropagation();
-    }
-  });
-});
-
-// ============== WHEEL · changes section ==============
-let wheelLock = false;
-window.addEventListener('wheel', (e) => {
-  if (wheelLock) return;
-  if (Math.abs(e.deltaY) < 12) return;
-  // Allow scrolling inside scrollable content (modal, carousel, etc.)
-  if (e.target.closest('.modal.open, .quiz-modal.open')) return;
-  wheelLock = true;
-  setActive(activeIdx + Math.sign(e.deltaY));
-  setTimeout(() => { wheelLock = false; }, 820);
-  e.preventDefault();
-}, { passive: false });
-
-// ============== TOUCH swipe (mobile) ==============
-let touchY = 0;
-window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
-window.addEventListener('touchend', e => {
-  if (e.target.closest('.modal.open, .quiz-modal.open, .car')) return;
-  const dy = e.changedTouches[0].clientY - touchY;
-  if (Math.abs(dy) > 55) setActive(activeIdx + (dy < 0 ? 1 : -1));
-}, { passive: true });
+// setActive scrolls to section
+function setActive(i){
+  const idx = Math.max(0, Math.min(SECTIONS.length - 1, i));
+  const el = secEls[idx];
+  if (el) deck.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+}
 
 // ============== NAV CLICK ==============
 function scrollToId(id){
@@ -1141,7 +1083,7 @@ syncVideoSources();
 window.addEventListener('resize', () => { clearTimeout(window._rsz); window._rsz = setTimeout(syncVideoSources, 250); });
 
 // initial
-setActive(0);
+updateActive();
 
 // ============== CAROUSELS ==============
 document.querySelectorAll('.car').forEach(car => {
