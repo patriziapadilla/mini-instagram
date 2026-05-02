@@ -261,12 +261,17 @@ a{color:inherit;text-decoration:none}
 .btn-ghost:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
 /* HOME section - full page */
-.s-home{align-items:center;justify-content:flex-start;padding:80px 90px 40px}
-.s-home .home-content{padding:0;width:100%;max-width:1100px}
-.s-home .title{font-size:clamp(42px,5.2vw,92px);max-width:880px}
-.s-home .sub{margin-top:22px;max-width:600px;font-size:clamp(16px,1.4vw,22px)}
-.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
+.s-home{align-items:center;justify-content:center;padding:80px 90px 40px}
+.s-home .home-content{padding:0;width:100%;max-width:1100px;text-align:center}
+.s-home .home-brand{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,7vw,128px);color:var(--cream);font-weight:300;letter-spacing:.02em;line-height:1;text-shadow:0 6px 30px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.5)}
+.s-home .home-divider{width:min(680px,84%);height:1px;background:repeating-linear-gradient(90deg, var(--gold) 0 6px, transparent 6px 12px);margin:30px auto;opacity:.7}
+.s-home .home-divider.bottom{margin-top:36px}
+.s-home .home-tag{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.4vw,22px);color:var(--cream);line-height:1.55;max-width:760px;margin:0 auto;text-shadow:0 2px 12px rgba(0,0,0,.65), 0 1px 4px rgba(0,0,0,.55)}
+.s-home .home-tag strong{color:var(--gold-bright);font-weight:500;font-style:italic}
+.s-home .areas{margin:30px auto 0;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:780px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.s-home .cta-row{margin-top:28px;justify-content:center}
+.s-home .stats{display:flex;gap:48px;margin:32px auto 0;padding-top:32px;border-top:none;max-width:760px;justify-content:center;flex-wrap:wrap}
+.s-home .stat{text-align:center}
 .s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
 .s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);opacity:.9;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .s-home .cta-row{margin-top:28px}
@@ -460,8 +465,8 @@ a{color:inherit;text-decoration:none}
 @keyframes fabPulse{0%,100%{box-shadow:0 14px 32px -8px rgba(201,168,117,.55), 0 6px 14px -4px rgba(0,0,0,.55), 0 0 0 0 rgba(201,168,117,.45)}50%{box-shadow:0 14px 32px -8px rgba(201,168,117,.55), 0 6px 14px -4px rgba(0,0,0,.55), 0 0 0 14px rgba(201,168,117,0)}}
 @media(max-width:980px){
   .quiz-fab{
-    right:auto;left:50%;bottom:24px;transform:translateX(-50%);
-    padding:12px 28px;font-size:10px;letter-spacing:.28em;
+    right:auto;left:50%;bottom:8px;transform:translateX(-50%);
+    padding:11px 26px;font-size:9.5px;letter-spacing:.26em;
   }
   .quiz-fab:hover{transform:translateX(-50%) translateY(-3px)}
 }
@@ -545,9 +550,9 @@ a{color:inherit;text-decoration:none}
     <div class="veil"></div>
 
     <div class="content home-content">
-      <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
-      <h1 class="title">Lipo sin <em>Cirugía</em>.</h1>
-      <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
+      <h1 class="title home-brand">D'Royal Spa</h1>
+      <div class="home-divider"></div>
+      <p class="home-tag"><strong>Belleza inteligente, resultados reales.</strong><br>Tecnología avanzada para moldear y rejuvenecer tu cuerpo<br>sin agujas y sin cirugía.</p>
       <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
       <div class="cta-row">
         <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
@@ -559,6 +564,7 @@ a{color:inherit;text-decoration:none}
         <div class="stat"><div class="n">100%</div><div class="l">In-Home</div></div>
         <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
       </div>
+      <div class="home-divider bottom"></div>
     </div>
   </section>
 
@@ -974,7 +980,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- ============== QUIZ FLOATING CTA ============== -->
 <button class="quiz-fab" id="quizFab" data-testid="quiz-fab">
-  <span class="wa">✓</span><span data-i18n="quiz.fab">Cotiza</span>
+  <span class="wa">✓</span><span data-i18n="quiz.fab">Cotización</span>
 </button>
 
 <!-- ============== QUIZ MODAL ============== -->
@@ -1386,7 +1392,7 @@ const I18N = {
     es: {
       'nav.inicio':'Inicio','nav.tratamientos':'Tratamientos','nav.resultados':'Resultados','nav.areas':'Áreas','nav.agendar':'Agendar',
       'nav.sec.lipo':'Lipo Láser','nav.sec.cool':'CoolSculpting','nav.sec.aumentos':'Aumentos','nav.sec.botox':'Botox Láser',
-      'quiz.fab':'Cotiza',
+      'quiz.fab':'Cotización',
       'quiz.q1.title':'¿Qué te gustaría mejorar?','quiz.q1.lead':'Elige una opción para empezar · toma 30 segundos.',
       'quiz.q1.lipo':'Lipo Láser','quiz.q1.aumentos':'Aumentos sin Cirugía','quiz.q1.botox':'Botox Natural Láser','quiz.q1.multi':'Combinación · No sé aún',
       'quiz.q2.title':'¿Cuántas sesiones te interesan?','quiz.q2.lead':'Elige el paquete que mejor se ajuste a tus metas.',
@@ -1418,8 +1424,9 @@ const I18N = {
     });
   },
   init(){
-    const nav = (navigator.language || 'es').toLowerCase();
-    this.lang = nav.startsWith('en') ? 'en' : 'es';
+    // Force Spanish · all hardcoded content is in Spanish.
+    // English support pending full translation pass.
+    this.lang = 'es';
     this.apply();
   }
 };
