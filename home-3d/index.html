@@ -297,26 +297,34 @@ a{color:inherit;text-decoration:none}
 .btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border:1px solid rgba(201,168,117,.4);color:var(--gold-bright);font-size:10px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .btn-ghost:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
-/* HOME section */
-.s-home .home-content{padding-top:70px;padding-bottom:120px}
-.s-home .title{max-width:880px}
-.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
-.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+/* HOME section - compact for accordion */
+.s-home{align-items:center;justify-content:flex-start;padding-left:90px;padding-right:90px}
+.s-home .home-content{padding:20px 0;max-height:calc(100vh - 320px);overflow-y:auto;width:100%;max-width:1100px}
+.s-home .home-content::-webkit-scrollbar{display:none}
+.s-home .home-content{scrollbar-width:none}
+.s-home .title{font-size:clamp(34px,4.4vw,76px);max-width:880px}
+.s-home .sub{margin-top:18px;max-width:560px;font-size:clamp(16px,1.3vw,20px)}
+.s-home .areas{margin-top:18px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.s-home .stats{display:flex;gap:36px;margin-top:22px;padding-top:22px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
+.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
 .s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);opacity:.9;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.s-home .cta-row{margin-top:24px}
 .s-home .veil{
   background:
-    linear-gradient(90deg,rgba(13,8,5,.75) 0%,rgba(13,8,5,.35) 35%,rgba(13,8,5,.15) 60%,rgba(13,8,5,.55) 100%),
+    linear-gradient(90deg,rgba(13,8,5,.78) 0%,rgba(13,8,5,.35) 40%,rgba(13,8,5,.15) 60%,rgba(13,8,5,.55) 100%),
     linear-gradient(180deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 22%,rgba(13,8,5,.15) 65%,rgba(13,8,5,.92) 100%);
 }
-@media(max-width:980px){.s-home .stats{gap:24px}.s-home .stat .n{font-size:30px}.s-home .home-content{padding-bottom:160px}}
+@media(max-width:980px){
+  .s-home{padding-left:24px;padding-right:24px}
+  .s-home .home-content{padding:14px 0;max-height:calc(100vh - 360px)}
+  .s-home .stats{gap:18px;margin-top:18px;padding-top:18px}
+  .s-home .stat .n{font-size:26px}
+}
 
-/* Treatment sections: full height accordion — internal padding only */
-.s-treat{align-items:flex-start;padding-top:80px;padding-bottom:20px}
-.s-results{align-items:flex-start;padding-top:80px;padding-bottom:20px}
-.s-treat .content, .s-results .content{padding-bottom:40px}
-.s-treat .layout{padding-top:0}
-@media(max-width:980px){.s-treat, .s-results{padding-top:72px;padding-bottom:20px}}
+.s-treat{align-items:center;padding:70px 90px 16px}
+.s-results{align-items:flex-start;padding:70px 90px 16px}
+.s-treat .content, .s-results .content{padding-bottom:10px}
+@media(max-width:980px){.s-treat, .s-results{padding:70px 24px 16px}}
 .hud{display:none}
 .hud .scroll-hint{display:flex;align-items:center;gap:14px}
 .hud .arr{display:inline-block;width:1px;height:32px;background:linear-gradient(180deg,var(--gold-bright),transparent);position:relative;animation:bobble 2s infinite}
@@ -369,9 +377,12 @@ a{color:inherit;text-decoration:none}
     linear-gradient(90deg,rgba(13,8,5,.82) 0%,rgba(13,8,5,.45) 45%,rgba(13,8,5,.2) 65%,rgba(13,8,5,.65) 100%),
     linear-gradient(180deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 22%,rgba(13,8,5,.15) 70%,rgba(13,8,5,.92) 100%);
 }
-.s-treat .content{max-width:1500px}
-.s-treat .layout{display:grid;grid-template-columns:1.2fr .9fr;gap:60px;align-items:center;padding-top:90px}
-@media(max-width:980px){.s-treat .layout{grid-template-columns:1fr;gap:30px;padding-top:70px}}
+.s-treat .title{font-size:clamp(36px,4.8vw,72px)}
+.s-treat .sub{margin-top:14px}
+.s-treat .eb{margin-bottom:14px}
+.s-treat .content{max-width:1500px;max-height:calc(100vh - 180px);overflow-y:auto}
+.s-treat .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;padding-top:12px}
+@media(max-width:980px){.s-treat .layout{grid-template-columns:1fr;gap:24px;padding-top:12px}.s-treat .content{max-height:calc(100vh - 160px)}}
 
 /* sub-zone chips */
 .zones{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 30px}
@@ -384,10 +395,10 @@ a{color:inherit;text-decoration:none}
 .zone-chip:hover,.zone-chip.active{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
 /* carousel inside treatment */
-.car{position:relative;width:100%;background:rgba(13,8,5,.58);border:1px solid rgba(201,168,117,.38);backdrop-filter:blur(14px);overflow:hidden;min-height:520px;
+.car{position:relative;width:100%;background:rgba(13,8,5,.58);border:1px solid rgba(201,168,117,.38);backdrop-filter:blur(14px);overflow:hidden;min-height:440px;display:flex;flex-direction:column;
   box-shadow:0 30px 60px -20px rgba(0,0,0,.8), 0 14px 28px -10px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.35), inset 0 0 50px rgba(201,168,117,.04)}
-.car-track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
-.car-slide{flex:0 0 100%;padding:32px 36px;display:flex;flex-direction:column;justify-content:center;min-height:520px}
+.car-track{display:flex;width:100%;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform;flex:1 1 auto}
+.car-slide{flex:0 0 100%;padding:26px 32px;display:flex;flex-direction:column;justify-content:center;min-height:380px;max-height:calc(100vh - 300px);overflow-y:auto}
 .car-slide h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-bright);margin-bottom:14px;font-weight:400;letter-spacing:.04em}
 .car-slide .num-tag{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .car-slide .num-tag::before{content:"";display:inline-block;width:24px;height:1px;background:var(--gold)}
@@ -408,12 +419,13 @@ a{color:inherit;text-decoration:none}
 .car-pkg .p-desc{margin-top:8px;font-size:9px;letter-spacing:.18em;color:var(--cream);opacity:.7}
 
 /* carousel nav */
-.car-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 36px;border-top:1px solid rgba(201,168,117,.22);background:rgba(13,8,5,.65)}
+.car-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;border-top:1px solid rgba(201,168,117,.32);background:rgba(13,8,5,.78);flex-shrink:0;z-index:5}
+.car-arrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-bright);cursor:pointer;transition:color .3s,transform .3s;padding:6px 12px;border:1px solid rgba(201,168,117,.4)}
+.car-arrow:hover{color:var(--noir);background:var(--gold);border-color:var(--gold);transform:translateX(2px)}
+.car-arrow[data-dir="-1"]:hover{transform:translateX(-2px)}
 .car-dots{display:flex;gap:6px}
 .car-dot{width:8px;height:8px;border-radius:50%;background:rgba(201,168,117,.32);cursor:pointer;transition:.3s}
 .car-dot.active{background:var(--gold-bright);transform:scale(1.4)}
-.car-arrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-bright);cursor:pointer;display:flex;align-items:center;gap:8px;transition:gap .3s}
-.car-arrow:hover{gap:12px}
 
 /* ========================================================
    RESULTADOS
@@ -641,9 +653,91 @@ a{color:inherit;text-decoration:none}
   </section>
   </section>
 
-  <!-- ===== 03 · AUMENTOS ===== -->
+  <!-- ===== 03 · COOLSCULPTING ===== -->
+  <section class="section s-treat collapsed" id="s-coolsculpt" data-label="CoolSculpting">
+    <div class="sec-compact"><span class="num">03</span><span class="lbl" data-i18n="nav.sec.cool">CoolSculpting</span><span class="arrow"></span></div>
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="lipo-video-frame.jpg" data-desktop="lipo-video.mp4" data-mobile="lipo-video-mobile.mp4">
+      <source src="lipo-video.mp4" type="video/mp4">
+    </video>
+    <div class="veil"></div>
+
+    <div class="content">
+      <div class="layout">
+        <div>
+          <div class="eb"><span class="b"></span><span>CoolSculpting · Criolipolisis</span></div>
+          <h2 class="title">CoolSculpting<br>sin <em>Cirugía</em>.</h2>
+          <p class="sub">Congela las células de grasa de forma permanente en abdomen, brazos y piernas. Tecnología FDA-approved que elimina hasta un 25% de grasa localizada por sesión · sin agujas, sin dolor, sin tiempo de recuperación.</p>
+
+          <div class="zones">
+            <span class="zone-chip active" data-zone="abdomen">Abdomen</span>
+            <span class="zone-chip" data-zone="brazos">Brazos</span>
+            <span class="zone-chip" data-zone="piernas">Piernas</span>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Reservar <span>→</span></a>
+            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">Consultar <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="car" data-car="cool">
+          <div class="car-track">
+            <div class="car-slide">
+              <div class="num-tag">01 · Cómo Funciona</div>
+              <div class="car-video-frame"><video src="mockups/explainer-dcool-facial.mp4" autoplay muted loop playsinline><source src="mockups/explainer-coolsculpting.mp4" type="video/mp4"></video></div>
+              <p>Enfriamiento controlado a -5°C cristaliza las células de grasa sin dañar la piel. Las células congeladas se desintegran y el cuerpo las elimina naturalmente en 4-8 semanas.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">02 · Beneficios</div>
+              <h3>Eliminación Permanente</h3>
+              <ul>
+                <li>Elimina hasta 25% de grasa por zona</li>
+                <li>Células destruidas no regresan · resultado permanente</li>
+                <li>FDA-approved · tecnología probada</li>
+                <li>Sin cirugía, sin agujas, sin anestesia</li>
+                <li>Regresa a tu rutina el mismo día</li>
+              </ul>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">03 · Zonas Ideales</div>
+              <h3>Abdomen · Brazos · Piernas</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-coolsculpting.mp4" autoplay muted loop playsinline></video></div>
+              <p>Ideal para depósitos de grasa localizada que no responden a dieta y ejercicio. Resultados visibles desde las 3 semanas · óptimos en 2-3 meses.</p>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">04 · Paquetes</div>
+              <h3>Inversión Royal</h3>
+              <div class="car-pkg">
+                <div class="p-card"><div class="p-name">1ra Sesión</div><div class="p-price">$180<small>/zona</small></div><div class="p-desc">Oferta de prueba</div></div>
+                <div class="p-card featured"><div class="p-name">4 Sesiones</div><div class="p-price">$599<small></small></div><div class="p-desc">Recomendado · Ahorra</div></div>
+                <div class="p-card"><div class="p-name">Combo 3 zonas</div><div class="p-price">$1299<small></small></div><div class="p-desc">Abdomen+Brazos+Piernas</div></div>
+              </div>
+            </div>
+            <div class="car-slide">
+              <div class="num-tag">05 · Reservar</div>
+              <h3>Congela tu grasa hoy</h3>
+              <p>Agenda tu sesión o consulta gratuita por WhatsApp.</p>
+              <div class="cta-row" style="margin-top:18px">
+                <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar <span>→</span></a>
+              </div>
+              <div class="cta-row" style="margin-top:10px">
+                <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="car-nav">
+            <span class="car-arrow" data-dir="-1">← Atrás</span>
+            <div class="car-dots"><span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span></div>
+            <span class="car-arrow" data-dir="1">Siguiente →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04 · AUMENTOS ===== -->
   <section class="section s-treat collapsed" id="s-aumentos" data-label="Aumentos">
-    <div class="sec-compact"><span class="num">03</span><span class="lbl" data-i18n="nav.sec.aumentos">Aumentos</span><span class="arrow"></span></div>
+    <div class="sec-compact"><span class="num">04</span><span class="lbl" data-i18n="nav.sec.aumentos">Aumentos</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="glute-video-frame.jpg" data-desktop="glute-video.mp4" data-mobile="glute-video-mobile.mp4">
       <source src="glute-video.mp4" type="video/mp4">
     </video>
@@ -677,6 +771,7 @@ a{color:inherit;text-decoration:none}
             <div class="car-slide">
               <div class="num-tag">02 · Beneficios</div>
               <h3>Volumen Real, Sin Implantes</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-vacuum-active.mp4" autoplay muted loop playsinline></video></div>
               <ul>
                 <li>Aumento natural de volumen</li>
                 <li>Mejora textura y firmeza</li>
@@ -725,7 +820,7 @@ a{color:inherit;text-decoration:none}
 
   <!-- ===== 04 · BOTOX NATURAL CON LÁSER ===== -->
   <section class="section s-treat collapsed" id="s-botox" data-label="Botox Láser">
-    <div class="sec-compact"><span class="num">04</span><span class="lbl" data-i18n="nav.sec.botox">Botox Láser</span><span class="arrow"></span></div>
+    <div class="sec-compact"><span class="num">05</span><span class="lbl" data-i18n="nav.sec.botox">Botox Láser</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="face-video-frame.jpg" data-desktop="face-video.mp4" data-mobile="face-video-mobile.mp4">
       <source src="face-video.mp4" type="video/mp4">
     </video>
@@ -736,7 +831,7 @@ a{color:inherit;text-decoration:none}
         <div>
           <div class="eb"><span class="b"></span><span>Tecnología NUEVA · Sin agujas</span></div>
           <h2 class="title">Botox Natural<br>con <em>Láser</em>.</h2>
-          <p class="sub">Combinación exclusiva de CoolSculpting + Radiofrecuencia que regenera células maduras y rejuvenece la piel sin agujas, sin inyecciones, sin tiempo de recuperación.</p>
+          <p class="sub">Sistema exclusivo con 4 tecnologías combinadas: <strong style="color:var(--gold-bright)">D'Cool + Radiofrecuencia + Hydromicrodermabrasion + Terapia de Luz de 7 Colores</strong>. Rejuvenece, tensa y regenera la piel sin agujas, sin inyecciones, sin tiempo de recuperación.</p>
 
           <div class="cta-row">
             <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Reservar <span>→</span></a>
@@ -752,26 +847,28 @@ a{color:inherit;text-decoration:none}
               <p>Láser dorado + RF estimulan regeneración celular profunda. Las células maduras se renuevan, el colágeno se reorganiza.</p>
             </div>
             <div class="car-slide">
-              <div class="num-tag">02 · Beneficios</div>
-              <h3>Rejuvenecimiento Sin Agujas</h3>
+              <div class="num-tag">02 · Luz de 7 Colores</div>
+              <h3>Cromoterapia Facial</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-luz-7-colores.mp4" autoplay muted loop playsinline></video></div>
               <ul>
-                <li>Reduce arrugas y líneas finas</li>
-                <li>Estimula colágeno y elastina</li>
-                <li>Mejora textura y luminosidad</li>
-                <li>Cero downtime · cero dolor</li>
+                <li>7 longitudes de onda distintas</li>
+                <li>Oro · Coral · Rosa · Champagne · Ámbar</li>
+                <li>Cada color trata una condición específica</li>
+                <li>Estimula colágeno en capas profundas</li>
                 <li>Tecnología FDA-approved</li>
               </ul>
             </div>
             <div class="car-slide">
-              <div class="num-tag">03 · Tecnologías</div>
-              <h3>CoolSculpting + RF + Láser</h3>
-              <div class="car-video-frame"><video src="mockups/explainer-rf.mp4" autoplay muted loop playsinline></video></div>
+              <div class="num-tag">03 · D'Cool + RF + Hydro</div>
+              <h3>Sistema Completo</h3>
+              <div class="car-video-frame"><video src="mockups/explainer-dcool-facial.mp4" autoplay muted loop playsinline></video></div>
               <ul>
-                <li>CoolSculpting · congela células maduras</li>
-                <li>Radiofrecuencia · calor profundo tensa colágeno</li>
-                <li>Láser dorado · estimula regeneración celular</li>
+                <li>D'Cool · congela células maduras</li>
+                <li>Radiofrecuencia · tensa colágeno profundo</li>
+                <li>Hydromicrodermabrasion · exfolia y nutre</li>
+                <li>Luz de 7 colores · cromoterapia facial</li>
               </ul>
-              <p style="margin-top:10px">Triple acción en una sola sesión.</p>
+              <p style="margin-top:10px">Cuádruple acción en una sesión.</p>
             </div>
             <div class="car-slide">
               <div class="num-tag">04 · Paquetes</div>
@@ -806,7 +903,7 @@ a{color:inherit;text-decoration:none}
 
   <!-- ===== 05 · RESULTADOS ===== -->
   <section class="section s-results collapsed" id="s-results" data-label="Resultados">
-    <div class="sec-compact"><span class="num">05</span><span class="lbl" data-i18n="nav.resultados">Resultados</span><span class="arrow"></span></div>
+    <div class="sec-compact"><span class="num">06</span><span class="lbl" data-i18n="nav.resultados">Resultados</span><span class="arrow"></span></div>
     <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg" data-desktop="home-video.mp4" data-mobile="home-video-mobile.mp4">
       <source src="home-video.mp4" type="video/mp4">
     </video>
@@ -946,11 +1043,12 @@ const topnav = document.getElementById('topnav');
 
 // Ordered list of sections (5 total)
 const SECTIONS = [
-  { id: 's-home',     n: '01', labelKey:'nav.inicio',       label: 'Inicio' },
-  { id: 's-lipo',     n: '02', labelKey:'nav.sec.lipo',     label: 'Lipo Láser' },
-  { id: 's-aumentos', n: '03', labelKey:'nav.sec.aumentos', label: 'Aumentos' },
-  { id: 's-botox',    n: '04', labelKey:'nav.sec.botox',    label: 'Botox Láser' },
-  { id: 's-results',  n: '05', labelKey:'nav.resultados',   label: 'Resultados' },
+  { id: 's-home',       n: '01', labelKey:'nav.inicio',       label: 'Inicio' },
+  { id: 's-lipo',       n: '02', labelKey:'nav.sec.lipo',     label: 'Lipo Láser' },
+  { id: 's-coolsculpt', n: '03', labelKey:'nav.sec.cool',     label: 'CoolSculpting' },
+  { id: 's-aumentos',   n: '04', labelKey:'nav.sec.aumentos', label: 'Aumentos' },
+  { id: 's-botox',      n: '05', labelKey:'nav.sec.botox',    label: 'Botox Láser' },
+  { id: 's-results',    n: '06', labelKey:'nav.resultados',   label: 'Resultados' },
 ];
 const secEls = SECTIONS.map(s => document.getElementById(s.id));
 let activeIdx = 0;
@@ -1248,7 +1346,7 @@ const I18N = {
   dict: {
     es: {
       'nav.inicio':'Inicio','nav.tratamientos':'Tratamientos','nav.resultados':'Resultados','nav.areas':'Áreas','nav.agendar':'Agendar',
-      'nav.sec.lipo':'Lipo Láser','nav.sec.aumentos':'Aumentos','nav.sec.botox':'Botox Láser',
+      'nav.sec.lipo':'Lipo Láser','nav.sec.cool':'CoolSculpting','nav.sec.aumentos':'Aumentos','nav.sec.botox':'Botox Láser',
       'quiz.fab':'Cotiza en 30s',
       'quiz.q1.title':'¿Qué te gustaría mejorar?','quiz.q1.lead':'Elige una opción para empezar · toma 30 segundos.',
       'quiz.q1.lipo':'Lipo Láser','quiz.q1.aumentos':'Aumentos sin Cirugía','quiz.q1.botox':'Botox Natural Láser','quiz.q1.multi':'Combinación · No sé aún',
@@ -1260,7 +1358,7 @@ const I18N = {
     },
     en: {
       'nav.inicio':'Home','nav.tratamientos':'Treatments','nav.resultados':'Results','nav.areas':'Areas','nav.agendar':'Book',
-      'nav.sec.lipo':'Laser Lipo','nav.sec.aumentos':'Enhancement','nav.sec.botox':'Laser Botox',
+      'nav.sec.lipo':'Laser Lipo','nav.sec.cool':'CoolSculpting','nav.sec.aumentos':'Enhancement','nav.sec.botox':'Laser Botox',
       'quiz.fab':'Quote in 30s',
       'quiz.q1.title':'What would you like to improve?','quiz.q1.lead':'Pick one option to start · takes 30 seconds.',
       'quiz.q1.lipo':'Laser Lipo','quiz.q1.aumentos':'Non-Surgical Enhancement','quiz.q1.botox':'Natural Laser Botox','quiz.q1.multi':'Combination · Not sure yet',
