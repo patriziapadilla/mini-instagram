@@ -134,7 +134,9 @@ a{color:inherit;text-decoration:none}
 .cine-l1{z-index:1}
 .cine-l1 .veil{background:linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.35) 100%),linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.7) 100%)}
 .cine-l2{z-index:2;opacity:0}
-.cine-l2 .veil{background:linear-gradient(180deg,rgba(13,8,5,.2) 0%,rgba(13,8,5,0) 30%,rgba(13,8,5,0) 70%,rgba(13,8,5,.6) 100%)}
+.cine-l2 .veil{background:linear-gradient(90deg,rgba(13,8,5,.5) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.35) 100%),linear-gradient(180deg,rgba(13,8,5,.3) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.75) 100%)}
+.cine-l3{z-index:3;opacity:0}
+.cine-l3 .veil{background:linear-gradient(90deg,rgba(13,8,5,.6) 0%,rgba(13,8,5,.2) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),linear-gradient(180deg,rgba(13,8,5,.4) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%)}
 
 /* Hero text block — lives above layer1, animates with scroll */
 .cine-copy{position:absolute;left:0;right:0;top:0;bottom:0;z-index:8;display:flex;align-items:center;pointer-events:none;will-change:opacity,transform}
@@ -381,15 +383,21 @@ a{color:inherit;text-decoration:none}
   <section class="s-cine" id="s-cine" data-live="home-video.mp4" data-cap="Ch.01 · Bienvenida">
     <div class="cine-stage">
 
-      <!-- LAYER 1 · Dubai penthouse (zooms in toward window) -->
+      <!-- LAYER 1 · Dubai penthouse · GOLDEN HOUR (base) -->
       <div class="cine-layer cine-l1" id="cineL1">
         <img src="mockups/hero-dubai.png" alt="D'Royal Spa · Penthouse sobre las nubes" id="cineL1Img">
         <div class="veil"></div>
       </div>
 
-      <!-- LAYER 2 · Clouds (fades in as we go through the window) -->
+      <!-- LAYER 2 · Same scene · SUNSET (crossfades in mid-scroll) -->
       <div class="cine-layer cine-l2" id="cineL2">
-        <img src="mockups/transition-2-clouds.png" alt="" id="cineL2Img">
+        <img src="mockups/hero-dubai-sunset.png" alt="" id="cineL2Img">
+        <div class="veil"></div>
+      </div>
+
+      <!-- LAYER 3 · Same scene · NIGHT + MOON (crossfades at end) -->
+      <div class="cine-layer cine-l3" id="cineL3">
+        <img src="mockups/hero-dubai-night.png" alt="" id="cineL3Img">
         <div class="veil"></div>
       </div>
 
@@ -416,12 +424,12 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
 
-      <!-- CLOUDS COPY · fades in when we're above the clouds -->
+      <!-- CLOUDS COPY · fades in when we're at night scene -->
       <div class="cine-clouds-copy" id="cineCloudsCopy">
         <div>
-          <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II</span><span class="b"></span></div>
-          <h2 class="title serif">Sobre las <em>Nubes</em></h2>
-          <p class="quote">Te elevamos sobre la ciudad<br>para devolverte tu mejor versión.</p>
+          <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II · Ritual Nocturno</span><span class="b"></span></div>
+          <h2 class="title serif">El Día se viste de <em>Luna</em></h2>
+          <p class="quote">La ciudad se enciende,<br>tu piel también.</p>
         </div>
       </div>
 
@@ -808,16 +816,17 @@ const trackSections = [...deck.querySelectorAll('[id]')].filter(el =>
   ['s-cine','s-lipo','t3','s-aumentos','t4','s-botox','t5','s-results'].includes(el.id)
 );
 
-// ============== CINEMATIC SCROLL (GSAP ScrollTrigger) ==============
+// ============== CINEMATIC SCROLL (GSAP ScrollTrigger · crossfade time-of-day) ==============
 gsap.registerPlugin(ScrollTrigger);
-
-// Tell ScrollTrigger to use the .deck as the scroll container
 ScrollTrigger.defaults({ scroller: deck });
 
-// Base state
-gsap.set(cineL1Img, { transformOrigin: '78% 48%', scale: 1 });
-gsap.set(cineL2Img, { transformOrigin: '50% 50%', scale: 1.35 });
+const cineL3 = document.getElementById('cineL3');
+const cineL3Img = document.getElementById('cineL3Img');
+
+// Base state · only L1 visible, model + room stay still (no zoom, no movement)
+gsap.set([cineL1Img, cineL2Img, cineL3Img], { scale: 1 });
 gsap.set(cineL2, { opacity: 0 });
+gsap.set(cineL3, { opacity: 0 });
 gsap.set(cineCloudsCopy, { opacity: 0, y: 40 });
 
 const cineTl = gsap.timeline({
@@ -826,27 +835,24 @@ const cineTl = gsap.timeline({
     scroller: deck,
     start: 'top top',
     end: 'bottom bottom',
-    scrub: 0.6,
+    scrub: 0.8,
     onUpdate: (self) => {
       if (cineBar) cineBar.style.setProperty('--cp', (self.progress*100).toFixed(1)+'%');
     }
   }
 });
 
-// 0 → 0.45 : zoom INTO the window (L1 scale up, origin = right center where window is)
-cineTl.to(cineL1Img, { scale: 3.2, ease: 'power1.in' }, 0);
-// Hero text fades out 0.05 → 0.30
-cineTl.to(cineCopy, { opacity: 0, y: -30, ease: 'power2.in' }, 0.05);
-// Layer 1 starts darkening as we approach window (via opacity fade) at 0.38 → 0.55
-cineTl.to(cineL1Img, { opacity: 0, ease: 'power1.inOut' }, 0.38);
-// Layer 2 (clouds) fades in 0.35 → 0.55, scales slightly down
-cineTl.to(cineL2, { opacity: 1, ease: 'power2.out' }, 0.35);
-cineTl.to(cineL2Img, { scale: 1, ease: 'power1.out' }, 0.35);
-// Clouds copy enters 0.55 → 0.75
-cineTl.to(cineCloudsCopy, { opacity: 1, y: 0, ease: 'power2.out' }, 0.55);
-// Clouds copy hold, then slight zoom continues on L2 toward end
-cineTl.to(cineL2Img, { scale: 1.08, ease: 'none' }, 0.70);
-cineTl.to(cineCloudsCopy, { opacity: 0, y: -30, ease: 'power2.in' }, 0.88);
+// 0 → 0.15 : Hero text quietly holds (amanecer / golden hour tranquilo)
+// 0.15 → 0.40 : Hero copy fades out gently — "el sol se despide naturalmente"
+cineTl.to(cineCopy, { opacity: 0, y: -24, ease: 'power2.inOut' }, 0.15);
+// 0.25 → 0.55 : Golden-hour → SUNSET crossfade (the sun descends naturally)
+cineTl.to(cineL2, { opacity: 1, ease: 'power2.inOut' }, 0.25);
+// 0.55 → 0.80 : SUNSET → NIGHT crossfade (moon rises, city lights up)
+cineTl.to(cineL3, { opacity: 1, ease: 'power2.inOut' }, 0.55);
+// 0.60 → 0.85 : Night copy fades in
+cineTl.to(cineCloudsCopy, { opacity: 1, y: 0, ease: 'power2.out' }, 0.60);
+// 0.88 → 1.00 : Night copy fades out, preparing to enter Lipo section
+cineTl.to(cineCloudsCopy, { opacity: 0, y: -20, ease: 'power2.in' }, 0.88);
 
 // ============== ACTIVE SECTION TRACKING ==============
 function setActive() {
@@ -874,7 +880,7 @@ function setActive() {
     // Dynamic caption for cine based on progress
     if (activeId === 's-cine') {
       const p = Math.max(0, Math.min(1, (top - cineSection.offsetTop) / (cineSection.offsetHeight - vh)));
-      liveCap.textContent = p < 0.4 ? 'Ch.01 · Bienvenida' : (p < 0.75 ? 'Ch.02 · Sobre las Nubes' : 'Ch.02 · Nubes de Seda');
+      liveCap.textContent = p < 0.3 ? 'Ch.01 · Amanecer' : (p < 0.6 ? 'Ch.02 · Atardecer' : 'Ch.03 · Luna sobre Miami');
     } else {
       liveCap.textContent = activeEl.dataset.cap || '';
     }
