@@ -6,7 +6,10 @@
 <meta name="description" content="D'Royal Spa · Lipo sin Cirugía · 100% Móvil en Miami · Brickell · Downtown · Doral · Miami Beach" />
 <title>D'Royal Spa · Lipo sin Cirugía · Miami</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="mockups/hero-v3-royal.png">
+<link rel="preload" as="image" href="mockups/hero-dubai.png">
+<link rel="preload" as="image" href="mockups/transition-2-clouds.png">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <style>
 :root{
   --bg:#1a0f0a;
@@ -98,7 +101,7 @@ a{color:inherit;text-decoration:none}
   height:100vh;
   display:flex;flex-direction:column;
   overflow-y:auto;overflow-x:hidden;
-  scroll-snap-type:y mandatory;
+  scroll-snap-type:y proximity;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
@@ -115,6 +118,40 @@ a{color:inherit;text-decoration:none}
   transition:transform 1.4s cubic-bezier(.22,.61,.36,1);will-change:transform}
 .section.active .bg-img{transform:scale(1.05)}
 .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
+
+/* ============== CINEMATIC PINNED SCENE (Hero → Window → Clouds) ============== */
+.s-cine{
+  flex:0 0 320vh;height:320vh;width:100%;
+  scroll-snap-align:start;
+  position:relative;
+}
+.cine-stage{
+  position:sticky;top:0;height:100vh;width:100%;overflow:hidden;
+}
+.cine-layer{position:absolute;inset:0;width:100%;height:100%;will-change:transform,opacity;overflow:hidden}
+.cine-layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.cine-layer .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
+.cine-l1{z-index:1}
+.cine-l1 .veil{background:linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.35) 100%),linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.7) 100%)}
+.cine-l2{z-index:2;opacity:0}
+.cine-l2 .veil{background:linear-gradient(180deg,rgba(13,8,5,.2) 0%,rgba(13,8,5,0) 30%,rgba(13,8,5,0) 70%,rgba(13,8,5,.6) 100%)}
+
+/* Hero text block — lives above layer1, animates with scroll */
+.cine-copy{position:absolute;left:0;right:0;top:0;bottom:0;z-index:8;display:flex;align-items:center;pointer-events:none;will-change:opacity,transform}
+.cine-copy .content{pointer-events:auto}
+.cine-copy.out{pointer-events:none}
+
+/* Clouds text block — fades in */
+.cine-clouds-copy{position:absolute;left:0;right:0;top:0;bottom:0;z-index:9;display:flex;align-items:center;justify-content:center;opacity:0;will-change:opacity,transform;pointer-events:none;text-align:center;padding:0 40px}
+.cine-clouds-copy .title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40px,5.6vw,92px);line-height:.94;letter-spacing:.04em;color:var(--cream)}
+.cine-clouds-copy .title em{font-style:italic;color:var(--gold-bright);font-weight:300}
+.cine-clouds-copy .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,1.8vw,26px);color:var(--cream);opacity:.88;max-width:680px;margin:24px auto;line-height:1.5}
+.cine-clouds-copy .quote::before,.cine-clouds-copy .quote::after{content:"";display:block;width:56px;height:1px;background:var(--gold-bright);margin:22px auto}
+
+/* Cine progress indicator */
+.cine-hud{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:12;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);opacity:.7;display:flex;align-items:center;gap:14px}
+.cine-hud .bar{display:block;width:140px;height:1px;background:rgba(201,168,117,.3);position:relative;overflow:hidden}
+.cine-hud .bar::after{content:"";position:absolute;left:0;top:0;height:100%;width:var(--cp,0%);background:var(--gold-bright);transition:width .1s linear}
 
 /* corner deco */
 .dc{position:absolute;width:28px;height:28px;border:1px solid rgba(201,168,117,.4);z-index:5;pointer-events:none}
@@ -159,18 +196,18 @@ a{color:inherit;text-decoration:none}
 /* ========================================================
    SECTION 01 · HERO
    ======================================================== */
-.s-hero .veil{
+.s-hero .veil, .cine-l1 .veil{
   background:
     linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),
     linear-gradient(180deg,rgba(13,8,5,.45) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%);
 }
-.s-hero .content{padding-top:90px}
-.s-hero .title{max-width:880px}
-.s-hero .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px}
-.s-hero .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.22);max-width:560px}
-.s-hero .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300}
-.s-hero .stat .n sup{font-size:.4em;color:var(--bronze);margin-left:2px}
-.s-hero .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+.s-hero .content, .cine-copy .content{padding-top:90px}
+.s-hero .title, .cine-copy .title{max-width:880px}
+.s-hero .areas, .cine-copy .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px}
+.s-hero .stats, .cine-copy .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.22);max-width:560px}
+.s-hero .stat .n, .cine-copy .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300}
+.s-hero .stat .n sup, .cine-copy .stat .n sup{font-size:.4em;color:var(--bronze);margin-left:2px}
+.s-hero .stat .l, .cine-copy .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
 
 .s-hero .map-mini{
   position:absolute;right:60px;top:50%;transform:translateY(-50%);z-index:7;
@@ -304,10 +341,10 @@ a{color:inherit;text-decoration:none}
 <!-- ============== TOP NAV ============== -->
 <nav class="topnav" id="topnav">
   <div class="left">
-    <a href="#s-hero" class="active" data-go="0">Inicio</a>
-    <a href="#s-lipo" data-go="3">Tratamientos</a>
-    <a href="#s-results" data-go="9">Resultados</a>
-    <a href="#" data-go="0" data-scroll="map">Áreas</a>
+    <a href="#s-cine" class="active" data-target="s-cine">Inicio</a>
+    <a href="#s-lipo" data-target="s-lipo">Tratamientos</a>
+    <a href="#s-results" data-target="s-results">Resultados</a>
+    <a href="#" data-modal="areas">Áreas</a>
   </div>
   <div class="center">D'Royal<span class="dot"></span>Spa</div>
   <div class="right">
@@ -318,16 +355,14 @@ a{color:inherit;text-decoration:none}
 
 <!-- ============== SIDE NAV ============== -->
 <aside class="sidenav" id="sidenav">
-  <div class="sn-item active" data-go="0"><span class="num">01</span><span class="ln"></span><span>Bienvenida</span></div>
-  <div class="sn-item" data-go="1"><span class="num">02</span><span class="ln"></span><span>Miami</span></div>
-  <div class="sn-item" data-go="2"><span class="num">03</span><span class="ln"></span><span>Sobre Nubes</span></div>
-  <div class="sn-item" data-go="3"><span class="num">04</span><span class="ln"></span><span>Lipo Láser</span></div>
-  <div class="sn-item" data-go="4"><span class="num">05</span><span class="ln"></span><span>Descenso</span></div>
-  <div class="sn-item" data-go="5"><span class="num">06</span><span class="ln"></span><span>Aumentos</span></div>
-  <div class="sn-item" data-go="6"><span class="num">07</span><span class="ln"></span><span>Atardecer</span></div>
-  <div class="sn-item" data-go="7"><span class="num">08</span><span class="ln"></span><span>Botox Láser</span></div>
-  <div class="sn-item" data-go="8"><span class="num">09</span><span class="ln"></span><span>Noche Miami</span></div>
-  <div class="sn-item" data-go="9"><span class="num">10</span><span class="ln"></span><span>Resultados</span></div>
+  <div class="sn-item active" data-target="s-cine"><span class="num">01</span><span class="ln"></span><span>Bienvenida</span></div>
+  <div class="sn-item" data-target="s-lipo"><span class="num">02</span><span class="ln"></span><span>Lipo Láser</span></div>
+  <div class="sn-item" data-target="t3"><span class="num">03</span><span class="ln"></span><span>Descenso</span></div>
+  <div class="sn-item" data-target="s-aumentos"><span class="num">04</span><span class="ln"></span><span>Aumentos</span></div>
+  <div class="sn-item" data-target="t4"><span class="num">05</span><span class="ln"></span><span>Atardecer</span></div>
+  <div class="sn-item" data-target="s-botox"><span class="num">06</span><span class="ln"></span><span>Botox Láser</span></div>
+  <div class="sn-item" data-target="t5"><span class="num">07</span><span class="ln"></span><span>Noche Miami</span></div>
+  <div class="sn-item" data-target="s-results"><span class="num">08</span><span class="ln"></span><span>Resultados</span></div>
 </aside>
 
 <!-- ============== LIVE WIDGET ============== -->
@@ -342,72 +377,57 @@ a{color:inherit;text-decoration:none}
 <!-- ============== DECK ============== -->
 <main class="deck" id="deck">
 
-  <!-- ===== 01 · HERO ===== -->
-  <section class="section s-hero active" id="s-hero" data-live="home-video.mp4" data-cap="Ch.01 · Bienvenida">
-    <img class="bg-img" src="mockups/hero-v3-royal.png" alt="">
-    <div class="veil"></div>
-    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
+  <!-- ===== 01 · CINEMATIC HERO (Penthouse Dubai → Window → Clouds) ===== -->
+  <section class="s-cine" id="s-cine" data-live="home-video.mp4" data-cap="Ch.01 · Bienvenida">
+    <div class="cine-stage">
 
-    <div class="ch-num"><span class="big">01</span><span class="lbl">Bienvenida · Welcome</span></div>
-
-    <div class="content">
-      <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
-      <h1 class="title">Lipo sin <em>Cirugía</em>.<br>Belleza Real, en Casa.</h1>
-      <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
-      <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
-
-      <div class="cta-row">
-        <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
-        <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
-        <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
-        <a class="btn-line" href="mailto:droyalspamiami@gmail.com">Email <span>↗</span></a>
+      <!-- LAYER 1 · Dubai penthouse (zooms in toward window) -->
+      <div class="cine-layer cine-l1" id="cineL1">
+        <img src="mockups/hero-dubai.png" alt="D'Royal Spa · Penthouse sobre las nubes" id="cineL1Img">
+        <div class="veil"></div>
       </div>
 
-      <div class="stats">
-        <div class="stat"><div class="n">$90<sup></sup></div><div class="l">1ra Sesión</div></div>
-        <div class="stat"><div class="n">100%<sup></sup></div><div class="l">In-Home</div></div>
-        <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
+      <!-- LAYER 2 · Clouds (fades in as we go through the window) -->
+      <div class="cine-layer cine-l2" id="cineL2">
+        <img src="mockups/transition-2-clouds.png" alt="" id="cineL2Img">
+        <div class="veil"></div>
       </div>
-    </div>
 
-    <div class="map-mini" id="map">
-      <h4>Áreas de Servicio</h4>
-      <ul>
-        <li>Brickell</li>
-        <li>Downtown Miami</li>
-        <li>Doral</li>
-        <li>Miami Beach</li>
-      </ul>
-      <div class="note">Servicio 100% Móvil<br>Lun–Sáb · 9am–7pm</div>
-    </div>
+      <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
 
-    <div class="hud">
-      <div class="scroll-hint"><span>Desliza · Descubre</span><span class="arr"></span></div>
-      <div>★ ★ ★ ★ ★ &nbsp; 5 Stars · Miami</div>
-    </div>
-  </section>
+      <!-- HERO COPY · fades out as camera zooms into window -->
+      <div class="cine-copy" id="cineCopy">
+        <div class="ch-num"><span class="big">01</span><span class="lbl">Bienvenida · Welcome</span></div>
+        <div class="content">
+          <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
+          <h1 class="title">Lipo sin <em>Cirugía</em>.<br>Belleza Real, en Casa.</h1>
+          <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
+          <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
+          <div class="cta-row">
+            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
+            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+            <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="n">$90<sup></sup></div><div class="l">1ra Sesión</div></div>
+            <div class="stat"><div class="n">100%<sup></sup></div><div class="l">In-Home</div></div>
+            <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
+          </div>
+        </div>
+      </div>
 
-  <!-- ===== T1 · BALCONY ===== -->
-  <section class="section s-trans" id="t1" data-live="home-video.mp4" data-cap="Brickell · Día">
-    <img class="bg-img" src="mockups/transition-1-balcony.png" alt="">
-    <div class="veil"></div>
-    <div class="content">
-      <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II</span><span class="b"></span></div>
-      <h2 class="title serif">Bienvenida a <em>Miami</em></h2>
-      <p class="quote">Donde el sol acaricia los rascacielos<br>y comienza tu ritual.</p>
-    </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
-  </section>
+      <!-- CLOUDS COPY · fades in when we're above the clouds -->
+      <div class="cine-clouds-copy" id="cineCloudsCopy">
+        <div>
+          <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II</span><span class="b"></span></div>
+          <h2 class="title serif">Sobre las <em>Nubes</em></h2>
+          <p class="quote">Te elevamos sobre la ciudad<br>para devolverte tu mejor versión.</p>
+        </div>
+      </div>
 
-  <!-- ===== T2 · CLOUDS ===== -->
-  <section class="section s-trans" id="t2" data-live="home-video.mp4" data-cap="Sea of Clouds">
-    <img class="bg-img" src="mockups/transition-2-clouds.png" alt="">
-    <div class="veil"></div>
-    <div class="content">
-      <h2 class="title serif">Sobre las <em>Nubes</em></h2>
-      <p class="quote">Te elevamos sobre la ciudad<br>para devolverte tu mejor versión.</p>
+      <!-- progress bar -->
+      <div class="cine-hud"><span>Desliza</span><span class="bar"></span><span>Descubre</span></div>
     </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
   </section>
 
   <!-- ===== 02 · LIPO CON LÁSER ===== -->
@@ -768,50 +788,111 @@ a{color:inherit;text-decoration:none}
 </div>
 
 <script>
-// ============== STATE ==============
+// ============== REFS ==============
 const deck = document.getElementById('deck');
-const sections = [...deck.querySelectorAll('.section')];
 const sideItems = document.querySelectorAll('.sn-item');
 const topnav = document.getElementById('topnav');
 const live = document.getElementById('live');
 const liveVid = document.getElementById('liveVid');
 const liveCap = document.getElementById('liveCap');
+const cineL1Img = document.getElementById('cineL1Img');
+const cineL2 = document.getElementById('cineL2');
+const cineL2Img = document.getElementById('cineL2Img');
+const cineCopy = document.getElementById('cineCopy');
+const cineCloudsCopy = document.getElementById('cineCloudsCopy');
+const cineSection = document.getElementById('s-cine');
+const cineBar = document.querySelector('.cine-hud .bar');
 
-// ============== ACTIVE SECTION ==============
+// sections in order for nav
+const trackSections = [...deck.querySelectorAll('[id]')].filter(el =>
+  ['s-cine','s-lipo','t3','s-aumentos','t4','s-botox','t5','s-results'].includes(el.id)
+);
+
+// ============== CINEMATIC SCROLL (GSAP ScrollTrigger) ==============
+gsap.registerPlugin(ScrollTrigger);
+
+// Tell ScrollTrigger to use the .deck as the scroll container
+ScrollTrigger.defaults({ scroller: deck });
+
+// Base state
+gsap.set(cineL1Img, { transformOrigin: '78% 48%', scale: 1 });
+gsap.set(cineL2Img, { transformOrigin: '50% 50%', scale: 1.35 });
+gsap.set(cineL2, { opacity: 0 });
+gsap.set(cineCloudsCopy, { opacity: 0, y: 40 });
+
+const cineTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: cineSection,
+    scroller: deck,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 0.6,
+    onUpdate: (self) => {
+      if (cineBar) cineBar.style.setProperty('--cp', (self.progress*100).toFixed(1)+'%');
+    }
+  }
+});
+
+// 0 → 0.45 : zoom INTO the window (L1 scale up, origin = right center where window is)
+cineTl.to(cineL1Img, { scale: 3.2, ease: 'power1.in' }, 0);
+// Hero text fades out 0.05 → 0.30
+cineTl.to(cineCopy, { opacity: 0, y: -30, ease: 'power2.in' }, 0.05);
+// Layer 1 starts darkening as we approach window (via opacity fade) at 0.38 → 0.55
+cineTl.to(cineL1Img, { opacity: 0, ease: 'power1.inOut' }, 0.38);
+// Layer 2 (clouds) fades in 0.35 → 0.55, scales slightly down
+cineTl.to(cineL2, { opacity: 1, ease: 'power2.out' }, 0.35);
+cineTl.to(cineL2Img, { scale: 1, ease: 'power1.out' }, 0.35);
+// Clouds copy enters 0.55 → 0.75
+cineTl.to(cineCloudsCopy, { opacity: 1, y: 0, ease: 'power2.out' }, 0.55);
+// Clouds copy hold, then slight zoom continues on L2 toward end
+cineTl.to(cineL2Img, { scale: 1.08, ease: 'none' }, 0.70);
+cineTl.to(cineCloudsCopy, { opacity: 0, y: -30, ease: 'power2.in' }, 0.88);
+
+// ============== ACTIVE SECTION TRACKING ==============
 function setActive() {
   const top = deck.scrollTop;
-  const h = deck.clientHeight;
-  const idx = Math.round(top / h);
-  sections.forEach((s,i) => s.classList.toggle('active', i===idx));
-  sideItems.forEach((s,i) => s.classList.toggle('active', i===idx));
-  // top nav solid after first scroll
+  const vh = deck.clientHeight;
+  const mid = top + vh * 0.5;
+
+  let activeEl = trackSections[0];
+  trackSections.forEach(sec => {
+    if (sec.offsetTop <= mid) activeEl = sec;
+  });
+
+  const activeId = activeEl ? activeEl.id : 's-cine';
+  sideItems.forEach(s => s.classList.toggle('active', s.dataset.target === activeId));
+  document.querySelectorAll('.topnav .left a').forEach(a => a.classList.toggle('active', a.dataset.target === activeId));
   topnav.classList.toggle('solid', top > 80);
 
-  // update live widget
-  const sec = sections[idx];
-  if (sec) {
-    const newSrc = sec.dataset.live;
+  // live widget
+  if (activeEl) {
+    const newSrc = activeEl.dataset.live;
     if (newSrc && !liveVid.src.endsWith(newSrc)) {
       liveVid.src = newSrc;
       liveVid.play().catch(()=>{});
     }
-    liveCap.textContent = sec.dataset.cap || '';
+    // Dynamic caption for cine based on progress
+    if (activeId === 's-cine') {
+      const p = Math.max(0, Math.min(1, (top - cineSection.offsetTop) / (cineSection.offsetHeight - vh)));
+      liveCap.textContent = p < 0.4 ? 'Ch.01 · Bienvenida' : (p < 0.75 ? 'Ch.02 · Sobre las Nubes' : 'Ch.02 · Nubes de Seda');
+    } else {
+      liveCap.textContent = activeEl.dataset.cap || '';
+    }
   }
 }
-deck.addEventListener('scroll', setActive);
+deck.addEventListener('scroll', setActive, { passive: true });
 setActive();
 
-// ============== SIDE NAV CLICK ==============
-sideItems.forEach((it,i) => it.addEventListener('click', () => {
-  deck.scrollTo({top: i * deck.clientHeight, behavior:'smooth'});
-}));
-
-// ============== TOP NAV LINKS ==============
-document.querySelectorAll('[data-go]').forEach(el => {
+// ============== NAV CLICK (by target id) ==============
+function scrollToId(id){
+  const el = document.getElementById(id);
+  if (!el) return;
+  deck.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+}
+document.querySelectorAll('[data-target]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
-    const i = parseInt(el.dataset.go,10);
-    if (!isNaN(i)) deck.scrollTo({top: i * deck.clientHeight, behavior:'smooth'});
+    scrollToId(el.dataset.target);
   });
 });
 
@@ -829,8 +910,6 @@ document.querySelectorAll('.car').forEach(car => {
   }
   arrows.forEach(a => a.addEventListener('click', () => go(idx + parseInt(a.dataset.dir,10))));
   dots.forEach((d,i) => d.addEventListener('click', () => go(i)));
-
-  // touch swipe
   let startX = 0;
   car.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
   car.addEventListener('touchend', e => {
@@ -874,6 +953,16 @@ const MODALS = {
     Ideal para influencers, esteticistas, beauty creators, ex-clientas que aman D'Royal.<br><br>
     Sin mínimo de ventas. Pagos mensuales vía Zelle o transferencia.</p>
     <div class="opt" style="margin-top:18px"><a href="https://wa.me/17866900960?text=Hola,%20quiero%20solicitar%20mi%20c%C3%B3digo%20de%20afiliado" target="_blank"><span>Solicitar mi Código</span><span>↗</span></a></div>`},
+  areas: { t:'Áreas de Servicio', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.7;color:var(--cream);opacity:.92">
+    Servicio <strong>100% móvil</strong> · llegamos a la privacidad de tu hogar.<br><br>
+    <strong style="color:var(--gold-bright)">Miami Principal:</strong><br>
+    · Brickell<br>· Downtown Miami<br>· Doral<br>· Miami Beach<br><br>
+    <strong>Horario:</strong> Lunes a Sábado · 9am – 7pm<br>
+    <strong>Idiomas:</strong> Español · Inglés</p>
+    <div class="opt" style="margin-top:18px">
+      <a href="https://wa.me/17866900960" target="_blank"><span>Verificar cobertura</span><span>↗</span></a>
+      <a href="https://droyalspamiami.as.me/" target="_blank"><span>Agendar Cita</span><span>→</span></a>
+    </div>`},
   nosotros: { t:'Nosotros · D\'Royal Spa', b:`<p style="font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.75;color:var(--cream);opacity:.94">
     <strong style="color:var(--gold-bright)">Fundado en 2024 por Doña Patrizia Padilla</strong>, D'Royal Spa nació con una misión clara: brindar acceso a los mismos resultados de la cirugía estética — <em>sin cirugía, sin agujas y sin tiempo de recuperación</em>.<br><br>
     Con más de <strong>10 años de experiencia</strong> en estética avanzada en Miami, Doña Patrizia creó el <strong style="color:var(--gold-bright)">primer spa premium 100% móvil del Sur de la Florida</strong> — un concepto que hoy se extiende a <strong>más de 4 ubicaciones</strong>, combinando un equipo de esteticistas certificadas con maquinaria <strong>aprobada por la FDA</strong>.<br><br>
