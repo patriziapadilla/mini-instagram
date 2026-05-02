@@ -285,12 +285,12 @@ a{color:inherit;text-decoration:none}
 .content{position:relative;z-index:8;padding:0 80px;max-width:1500px;margin:0 auto;width:100%}
 @media(max-width:980px){.content{padding:0 24px}}
 
-.eb{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.eb{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 .eb .b{display:block;width:36px;height:1px;background:var(--gold)}
 
-.title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,6.4vw,108px);line-height:.92;letter-spacing:.02em;color:var(--cream)}
+.title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,6.4vw,108px);line-height:.92;letter-spacing:.02em;color:var(--cream);text-shadow:0 4px 24px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.45)}
 .title em{font-style:italic;color:var(--gold-bright);font-weight:300}
-.sub{margin-top:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,1.6vw,24px);color:var(--cream);opacity:.88;max-width:560px;line-height:1.5}
+.sub{margin-top:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(18px,1.6vw,24px);color:var(--cream);opacity:.94;max-width:560px;line-height:1.5;text-shadow:0 2px 12px rgba(0,0,0,.65), 0 1px 4px rgba(0,0,0,.55)}
 
 .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;align-items:center}
 .btn-gold{display:inline-flex;align-items:center;gap:12px;padding:18px 26px;background:var(--gold);color:var(--noir);font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;cursor:pointer;border:none;transition:gap .3s,background .3s}
@@ -303,14 +303,14 @@ a{color:inherit;text-decoration:none}
 /* HOME section */
 .s-home .home-content{padding-top:70px;padding-bottom:120px}
 .s-home .title{max-width:880px}
-.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px}
-.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.22);max-width:560px}
-.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300}
-.s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.4);max-width:560px}
+.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+.s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream);opacity:.9;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .s-home .veil{
   background:
-    linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),
-    linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%);
+    linear-gradient(90deg,rgba(13,8,5,.75) 0%,rgba(13,8,5,.35) 35%,rgba(13,8,5,.15) 60%,rgba(13,8,5,.55) 100%),
+    linear-gradient(180deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 22%,rgba(13,8,5,.15) 65%,rgba(13,8,5,.92) 100%);
 }
 @media(max-width:980px){.s-home .stats{gap:24px}.s-home .stat .n{font-size:30px}.s-home .home-content{padding-bottom:160px}}
 
@@ -369,8 +369,8 @@ a{color:inherit;text-decoration:none}
    ======================================================== */
 .s-treat .veil{
   background:
-    linear-gradient(90deg,rgba(13,8,5,.7) 0%,rgba(13,8,5,.25) 50%,rgba(13,8,5,0) 70%,rgba(13,8,5,.55) 100%),
-    linear-gradient(180deg,rgba(13,8,5,.45) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 70%,rgba(13,8,5,.9) 100%);
+    linear-gradient(90deg,rgba(13,8,5,.82) 0%,rgba(13,8,5,.45) 45%,rgba(13,8,5,.2) 65%,rgba(13,8,5,.65) 100%),
+    linear-gradient(180deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 22%,rgba(13,8,5,.15) 70%,rgba(13,8,5,.92) 100%);
 }
 .s-treat .content{max-width:1500px}
 .s-treat .layout{display:grid;grid-template-columns:1.2fr .9fr;gap:60px;align-items:center;padding-top:90px}
@@ -387,7 +387,8 @@ a{color:inherit;text-decoration:none}
 .zone-chip:hover,.zone-chip.active{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
 /* carousel inside treatment */
-.car{position:relative;width:100%;background:rgba(13,8,5,.42);border:1px solid rgba(201,168,117,.28);backdrop-filter:blur(10px);overflow:hidden;min-height:520px}
+.car{position:relative;width:100%;background:rgba(13,8,5,.58);border:1px solid rgba(201,168,117,.38);backdrop-filter:blur(14px);overflow:hidden;min-height:520px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8), 0 14px 28px -10px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.35), inset 0 0 50px rgba(201,168,117,.04)}
 .car-track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
 .car-slide{flex:0 0 100%;padding:32px 36px;display:flex;flex-direction:column;justify-content:center;min-height:520px}
 .car-slide h3{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-bright);margin-bottom:14px;font-weight:400;letter-spacing:.04em}
@@ -421,9 +422,10 @@ a{color:inherit;text-decoration:none}
    RESULTADOS
    ======================================================== */
 .s-results .veil{background:linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 30%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%)}
-.s-results .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;max-width:1300px}
-.s-results .g-item{aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(201,168,117,.32);position:relative;cursor:pointer;transition:transform .4s;background:#0d0805}
-.s-results .g-item:hover{transform:translateY(-6px)}
+.s-results .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:32px;max-width:1300px}
+.s-results .g-item{aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(201,168,117,.4);position:relative;cursor:pointer;transition:transform .45s cubic-bezier(.22,.61,.36,1), box-shadow .45s;background:#0d0805;border-radius:2px;
+  box-shadow:0 22px 48px -18px rgba(0,0,0,.75), 0 10px 24px -8px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.35)}
+.s-results .g-item:hover{transform:translateY(-10px);box-shadow:0 40px 70px -22px rgba(0,0,0,.85), 0 18px 38px -10px rgba(201,168,117,.22), 0 3px 8px rgba(0,0,0,.4)}
 .s-results .g-item .bg-blur{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(22px) brightness(.45) saturate(1.1);transform:scale(1.15);z-index:1}
 .s-results .g-item .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;padding:6px}
 .s-results .g-item .lbl{position:absolute;bottom:10px;left:14px;right:14px;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream);text-shadow:0 1px 4px rgba(0,0,0,.9);z-index:3;background:linear-gradient(180deg,transparent 0%,rgba(13,8,5,.7) 100%);padding:20px 4px 0;margin:0 -14px -10px}
@@ -460,12 +462,50 @@ a{color:inherit;text-decoration:none}
 /* ============== modal (legal/contact) ============== */
 .modal{position:fixed;inset:0;z-index:400;background:rgba(13,8,5,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}
 .modal.open{display:flex}
-.modal-card{background:#1a0f0a;border:1px solid rgba(201,168,117,.32);max-width:480px;width:100%;padding:36px;position:relative}
+.modal-card{background:#1a0f0a;border:1px solid rgba(201,168,117,.38);max-width:480px;width:100%;padding:36px;position:relative;box-shadow:0 40px 80px -20px rgba(0,0,0,.8), 0 20px 40px -12px rgba(0,0,0,.5)}
 .modal-close{position:absolute;top:12px;right:18px;font-size:22px;color:var(--gold-bright);cursor:pointer;background:none;border:none}
 .modal h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold-bright);margin-bottom:18px}
 .modal .opt{display:flex;flex-direction:column;gap:10px;margin-top:22px}
 .modal .opt a{padding:14px 18px;border:1px solid rgba(201,168,117,.4);color:var(--cream);font-size:11px;letter-spacing:.32em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;transition:.3s}
 .modal .opt a:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+
+/* ============== QUIZ · "Cotiza en 30s" floating CTA + modal ============== */
+.quiz-fab{
+  position:fixed;right:28px;bottom:100px;z-index:170;
+  display:flex;align-items:center;gap:10px;
+  padding:14px 22px;background:var(--gold);color:var(--noir);
+  border:none;cursor:pointer;
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;
+  box-shadow:0 14px 32px -8px rgba(201,168,117,.55), 0 6px 14px -4px rgba(0,0,0,.55);
+  transition:background .3s, transform .3s, box-shadow .3s;
+  animation:fabPulse 2.4s infinite;
+}
+.quiz-fab:hover{background:var(--gold-bright);transform:translateY(-4px);box-shadow:0 22px 42px -8px rgba(232,199,137,.7), 0 10px 20px -6px rgba(0,0,0,.6)}
+.quiz-fab .wa{display:inline-flex;width:18px;height:18px;border-radius:50%;background:#25d366;align-items:center;justify-content:center;font-size:11px;color:#fff}
+@keyframes fabPulse{0%,100%{box-shadow:0 14px 32px -8px rgba(201,168,117,.55), 0 6px 14px -4px rgba(0,0,0,.55), 0 0 0 0 rgba(201,168,117,.45)}50%{box-shadow:0 14px 32px -8px rgba(201,168,117,.55), 0 6px 14px -4px rgba(0,0,0,.55), 0 0 0 14px rgba(201,168,117,0)}}
+@media(max-width:980px){.quiz-fab{right:16px;bottom:90px;padding:12px 18px;font-size:9px;letter-spacing:.24em}}
+
+.quiz-modal{position:fixed;inset:0;z-index:410;background:rgba(13,8,5,.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
+.quiz-modal.open{display:flex}
+.quiz-card{background:#1a0f0a;border:1px solid rgba(201,168,117,.45);max-width:520px;width:100%;padding:40px;position:relative;box-shadow:0 40px 80px -20px rgba(0,0,0,.85), 0 20px 40px -12px rgba(201,168,117,.12)}
+.quiz-card .q-step{display:none}
+.quiz-card .q-step.active{display:block;animation:stepIn .5s cubic-bezier(.22,.61,.36,1)}
+@keyframes stepIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.quiz-card h3{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold-bright);margin-bottom:10px;font-weight:400}
+.quiz-card .q-lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--cream);opacity:.8;margin-bottom:24px}
+.quiz-card .q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.quiz-card .q-opt{padding:18px 14px;border:1px solid rgba(201,168,117,.38);background:rgba(13,8,5,.4);color:var(--cream);font-size:10px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.3s;text-align:center}
+.quiz-card .q-opt:hover,.quiz-card .q-opt.selected{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+.quiz-card .q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.quiz-card .q-back,.quiz-card .q-next,.quiz-card .q-send{font-size:11px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;background:none;border:none;color:var(--cream);padding:10px 0;transition:.3s}
+.quiz-card .q-next,.quiz-card .q-send{padding:14px 22px;background:var(--gold);color:var(--noir);font-weight:500}
+.quiz-card .q-next:hover,.quiz-card .q-send:hover{background:var(--gold-bright)}
+.quiz-card .q-next:disabled{opacity:.35;cursor:not-allowed}
+.quiz-card .q-progress{display:flex;gap:6px;margin-bottom:22px}
+.quiz-card .q-progress .dot{width:8px;height:8px;border-radius:50%;background:rgba(201,168,117,.3);transition:.3s}
+.quiz-card .q-progress .dot.active{background:var(--gold-bright);transform:scale(1.4)}
+.quiz-card .q-close{position:absolute;top:14px;right:20px;font-size:24px;color:var(--gold-bright);cursor:pointer;background:none;border:none}
+@media(max-width:980px){.quiz-card{padding:28px 22px}.quiz-card .q-options{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -475,15 +515,15 @@ a{color:inherit;text-decoration:none}
 <!-- ============== TOP NAV ============== -->
 <nav class="topnav" id="topnav">
   <div class="left">
-    <a href="#s-home" class="active" data-target="s-home">Inicio</a>
-    <a href="#s-lipo" data-target="s-lipo">Tratamientos</a>
-    <a href="#s-results" data-target="s-results">Resultados</a>
-    <a href="#" data-modal="areas">Áreas</a>
+    <a href="#s-home" class="active" data-target="s-home" data-i18n="nav.inicio">Inicio</a>
+    <a href="#s-lipo" data-target="s-lipo" data-i18n="nav.tratamientos">Tratamientos</a>
+    <a href="#s-results" data-target="s-results" data-i18n="nav.resultados">Resultados</a>
+    <a href="#" data-modal="areas" data-i18n="nav.areas">Áreas</a>
   </div>
   <div class="center">D'Royal<span class="dot"></span>Spa</div>
   <div class="right">
     <span class="phone">+1 786 690 0960</span>
-    <a class="pill" href="https://droyalspamiami.as.me/" target="_blank">Agendar</a>
+    <a class="pill" href="https://droyalspamiami.as.me/" target="_blank" data-i18n="nav.agendar">Agendar</a>
   </div>
 </nav>
 
@@ -836,6 +876,63 @@ a{color:inherit;text-decoration:none}
 
 </main>
 
+<!-- ============== QUIZ FLOATING CTA ============== -->
+<button class="quiz-fab" id="quizFab" data-testid="quiz-fab">
+  <span class="wa">✓</span><span data-i18n="quiz.fab">Cotiza en 30s</span>
+</button>
+
+<!-- ============== QUIZ MODAL ============== -->
+<div class="quiz-modal" id="quizModal">
+  <div class="quiz-card">
+    <button class="q-close" id="quizClose">×</button>
+    <div class="q-progress">
+      <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+    <!-- Step 1 · Zona/tratamiento -->
+    <div class="q-step active" data-step="1">
+      <h3 data-i18n="quiz.q1.title">¿Qué te gustaría mejorar?</h3>
+      <p class="q-lead" data-i18n="quiz.q1.lead">Elige una opción para empezar · toma 30 segundos.</p>
+      <div class="q-options" data-q="treatment">
+        <button class="q-opt" data-val="lipo" data-testid="quiz-opt-lipo" data-i18n="quiz.q1.lipo">Lipo Láser</button>
+        <button class="q-opt" data-val="aumentos" data-testid="quiz-opt-aumentos" data-i18n="quiz.q1.aumentos">Aumentos sin Cirugía</button>
+        <button class="q-opt" data-val="botox" data-testid="quiz-opt-botox" data-i18n="quiz.q1.botox">Botox Natural Láser</button>
+        <button class="q-opt" data-val="multi" data-testid="quiz-opt-multi" data-i18n="quiz.q1.multi">Combinación · No sé aún</button>
+      </div>
+      <div class="q-nav"><span></span><button class="q-next" data-next="2" disabled data-testid="quiz-next-1" data-i18n="quiz.next">Siguiente →</button></div>
+    </div>
+    <!-- Step 2 · Paquete -->
+    <div class="q-step" data-step="2">
+      <h3 data-i18n="quiz.q2.title">¿Cuántas sesiones te interesan?</h3>
+      <p class="q-lead" data-i18n="quiz.q2.lead">Elige el paquete que mejor se ajuste a tus metas.</p>
+      <div class="q-options" data-q="package">
+        <button class="q-opt" data-val="1" data-testid="quiz-pkg-1" data-i18n="quiz.q2.p1">1ra Sesión · $90</button>
+        <button class="q-opt" data-val="6" data-testid="quiz-pkg-6" data-i18n="quiz.q2.p2">6 Sesiones</button>
+        <button class="q-opt" data-val="8" data-testid="quiz-pkg-8" data-i18n="quiz.q2.p3">8 Sesiones · ⭐ Recomendado</button>
+        <button class="q-opt" data-val="10" data-testid="quiz-pkg-10" data-i18n="quiz.q2.p4">10 Sesiones · Premium</button>
+      </div>
+      <div class="q-nav">
+        <button class="q-back" data-back="1" data-testid="quiz-back-2" data-i18n="quiz.back">← Atrás</button>
+        <button class="q-next" data-next="3" disabled data-testid="quiz-next-2" data-i18n="quiz.next">Siguiente →</button>
+      </div>
+    </div>
+    <!-- Step 3 · Cuándo -->
+    <div class="q-step" data-step="3">
+      <h3 data-i18n="quiz.q3.title">¿Cuándo te gustaría empezar?</h3>
+      <p class="q-lead" data-i18n="quiz.q3.lead">Último paso · te enviaremos un mensaje por WhatsApp con todo listo.</p>
+      <div class="q-options" data-q="when">
+        <button class="q-opt" data-val="now" data-testid="quiz-when-now" data-i18n="quiz.q3.now">Esta semana</button>
+        <button class="q-opt" data-val="soon" data-testid="quiz-when-soon" data-i18n="quiz.q3.soon">En 2 semanas</button>
+        <button class="q-opt" data-val="month" data-testid="quiz-when-month" data-i18n="quiz.q3.month">En 1 mes</button>
+        <button class="q-opt" data-val="flexible" data-testid="quiz-when-flex" data-i18n="quiz.q3.flex">Flexible · Avísame</button>
+      </div>
+      <div class="q-nav">
+        <button class="q-back" data-back="2" data-testid="quiz-back-3" data-i18n="quiz.back">← Atrás</button>
+        <button class="q-send" id="quizSend" disabled data-testid="quiz-send" data-i18n="quiz.send">Enviar a WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============== MODAL ============== -->
 <div class="modal" id="modal">
   <div class="modal-card">
@@ -857,11 +954,11 @@ const secIndLbl = document.getElementById('secIndLbl');
 
 // Ordered list of sections (5 total) for accordion nav
 const SECTIONS = [
-  { id: 's-home',     n: '01', label: 'Inicio' },
-  { id: 's-lipo',     n: '02', label: 'Lipo Láser' },
-  { id: 's-aumentos', n: '03', label: 'Aumentos' },
-  { id: 's-botox',    n: '04', label: 'Botox Láser' },
-  { id: 's-results',  n: '05', label: 'Resultados' },
+  { id: 's-home',     n: '01', labelKey:'nav.inicio',       label: 'Inicio' },
+  { id: 's-lipo',     n: '02', labelKey:'nav.sec.lipo',     label: 'Lipo Láser' },
+  { id: 's-aumentos', n: '03', labelKey:'nav.sec.aumentos', label: 'Aumentos' },
+  { id: 's-botox',    n: '04', labelKey:'nav.sec.botox',    label: 'Botox Láser' },
+  { id: 's-results',  n: '05', labelKey:'nav.resultados',   label: 'Resultados' },
 ];
 
 const secEls = SECTIONS.map(s => document.getElementById(s.id));
@@ -869,13 +966,14 @@ const secEls = SECTIONS.map(s => document.getElementById(s.id));
 // ============== ACCORDION NAV RENDER ==============
 let activeIdx = 0;
 function renderAcc(idx){
+  const getLbl = s => (typeof I18N !== 'undefined' && s.labelKey) ? I18N.get(s.labelKey) : s.label;
   // Build TOP buttons: sections BEFORE active
   accTop.innerHTML = SECTIONS.slice(0, idx).map(s =>
-    `<button class="acc-btn" data-target="${s.id}"><span class="num">${s.n}</span><span>${s.label}</span></button>`
+    `<button class="acc-btn" data-target="${s.id}" data-testid="acc-top-${s.id}"><span class="num">${s.n}</span><span>${getLbl(s)}</span></button>`
   ).join('');
   // Build BOTTOM buttons: sections AFTER active
   accBot.innerHTML = SECTIONS.slice(idx + 1).map(s =>
-    `<button class="acc-btn" data-target="${s.id}"><span class="num">${s.n}</span><span>${s.label}</span></button>`
+    `<button class="acc-btn" data-target="${s.id}" data-testid="acc-bot-${s.id}"><span class="num">${s.n}</span><span>${getLbl(s)}</span></button>`
   ).join('');
   // Wire clicks
   document.querySelectorAll('.acc-btn').forEach(btn => {
@@ -884,7 +982,7 @@ function renderAcc(idx){
   // Indicator
   const s = SECTIONS[idx];
   secIndN.textContent = s.n;
-  secIndLbl.textContent = s.label;
+  secIndLbl.textContent = getLbl(s);
 }
 
 // ============== ACTIVE SECTION TRACKING ==============
@@ -1040,10 +1138,138 @@ document.querySelectorAll('[data-modal]').forEach(el => {
 
 // ============== KEYBOARD ==============
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') modal.classList.remove('open');
+  if (e.key === 'Escape') { modal.classList.remove('open'); document.getElementById('quizModal').classList.remove('open'); }
   if (e.key === 'ArrowDown' || e.key === 'PageDown') deck.scrollTo({top: deck.scrollTop + deck.clientHeight, behavior:'smooth'});
   if (e.key === 'ArrowUp' || e.key === 'PageUp') deck.scrollTo({top: deck.scrollTop - deck.clientHeight, behavior:'smooth'});
 });
+
+// ============== QUIZ · "Cotiza en 30s" ==============
+const quizFab = document.getElementById('quizFab');
+const quizModal = document.getElementById('quizModal');
+const quizClose = document.getElementById('quizClose');
+const quizSend = document.getElementById('quizSend');
+const quizAnswers = { treatment:null, package:null, when:null };
+
+quizFab.addEventListener('click', () => quizModal.classList.add('open'));
+quizClose.addEventListener('click', () => quizModal.classList.remove('open'));
+quizModal.addEventListener('click', e => { if (e.target === quizModal) quizModal.classList.remove('open'); });
+
+// step navigation
+function gotoStep(n){
+  quizModal.querySelectorAll('.q-step').forEach(s => s.classList.toggle('active', s.dataset.step === String(n)));
+  quizModal.querySelectorAll('.q-progress .dot').forEach((d,i) => d.classList.toggle('active', i < n));
+}
+quizModal.querySelectorAll('[data-next]').forEach(btn => btn.addEventListener('click', () => gotoStep(parseInt(btn.dataset.next,10))));
+quizModal.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => gotoStep(parseInt(btn.dataset.back,10))));
+
+// option selection
+quizModal.querySelectorAll('.q-options').forEach(group => {
+  const key = group.dataset.q;
+  group.querySelectorAll('.q-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      group.querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      quizAnswers[key] = opt.dataset.val;
+      // enable next/send
+      const step = opt.closest('.q-step');
+      const next = step.querySelector('.q-next, .q-send');
+      if (next) next.disabled = false;
+    });
+  });
+});
+
+// send to WhatsApp
+quizSend.addEventListener('click', () => {
+  const tMap = {
+    lipo: I18N.get('quiz.q1.lipo'),
+    aumentos: I18N.get('quiz.q1.aumentos'),
+    botox: I18N.get('quiz.q1.botox'),
+    multi: I18N.get('quiz.q1.multi')
+  };
+  const pMap = {
+    '1': I18N.get('quiz.q2.p1'),
+    '6': I18N.get('quiz.q2.p2'),
+    '8': I18N.get('quiz.q2.p3'),
+    '10': I18N.get('quiz.q2.p4')
+  };
+  const wMap = {
+    now: I18N.get('quiz.q3.now'),
+    soon: I18N.get('quiz.q3.soon'),
+    month: I18N.get('quiz.q3.month'),
+    flexible: I18N.get('quiz.q3.flex')
+  };
+  const lines = I18N.lang === 'en' ? [
+    "Hi D'Royal Spa! I just completed your 30-second quote:",
+    `• Treatment: ${tMap[quizAnswers.treatment]}`,
+    `• Package: ${pMap[quizAnswers.package]}`,
+    `• Availability: ${wMap[quizAnswers.when]}`,
+    "I'd love to receive more information, please."
+  ] : [
+    "¡Hola D'Royal Spa! Acabo de completar su cotización de 30 segundos:",
+    `• Tratamiento: ${tMap[quizAnswers.treatment]}`,
+    `• Paquete: ${pMap[quizAnswers.package]}`,
+    `• Disponibilidad: ${wMap[quizAnswers.when]}`,
+    "Me gustaría recibir más información, por favor."
+  ];
+  const msg = encodeURIComponent(lines.join('\n'));
+  window.open(`https://wa.me/17866900960?text=${msg}`, '_blank');
+  quizModal.classList.remove('open');
+  // reset
+  setTimeout(() => {
+    quizAnswers.treatment = null; quizAnswers.package = null; quizAnswers.when = null;
+    quizModal.querySelectorAll('.q-opt.selected').forEach(o => o.classList.remove('selected'));
+    quizModal.querySelectorAll('.q-next, .q-send').forEach(b => b.disabled = true);
+    gotoStep(1);
+  }, 600);
+});
+
+// ============== I18N · auto language detection (es/en) ==============
+const I18N = {
+  lang: 'es',
+  dict: {
+    es: {
+      'nav.inicio':'Inicio','nav.tratamientos':'Tratamientos','nav.resultados':'Resultados','nav.areas':'Áreas','nav.agendar':'Agendar',
+      'nav.sec.lipo':'Lipo Láser','nav.sec.aumentos':'Aumentos','nav.sec.botox':'Botox Láser',
+      'quiz.fab':'Cotiza en 30s',
+      'quiz.q1.title':'¿Qué te gustaría mejorar?','quiz.q1.lead':'Elige una opción para empezar · toma 30 segundos.',
+      'quiz.q1.lipo':'Lipo Láser','quiz.q1.aumentos':'Aumentos sin Cirugía','quiz.q1.botox':'Botox Natural Láser','quiz.q1.multi':'Combinación · No sé aún',
+      'quiz.q2.title':'¿Cuántas sesiones te interesan?','quiz.q2.lead':'Elige el paquete que mejor se ajuste a tus metas.',
+      'quiz.q2.p1':'1ra Sesión · $90','quiz.q2.p2':'6 Sesiones','quiz.q2.p3':'8 Sesiones · ⭐ Recomendado','quiz.q2.p4':'10 Sesiones · Premium',
+      'quiz.q3.title':'¿Cuándo te gustaría empezar?','quiz.q3.lead':'Último paso · te enviaremos un mensaje por WhatsApp con todo listo.',
+      'quiz.q3.now':'Esta semana','quiz.q3.soon':'En 2 semanas','quiz.q3.month':'En 1 mes','quiz.q3.flex':'Flexible · Avísame',
+      'quiz.next':'Siguiente →','quiz.back':'← Atrás','quiz.send':'Enviar a WhatsApp →',
+    },
+    en: {
+      'nav.inicio':'Home','nav.tratamientos':'Treatments','nav.resultados':'Results','nav.areas':'Areas','nav.agendar':'Book',
+      'nav.sec.lipo':'Laser Lipo','nav.sec.aumentos':'Enhancement','nav.sec.botox':'Laser Botox',
+      'quiz.fab':'Quote in 30s',
+      'quiz.q1.title':'What would you like to improve?','quiz.q1.lead':'Pick one option to start · takes 30 seconds.',
+      'quiz.q1.lipo':'Laser Lipo','quiz.q1.aumentos':'Non-Surgical Enhancement','quiz.q1.botox':'Natural Laser Botox','quiz.q1.multi':'Combination · Not sure yet',
+      'quiz.q2.title':'How many sessions are you considering?','quiz.q2.lead':'Choose the package that fits your goals.',
+      'quiz.q2.p1':'1st Session · $90','quiz.q2.p2':'6 Sessions','quiz.q2.p3':'8 Sessions · ⭐ Recommended','quiz.q2.p4':'10 Sessions · Premium',
+      'quiz.q3.title':'When would you like to start?','quiz.q3.lead':'Last step · we\'ll send a ready-made WhatsApp message.',
+      'quiz.q3.now':'This week','quiz.q3.soon':'In 2 weeks','quiz.q3.month':'In 1 month','quiz.q3.flex':'Flexible · Just let me know',
+      'quiz.next':'Next →','quiz.back':'← Back','quiz.send':'Send to WhatsApp →',
+    }
+  },
+  get(key){ return this.dict[this.lang][key] || this.dict.es[key] || key; },
+  apply(){
+    document.documentElement.lang = this.lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.dataset.i18n;
+      const v = this.get(k);
+      if (v) el.textContent = v;
+    });
+  },
+  init(){
+    const nav = (navigator.language || 'es').toLowerCase();
+    this.lang = nav.startsWith('en') ? 'en' : 'es';
+    this.apply();
+  }
+};
+I18N.init();
+// Re-render acc-nav with translated labels now that I18N is ready
+renderAcc(activeIdx);
 </script>
 </body>
 </html>
