@@ -6,10 +6,7 @@
 <meta name="description" content="D'Royal Spa · Lipo sin Cirugía · 100% Móvil en Miami · Brickell · Downtown · Doral · Miami Beach" />
 <title>D'Royal Spa · Lipo sin Cirugía · Miami</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="mockups/hero-dubai.png">
-<link rel="preload" as="image" href="mockups/transition-2-clouds.png">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<link rel="preload" as="video" href="home-video.mp4">
 <style>
 :root{
   --bg:#1a0f0a;
@@ -117,6 +114,52 @@ a{color:inherit;text-decoration:none}
 .bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
   transition:transform 1.4s cubic-bezier(.22,.61,.36,1);will-change:transform}
 .section.active .bg-img{transform:scale(1.05)}
+
+/* Video backgrounds for sections */
+.bg-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  filter:saturate(.94) contrast(1.02);will-change:filter}
+.section.active .bg-vid{filter:saturate(1) contrast(1.05)}
+
+/* ============== ACCORDION NAV · section buttons that float top & bottom ============== */
+.acc-nav{
+  position:fixed;left:0;right:0;z-index:180;
+  display:flex;justify-content:center;align-items:center;gap:14px;
+  padding:14px 28px;pointer-events:none;
+}
+.acc-nav.top{top:62px}
+.acc-nav.bot{bottom:0;padding-bottom:20px}
+.acc-nav .acc-btn{
+  pointer-events:auto;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 22px;
+  background:rgba(13,8,5,.62);backdrop-filter:blur(14px);
+  border:1px solid rgba(201,168,117,.35);
+  color:var(--cream);font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s,border-color .3s,color .3s,transform .35s;
+  min-width:150px;justify-content:center;
+}
+.acc-nav .acc-btn .num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold);letter-spacing:0}
+.acc-nav .acc-btn:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
+.acc-nav .acc-btn:hover .num{color:var(--noir)}
+.acc-nav.top .acc-btn{animation:accEnterTop .55s cubic-bezier(.22,.61,.36,1) both}
+.acc-nav.bot .acc-btn{animation:accEnterBot .55s cubic-bezier(.22,.61,.36,1) both}
+@keyframes accEnterTop{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes accEnterBot{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.acc-nav:empty{display:none}
+@media(max-width:980px){
+  .acc-nav{gap:8px;padding:10px 12px;flex-wrap:wrap}
+  .acc-nav.top{top:54px}
+  .acc-nav .acc-btn{min-width:0;padding:9px 14px;font-size:9px;letter-spacing:.26em}
+}
+
+/* Active section label (bottom-left indicator) */
+.sec-indicator{
+  position:fixed;left:28px;bottom:28px;z-index:150;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--gold-bright);
+  letter-spacing:.12em;opacity:.85;pointer-events:none;
+}
+.sec-indicator .n{font-size:22px;margin-right:8px}
+@media(max-width:980px){.sec-indicator{display:none}}
 .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
 
 /* ============== CINEMATIC PINNED SCENE (Hero → Window → Clouds) ============== */
@@ -133,10 +176,80 @@ a{color:inherit;text-decoration:none}
 .cine-layer .veil{position:absolute;inset:0;z-index:2;pointer-events:none}
 .cine-l1{z-index:1}
 .cine-l1 .veil{background:linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.35) 100%),linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.7) 100%)}
-.cine-l2{z-index:2;opacity:0}
-.cine-l2 .veil{background:linear-gradient(90deg,rgba(13,8,5,.5) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.35) 100%),linear-gradient(180deg,rgba(13,8,5,.3) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.75) 100%)}
-.cine-l3{z-index:3;opacity:0}
-.cine-l3 .veil{background:linear-gradient(90deg,rgba(13,8,5,.6) 0%,rgba(13,8,5,.2) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),linear-gradient(180deg,rgba(13,8,5,.4) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%)}
+
+/* ===== Cinematic Sky FX — sun descends, moon rises, sky tints ===== */
+.cine-sky-fx{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;isolation:isolate}
+
+/* Sky tint covers only the sky area of the window (right ~50% of screen, top ~55%).
+   It shifts colour via CSS variables driven by GSAP. */
+.sky-tint{
+  position:absolute;right:0;top:0;width:55%;height:62%;
+  background:
+    linear-gradient(180deg,
+      rgba(var(--tint-top-rgb,255,200,110), var(--tint-top-a,0)) 0%,
+      rgba(var(--tint-bot-rgb,255,200,110), var(--tint-bot-a,0)) 100%);
+  z-index:1;
+  will-change:background;
+}
+
+/* Sun disc — starts high over the window, descends, fades into clouds */
+.sun-disc{
+  position:absolute;right:18%;top:14%;z-index:3;
+  width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle, #fff8dc 0%, #ffd98a 38%, #ff9f4c 72%, rgba(255,159,76,0) 100%);
+  box-shadow:
+    0 0 120px 44px rgba(255,208,120,.55),
+    0 0 220px 90px rgba(255,180,90,.30);
+  will-change:transform,opacity,filter;
+}
+
+/* Moon disc — starts below the viewport, rises into the window sky */
+.moon-disc{
+  position:absolute;right:28%;top:92%;z-index:3;
+  width:110px;height:110px;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%, #fffdf2 0%, #f0e6cc 55%, #cfbf93 88%, rgba(207,191,147,0) 100%);
+  box-shadow:
+    0 0 80px 22px rgba(239,228,201,.55),
+    0 0 180px 60px rgba(220,210,170,.30),
+    inset -10px -8px 18px rgba(0,0,0,.12);
+  opacity:0;
+  will-change:transform,opacity;
+}
+
+/* City twinkle — tiny warm dots overlaid on skyscraper area, fade in at night */
+.city-lights{
+  position:absolute;right:4%;top:28%;width:50%;height:34%;z-index:2;
+  opacity:0;mix-blend-mode:screen;
+  background:
+    radial-gradient(1.3px 1.3px at 12% 28%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 18% 42%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 24% 18%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 31% 55%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 38% 30%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 44% 48%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 52% 22%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 58% 40%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 64% 55%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 71% 32%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 78% 50%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 84% 18%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 90% 44%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 16% 62%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 28% 72%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 42% 68%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 56% 78%, #ffd88a 0%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 68% 64%, #ffe2a0 0%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 80% 72%, #ffd88a 0%, transparent 100%);
+  animation:twinkle 4s infinite ease-in-out;
+}
+@keyframes twinkle{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+
+@media(max-width:980px){
+  .sun-disc{width:80px;height:80px;right:10%}
+  .moon-disc{width:72px;height:72px;right:18%}
+  .sky-tint{width:100%}
+  .city-lights{width:92%;right:2%}
+}
 
 /* Hero text block — lives above layer1, animates with scroll */
 .cine-copy{position:absolute;left:0;right:0;top:0;bottom:0;z-index:8;display:flex;align-items:center;pointer-events:none;will-change:opacity,transform}
@@ -187,8 +300,27 @@ a{color:inherit;text-decoration:none}
 .btn-ghost{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border:1px solid rgba(201,168,117,.4);color:var(--gold-bright);font-size:10px;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.3s}
 .btn-ghost:hover{background:var(--gold);color:var(--noir);border-color:var(--gold)}
 
-/* HUD bottom */
-.hud{position:absolute;bottom:32px;left:0;right:300px;z-index:8;display:flex;justify-content:space-between;align-items:flex-end;padding:0 50px;font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--cream)}
+/* HOME section */
+.s-home .home-content{padding-top:70px;padding-bottom:120px}
+.s-home .title{max-width:880px}
+.s-home .areas{margin-top:22px;font-size:11px;letter-spacing:.6em;text-transform:uppercase;color:var(--gold-bright);max-width:680px}
+.s-home .stats{display:flex;gap:48px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(201,168,117,.22);max-width:560px}
+.s-home .stat .n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-bright);line-height:1;font-weight:300}
+.s-home .stat .l{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--bronze);margin-top:6px}
+.s-home .veil{
+  background:
+    linear-gradient(90deg,rgba(13,8,5,.55) 0%,rgba(13,8,5,.15) 35%,rgba(13,8,5,0) 60%,rgba(13,8,5,.4) 100%),
+    linear-gradient(180deg,rgba(13,8,5,.35) 0%,rgba(13,8,5,0) 22%,rgba(13,8,5,0) 65%,rgba(13,8,5,.85) 100%);
+}
+@media(max-width:980px){.s-home .stats{gap:24px}.s-home .stat .n{font-size:30px}.s-home .home-content{padding-bottom:160px}}
+
+/* Treatment sections: leave breathing room at top (acc-nav.top) + bottom (acc-nav.bot) */
+.s-treat{align-items:flex-start;padding-top:130px;padding-bottom:40px}
+.s-results{align-items:flex-start;padding-top:130px;padding-bottom:80px}
+.s-treat .content, .s-results .content{padding-bottom:80px}
+.s-treat .layout{padding-top:0}
+@media(max-width:980px){.s-treat, .s-results{padding-top:140px;padding-bottom:160px}}
+.hud{display:none}
 .hud .scroll-hint{display:flex;align-items:center;gap:14px}
 .hud .arr{display:inline-block;width:1px;height:32px;background:linear-gradient(180deg,var(--gold-bright),transparent);position:relative;animation:bobble 2s infinite}
 .hud .arr::after{content:"";position:absolute;bottom:0;left:-3px;width:7px;height:7px;border-right:1px solid var(--gold-bright);border-bottom:1px solid var(--gold-bright);transform:rotate(45deg)}
@@ -343,7 +475,7 @@ a{color:inherit;text-decoration:none}
 <!-- ============== TOP NAV ============== -->
 <nav class="topnav" id="topnav">
   <div class="left">
-    <a href="#s-cine" class="active" data-target="s-cine">Inicio</a>
+    <a href="#s-home" class="active" data-target="s-home">Inicio</a>
     <a href="#s-lipo" data-target="s-lipo">Tratamientos</a>
     <a href="#s-results" data-target="s-results">Resultados</a>
     <a href="#" data-modal="areas">Áreas</a>
@@ -355,95 +487,45 @@ a{color:inherit;text-decoration:none}
   </div>
 </nav>
 
-<!-- ============== SIDE NAV ============== -->
-<aside class="sidenav" id="sidenav">
-  <div class="sn-item active" data-target="s-cine"><span class="num">01</span><span class="ln"></span><span>Bienvenida</span></div>
-  <div class="sn-item" data-target="s-lipo"><span class="num">02</span><span class="ln"></span><span>Lipo Láser</span></div>
-  <div class="sn-item" data-target="t3"><span class="num">03</span><span class="ln"></span><span>Descenso</span></div>
-  <div class="sn-item" data-target="s-aumentos"><span class="num">04</span><span class="ln"></span><span>Aumentos</span></div>
-  <div class="sn-item" data-target="t4"><span class="num">05</span><span class="ln"></span><span>Atardecer</span></div>
-  <div class="sn-item" data-target="s-botox"><span class="num">06</span><span class="ln"></span><span>Botox Láser</span></div>
-  <div class="sn-item" data-target="t5"><span class="num">07</span><span class="ln"></span><span>Noche Miami</span></div>
-  <div class="sn-item" data-target="s-results"><span class="num">08</span><span class="ln"></span><span>Resultados</span></div>
-</aside>
-
-<!-- ============== LIVE WIDGET ============== -->
-<div class="live" id="live">
-  <video id="liveVid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg">
-    <source src="home-video.mp4" type="video/mp4">
-  </video>
-  <div class="live-tag"><span class="dot"></span><span>Live · Sesión</span></div>
-  <div class="live-cap" id="liveCap">Ch.01 · Bienvenida</div>
-</div>
+<!-- ============== ACCORDION NAV (dynamic) ============== -->
+<div class="acc-nav top" id="accTop"></div>
+<div class="acc-nav bot" id="accBot"></div>
+<div class="sec-indicator" id="secInd"><span class="n">01</span><span id="secIndLbl">Inicio</span></div>
 
 <!-- ============== DECK ============== -->
 <main class="deck" id="deck">
 
-  <!-- ===== 01 · CINEMATIC HERO (Penthouse Dubai → Window → Clouds) ===== -->
-  <section class="s-cine" id="s-cine" data-live="home-video.mp4" data-cap="Ch.01 · Bienvenida">
-    <div class="cine-stage">
+  <!-- ===== 01 · HOME · video bg + centered hero + bottom accordion nav ===== -->
+  <section class="section s-home" id="s-home" data-label="Inicio">
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg">
+      <source src="home-video.mp4" type="video/mp4">
+    </video>
+    <div class="veil"></div>
 
-      <!-- LAYER 1 · Dubai penthouse · GOLDEN HOUR (base) -->
-      <div class="cine-layer cine-l1" id="cineL1">
-        <img src="mockups/hero-dubai.png" alt="D'Royal Spa · Penthouse sobre las nubes" id="cineL1Img">
-        <div class="veil"></div>
+    <div class="content home-content">
+      <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
+      <h1 class="title">Lipo sin <em>Cirugía</em>.<br>Belleza Real, en Casa.</h1>
+      <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
+      <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
+      <div class="cta-row">
+        <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
+        <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
+        <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
       </div>
-
-      <!-- LAYER 2 · Same scene · SUNSET (crossfades in mid-scroll) -->
-      <div class="cine-layer cine-l2" id="cineL2">
-        <img src="mockups/hero-dubai-sunset.png" alt="" id="cineL2Img">
-        <div class="veil"></div>
+      <div class="stats">
+        <div class="stat"><div class="n">$90</div><div class="l">1ra Sesión</div></div>
+        <div class="stat"><div class="n">100%</div><div class="l">In-Home</div></div>
+        <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
       </div>
-
-      <!-- LAYER 3 · Same scene · NIGHT + MOON (crossfades at end) -->
-      <div class="cine-layer cine-l3" id="cineL3">
-        <img src="mockups/hero-dubai-night.png" alt="" id="cineL3Img">
-        <div class="veil"></div>
-      </div>
-
-      <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
-
-      <!-- HERO COPY · fades out as camera zooms into window -->
-      <div class="cine-copy" id="cineCopy">
-        <div class="ch-num"><span class="big">01</span><span class="lbl">Bienvenida · Welcome</span></div>
-        <div class="content">
-          <div class="eb"><span class="b"></span><span>Miami's In-Home Luxury Spa</span></div>
-          <h1 class="title">Lipo sin <em>Cirugía</em>.<br>Belleza Real, en Casa.</h1>
-          <p class="sub">Tecnología Royal de última generación para esculpir, rejuvenecer y aumentar — sin agujas, sin dolor, sin tiempo de recuperación.</p>
-          <div class="areas">B R I C K E L L &nbsp;·&nbsp; D O W N T O W N &nbsp;·&nbsp; D O R A L &nbsp;·&nbsp; M I A M I &nbsp; B E A C H</div>
-          <div class="cta-row">
-            <a class="btn-gold" href="https://droyalspamiami.as.me/" target="_blank">Agendar Cita <span>→</span></a>
-            <a class="btn-line" href="https://wa.me/17866900960" target="_blank">WhatsApp <span>↗</span></a>
-            <a class="btn-line" href="tel:+17866900960">Llamar <span>↗</span></a>
-          </div>
-          <div class="stats">
-            <div class="stat"><div class="n">$90<sup></sup></div><div class="l">1ra Sesión</div></div>
-            <div class="stat"><div class="n">100%<sup></sup></div><div class="l">In-Home</div></div>
-            <div class="stat"><div class="n">5<sup>★</sup></div><div class="l">Calificación Miami</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CLOUDS COPY · fades in when we're at night scene -->
-      <div class="cine-clouds-copy" id="cineCloudsCopy">
-        <div>
-          <div class="eb" style="justify-content:center"><span class="b"></span><span>Capítulo II · Ritual Nocturno</span><span class="b"></span></div>
-          <h2 class="title serif">El Día se viste de <em>Luna</em></h2>
-          <p class="quote">La ciudad se enciende,<br>tu piel también.</p>
-        </div>
-      </div>
-
-      <!-- progress bar -->
-      <div class="cine-hud"><span>Desliza</span><span class="bar"></span><span>Descubre</span></div>
     </div>
   </section>
 
   <!-- ===== 02 · LIPO CON LÁSER ===== -->
-  <section class="section s-treat" id="s-lipo" data-live="lipo-video.mp4" data-cap="Live · Lipo Láser">
-    <img class="bg-img" src="mockups/treatment-lipo.png" alt="">
+  <section class="section s-treat" id="s-lipo" data-label="Lipo Láser">
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="lipo-video-frame.jpg">
+      <source src="lipo-video.mp4" type="video/mp4">
+    </video>
     <div class="veil"></div>
-    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
-    <div class="ch-num"><span class="big">02</span><span class="lbl">Lipo con Láser</span></div>
 
     <div class="content">
       <div class="layout">
@@ -521,26 +603,16 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
     </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>02 / 10</div></div>
+    <div class="hud"><div>02 / 05</div></div>
   </section>
-
-  <!-- ===== T3 · DESCENDING ===== -->
-  <section class="section s-trans" id="t3" data-live="lipo-video.mp4" data-cap="Descending">
-    <img class="bg-img" src="mockups/transition-3-descending.png" alt="">
-    <div class="veil"></div>
-    <div class="content">
-      <h2 class="title serif">Bajamos a la <em>Tierra</em></h2>
-      <p class="quote">Tu cuerpo emerge entre las nubes,<br>renacido.</p>
-    </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
   </section>
 
   <!-- ===== 03 · AUMENTOS ===== -->
-  <section class="section s-treat" id="s-aumentos" data-live="glute-video.mp4" data-cap="Live · Aumento Vacuum">
-    <img class="bg-img" src="mockups/treatment-aumentos-v2.png" alt="">
+  <section class="section s-treat" id="s-aumentos" data-label="Aumentos">
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="glute-video-frame.jpg">
+      <source src="glute-video.mp4" type="video/mp4">
+    </video>
     <div class="veil"></div>
-    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
-    <div class="ch-num"><span class="big">03</span><span class="lbl">Aumentos sin Cirugía</span></div>
 
     <div class="content">
       <div class="layout">
@@ -613,26 +685,15 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
     </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>03 / 10</div></div>
-  </section>
-
-  <!-- ===== T4 · SUNSET → MOON ===== -->
-  <section class="section s-trans" id="t4" data-live="face-video.mp4" data-cap="Sunset · Moonrise">
-    <img class="bg-img" src="mockups/transition-4-sunset-moon.png" alt="">
-    <div class="veil"></div>
-    <div class="content">
-      <h2 class="title serif">El Sol se <em>Despide</em>.</h2>
-      <p class="quote">La luna comienza el ritual de la noche.<br>Tu piel también renace.</p>
-    </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+    <div class="hud"><div>03 / 05</div></div>
   </section>
 
   <!-- ===== 04 · BOTOX NATURAL CON LÁSER ===== -->
-  <section class="section s-treat" id="s-botox" data-live="face-video.mp4" data-cap="Live · Botox Natural">
-    <img class="bg-img" src="mockups/treatment-botox-laser.png" alt="">
+  <section class="section s-treat" id="s-botox" data-label="Botox Láser">
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="face-video-frame.jpg">
+      <source src="face-video.mp4" type="video/mp4">
+    </video>
     <div class="veil"></div>
-    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
-    <div class="ch-num"><span class="big">04</span><span class="lbl">Botox Natural · Láser</span></div>
 
     <div class="content">
       <div class="layout">
@@ -704,26 +765,15 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
     </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>04 / 10</div></div>
-  </section>
-
-  <!-- ===== T5 · NIGHT MIAMI ===== -->
-  <section class="section s-trans" id="t5" data-live="face-video.mp4" data-cap="Miami · Night">
-    <img class="bg-img" src="mockups/transition-5-night.png" alt="">
-    <div class="veil"></div>
-    <div class="content">
-      <h2 class="title serif">Miami se <em>Enciende</em>.</h2>
-      <p class="quote">Tu transformación · una sinfonía de luces.</p>
-    </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div></div>
+    <div class="hud"><div>04 / 05</div></div>
   </section>
 
   <!-- ===== 05 · RESULTADOS ===== -->
-  <section class="section s-results" id="s-results" data-live="home-video.mp4" data-cap="Diosa · Resultados">
-    <img class="bg-img" src="mockups/treatment-results.png" alt="">
+  <section class="section s-results" id="s-results" data-label="Resultados">
+    <video class="bg-vid" autoplay muted loop playsinline preload="auto" poster="home-video-frame.jpg">
+      <source src="home-video.mp4" type="video/mp4">
+    </video>
     <div class="veil"></div>
-    <div class="dc tl"></div><div class="dc tr"></div><div class="dc bl"></div><div class="dc br"></div>
-    <div class="ch-num"><span class="big">05</span><span class="lbl">Resultados Reales</span></div>
 
     <div class="content">
       <div class="eb"><span class="b"></span><span>Real Clients · Real Results</span></div>
@@ -740,7 +790,7 @@ a{color:inherit;text-decoration:none}
         <div class="g-item"><img class="bg-blur" src="transfer-results.jpg" alt=""><img class="fg" src="transfer-results.jpg" alt=""><div class="lbl">Transfer · Lipo</div></div>
       </div>
     </div>
-    <div class="hud"><div class="scroll-hint"><span>Continúa</span><span class="arr"></span></div><div>05 / 10</div></div>
+    <div class="hud"><div>05 / 05</div></div>
   </section>
 
   <!-- ===== FOOTER ===== -->
@@ -798,98 +848,70 @@ a{color:inherit;text-decoration:none}
 <script>
 // ============== REFS ==============
 const deck = document.getElementById('deck');
-const sideItems = document.querySelectorAll('.sn-item');
 const topnav = document.getElementById('topnav');
-const live = document.getElementById('live');
-const liveVid = document.getElementById('liveVid');
-const liveCap = document.getElementById('liveCap');
-const cineL1Img = document.getElementById('cineL1Img');
-const cineL2 = document.getElementById('cineL2');
-const cineL2Img = document.getElementById('cineL2Img');
-const cineCopy = document.getElementById('cineCopy');
-const cineCloudsCopy = document.getElementById('cineCloudsCopy');
-const cineSection = document.getElementById('s-cine');
-const cineBar = document.querySelector('.cine-hud .bar');
+const accTop = document.getElementById('accTop');
+const accBot = document.getElementById('accBot');
+const secInd = document.getElementById('secInd');
+const secIndN = secInd.querySelector('.n');
+const secIndLbl = document.getElementById('secIndLbl');
 
-// sections in order for nav
-const trackSections = [...deck.querySelectorAll('[id]')].filter(el =>
-  ['s-cine','s-lipo','t3','s-aumentos','t4','s-botox','t5','s-results'].includes(el.id)
-);
+// Ordered list of sections (5 total) for accordion nav
+const SECTIONS = [
+  { id: 's-home',     n: '01', label: 'Inicio' },
+  { id: 's-lipo',     n: '02', label: 'Lipo Láser' },
+  { id: 's-aumentos', n: '03', label: 'Aumentos' },
+  { id: 's-botox',    n: '04', label: 'Botox Láser' },
+  { id: 's-results',  n: '05', label: 'Resultados' },
+];
 
-// ============== CINEMATIC SCROLL (GSAP ScrollTrigger · crossfade time-of-day) ==============
-gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.defaults({ scroller: deck });
+const secEls = SECTIONS.map(s => document.getElementById(s.id));
 
-const cineL3 = document.getElementById('cineL3');
-const cineL3Img = document.getElementById('cineL3Img');
-
-// Base state · only L1 visible, model + room stay still (no zoom, no movement)
-gsap.set([cineL1Img, cineL2Img, cineL3Img], { scale: 1 });
-gsap.set(cineL2, { opacity: 0 });
-gsap.set(cineL3, { opacity: 0 });
-gsap.set(cineCloudsCopy, { opacity: 0, y: 40 });
-
-const cineTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: cineSection,
-    scroller: deck,
-    start: 'top top',
-    end: 'bottom bottom',
-    scrub: 0.8,
-    onUpdate: (self) => {
-      if (cineBar) cineBar.style.setProperty('--cp', (self.progress*100).toFixed(1)+'%');
-    }
-  }
-});
-
-// 0 → 0.15 : Hero text quietly holds (amanecer / golden hour tranquilo)
-// 0.15 → 0.40 : Hero copy fades out gently — "el sol se despide naturalmente"
-cineTl.to(cineCopy, { opacity: 0, y: -24, ease: 'power2.inOut' }, 0.15);
-// 0.25 → 0.55 : Golden-hour → SUNSET crossfade (the sun descends naturally)
-cineTl.to(cineL2, { opacity: 1, ease: 'power2.inOut' }, 0.25);
-// 0.55 → 0.80 : SUNSET → NIGHT crossfade (moon rises, city lights up)
-cineTl.to(cineL3, { opacity: 1, ease: 'power2.inOut' }, 0.55);
-// 0.60 → 0.85 : Night copy fades in
-cineTl.to(cineCloudsCopy, { opacity: 1, y: 0, ease: 'power2.out' }, 0.60);
-// 0.88 → 1.00 : Night copy fades out, preparing to enter Lipo section
-cineTl.to(cineCloudsCopy, { opacity: 0, y: -20, ease: 'power2.in' }, 0.88);
+// ============== ACCORDION NAV RENDER ==============
+let activeIdx = 0;
+function renderAcc(idx){
+  // Build TOP buttons: sections BEFORE active
+  accTop.innerHTML = SECTIONS.slice(0, idx).map(s =>
+    `<button class="acc-btn" data-target="${s.id}"><span class="num">${s.n}</span><span>${s.label}</span></button>`
+  ).join('');
+  // Build BOTTOM buttons: sections AFTER active
+  accBot.innerHTML = SECTIONS.slice(idx + 1).map(s =>
+    `<button class="acc-btn" data-target="${s.id}"><span class="num">${s.n}</span><span>${s.label}</span></button>`
+  ).join('');
+  // Wire clicks
+  document.querySelectorAll('.acc-btn').forEach(btn => {
+    btn.addEventListener('click', () => scrollToId(btn.dataset.target));
+  });
+  // Indicator
+  const s = SECTIONS[idx];
+  secIndN.textContent = s.n;
+  secIndLbl.textContent = s.label;
+}
 
 // ============== ACTIVE SECTION TRACKING ==============
-function setActive() {
+function setActive(){
   const top = deck.scrollTop;
   const vh = deck.clientHeight;
-  const mid = top + vh * 0.5;
+  const mid = top + vh * 0.45;
 
-  let activeEl = trackSections[0];
-  trackSections.forEach(sec => {
-    if (sec.offsetTop <= mid) activeEl = sec;
+  let newIdx = 0;
+  secEls.forEach((el, i) => {
+    if (el && el.offsetTop <= mid) newIdx = i;
   });
-
-  const activeId = activeEl ? activeEl.id : 's-cine';
-  sideItems.forEach(s => s.classList.toggle('active', s.dataset.target === activeId));
-  document.querySelectorAll('.topnav .left a').forEach(a => a.classList.toggle('active', a.dataset.target === activeId));
   topnav.classList.toggle('solid', top > 80);
-
-  // live widget
-  if (activeEl) {
-    const newSrc = activeEl.dataset.live;
-    if (newSrc && !liveVid.src.endsWith(newSrc)) {
-      liveVid.src = newSrc;
-      liveVid.play().catch(()=>{});
-    }
-    // Dynamic caption for cine based on progress
-    if (activeId === 's-cine') {
-      const p = Math.max(0, Math.min(1, (top - cineSection.offsetTop) / (cineSection.offsetHeight - vh)));
-      liveCap.textContent = p < 0.3 ? 'Ch.01 · Amanecer' : (p < 0.6 ? 'Ch.02 · Atardecer' : 'Ch.03 · Luna sobre Miami');
-    } else {
-      liveCap.textContent = activeEl.dataset.cap || '';
-    }
+  // active class on sections for bg-vid filter
+  secEls.forEach((el, i) => el && el.classList.toggle('active', i === newIdx));
+  // top nav current
+  document.querySelectorAll('.topnav .left a[data-target]').forEach(a => {
+    a.classList.toggle('active', a.dataset.target === SECTIONS[newIdx].id);
+  });
+  if (newIdx !== activeIdx){
+    activeIdx = newIdx;
+    renderAcc(newIdx);
   }
 }
 deck.addEventListener('scroll', setActive, { passive: true });
-setActive();
 
-// ============== NAV CLICK (by target id) ==============
+// ============== NAV CLICK ==============
 function scrollToId(id){
   const el = document.getElementById(id);
   if (!el) return;
@@ -898,9 +920,13 @@ function scrollToId(id){
 document.querySelectorAll('[data-target]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
-    scrollToId(el.dataset.target);
+    if (el.dataset.target) scrollToId(el.dataset.target);
   });
 });
+
+// initial render
+renderAcc(0);
+setActive();
 
 // ============== CAROUSELS ==============
 document.querySelectorAll('.car').forEach(car => {
