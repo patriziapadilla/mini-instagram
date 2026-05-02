@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>D’ROYAL SPA</title>
 
 <style>
 
-/* RESET */
+/* BASE */
 body{
 margin:0;
 font-family:Arial, sans-serif;
 color:#111;
 background:#fff;
-text-align:center;
+}
+
+.section{
+padding:100px 40px;
+max-width:1100px;
+margin:auto;
 }
 
 /* NAV */
@@ -31,21 +35,18 @@ text-decoration:none;
 color:#111;
 }
 
-/* SECCIONES */
-.section{
-padding:80px 20px;
-max-width:900px;
-margin:auto;
+/* HOME */
+.center{
+text-align:center;
 }
 
-/* HOME */
 h1{
 font-size:48px;
 margin-bottom:20px;
 }
 
 .line{
-width:200px;
+width:250px;
 height:1px;
 background:#999;
 margin:20px auto;
@@ -56,32 +57,22 @@ letter-spacing:3px;
 margin:20px 0;
 }
 
-/* BOTONES */
-.buttons{
-margin-top:20px;
-}
-
-.btn{
-display:inline-block;
+.buttons a{
 margin:10px;
+display:inline-block;
 padding:12px 20px;
 border:1px solid #000;
 text-decoration:none;
 color:#000;
 }
 
-.btn.primary{
+.primary{
 background:#000;
 color:#fff;
 }
 
-.price{
-margin-top:20px;
-}
-
-/* CARRUSEL */
+/* RESULTADOS CARRUSEL */
 .carousel{
-position:relative;
 width:100%;
 max-width:700px;
 margin:40px auto;
@@ -91,28 +82,30 @@ overflow:hidden;
 .slide{
 width:100%;
 display:none;
-border-radius:10px;
+border-radius:12px;
 }
 
-.slide.active{
+.active{
 display:block;
 }
 
-/* LINKS CARRUSEL */
-.carousel-nav{
+.carousel-links{
+text-align:center;
 margin-top:20px;
 }
 
-.carousel-nav a{
+.carousel-links a{
 margin:0 10px;
 color:#007aff;
 text-decoration:none;
 }
 
-/* TEXTOS */
-h2{
-font-size:32px;
-margin-bottom:10px;
+/* TRATAMIENTOS (LAYOUT CORRECTO) */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
 }
 
 .tag{
@@ -121,13 +114,54 @@ letter-spacing:2px;
 color:#777;
 }
 
-.areas{
+h2{
+font-size:40px;
 margin:10px 0;
+}
+
+.areas{
 letter-spacing:2px;
+margin:10px 0;
 }
 
 strong{
 color:#007aff;
+}
+
+/* CARRUSEL LATERAL */
+.side-carousel{
+width:100%;
+max-width:350px;
+}
+
+.side-carousel img{
+width:100%;
+border-radius:12px;
+display:none;
+}
+
+.side-carousel img.active{
+display:block;
+}
+
+.buttons-small{
+margin-top:20px;
+}
+
+.buttons-small a{
+margin-right:10px;
+text-decoration:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+.grid{
+grid-template-columns:1fr;
+text-align:center;
+}
+.side-carousel{
+margin:auto;
+}
 }
 
 </style>
@@ -138,20 +172,20 @@ color:#007aff;
 <!-- NAV -->
 <nav>
 <div>
-<a href="#lipo">tratamientos</a>
-<a href="#home">inicio</a>
-<a href="#resultados">resultados</a>
+<a href="#">tratamientos</a>
+<a href="#">inicio</a>
+<a href="#">resultados</a>
 <a href="#">áreas</a>
 </div>
 
 <div>
 +1 786 690 0960
-<a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar">AGENDAR</a>
+<a href="https://wa.me/17866900960">AGENDAR</a>
 </div>
 </nav>
 
 <!-- HOME -->
-<section id="home" class="section">
+<section class="section center">
 
 <h1>D’ROYAL SPA</h1>
 
@@ -164,40 +198,41 @@ color:#007aff;
 <p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
 
 <div class="buttons">
-<a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar" class="btn primary">AGENDAR CITA</a>
-<a href="https://wa.me/17866900960" class="btn">WHATSAPP</a>
-<a href="tel:+17866900960" class="btn">LLAMAR</a>
+<a href="https://wa.me/17866900960" class="primary">AGENDAR CITA</a>
+<a href="https://wa.me/17866900960">WHATSAPP</a>
+<a href="tel:+17866900960">LLAMAR</a>
 </div>
 
-<p class="price">$90 1RA SESIÓN. 5★ CALIFICACIÓN MIAMI</p>
+<p>$90 1RA SESIÓN. 5★ CALIFICACIÓN MIAMI</p>
 
 <div class="line"></div>
 
 </section>
 
 <!-- RESULTADOS -->
-<section id="resultados" class="section">
+<section class="section center">
 
 <h2>Resultados reales</h2>
 
 <div class="carousel">
-<img src="img1.jpg" class="slide active">
-<img src="img2.jpg" class="slide">
-<img src="img3.jpg" class="slide">
+<img src="r1.jpg" class="slide active">
+<img src="r2.jpg" class="slide">
+<img src="r3.jpg" class="slide">
 </div>
 
-<div class="carousel-nav">
-<a href="#lipo">Lipo Láser 360</a>
-<a href="#aumentos">Aumentos</a>
-<a href="#botox">Botox</a>
-<a href="#cool">CoolSculpting</a>
+<div class="carousel-links">
+<a href="#">Lipo con Láser</a>
+<a href="#">Aumentos</a>
+<a href="#">Botox</a>
+<a href="#">CoolSculpting</a>
 </div>
 
 </section>
 
 <!-- LIPO -->
-<section id="lipo" class="section">
+<section class="section grid">
 
+<div>
 <p class="tag">SIGNATURE · BODY SCULPTING</p>
 
 <h2>Lipo con Láser</h2>
@@ -210,26 +245,25 @@ Esculpe localizadamente abdomen, brazos, piernas o papada con
 Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultados desde la primera sesión.
 </p>
 
-<div class="carousel">
-<img src="lipo1.jpg" class="slide active">
-<img src="lipo2.jpg" class="slide">
-<img src="lipo3.jpg" class="slide">
+<div class="buttons-small">
+<a href="https://wa.me/17866900960">RESERVAR</a>
+<a href="https://wa.me/17866900960">CONSULTAR</a>
 </div>
 
-<p>
-El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa, que el cuerpo elimina de forma natural a través del sistema linfático. Luego, la radiofrecuencia y la luz terapéutica reafirman la piel, mejoran estrías y dejan una apariencia más luminosa y rejuvenecida.
-</p>
+</div>
 
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Lipo%20con%20Laser" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
+<div class="side-carousel">
+<img src="l1.jpg" class="active">
+<img src="l2.jpg">
+<img src="l3.jpg">
 </div>
 
 </section>
 
 <!-- AUMENTOS -->
-<section id="aumentos" class="section">
+<section class="section grid">
 
+<div>
 <p class="tag">AUMENTOS · VACUUM THERAPY</p>
 
 <h2>Aumentos sin Cirugía.</h2>
@@ -240,25 +274,25 @@ Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulaci
 
 <p class="areas">GLÚTEOS · SENOS</p>
 
-<div class="carousel">
-<img src="aum1.jpg" class="slide active">
-<img src="aum2.jpg" class="slide">
-<img src="aum3.jpg" class="slide">
+<div class="buttons-small">
+<a href="https://wa.me/17866900960">RESERVAR</a>
+<a href="https://wa.me/17866900960">CONSULTAR</a>
 </div>
 
-<p>
-Copas de succión activan el tejido adiposo, estimulan circulación y aumentan volumen natural.
-</p>
+</div>
 
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Aumentos" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
+<div class="side-carousel">
+<img src="a1.jpg" class="active">
+<img src="a2.jpg">
+<img src="a3.jpg">
 </div>
 
 </section>
 
 <!-- BOTOX -->
-<section id="botox" class="section">
+<section class="section grid">
+
+<div>
 
 <h2>Botox Natural con Láser.</h2>
 
@@ -268,25 +302,25 @@ Hydromicrodermabration + D’Cool + <strong>Radiofrecuencia + Terapia de luz de 
 
 <p class="areas">OJOS · CARA · CUELLO</p>
 
-<div class="carousel">
-<img src="botox1.jpg" class="slide active">
-<img src="botox2.jpg" class="slide">
-<img src="botox3.jpg" class="slide">
+<div class="buttons-small">
+<a href="https://wa.me/17866900960">RESERVAR</a>
+<a href="https://wa.me/17866900960">CONSULTAR</a>
 </div>
 
-<p>
-Láser que actúa hasta 3 mm de profundidad, estimulando la regeneración de la piel. Se sella con frío para calmar y potenciar resultados.
-</p>
+</div>
 
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Botox" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
+<div class="side-carousel">
+<img src="b1.jpg" class="active">
+<img src="b2.jpg">
+<img src="b3.jpg">
 </div>
 
 </section>
 
-<!-- COOLSCULPTING -->
-<section id="cool" class="section">
+<!-- COOL -->
+<section class="section grid">
+
+<div>
 
 <h2>CoolSculpting</h2>
 
@@ -296,32 +330,40 @@ Láser que actúa hasta 3 mm de profundidad, estimulando la regeneración de la 
 Reducción de grasa localizada mediante enfriamiento controlado que elimina células adiposas sin cirugía. Se combina con radiofrecuencia para reafirmar la piel (skin tightening).
 </p>
 
-<div class="carousel">
-<img src="cool1.jpg" class="slide active">
-<img src="cool2.jpg" class="slide">
-<img src="cool3.jpg" class="slide">
+<div class="buttons-small">
+<a href="https://wa.me/17866900960">RESERVAR</a>
+<a href="https://wa.me/17866900960">CONSULTAR</a>
 </div>
 
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20CoolSculpting" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
+</div>
+
+<div class="side-carousel">
+<img src="c1.jpg" class="active">
+<img src="c2.jpg">
+<img src="c3.jpg">
 </div>
 
 </section>
 
-<!-- SCRIPT CARRUSEL -->
 <script>
 
-document.querySelectorAll(".carousel").forEach(carousel=>{
-let slides=carousel.querySelectorAll(".slide");
-let i=0;
-
+/* carrusel principal */
 setInterval(()=>{
+let slides=document.querySelectorAll(".carousel .slide");
+let i=[...slides].findIndex(s=>s.classList.contains("active"));
 slides[i].classList.remove("active");
-i=(i+1)%slides.length;
-slides[i].classList.add("active");
+slides[(i+1)%slides.length].classList.add("active");
 },3000);
 
+/* carruseles laterales */
+document.querySelectorAll(".side-carousel").forEach(carousel=>{
+let imgs=carousel.querySelectorAll("img");
+let i=0;
+setInterval(()=>{
+imgs[i].classList.remove("active");
+i=(i+1)%imgs.length;
+imgs[i].classList.add("active");
+},3000);
 });
 
 </script>
