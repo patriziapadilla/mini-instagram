@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>D’ROYAL SPA</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -50,15 +51,8 @@ text-align:center;
 }
 
 /* TITULOS */
-h1{
-font-size:38px;
-margin-bottom:10px;
-}
-
-h2{
-font-size:28px;
-margin-bottom:10px;
-}
+h1{font-size:38px;margin-bottom:10px;}
+h2{font-size:30px;margin-bottom:10px;}
 
 .sub{
 font-size:14px;
@@ -71,7 +65,13 @@ letter-spacing:1px;
 font-size:15px;
 color:#444;
 line-height:1.7;
-margin-bottom:30px;
+margin-bottom:25px;
+}
+
+/* DESTACADO TECH */
+.tech{
+font-weight:600;
+color:#0A66FF;
 }
 
 /* BOTONES */
@@ -90,7 +90,7 @@ font-size:14px;
 border:1px solid #ccc;
 }
 
-.btn.primary{
+.primary{
 background:#0A66FF;
 color:white;
 border:none;
@@ -120,7 +120,7 @@ object-fit:cover;
 
 .side{
 width:20%;
-opacity:0.4;
+opacity:0.3;
 }
 
 .label{
@@ -135,19 +135,18 @@ border-radius:20px;
 
 /* AREAS */
 .areas{
-margin-top:25px;
+margin-top:20px;
 display:flex;
 justify-content:center;
 gap:15px;
 flex-wrap:wrap;
 }
 
-.areas a{
-padding:10px 18px;
+.areas span{
 border:1px solid #ccc;
+padding:10px 15px;
 border-radius:30px;
-text-decoration:none;
-color:#111;
+font-size:14px;
 }
 
 /* FOOTER */
@@ -164,7 +163,6 @@ margin-top:80px;
 
 <body>
 
-<!-- NAV -->
 <nav>
 <div>D’ROYAL SPA</div>
 <div>
@@ -208,13 +206,6 @@ Resultados reales sin cirugía ni agujas<br>
 
 <div class="label">ANTES / DESPUÉS</div>
 
-<div class="areas">
-<a href="#lipo">Lipo 360</a>
-<a href="#aumentos">Aumentos</a>
-<a href="#botox">Botox</a>
-<a href="#cool">CoolSculpting</a>
-</div>
-
 </section>
 
 <!-- LIPO -->
@@ -225,7 +216,8 @@ Resultados reales sin cirugía ni agujas<br>
 <p class="sub">ABDOMEN · BRAZOS · PIERNAS · PAPADA</p>
 
 <p class="text">
-Esculpe abdomen, brazos, piernas o papada con tecnología láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores.  
+Esculpe abdomen, brazos, piernas o papada con tecnología 
+<span class="tech">láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores</span>.  
 Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultados desde la primera sesión.
 </p>
 
@@ -238,15 +230,15 @@ Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultado
 <div class="label">ANTES / DESPUÉS</div>
 
 <p class="text">
-El láser rojo (650nm) actúa sobre la grasa y el sistema linfático.  
-La radiofrecuencia y la luz terapéutica reafirman la piel y mejoran la apariencia.
+El láser rojo (650nm) actúa sobre las células de grasa, que el cuerpo elimina de forma natural a través del sistema linfático.  
+La radiofrecuencia y la luz terapéutica reafirman la piel, mejoran textura y dejan una apariencia más luminosa y rejuvenecida.
 </p>
 
 <div class="areas">
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Abdomen</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Brazos</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Piernas</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Papada</a>
+<span>Abdomen</span>
+<span>Brazos</span>
+<span>Piernas</span>
+<span>Papada</span>
 </div>
 
 </section>
@@ -254,10 +246,13 @@ La radiofrecuencia y la luz terapéutica reafirman la piel y mejoran la aparienc
 <!-- AUMENTOS -->
 <section id="aumentos">
 
-<h2>Aumentos sin cirugía</h2>
+<h2>Aumentos sin implantes · sin cirugía</h2>
+
+<p class="sub">GLÚTEOS · SENOS</p>
 
 <p class="text">
-Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulación, aumentando volumen natural sin implantes.
+Tecnología <span class="tech">vacuum + láser + radiofrecuencia</span> que activa el tejido adiposo, estimula la circulación y aumenta volumen natural.  
+Sin implantes, sin inyecciones, resultados progresivos y naturales.
 </p>
 
 <div class="carousel">
@@ -268,9 +263,13 @@ Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulaci
 
 <div class="label">ANTES / DESPUÉS</div>
 
+<p class="text">
+Las copas de succión activan el tejido adiposo, mientras el láser y la radiofrecuencia mejoran firmeza y circulación, generando volumen real.
+</p>
+
 <div class="areas">
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Glúteos</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Senos</a>
+<span>Glúteos</span>
+<span>Senos</span>
 </div>
 
 </section>
@@ -278,10 +277,13 @@ Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulaci
 <!-- BOTOX -->
 <section id="botox">
 
-<h2>Botox Natural con Láser</h2>
+<h2>Botox natural sin inyección</h2>
+
+<p class="sub">OJOS · CARA · CUELLO</p>
 
 <p class="text">
-Regenera células, elimina líneas de expresión y rejuvenece sin agujas ni químicos.
+Tratamiento con <span class="tech">hidromicrodermabrasión + radiofrecuencia + terapia de luz de 7 colores</span>  
+que regenera células, mejora textura y reduce líneas de expresión sin agujas ni químicos.
 </p>
 
 <div class="carousel">
@@ -292,10 +294,14 @@ Regenera células, elimina líneas de expresión y rejuvenece sin agujas ni quí
 
 <div class="label">ANTES / DESPUÉS</div>
 
+<p class="text">
+Estimula colágeno y elastina, mejora manchas, limpia la piel y rejuvenece de forma natural sin tiempo de recuperación.
+</p>
+
 <div class="areas">
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Ojos</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Cara</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Cuello</a>
+<span>Ojos</span>
+<span>Cara</span>
+<span>Cuello</span>
 </div>
 
 </section>
@@ -305,8 +311,11 @@ Regenera células, elimina líneas de expresión y rejuvenece sin agujas ni quí
 
 <h2>CoolSculpting</h2>
 
+<p class="sub">ABDOMEN · BRAZOS · PIERNAS</p>
+
 <p class="text">
-Elimina grasa localizada mediante frío controlado y reafirma con radiofrecuencia.
+Elimina grasa localizada con <span class="tech">crioterapia controlada + radiofrecuencia</span>,  
+reduciendo volumen y reafirmando la piel.
 </p>
 
 <div class="carousel">
@@ -317,10 +326,14 @@ Elimina grasa localizada mediante frío controlado y reafirma con radiofrecuenci
 
 <div class="label">ANTES / DESPUÉS</div>
 
+<p class="text">
+La grasa se cristaliza y se elimina naturalmente, mientras la radiofrecuencia mejora firmeza y textura de la piel.
+</p>
+
 <div class="areas">
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Abdomen</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Brazos</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">Piernas</a>
+<span>Abdomen</span>
+<span>Brazos</span>
+<span>Piernas</span>
 </div>
 
 </section>
