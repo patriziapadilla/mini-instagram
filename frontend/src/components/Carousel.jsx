@@ -1,10 +1,7 @@
 import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 
-/**
- * Carousel
- * items: [{ type: 'image' | 'video' | 'placeholder', src?, label?, caption? }]
- */
 export default function Carousel({ items = [], testid = "carousel" }) {
   const ref = useRef(null);
 
@@ -20,63 +17,10 @@ export default function Carousel({ items = [], testid = "carousel" }) {
     <div data-testid={testid} className="relative">
       <div
         ref={ref}
-        className="no-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 sm:-mx-8 px-5 sm:px-8"
+        className="no-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 -mx-5 sm:-mx-8 px-5 sm:px-8"
       >
         {items.map((it, i) => (
-          <article
-            key={i}
-            data-card
-            data-testid={`${testid}-card-${i}`}
-            className="hover-lift snap-start shrink-0 w-[78%] sm:w-[46%] lg:w-[31%] rounded-[28px] overflow-hidden relative bg-[var(--cream-2)] border border-[var(--line)]"
-          >
-            <div className="aspect-[4/5] relative overflow-hidden">
-              {it.type === "image" && it.src ? (
-                <img
-                  src={it.src}
-                  alt={it.label || "result"}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              ) : it.type === "video" && it.src ? (
-                <video
-                  src={it.src}
-                  className="w-full h-full object-cover"
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                />
-              ) : (
-                <div className="sky-card w-full h-full flex items-center justify-center">
-                  <div className="text-center px-6">
-                    {it.type === "video" ? (
-                      <div className="w-14 h-14 rounded-full bg-[var(--ink)]/85 text-[var(--cream)] flex items-center justify-center mx-auto mb-4">
-                        <Play size={22} />
-                      </div>
-                    ) : null}
-                    <div className="font-display italic text-[var(--ink)]/85 text-lg">
-                      {it.label || "Próximamente"}
-                    </div>
-                    {it.caption && (
-                      <div className="mt-1 text-xs tracking-[0.22em] uppercase text-[var(--ink)]/55">
-                        {it.caption}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="p-5 flex items-center justify-between">
-              <div>
-                <div className="text-[0.7rem] tracking-[0.24em] uppercase text-[var(--ink)]/55">
-                  {it.caption || "Resultado"}
-                </div>
-                <div className="font-display text-lg">{it.label || "—"}</div>
-              </div>
-              <span className="text-xs text-[var(--ink)]/60">{String(i + 1).padStart(2, "0")}</span>
-            </div>
-          </article>
+          <Card key={i} item={it} idx={i} testid={`${testid}-card-${i}`} />
         ))}
       </div>
 
@@ -101,5 +45,69 @@ export default function Carousel({ items = [], testid = "carousel" }) {
         </div>
       )}
     </div>
+  );
+}
+
+function Card({ item, idx, testid }) {
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1, 0.98]);
+
+  return (
+    <motion.article
+      ref={cardRef}
+      data-card
+      data-testid={testid}
+      style={{ y, scale }}
+      whileHover={{ y: -8, transition: { duration: 0.5 } }}
+      className="snap-start shrink-0 w-[80%] sm:w-[48%] lg:w-[32%] rounded-[28px] overflow-hidden relative bg-[var(--cream-2)] border border-[var(--line)] shadow-[0_8px_40px_rgba(0,0,0,0.06)]"
+    >
+      <div className="aspect-[4/5] relative overflow-hidden group">
+        {item.type === "video" && item.src ? (
+          <video
+            src={item.src}
+            className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-[1.06]"
+            muted
+            loop
+            playsInline
+            autoPlay
+            poster={item.poster}
+          />
+        ) : item.src ? (
+          <img
+            src={item.src}
+            alt={item.label || "D'Royal Spa"}
+            className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-[1.06]"
+            loading="lazy"
+          />
+        ) : (
+          <div className="sky-card w-full h-full" />
+        )}
+
+        {item.type === "video" && (
+          <div className="absolute bottom-4 left-4 w-11 h-11 rounded-full bg-[var(--ink)]/85 text-[var(--cream)] flex items-center justify-center backdrop-blur-sm">
+            <Play size={16} />
+          </div>
+        )}
+
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+      </div>
+
+      <div className="p-5 flex items-center justify-between">
+        <div>
+          <div className="text-[0.7rem] tracking-[0.24em] uppercase text-[var(--ink)]/55">
+            {item.caption || "Resultado"}
+          </div>
+          <div className="font-display text-lg">{item.label || "—"}</div>
+        </div>
+        <span className="text-xs text-[var(--ink)]/60">
+          {String(idx + 1).padStart(2, "0")}
+        </span>
+      </div>
+    </motion.article>
   );
 }

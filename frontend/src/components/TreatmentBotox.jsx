@@ -1,15 +1,12 @@
 import TreatmentBlock from "@/components/TreatmentBlock";
+import IMG from "@/lib/assets";
 
-/* Placeholders for:
-   radio-frequency-rf-treatment-heads, face-results, chin-results,
-   botox-laser-forehead-premium-treatment
-*/
 const items = [
-  { type: "image", label: "Radiofrecuencia RF", caption: "Cabezales" },
-  { type: "image", label: "Antes · Después", caption: "Cara" },
-  { type: "image", label: "Papada", caption: "Resultado" },
-  { type: "image", label: "Frente", caption: "Botox · Láser" },
-  { type: "video", label: "Terapia 7 colores", caption: "Sesión" },
+  { type: "image", src: IMG.faceModel, label: "Rostro natural", caption: "Resultado" },
+  { type: "image", src: IMG.facialTreatment, label: "Facial RF", caption: "Cabezales" },
+  { type: "image", src: IMG.faceClose, label: "Piel luminosa", caption: "Antes · Después" },
+  { type: "image", src: IMG.faceLaser, label: "Láser Frente", caption: "Premium" },
+  { type: "image", src: IMG.faceGlow, label: "Glow natural", caption: "Botox Natural" },
 ];
 
 export default function TreatmentBotox() {

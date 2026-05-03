@@ -1,14 +1,12 @@
 import TreatmentBlock from "@/components/TreatmentBlock";
+import IMG from "@/lib/assets";
 
-/* Placeholders for:
-   COOLSCULPINGCARRUCEL, radio-frequency-rf-treatment-heads,
-   lipo-laser-360-before-after-front-abdomen, body-contouring-treatment
-*/
 const items = [
-  { type: "image", label: "CoolSculpting", caption: "Sesión" },
-  { type: "image", label: "Radiofrecuencia RF", caption: "Cabezales" },
-  { type: "image", label: "Abdomen 360", caption: "Antes · Después" },
-  { type: "image", label: "Body contouring", caption: "Tratamiento" },
+  { type: "image", src: IMG.iceBlue, label: "CoolSculpting", caption: "Criolipólisis" },
+  { type: "image", src: IMG.rfHeads, label: "Radiofrecuencia RF", caption: "Cabezales" },
+  { type: "image", src: IMG.abdomenAfter, label: "Abdomen 360", caption: "Antes · Después" },
+  { type: "image", src: IMG.bodySilhouette, label: "Body contouring", caption: "Tratamiento" },
+  { type: "image", src: IMG.frostBody, label: "Frost therapy", caption: "-9°C a -11°C" },
 ];
 
 export default function TreatmentCoolsculpting() {
