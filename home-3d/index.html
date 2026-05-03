@@ -7,7 +7,6 @@
 
 <style>
 
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -45,6 +44,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(180deg, #ffffff, #f5f5f5);
 }
 
 .hero-content {
@@ -53,7 +53,6 @@ section {
 
 h1 {
   font-size: 40px;
-  margin-bottom: 10px;
 }
 
 .line {
@@ -66,19 +65,19 @@ h1 {
 .subtitle {
   font-size: 15px;
   color: #444;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .locations {
   font-size: 12px;
   color: #777;
-  margin-bottom: 20px;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .btn {
@@ -102,6 +101,67 @@ h1 {
   font-size: 12px;
 }
 
+/* CARRUSEL */
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px;
+}
+
+.card {
+  flex: 0 0 80%;
+  scroll-snap-align: center;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: 0.3s;
+}
+
+.card.active {
+  transform: scale(1);
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 20px;
+}
+
+.carousel-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.carousel-links a {
+  font-size: 13px;
+  text-decoration: none;
+  color: #0A66FF;
+}
+
 /* BLOQUES */
 .block {
   max-width: 600px;
@@ -119,7 +179,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* BOTONES AREAS */
+/* BOTONES */
 .area-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -132,15 +192,13 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 25px;
   text-decoration: none;
-  font-size: 13px;
 }
 
 /* FOOTER */
 footer {
   background: black;
   color: white;
-  padding: 40px 20px;
-  text-align: center;
+  padding: 40px;
 }
 
 </style>
@@ -154,14 +212,14 @@ footer {
 </nav>
 
 <!-- HOME -->
-<section class="hero" id="home">
+<section class="hero">
   <div class="hero-content">
     <h1>D’ROYAL SPA</h1>
     <div class="line"></div>
 
     <p class="subtitle">
       Belleza inteligente, resultados reales<br>
-      Tecnología avanzada para moldear y rejuvenecer tu cuerpo sin cirugía
+      Tecnología avanzada sin cirugía
     </p>
 
     <p class="locations">
@@ -182,19 +240,37 @@ footer {
 
 <!-- RESULTADOS -->
 <section id="resultados">
+
   <div class="block">
     <div class="title">Resultados visibles desde la primera sesión</div>
-    <div class="text">Antes y después reales de nuestros tratamientos</div>
   </div>
+
+  <div class="carousel">
+    <div class="carousel-track">
+
+      <div class="card"><img src="https://via.placeholder.com/600x400"></div>
+      <div class="card active"><img src="https://via.placeholder.com/600x400"></div>
+      <div class="card"><img src="https://via.placeholder.com/600x400"></div>
+
+    </div>
+
+    <div class="label">ANTES / DESPUÉS</div>
+  </div>
+
+  <div class="carousel-links">
+    <a href="#lipo">Lipo Láser 360</a>
+    <a href="#botox">Botox</a>
+    <a href="#aumentos">Aumentos</a>
+    <a href="#cool">CoolSculpting</a>
+  </div>
+
 </section>
 
 <!-- LIPO -->
 <section id="lipo">
   <div class="block">
     <div class="title">Lipo con Láser 360</div>
-    <div class="text">
-      Incluye RF, cavitación, lipolaser, 7 colores y maderoterapia
-    </div>
+    <div class="text">RF · Cavitación · Lipolaser · 7 Colors · Maderoterapia</div>
 
     <div class="area-buttons">
       <a href="https://wa.me/message/6QSXBTK7A47QM1">Abdomen</a>
@@ -209,9 +285,7 @@ footer {
 <section id="aumentos">
   <div class="block">
     <div class="title">Aumentos sin Cirugía</div>
-    <div class="text">
-      Tratamientos avanzados para glúteos y senos sin cirugía
-    </div>
+    <div class="text">Glúteos y Senos sin cirugía</div>
 
     <div class="area-buttons">
       <a href="https://wa.me/message/6QSXBTK7A47QM1">Glúteos</a>
@@ -224,9 +298,7 @@ footer {
 <section id="botox">
   <div class="block">
     <div class="title">Botox Natural con Láser</div>
-    <div class="text">
-      Rejuvenecimiento sin agujas para rostro completo
-    </div>
+    <div class="text">Rejuvenecimiento sin agujas</div>
 
     <div class="area-buttons">
       <a href="https://wa.me/message/6QSXBTK7A47QM1">Ojos</a>
@@ -236,13 +308,11 @@ footer {
   </div>
 </section>
 
-<!-- COOLSCULPTING -->
+<!-- COOL -->
 <section id="cool">
   <div class="block">
     <div class="title">CoolSculpting</div>
-    <div class="text">
-      Reducción de grasa con frío + reafirmación con RF
-    </div>
+    <div class="text">Reducción de grasa con frío + RF</div>
 
     <div class="area-buttons">
       <a href="https://wa.me/message/6QSXBTK7A47QM1">Abdomen</a>
@@ -252,11 +322,28 @@ footer {
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <h2>D’ROYAL SPA</h2>
-  <p>Miami · Resultados reales</p>
 </footer>
+
+<script>
+const track = document.querySelector('.carousel-track');
+const cards = document.querySelectorAll('.card');
+
+track.addEventListener('scroll', () => {
+  let center = track.scrollLeft + track.offsetWidth / 2;
+
+  cards.forEach(card => {
+    let cardCenter = card.offsetLeft + card.offsetWidth / 2;
+
+    if (Math.abs(center - cardCenter) < card.offsetWidth / 2) {
+      card.classList.add('active');
+    } else {
+      card.classList.remove('active');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
