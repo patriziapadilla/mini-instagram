@@ -1,91 +1,582 @@
+**index.html** (part 1/1)
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>D'Royal Spa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>D'Royal Spa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles/styles.css" />
 </head>
-
 <body>
 
-<header>
-  <div class="logo">D'Royal Spa</div>
-  <nav>
-    <a href="#">Inicio</a>
-    <a href="#tratamientos">Tratamientos</a>
-    <a href="#resultados">Resultados</a>
-  </nav>
-  <a class="btn" href="#">Agendar</a>
-</header>
+<div class="scroll-progress" id="progress"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>D’Royal<br>Spa.</h1>
-    <p>Tecnología avanzada para moldear y rejuvenecer tu cuerpo.</p>
-    <a class="btn" href="#">Agendar cita</a>
+<nav class="topnav" id="nav">
+  <div class="container bar">
+    <a href="#inicio" class="logo">D'Royal<span>&middot;Spa</span></a>
+    <div class="nav-links">
+      <a href="#inicio">inicio</a>
+      <a href="#tratamientos">tratamientos</a>
+      <a href="#resultados">resultados</a>
+      <a href="#areas">&aacute;reas</a>
+    </div>
+    <div class="nav-right">
+      <a href="tel:+17866900960" class="tel">+1 786 690 0960</a>
+      <a href="#agendar" class="btn-pill">Agendar</a>
+    </div>
+    <button class="mobile-toggle" id="mtoggle" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="#inicio">inicio</a>
+    <a href="#tratamientos">tratamientos</a>
+    <a href="#resultados">resultados</a>
+    <a href="#areas">&aacute;reas</a>
+    <a href="tel:+17866900960">+1 786 690 0960</a>
+    <a href="#agendar" class="btn-pill" style="align-self:flex-start;">Agendar</a>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg" id="heroBg"><img src="./images/hero-dubai.png" alt="" /></div>
+  <div class="container hero-content">
+    <div class="meta"><span>D'Royal Spa &middot; Miami</span><span class="sep">/</span><span>Belleza inteligente &middot; Sin cirug&iacute;a</span></div>
+    <h1 class="hero-title" id="heroTitle">D'Royal<br /><i>Spa.</i></h1>
+    <div class="hero-row">
+      <div><p class="tagline">Tecnolog&iacute;a avanzada para moldear y rejuvenecer tu cuerpo &mdash; sin agujas, sin cirug&iacute;a, con resultados desde la primera sesi&oacute;n.</p></div>
+      <div class="right">
+        <div class="cta-row">
+          <a href="#agendar" class="btn-pill">Agendar cita <span class="arr">&rarr;</span></a>
+          <a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="btn-pill ghost">WhatsApp</a>
+        </div>
+        <div class="rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>Calificaci&oacute;n 5&#9733; &middot; Miami</span><span class="sep">&middot;</span><span>$90 1ra sesi&oacute;n</span></div>
+      </div>
+    </div>
+    <div class="locations-strip"><span>Brickell</span><span class="sep">&middot;</span><span>Downtown</span><span class="sep">&middot;</span><span>Doral</span><span class="sep">&middot;</span><span>Miami Beach</span><span class="sep">&middot;</span><span class="in-home">100% In-home</span></div>
   </div>
 </section>
 
-<!-- TRATAMIENTOS -->
-<section id="tratamientos" class="section">
+<section class="marquee" id="tratamientos" aria-label="tratamientos"><div class="marquee-track" id="marquee"></div></section>
 
-  <div class="block">
-    <div class="text">
-      <h2>Lipo con Láser</h2>
-      <p>Reduce grasa localizada sin cirugía.</p>
+<section class="block" id="lipo-laser">
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">Signature &middot; Body Sculpting</div><h2 class="block-title">Lipo con<br /><i>L&aacute;ser.</i></h2></div>
+      <div>
+        <p class="block-intro">Esculpe localizadamente abdomen, brazos, piernas o papada con tecnolog&iacute;a l&aacute;ser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores. Reduce, moldea, reafirma y rejuvenece tu piel sin cirug&iacute;a, sin dolor &mdash; resultados desde la primera sesi&oacute;n.</p>
+        <div class="areas-list"><span>Abdomen</span><span class="sep">&middot;</span><span>Brazos</span><span class="sep">&middot;</span><span>Piernas</span><span class="sep">&middot;</span><span>Papada</span></div>
+      </div>
     </div>
-    <img src="./images/lipo-results.jpg">
-  </div>
-
-  <div class="block reverse">
-    <div class="text">
-      <h2>Botox Natural</h2>
-      <p>Rejuvenece tu piel sin agujas.</p>
+    <div class="carousel-wrap"><div class="carousel" data-carousel="lipo-laser"></div><div class="carousel-nav"><button class="nav-btn" data-dir="-1" aria-label="anterior">&larr;</button><button class="nav-btn" data-dir="1" aria-label="siguiente">&rarr;</button></div></div>
+    <div class="block-after">
+      <p class="body-after">El l&aacute;ser rojo (650nm) penetra la piel y act&uacute;a sobre las c&eacute;lulas de grasa, que el cuerpo elimina de forma natural a trav&eacute;s del sistema linf&aacute;tico. Luego, la radiofrecuencia y la luz terap&eacute;utica reafirman la piel, mejoran estr&iacute;as y dejan una apariencia m&aacute;s luminosa y rejuvenecida.</p>
+      <ul class="bullets"><li>Reduce medidas localizadas</li><li>Reafirma y tensa la piel</li><li>Mejora estr&iacute;as y textura</li><li>Sin dolor, sin cirug&iacute;a</li></ul>
     </div>
-    <img src="./images/botox-laser-forehead-premium-treatment.jpg">
-  </div>
-
-  <div class="block">
-    <div class="text">
-      <h2>Aumentos sin Cirugía</h2>
-      <p>Volumen natural sin implantes.</p>
-    </div>
-    <img src="./images/glute-results.jpg">
-  </div>
-
-  <div class="block reverse">
-    <div class="text">
-      <h2>CoolSculpting</h2>
-      <p>Elimina grasa con frío controlado.</p>
-    </div>
-    <img src="./images/body-contouring-treatment.jpg">
-  </div>
-
-</section>
-
-<!-- RESULTADOS -->
-<section id="resultados" class="results">
-  <h2>Resultados</h2>
-  <div class="gallery">
-    <img src="./images/lipo-results.jpg">
-    <img src="./images/chin-results.jpg">
-    <img src="./images/arm-results.jpg">
+    <div class="block-ctas"><a href="#agendar" class="btn-pill">Reservar <span class="arr">&rarr;</span></a><a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="btn-pill ghost">Consultar <span class="arr">&nearr;</span></a></div>
   </div>
 </section>
 
-<!-- CONTACTO -->
-<section class="contact">
-  <h2>Agenda tu cita</h2>
-  <form>
-    <input type="text" placeholder="Nombre">
-    <input type="text" placeholder="Teléfono">
-    <textarea placeholder="Mensaje"></textarea>
-    <button class="btn">Reservar</button>
-  </form>
+<section class="block reversed" id="botox-natural">
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">Rejuvenecimiento &middot; Facial</div><h2 class="block-title">Botox Natural<br /><i>con L&aacute;ser.</i></h2></div>
+      <div>
+        <p class="block-intro">Hydromicrodermabrasion + D'Cool + Radiofrecuencia + Terapia de luz de 7 colores que regenera las c&eacute;lulas madres, eliminando l&iacute;neas de expresi&oacute;n y pigmentaci&oacute;n &mdash; ideal para rejuvenecer de forma natural, sin agujas, sin inyecciones, sin tiempo de recuperaci&oacute;n.</p>
+        <div class="areas-list"><span>Ojos</span><span class="sep">&middot;</span><span>Cara</span><span class="sep">&middot;</span><span>Cuello</span></div>
+      </div>
+    </div>
+    <div class="carousel-wrap"><div class="carousel" data-carousel="botox-natural"></div><div class="carousel-nav"><button class="nav-btn" data-dir="-1" aria-label="anterior">&larr;</button><button class="nav-btn" data-dir="1" aria-label="siguiente">&rarr;</button></div></div>
+    <div class="block-after">
+      <p class="body-after">L&aacute;ser que act&uacute;a hasta 3 mm de profundidad, estimulando la regeneraci&oacute;n de la piel. Se sella con fr&iacute;o para calmar y potenciar resultados.</p>
+      <ul class="bullets"><li>Estimula col&aacute;geno y elastina</li><li>Regenera la piel</li><li>Limpieza facial profunda</li><li>Reduce l&iacute;neas y manchas</li><li>Rejuvenece la piel</li></ul>
+    </div>
+    <div class="block-ctas"><a href="#agendar" class="btn-pill">Reservar <span class="arr">&rarr;</span></a><a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="btn-pill ghost">Consultar <span class="arr">&nearr;</span></a></div>
+  </div>
 </section>
 
+<section class="block" id="aumentos">
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">Aumentos &middot; Vacuum Therapy</div><h2 class="block-title">Aumentos sin<br /><i>Cirug&iacute;a.</i></h2></div>
+      <div>
+        <p class="block-intro">Tecnolog&iacute;a vacuum + l&aacute;ser que activa el tejido adiposo y estimula la circulaci&oacute;n, aumentando volumen natural en gl&uacute;teos y senos. Sin implantes, sin inyecciones.</p>
+        <div class="areas-list"><span>Gl&uacute;teos</span><span class="sep">&middot;</span><span>Senos</span></div>
+      </div>
+    </div>
+    <div class="carousel-wrap"><div class="carousel" data-carousel="aumentos"></div><div class="carousel-nav"><button class="nav-btn" data-dir="-1" aria-label="anterior">&larr;</button><button class="nav-btn" data-dir="1" aria-label="siguiente">&rarr;</button></div></div>
+    <div class="block-after">
+      <p class="body-after">Copas de succi&oacute;n activan el tejido adiposo, estimulan circulaci&oacute;n y aumentan volumen natural &mdash; potenciando forma, firmeza y luminosidad de la piel.</p>
+      <ul class="bullets"><li>Aumenta volumen natural</li><li>Activa tejido adiposo</li><li>Mejora circulaci&oacute;n</li><li>Reafirma y levanta</li></ul>
+    </div>
+    <div class="block-ctas"><a href="#agendar" class="btn-pill">Reservar <span class="arr">&rarr;</span></a><a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="btn-pill ghost">Consultar <span class="arr">&nearr;</span></a></div>
+  </div>
+</section>
+
+<section class="block reversed" id="coolsculpting">
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">Criolip&oacute;lisis &middot; Fat Freezing</div><h2 class="block-title">Cool<br /><i>Sculpting.</i></h2></div>
+      <div>
+        <p class="block-intro">Criolip&oacute;lisis m&eacute;dica que congela y elimina c&eacute;lulas de grasa resistente &mdash; segura, no invasiva y con resultados graduales que se mantienen en el tiempo.</p>
+        <div class="areas-list"><span>Abdomen</span><span class="sep">&middot;</span><span>Flancos</span><span class="sep">&middot;</span><span>Muslos</span><span class="sep">&middot;</span><span>Brazos</span></div>
+      </div>
+    </div>
+    <div class="carousel-wrap"><div class="carousel" data-carousel="coolsculpting"></div><div class="carousel-nav"><button class="nav-btn" data-dir="-1" aria-label="anterior">&larr;</button><button class="nav-btn" data-dir="1" aria-label="siguiente">&rarr;</button></div></div>
+    <div class="block-after">
+      <p class="body-after">Enfriamiento controlado (-9 a -11 &deg;C) que cristaliza las c&eacute;lulas grasas sin da&ntilde;ar tejidos vecinos. El cuerpo las elimina naturalmente en las siguientes semanas, moldeando la silueta de forma progresiva.</p>
+      <ul class="bullets"><li>Elimina grasa resistente</li><li>No invasivo, sin agujas</li><li>Resultados duraderos</li><li>Sin downtime</li></ul>
+    </div>
+    <div class="block-ctas"><a href="#agendar" class="btn-pill">Reservar <span class="arr">&rarr;</span></a><a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="btn-pill ghost">Consultar <span class="arr">&nearr;</span></a></div>
+  </div>
+</section>
+
+<section class="block results-section" id="resultados">
+  <div class="block-bg results-bg"><img src="./images/transition-1-balcony.png" alt="" /></div>
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">Resultados</div><h2 class="block-title">La Diferencia<br /><i>se Ve.</i></h2></div>
+      <div><p class="block-intro">Antes y despu&eacute;s reales de clientas D'Royal Spa en Miami &mdash; fotos sin retoques, tomadas en sesi&oacute;n.</p></div>
+    </div>
+    <div class="results-grid" id="resultsGrid"></div>
+  </div>
+</section>
+
+<section class="block" id="areas">
+  <div class="container">
+    <div class="block-head">
+      <div><div class="eyebrow">&Aacute;reas &middot; Miami</div><h2 class="block-title">Tu zona,<br /><i>tu hora.</i></h2></div>
+      <div><p class="block-intro">Servicio 100% in-home en las zonas premium de Miami &mdash; disponibilidad 24/7.</p></div>
+    </div>
+    <div class="areas-grid" id="areasGrid"></div>
+  </div>
+</section>
+
+<section class="agendar" id="agendar">
+  <div class="container agendar-grid">
+    <div class="agendar-left">
+      <div>
+        <div class="eyebrow">Agendar Cita</div>
+        <h2 class="block-title">Tu sesi&oacute;n,<br /><i>a domicilio.</i></h2>
+        <p class="block-intro intro-mt">$90 tu primera sesi&oacute;n. 100% in-home. Equipo profesional incluido.</p>
+      </div>
+      <div class="agendar-contact">
+        <div><div class="label">Tel&eacute;fono</div><a href="tel:+17866900960"><span class="val">+1 786 690 0960</span></a></div>
+        <div><div class="label">WhatsApp</div><a href="https://wa.me/17866900960" target="_blank" rel="noopener"><span class="val">wa.me/17866900960 &nearr;</span></a></div>
+      </div>
+    </div>
+    <form class="agendar-form" id="agendarForm" novalidate>
+      <div class="field"><label for="f-nombre">Nombre *</label><input id="f-nombre" name="nombre" type="text" required /></div>
+      <div class="field"><label for="f-tel">Tel&eacute;fono *</label><input id="f-tel" name="telefono" type="tel" required /></div>
+      <div class="field full"><label for="f-email">Email</label><input id="f-email" name="email" type="email" /></div>
+      <div class="field"><label for="f-trat">Tratamiento</label><select id="f-trat" name="tratamiento"><option>Lipo con L&aacute;ser</option><option>Botox Natural con L&aacute;ser</option><option>Aumentos sin Cirug&iacute;a</option><option>CoolSculpting</option><option>Otro / Consultar</option></select></div>
+      <div class="field"><label for="f-area">&Aacute;rea</label><select id="f-area" name="area"><option>Brickell</option><option>Downtown</option><option>Doral</option><option>Miami Beach</option></select></div>
+      <div class="field full"><label for="f-fecha">Fecha preferida</label><input id="f-fecha" name="fecha" type="text" /></div>
+      <div class="field full"><label for="f-msg">Mensaje</label><textarea id="f-msg" name="mensaje" rows="3"></textarea></div>
+      <div class="form-foot"><span class="form-note">Al enviar, te abrimos WhatsApp con tu info pre-llena.</span><button type="submit" class="btn-pill">Reservar <span class="arr">&rarr;</span></button></div>
+    </form>
+  </div>
+</section>
+
+<footer class="main-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="logo">D'Royal<span>&middot;Spa</span></div>
+      <p class="footer-blurb">Belleza inteligente, resultados reales. Tecnolog&iacute;a avanzada sin agujas y sin cirug&iacute;a.</p>
+      <p class="footer-locations">Brickell &middot; Downtown &middot; Doral &middot; Miami Beach</p>
+    </div>
+    <div><div class="col-title">Comunidad</div><ul class="col-list"><li>Afiliados</li><li>Nosotros</li><li><a href="https://instagram.com/d.royal.spa.miami" target="_blank" rel="noopener">@d.royal.spa.miami</a></li></ul></div>
+    <div><div class="col-title">Soporte</div><ul class="col-list"><li><a href="#agendar">C&oacute;mo funciona la cita</a></li><li><a href="tel:+17866900960">Contacto</a></li><li><a href="https://wa.me/17866900960" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+    <div><div class="col-title">FAQs</div><ul class="col-list"><li><a href="#lipo-laser">Lipo con L&aacute;ser</a></li><li><a href="#aumentos">Aumentos sin Cirug&iacute;a</a></li><li><a href="#botox-natural">Botox Natural L&aacute;ser</a></li><li><a href="#coolsculpting">CoolSculpting</a></li></ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; <span id="year"></span> D'Royal Spa Miami &middot; All rights reserved</span>
+    <div class="footer-social"><a href="https://instagram.com/d.royal.spa.miami" target="_blank" rel="noopener">@d.royal.spa.miami</a><a href="mailto:hello@droyalspa.com">hello@droyalspa.com</a></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/17866900960" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.711.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<div class="toast" id="toast">Reserva enviada</div>
+
+<script src="./scripts/script.js"></script>
 </body>
 </html>
+```
+
+---
+
+**styles.css** (part 1/2)
+
+```css
+:root{--cream:#F1ECE1;--cream-2:#EAE3D4;--ink:#0B0B0B;--line:rgba(11,11,11,0.14);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Chivo',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+::selection{background:var(--ink);color:var(--cream);}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+input,select,textarea{font:inherit;color:inherit;}
+.container{max-width:1400px;margin:0 auto;padding:0 20px;}
+@media(min-width:640px){.container{padding:0 32px;}}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:var(--ink);width:0%;z-index:101;transition:width 0.12s linear;}
+nav.topnav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:background 0.5s ease,backdrop-filter 0.5s ease,border-color 0.5s ease;border-bottom:1px solid transparent;}
+nav.topnav.scrolled{background:rgba(241,236,225,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line);}
+nav.topnav .bar{display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:500;letter-spacing:-0.02em;}
+.logo span{opacity:0.6;}
+.nav-links{display:none;gap:32px;font-size:0.92rem;}
+.nav-links a{color:rgba(11,11,11,0.8);position:relative;transition:color 0.3s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform 0.45s cubic-bezier(0.2,0.7,0.2,1);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-right{display:none;align-items:center;gap:24px;font-size:0.9rem;}
+.nav-right a.tel{color:rgba(11,11,11,0.8);}
+.btn-pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--cream);font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.35s ease;text-decoration:none;}
+.btn-pill:hover{background:transparent;color:var(--ink);}
+.btn-pill.ghost{background:transparent;color:var(--ink);}
+.btn-pill.ghost:hover{background:var(--ink);color:var(--cream);}
+.btn-pill .arr{transition:transform 0.4s cubic-bezier(0.2,0.7,0.2,1);display:inline-block;}
+.btn-pill:hover .arr{transform:translate(3px,-3px);}
+.mobile-toggle{display:flex;flex-direction:column;gap:5px;padding:8px;}
+.mobile-toggle span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all 0.3s;}
+.mobile-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mobile-toggle.open span:nth-child(2){opacity:0;}
+.mobile-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mobile-menu{position:fixed;top:66px;left:0;right:0;background:var(--cream);border-top:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:18px;transform:translateY(-120%);transition:transform 0.5s cubic-bezier(0.2,0.7,0.2,1);z-index:99;}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{font-size:1.1rem;color:var(--ink);}
+@media(min-width:900px){.nav-links,.nav-right{display:flex;}.mobile-toggle{display:none;}}
+.hero{position:relative;min-height:100vh;min-height:100svh;padding:140px 0 80px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;will-change:transform;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;}
+.hero-bg::before{content:"";position:absolute;inset:0;background:rgba(241,236,225,0.35);}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--cream) 100%);}
+.hero-content{position:relative;z-index:2;}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:0.72rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(11,11,11,0.75);margin-bottom:32px;}
+.meta .sep{opacity:0.4;}
+h1.hero-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(4rem,12vw,9rem);line-height:0.92;letter-spacing:-0.02em;will-change:transform;}
+h1.hero-title i{font-style:italic;font-weight:400;}
+.hero-row{margin-top:40px;display:grid;grid-template-columns:1fr;gap:40px;align-items:end;}
+@media(min-width:1024px){.hero-row{grid-template-columns:1fr 1fr;}.hero-row .right{text-align:right;}}
+.tagline{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.15rem,1.8vw,1.45rem);line-height:1.35;max-width:42ch;color:rgba(11,11,11,0.9);}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
+@media(min-width:1024px){.cta-row{justify-content:flex-end;}}
+.rating{display:inline-flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:0.9rem;color:rgba(11,11,11,0.85);}
+.stars{color:var(--ink);letter-spacing:1px;}
+.rating .sep{opacity:0.4;}
+.locations-strip{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;font-size:0.72rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(11,11,11,0.75);}
+.locations-strip .sep{opacity:0.3;}
+.locations-strip .in-home{display:none;}
+@media(min-width:640px){.locations-strip .in-home{display:inline;}}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--cream-2);padding:22px 0;overflow:hidden;}
+.marquee-track{display:flex;gap:40px;white-space:nowrap;animation:marquee 45s linear infinite;width:max-content;}
+.marquee-track span{font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;display:inline-flex;align-items:center;gap:40px;color:rgba(11,11,11,0.85);}
+.marquee-track .star{opacity:0.4;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+```
+
+**styles.css** (part 2/2)
+
+```css
+section.block{position:relative;padding:110px 0;border-top:1px solid var(--line);overflow:hidden;}
+@media(min-width:768px){section.block{padding:140px 0;}}
+.block-bg{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1s ease;will-change:transform;}
+.block-bg img{width:100%;height:100%;object-fit:cover;}
+.block-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--cream) 0%,rgba(241,236,225,0.6) 50%,var(--cream) 100%);}
+section.block.in-view .block-bg{opacity:0.35;}
+section.block.results-section.in-view .block-bg{opacity:0.55;}
+.block > .container{position:relative;z-index:2;}
+.block-head{display:grid;grid-template-columns:1fr;gap:30px;margin-bottom:60px;}
+@media(min-width:1024px){.block-head{grid-template-columns:1fr 1fr;align-items:end;}.block.reversed .block-head{direction:rtl;}.block.reversed .block-head > *{direction:ltr;}}
+.eyebrow{font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(11,11,11,0.6);margin-bottom:20px;}
+h2.block-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(2.5rem,6.5vw,5.5rem);line-height:0.98;letter-spacing:-0.01em;}
+h2.block-title i{font-style:italic;font-weight:400;}
+.block-intro{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.05rem,1.6vw,1.35rem);line-height:1.4;max-width:52ch;color:rgba(11,11,11,0.85);}
+.intro-mt{margin-top:20px;}
+.areas-list{margin-top:20px;display:flex;flex-wrap:wrap;gap:20px;font-size:0.82rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(11,11,11,0.8);}
+.areas-list span.sep{opacity:0.4;}
+.carousel-wrap{position:relative;}
+.carousel{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:24px;margin:0 -20px;padding-left:20px;padding-right:20px;scrollbar-width:none;}
+@media(min-width:640px){.carousel{margin:0 -32px;padding-left:32px;padding-right:32px;}}
+.carousel::-webkit-scrollbar{display:none;}
+.card{flex-shrink:0;scroll-snap-align:start;width:80%;border-radius:28px;overflow:hidden;background:var(--cream-2);border:1px solid var(--line);box-shadow:0 8px 40px rgba(0,0,0,0.06);transition:transform 0.6s cubic-bezier(0.2,0.7,0.2,1);}
+@media(min-width:640px){.card{width:48%;}}
+@media(min-width:1024px){.card{width:31%;}}
+.card:hover{transform:translateY(-8px);}
+.card-media{aspect-ratio:4/5;overflow:hidden;position:relative;background:#ddd;}
+.card-media img,.card-media video{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(0.2,0.7,0.2,1);display:block;}
+.card:hover .card-media img,.card:hover .card-media video{transform:scale(1.06);}
+.card-media::after{content:"";position:absolute;inset:auto 0 0;height:90px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.35));pointer-events:none;}
+.play-badge{position:absolute;left:16px;bottom:16px;width:44px;height:44px;border-radius:999px;background:rgba(11,11,11,0.85);color:var(--cream);display:flex;align-items:center;justify-content:center;z-index:2;font-size:14px;}
+.card-foot{padding:20px;display:flex;align-items:center;justify-content:space-between;}
+.card-caption{font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(11,11,11,0.55);}
+.card-label{font-family:'Fraunces',serif;font-size:1.1rem;}
+.card-num{font-size:0.78rem;color:rgba(11,11,11,0.6);}
+.carousel-nav{display:flex;justify-content:flex-end;gap:8px;margin-top:8px;}
+.nav-btn{width:44px;height:44px;border-radius:999px;border:1px solid rgba(11,11,11,0.3);display:flex;align-items:center;justify-content:center;transition:all 0.35s ease;font-size:1.1rem;}
+.nav-btn:hover{background:var(--ink);color:var(--cream);}
+.block-after{margin-top:60px;display:grid;grid-template-columns:1fr;gap:30px;}
+@media(min-width:1024px){.block-after{grid-template-columns:1.4fr 1fr;}}
+.body-after{font-size:clamp(0.95rem,1.1vw,1.08rem);line-height:1.6;max-width:68ch;color:rgba(11,11,11,0.9);}
+.bullets{list-style:none;display:grid;grid-template-columns:1fr;gap:8px;font-size:0.92rem;color:rgba(11,11,11,0.85);}
+@media(min-width:600px){.bullets{grid-template-columns:1fr 1fr;gap:10px 24px;}}
+.bullets li{display:flex;align-items:flex-start;gap:10px;}
+.bullets li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--ink);margin-top:9px;flex-shrink:0;}
+.block-ctas{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px;}
+.results-bg img{opacity:1;}
+.results-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media(min-width:640px){.results-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.results-grid{grid-template-columns:1fr 1fr 1fr;}}
+.ba-card{border-radius:28px;overflow:hidden;background:var(--cream-2);border:1px solid var(--line);box-shadow:0 8px 40px rgba(0,0,0,0.1);transition:transform 0.6s cubic-bezier(0.2,0.7,0.2,1);}
+.ba-card:hover{transform:translateY(-8px);}
+.ba-media{display:grid;grid-template-columns:1fr 1fr;aspect-ratio:8/5;position:relative;}
+.ba-half{position:relative;overflow:hidden;}
+.ba-half img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(0.2,0.7,0.2,1);}
+.ba-card:hover img{transform:scale(1.06);}
+.ba-divider{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:1px;background:rgba(241,236,225,0.9);pointer-events:none;}
+.ba-tag{position:absolute;bottom:12px;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:4px 10px;border-radius:999px;}
+.ba-tag.before{left:12px;background:rgba(241,236,225,0.95);color:var(--ink);}
+.ba-tag.after{right:12px;background:var(--ink);color:var(--cream);}
+.areas-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:640px){.areas-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:1024px){.areas-grid{grid-template-columns:repeat(4,1fr);}}
+.area-card{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(135deg,var(--cream-2),var(--cream));transition:transform 0.6s cubic-bezier(0.2,0.7,0.2,1);}
+.area-card:hover{transform:translateY(-8px);}
+.area-card::before{content:attr(data-initial);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:6rem;font-weight:300;color:rgba(11,11,11,0.18);}
+.area-inner{position:relative;height:100%;padding:24px;color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;}
+.area-foot{display:flex;align-items:flex-end;justify-content:space-between;}
+.area-num{font-family:'Fraunces',serif;font-size:2.5rem;font-weight:300;}
+.area-name{font-family:'Fraunces',serif;font-size:1.5rem;}
+.area-note{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(11,11,11,0.55);margin-top:4px;}
+.area-arrow{font-size:1.2rem;transition:transform 0.5s;}
+.area-card:hover .area-arrow{transform:translate(4px,-4px);}
+.agendar{background:var(--cream-2);padding:110px 0;border-top:1px solid var(--line);}
+@media(min-width:768px){.agendar{padding:140px 0;}}
+.agendar-grid{display:grid;grid-template-columns:1fr;gap:50px;}
+@media(min-width:1024px){.agendar-grid{grid-template-columns:5fr 7fr;gap:60px;}}
+.agendar-left{display:flex;flex-direction:column;justify-content:space-between;gap:40px;}
+.agendar-contact{font-size:0.9rem;display:flex;flex-direction:column;gap:20px;}
+.agendar-contact .label{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(11,11,11,0.55);margin-bottom:4px;}
+.agendar-contact .val{font-family:'Fraunces',serif;font-size:1.25rem;transition:font-style 0.3s;}
+.agendar-contact a:hover .val{font-style:italic;}
+form.agendar-form{background:var(--cream);border:1px solid var(--line);border-radius:28px;padding:28px;display:grid;grid-template-columns:1fr;gap:20px;}
+@media(min-width:640px){form.agendar-form{grid-template-columns:1fr 1fr;padding:40px;}form.agendar-form .full{grid-column:1 / -1;}}
+.field label{display:block;font-size:0.68rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(11,11,11,0.55);margin-bottom:6px;}
+.field input,.field select,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(11,11,11,0.2);padding:10px 0;outline:none;color:var(--ink);transition:border-color 0.3s;font-family:inherit;}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--ink);}
+.field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 15px) center,calc(100% - 10px) center;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:24px;}
+.field textarea{resize:none;}
+.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding-top:6px;}
+.form-note{font-size:0.78rem;color:rgba(11,11,11,0.6);}
+footer.main-footer{background:#0A0A0A;color:var(--cream);padding:70px 0 0;}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:40px;}
+@media(min-width:640px){.footer-grid{grid-template-columns:1fr 1fr;}}
+@media(min-width:900px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr;}}
+footer .logo{color:var(--cream);}
+footer .logo span{opacity:0.55;}
+.footer-blurb{font-family:'Fraunces',serif;font-style:italic;max-width:32ch;margin-top:14px;color:rgba(241,236,225,0.75);}
+.footer-locations{margin-top:24px;font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(241,236,225,0.55);}
+.col-title{font-size:0.7rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(241,236,225,0.6);margin-bottom:16px;}
+.col-list{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:0.9rem;}
+.col-list a,.col-list li{color:rgba(241,236,225,0.85);}
+.col-list a{transition:color 0.3s;}
+.col-list a:hover{color:var(--cream);}
+.footer-bottom{margin-top:50px;border-top:1px solid rgba(255,255,255,0.1);padding:22px 0;display:flex;flex-direction:column;gap:10px;align-items:flex-start;justify-content:space-between;font-size:0.78rem;color:rgba(241,236,225,0.6);}
+@media(min-width:640px){.footer-bottom{flex-direction:row;align-items:center;}}
+.footer-social{display:flex;gap:20px;}
+.footer-social a{color:rgba(241,236,225,0.75);}
+.footer-social a:hover{color:var(--cream);}
+.toast{position:fixed;top:24px;left:50%;transform:translate(-50%,-120%);background:var(--ink);color:var(--cream);padding:14px 22px;border-radius:999px;font-size:0.9rem;box-shadow:0 8px 30px rgba(0,0,0,0.25);z-index:200;transition:transform 0.5s cubic-bezier(0.2,0.7,0.2,1);white-space:nowrap;}
+.toast.show{transform:translate(-50%,0);}
+.wa-float{position:fixed;bottom:22px;right:22px;z-index:90;width:56px;height:56px;border-radius:999px;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,0.4);transition:transform 0.4s ease;}
+.wa-float:hover{transform:scale(1.08);}
+.wa-float svg{width:28px;height:28px;}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
+```
+
+---
+
+**script.js** (part 1/1)
+
+```javascript
+(function(){
+  "use strict";
+
+  var CAROUSELS = {
+    "lipo-laser": [
+      { type: "image", src: "./images/hero-dubai.png", label: "hero-dubai.png", caption: "01" },
+      { type: "image", src: "./images/ref-frame2.jpg", label: "ref-frame2.jpg", caption: "02" },
+      { type: "video", src: "./videos/legs-video.mp4", label: "legs-video.mp4", caption: "03" },
+      { type: "image", src: "./images/radio-frequency-rf-treatment-heads.jpg", label: "radio-frequency-rf-treatment-heads.jpg", caption: "04" },
+      { type: "image", src: "./images/lipo-treatment-bg.jpg", label: "lipo-treatment-bg.jpg", caption: "05" },
+      { type: "image", src: "./images/hero-dubai.png", label: "hero-dubai.png", caption: "06" },
+      { type: "image", src: "./images/lipo-treatment-bg.jpg", label: "lipo-treatment-bg.jpg", caption: "07" },
+      { type: "video", src: "./videos/legs-video.mp4", label: "legs-video.mp4", caption: "08" },
+      { type: "image", src: "./images/lipo-results.jpg", label: "lipo-results.jpg", caption: "09" },
+      { type: "image", src: "./images/legs-results.jpg", label: "legs-results.jpg", caption: "10" },
+      { type: "image", src: "./images/chin-results.jpg", label: "chin-results.jpg", caption: "11" },
+      { type: "image", src: "./images/double-chin-laser-neck-tightening-treatment.jpg", label: "double-chin-laser-neck-tightening-treatment.jpg", caption: "12" },
+      { type: "image", src: "./images/arm-results.jpg", label: "arm-results.jpg", caption: "13" },
+      { type: "image", src: "./images/ref-frame2.jpg", label: "ref-frame2.jpg", caption: "14" }
+    ],
+    "botox-natural": [
+      { type: "image", src: "./images/radio-frequency-rf-treatment-heads.jpg", label: "radio-frequency-rf-treatment-heads.jpg", caption: "01" },
+      { type: "image", src: "./images/face-results.jpg", label: "face-results.jpg", caption: "02" },
+      { type: "image", src: "./images/chin-results.jpg", label: "chin-results.jpg", caption: "03" },
+      { type: "image", src: "./images/botox-laser-forehead-premium-treatment.jpg", label: "botox-laser-forehead-premium-treatment.jpg", caption: "04" }
+    ],
+    "aumentos": [
+      { type: "video", src: "./videos/explainer-vacuum-breasts.mp4", label: "explainer-vacuum-breasts.mp4", caption: "01" },
+      { type: "image", src: "./images/glute-results.jpg", label: "glute-results.jpg", caption: "02" },
+      { type: "image", src: "./images/breast-results.jpg", label: "breast-results.jpg", caption: "03" },
+      { type: "image", src: "./images/treatment-aumentos-v2.png", label: "treatment-aumentos-v2.png", caption: "04" },
+      { type: "image", src: "./images/legs-results.jpg", label: "legs-results.jpg", caption: "05" }
+    ],
+    "coolsculpting": [
+      { type: "image", src: "./images/COOLSCULPINGCARRUCEL.jpg", label: "COOLSCULPINGCARRUCEL.jpg", caption: "01" },
+      { type: "image", src: "./images/radio-frequency-rf-treatment-heads.jpg", label: "radio-frequency-rf-treatment-heads.jpg", caption: "02" },
+      { type: "image", src: "./images/lipo-laser-360-before-after-front-abdomen.jpg", label: "lipo-laser-360-before-after-front-abdomen.jpg", caption: "03" },
+      { type: "image", src: "./images/body-contouring-treatment.jpg", label: "body-contouring-treatment.jpg", caption: "04" }
+    ]
+  };
+
+  var MARQUEE_WORDS = ["Lipo con Laser","Botox Natural","Aumentos sin Cirugia","CoolSculpting","Radiofrecuencia","Ultrasonido","Hydromicrodermabrasion","Luz de 7 colores"];
+
+  var RESULTS = [
+    { label: "Lipo Laser - Abdomen", before: "./images/lipo-treatment-bg.jpg", after: "./images/lipo-results.jpg" },
+    { label: "Botox Natural - Rostro", before: "./images/botox-laser-forehead-premium-treatment.jpg", after: "./images/face-results.jpg" },
+    { label: "Aumentos - Gluteos", before: "./images/treatment-aumentos-v2.png", after: "./images/glute-results.jpg" },
+    { label: "Papada - Neck Tightening", before: "./images/double-chin-laser-neck-tightening-treatment.jpg", after: "./images/chin-results.jpg" },
+    { label: "Piernas - Firmeza", before: "./images/ref-frame2.jpg", after: "./images/legs-results.jpg" },
+    { label: "Brazos - Definicion", before: "./images/lipo-laser-360-before-after-front-abdomen.jpg", after: "./images/arm-results.jpg" }
+  ];
+
+  var AREAS = [{ name: "Brickell" },{ name: "Downtown" },{ name: "Doral" },{ name: "Miami Beach" }];
+
+  function $(s,c){return (c||document).querySelector(s);}
+  function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));}
+
+  function buildMarquee(){
+    var t=$("#marquee"); if(!t) return;
+    var row=MARQUEE_WORDS.concat(MARQUEE_WORDS);
+    t.innerHTML=row.map(function(w){return '<span>'+w+' <span class="star">&#10030;</span></span>';}).join("");
+  }
+
+  function buildCarousels(){
+    $$("[data-carousel]").forEach(function(track){
+      var id=track.getAttribute("data-carousel");
+      var items=CAROUSELS[id]; if(!items) return;
+      track.innerHTML=items.map(function(it,i){
+        var media;
+        if(it.type==="video"){
+          media='<video src="'+it.src+'" autoplay muted loop playsinline preload="metadata"></video><span class="play-badge">&#9658;</span>';
+        } else {
+          media='<img src="'+it.src+'" alt="'+it.label+'" loading="lazy" />';
+        }
+        return '<article class="card"><div class="card-media">'+media+'</div><div class="card-foot"><div><div class="card-caption">'+it.caption+'</div><div class="card-label">'+it.label+'</div></div><span class="card-num">'+String(i+1).padStart(2,"0")+'</span></div></article>';
+      }).join("");
+    });
+  }
+
+  function buildResults(){
+    var g=$("#resultsGrid"); if(!g) return;
+    g.innerHTML=RESULTS.map(function(r,i){
+      return '<article class="ba-card"><div class="ba-media"><div class="ba-half"><img src="'+r.before+'" alt="Antes" loading="lazy" /><span class="ba-tag before">Antes</span></div><div class="ba-half"><img src="'+r.after+'" alt="Despues" loading="lazy" /><span class="ba-tag after">Despues</span></div><div class="ba-divider"></div></div><div class="card-foot"><div><div class="card-caption">Antes &middot; Despues</div><div class="card-label">'+r.label+'</div></div><span class="card-num">'+String(i+1).padStart(2,"0")+'</span></div></article>';
+    }).join("");
+  }
+
+  function buildAreas(){
+    var g=$("#areasGrid"); if(!g) return;
+    g.innerHTML=AREAS.map(function(a,i){
+      return '<div class="area-card" data-initial="'+a.name.charAt(0)+'"><div class="area-inner"><div class="area-num">0'+(i+1)+'</div><div class="area-foot"><div><div class="area-name">'+a.name+'</div><div class="area-note">Cita 24/7</div></div><span class="area-arrow">&nearr;</span></div></div></div>';
+    }).join("");
+  }
+
+  function initCarouselNav(){
+    $$(".carousel-wrap").forEach(function(wrap){
+      var track=wrap.querySelector("[data-carousel]"); if(!track) return;
+      wrap.querySelectorAll(".nav-btn").forEach(function(btn){
+        btn.addEventListener("click",function(){
+          var dir=parseInt(btn.getAttribute("data-dir"),10)||1;
+          var card=track.querySelector(".card");
+          var step=card?card.clientWidth+24:320;
+          track.scrollBy({left:dir*step,behavior:"smooth"});
+        });
+      });
+    });
+  }
+
+  function initNav(){
+    var nav=$("#nav"),progress=$("#progress"),mt=$("#mtoggle"),mm=$("#mmenu");
+    window.addEventListener("scroll",function(){
+      var y=window.scrollY||document.documentElement.scrollTop;
+      if(nav) nav.classList.toggle("scrolled",y>24);
+      if(progress){var max=document.body.scrollHeight-window.innerHeight;progress.style.width=(max>0?(y/max)*100:0)+"%";}
+    },{passive:true});
+    if(mt&&mm){
+      mt.addEventListener("click",function(){mt.classList.toggle("open");mm.classList.toggle("open");});
+      $$(".mobile-menu a").forEach(function(a){a.addEventListener("click",function(){mt.classList.remove("open");mm.classList.remove("open");});});
+    }
+  }
+
+  function initParallax(){
+    var hb=$("#heroBg"),ht=$("#heroTitle"),blocks=$$("section.block");
+    window.addEventListener("scroll",function(){
+      var y=window.scrollY||document.documentElement.scrollTop,vh=window.innerHeight;
+      if(hb&&y<vh*1.2){hb.style.transform="translateY("+(y*0.35)+"px) scale("+(1.05+y*0.00015)+")";hb.style.opacity=Math.max(0.1,0.7-y*0.0012);}
+      if(ht&&y<vh){ht.style.transform="translateY("+(-y*0.25)+"px)";ht.style.opacity=Math.max(0,1-y*0.0018);}
+      blocks.forEach(function(sec){
+        var bg=sec.querySelector(".block-bg"); if(!bg) return;
+        var rect=sec.getBoundingClientRect();
+        if(rect.top<vh&&rect.bottom>0){
+          var img=bg.querySelector("img");
+          if(img){var prog=(vh-rect.top)/(vh+rect.height);img.style.transform="translateY("+(prog*60-30)+"px) scale(1.08)";}
+        }
+      });
+    },{passive:true});
+  }
+
+  function initReveal(){
+    if(!("IntersectionObserver" in window)){$$("section.block").forEach(function(el){el.classList.add("in-view");});return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting&&e.target.classList.contains("block")){e.target.classList.add("in-view");}});
+    },{threshold:0.12,rootMargin:"0px 0px -60px 0px"});
+    $$("section.block").forEach(function(el){io.observe(el);});
+  }
+
+  function showToast(msg){var t=$("#toast"); if(!t) return; t.textContent=msg; t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},3000);}
+
+  function initForm(){
+    var form=$("#agendarForm"); if(!form) return;
+    form.addEventListener("submit",function(e){
+      e.preventDefault();
+      var d={nombre:(form.nombre.value||"").trim(),telefono:(form.telefono.value||"").trim(),email:(form.email.value||"").trim(),tratamiento:form.tratamiento.value,area:form.area.value,fecha:(form.fecha.value||"").trim(),mensaje:(form.mensaje.value||"").trim()};
+      if(!d.nombre||!d.telefono){showToast("Nombre y telefono son requeridos");return;}
+      var lines=["Hola D'Royal Spa, quiero agendar:","- Nombre: "+d.nombre,"- Telefono: "+d.telefono];
+      if(d.email) lines.push("- Email: "+d.email);
+      lines.push("- Tratamiento: "+d.tratamiento);
+      lines.push("- Area: "+d.area);
+      if(d.fecha) lines.push("- Fecha: "+d.fecha);
+      if(d.mensaje) lines.push("- Mensaje: "+d.mensaje);
+      var url="https://wa.me/17866900960?text="+encodeURIComponent(lines.join("\n"));
+      showToast("Abriendo WhatsApp...");
+      setTimeout(function(){window.open(url,"_blank","noopener");},400);
+      form.reset();
+    });
+  }
+
+  function init(){
+    buildMarquee();buildCarousels();buildResults();buildAreas();initCarouselNav();initNav();initParallax();initReveal();initForm();
+    var y=$("#year"); if(y) y.textContent=new Date().getFullYear();
+  }
+
+  if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);} else {init();}
+})();
+```
