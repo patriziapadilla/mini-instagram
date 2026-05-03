@@ -3,327 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>D’ROYAL SPA</title>
+<title>D’Royal Spa</title>
 
 <style>
-
-/* RESET */
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Arial, sans-serif;
-color:#111;
-background:#fff;
-text-align:center;
+  margin:0;
+  font-family: Georgia, serif;
+  overflow:hidden;
+  background:#f5f3ef;
 }
 
-/* NAV */
-nav{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-font-size:14px;
+/* ===== SCROLL VERTICAL ===== */
+.deck{
+  height:100vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+}
+.slide{
+  height:100vh;
+  width:100%;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:40px;
 }
 
-nav a{
-margin:0 10px;
-text-decoration:none;
-color:#111;
+/* ===== HERO ===== */
+.hero{
+  background:url('images/hero-dubai.png') center/cover no-repeat;
+  color:white;
+}
+.hero .inner{
+  background:rgba(0,0,0,0.35);
+  padding:30px 40px;
+  border-radius:12px;
+}
+.hero h1{font-size:70px;margin:0 0 10px}
+.hero p{margin:0;font-size:20px}
+
+/* ===== RESULTADOS ===== */
+.result-container{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:80px;
+  width:90%;
 }
 
-/* SECCIONES */
-.section{
-padding:80px 20px;
-max-width:900px;
-margin:auto;
+/* CARD FLOTANTE */
+.card{
+  width:340px;
+  height:560px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,0.25);
+  background:white;
+  position:relative;
 }
-
-/* HOME */
-h1{
-font-size:48px;
-margin-bottom:20px;
-}
-
-.line{
-width:200px;
-height:1px;
-background:#999;
-margin:20px auto;
-}
-
-.locations{
-letter-spacing:3px;
-margin:20px 0;
+.card img, .card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 /* BOTONES */
-.buttons{
-margin-top:20px;
+.nav-btn{
+  position:absolute;
+  bottom:15px;
+  background:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  font-size:18px;
 }
+.prev{ left:20px; }
+.next{ right:20px; }
+
+/* TEXTO DERECHA */
+.result-text{
+  max-width:420px;
+}
+.result-text h2{font-size:42px;margin:0 0 10px}
+.result-text p{font-size:18px;line-height:1.5}
+
+/* ===== TRATAMIENTOS ===== */
+.treatment{
+  display:flex;
+  gap:60px;
+  width:90%;
+  align-items:center;
+}
+.treatment img, .treatment video{
+  width:360px;
+  height:520px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.2);
+}
+.treatment .text{
+  max-width:420px;
+}
+.treatment h2{font-size:38px;margin:0 0 10px}
+.treatment p{font-size:18px;line-height:1.5}
 
 .btn{
-display:inline-block;
-margin:10px;
-padding:12px 20px;
-border:1px solid #000;
-text-decoration:none;
-color:#000;
+  margin-top:15px;
+  display:inline-block;
+  background:black;
+  color:white;
+  padding:12px 20px;
+  border-radius:20px;
 }
 
-.btn.primary{
-background:#000;
-color:#fff;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .result-container, .treatment{
+    flex-direction:column;
+    gap:30px;
+  }
+  .hero h1{font-size:48px}
 }
-
-.price{
-margin-top:20px;
-}
-
-/* CARRUSEL */
-.carousel{
-position:relative;
-width:100%;
-max-width:700px;
-margin:40px auto;
-overflow:hidden;
-}
-
-.slide{
-width:100%;
-display:none;
-border-radius:10px;
-}
-
-.slide.active{
-display:block;
-}
-
-/* LINKS CARRUSEL */
-.carousel-nav{
-margin-top:20px;
-}
-
-.carousel-nav a{
-margin:0 10px;
-color:#007aff;
-text-decoration:none;
-}
-
-/* TEXTOS */
-h2{
-font-size:32px;
-margin-bottom:10px;
-}
-
-.tag{
-font-size:12px;
-letter-spacing:2px;
-color:#777;
-}
-
-.areas{
-margin:10px 0;
-letter-spacing:2px;
-}
-
-strong{
-color:#007aff;
-}
-
 </style>
+
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav>
-<div>
-<a href="#lipo">tratamientos</a>
-<a href="#home">inicio</a>
-<a href="#resultados">resultados</a>
-<a href="#">áreas</a>
+<div class="deck" id="deck">
+
+  <!-- HOME -->
+  <section class="slide hero">
+    <div class="inner">
+      <h1>D’Royal Spa</h1>
+      <p>La diferencia se ve desde la primera sesión</p>
+    </div>
+  </section>
+
+  <!-- RESULTADOS (carrusel flotante) -->
+  <section class="slide">
+    <div class="result-container">
+
+      <div class="card" id="card">
+        <!-- IMG o VIDEO dinámico -->
+        <img id="carousel-media" src="images/lipo-results.jpg" alt="">
+        <button class="nav-btn prev" onclick="prev()">‹</button>
+        <button class="nav-btn next" onclick="next()">›</button>
+      </div>
+
+      <div class="result-text">
+        <h2>Resultados</h2>
+        <p>La diferencia se ve desde la primera sesión.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIPO -->
+  <section class="slide">
+    <div class="treatment">
+      <img src="images/lipo-treatment-bg.jpg">
+      <div class="text">
+        <h2>Lipo con Láser</h2>
+        <p>Reduce grasa localizada sin cirugía.</p>
+        <div class="btn">Reservar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTOX -->
+  <section class="slide">
+    <div class="treatment">
+      <img src="images/radio-frequency-rf-treatment-heads.jpg">
+      <div class="text">
+        <h2>Botox Natural con Láser</h2>
+        <p>Rejuvenece sin inyecciones.</p>
+        <div class="btn">Reservar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUMENTOS -->
+  <section class="slide">
+    <div class="treatment">
+      <img src="images/treatment-aumentos-v2.png">
+      <div class="text">
+        <h2>Aumentos de Glúteos y Senos</h2>
+        <p>Sin implantes ni inyecciones.</p>
+        <div class="btn">Reservar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COOLSCULPTING -->
+  <section class="slide">
+    <div class="treatment">
+      <img src="images/body-contouring-treatment.jpg">
+      <div class="text">
+        <h2>CoolSculpting</h2>
+        <p>Elimina grasa con frío controlado.</p>
+        <div class="btn">Reservar</div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
-<div>
-+1 786 690 0960
-<a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar">AGENDAR</a>
-</div>
-</nav>
-
-<!-- HOME -->
-<section id="home" class="section">
-
-<h1>D’ROYAL SPA</h1>
-
-<div class="line"></div>
-
-<p>Belleza natural con tecnología avanzada</p>
-<p>Resultados reales sin cirugía ni agujas</p>
-<p><em>Diseñados para rejuvenecer de forma inteligente</em></p>
-
-<p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar" class="btn primary">AGENDAR CITA</a>
-<a href="https://wa.me/17866900960" class="btn">WHATSAPP</a>
-<a href="tel:+17866900960" class="btn">LLAMAR</a>
-</div>
-
-<p class="price">$90 1RA SESIÓN. 5★ CALIFICACIÓN MIAMI</p>
-
-<div class="line"></div>
-
-</section>
-
-<!-- RESULTADOS -->
-<section id="resultados" class="section">
-
-<h2>Resultados reales</h2>
-
-<div class="carousel">
-<img src="img1.jpg" class="slide active">
-<img src="img2.jpg" class="slide">
-<img src="img3.jpg" class="slide">
-</div>
-
-<div class="carousel-nav">
-<a href="#lipo">Lipo Láser 360</a>
-<a href="#aumentos">Aumentos</a>
-<a href="#botox">Botox</a>
-<a href="#cool">CoolSculpting</a>
-</div>
-
-</section>
-
-<!-- LIPO -->
-<section id="lipo" class="section">
-
-<p class="tag">SIGNATURE · BODY SCULPTING</p>
-
-<h2>Lipo con Láser</h2>
-
-<p class="areas">ABDOMEN · BRAZOS · PIERNAS · PAPADA</p>
-
-<p>
-Esculpe localizadamente abdomen, brazos, piernas o papada con 
-<strong>tecnología láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores</strong>. 
-Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultados desde la primera sesión.
-</p>
-
-<div class="carousel">
-<img src="lipo1.jpg" class="slide active">
-<img src="lipo2.jpg" class="slide">
-<img src="lipo3.jpg" class="slide">
-</div>
-
-<p>
-El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa, que el cuerpo elimina de forma natural a través del sistema linfático. Luego, la radiofrecuencia y la luz terapéutica reafirman la piel, mejoran estrías y dejan una apariencia más luminosa y rejuvenecida.
-</p>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Lipo%20con%20Laser" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
-</div>
-
-</section>
-
-<!-- AUMENTOS -->
-<section id="aumentos" class="section">
-
-<p class="tag">AUMENTOS · VACUUM THERAPY</p>
-
-<h2>Aumentos sin Cirugía.</h2>
-
-<p>
-Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulación, aumentando volumen natural en glúteos y senos. Sin implantes, sin inyecciones.
-</p>
-
-<p class="areas">GLÚTEOS · SENOS</p>
-
-<div class="carousel">
-<img src="aum1.jpg" class="slide active">
-<img src="aum2.jpg" class="slide">
-<img src="aum3.jpg" class="slide">
-</div>
-
-<p>
-Copas de succión activan el tejido adiposo, estimulan circulación y aumentan volumen natural.
-</p>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Aumentos" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
-</div>
-
-</section>
-
-<!-- BOTOX -->
-<section id="botox" class="section">
-
-<h2>Botox Natural con Láser.</h2>
-
-<p>
-Hydromicrodermabration + D’Cool + <strong>Radiofrecuencia + Terapia de luz de 7 colores</strong> que regenera las células madres, eliminando las líneas de expresión y pigmentación de la piel, ideal para rejuvenecer de forma natural, sin agujas, sin inyecciones, sin tiempo de recuperación.
-</p>
-
-<p class="areas">OJOS · CARA · CUELLO</p>
-
-<div class="carousel">
-<img src="botox1.jpg" class="slide active">
-<img src="botox2.jpg" class="slide">
-<img src="botox3.jpg" class="slide">
-</div>
-
-<p>
-Láser que actúa hasta 3 mm de profundidad, estimulando la regeneración de la piel. Se sella con frío para calmar y potenciar resultados.
-</p>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20Botox" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
-</div>
-
-</section>
-
-<!-- COOLSCULPTING -->
-<section id="cool" class="section">
-
-<h2>CoolSculpting</h2>
-
-<p class="areas">ABDOMEN · BRAZOS · PIERNAS</p>
-
-<p>
-Reducción de grasa localizada mediante enfriamiento controlado que elimina células adiposas sin cirugía. Se combina con radiofrecuencia para reafirmar la piel (skin tightening).
-</p>
-
-<div class="carousel">
-<img src="cool1.jpg" class="slide active">
-<img src="cool2.jpg" class="slide">
-<img src="cool3.jpg" class="slide">
-</div>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960?text=Quiero%20CoolSculpting" class="btn primary">RESERVAR</a>
-<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
-</div>
-
-</section>
-
-<!-- SCRIPT CARRUSEL -->
 <script>
+/* ===== CARRUSEL CON TUS ARCHIVOS ===== */
+const media = [
+  "images/lipo-results.jpg",
+  "images/breast-results.jpg",
+  "images/legs-results.jpg",
+  "images/chin-results.jpg",
+  "images/arm-results.jpg",
+  "images/glute-results.jpg",
+  "images/face-results.jpg",
+  "images/botox-laser-forehead-premium-treatment.jpg",
+  "images/lipo-laser-360-before-after-front-abdomen.jpg",
+  "images/body-contouring-treatment.jpg",
+  "videos/legs-video.mp4",
+  "videos/explainer-vacuum-breasts.mp4"
+];
 
-document.querySelectorAll(".carousel").forEach(carousel=>{
-let slides=carousel.querySelectorAll(".slide");
-let i=0;
+let i = 0;
+const card = document.getElementById("card");
 
-setInterval(()=>{
-slides[i].classList.remove("active");
-i=(i+1)%slides.length;
-slides[i].classList.add("active");
-},3000);
+function render(){
+  const old = document.getElementById("carousel-media");
+  if(old) old.remove();
 
-});
+  const src = media[i];
+  let node;
 
+  if(src.endsWith(".mp4")){
+    node = document.createElement("video");
+    node.autoplay = true;
+    node.muted = true;
+    node.loop = true;
+    node.playsInline = true;
+  }else{
+    node = document.createElement("img");
+  }
+
+  node.id = "carousel-media";
+  node.src = src;
+  card.prepend(node);
+}
+
+function next(){
+  i = (i + 1) % media.length;
+  render();
+}
+function prev(){
+  i = (i - 1 + media.length) % media.length;
+  render();
+}
+
+/* ===== SALTO POR SECCIÓN (vertical) ===== */
+const deck = document.getElementById('deck');
+function goToSlide(index){
+  deck.scrollTo({
+    top: index * window.innerHeight,
+    behavior: 'smooth'
+  });
+}
 </script>
 
 </body>
