@@ -8,9 +8,7 @@
 <style>
 body{
 margin:0;
-font-family:Arial, sans-serif;
-color:#111;
-background:#fff;
+font-family:Arial;
 }
 
 /* NAV */
@@ -18,7 +16,6 @@ nav{
 display:flex;
 justify-content:space-between;
 padding:20px 40px;
-background:#fff;
 }
 
 .btn-blue{
@@ -33,37 +30,7 @@ text-align:center;
 padding:80px 20px;
 }
 
-.hero h1{font-size:48px;}
-.hero p{margin:8px 0;}
-
-.locations{
-letter-spacing:3px;
-margin:20px 0;
-}
-
-.buttons a{
-display:inline-block;
-margin:10px;
-padding:12px 20px;
-border:1px solid #000;
-text-decoration:none;
-color:#000;
-}
-
-.primary{
-background:#0a58ff;
-color:white;
-border:none;
-}
-
-.line{
-width:200px;
-height:1px;
-background:#999;
-margin:20px auto;
-}
-
-/* RESULTADOS */
+/* RESULTADOS (NO TOCAR MUCHO) */
 .resultados{
 text-align:center;
 padding:80px 20px;
@@ -74,27 +41,30 @@ display:flex;
 gap:20px;
 overflow-x:auto;
 padding:20px;
-background:url('hero-dubai.png') center/cover no-repeat;
 }
 
 .carousel img{
 height:220px;
 border-radius:10px;
-background:white;
-padding:5px;
 }
 
 /* LIPO */
 .lipo{
-padding:100px 40px;
+display:flex;
+justify-content:space-between;
+padding:100px 60px;
 background:linear-gradient(to right,#0d0d0d,#555);
 color:white;
+}
+
+/* IZQUIERDA */
+.lipo-left{
+width:55%;
 }
 
 .signature{
 color:#c8a96a;
 letter-spacing:3px;
-font-size:12px;
 display:flex;
 align-items:center;
 gap:10px;
@@ -107,10 +77,10 @@ height:1px;
 background:#c8a96a;
 }
 
-.lipo h2{
+.lipo-left h2{
 font-size:60px;
-font-weight:300;
 margin:20px 0;
+font-weight:300;
 }
 
 .areas span{
@@ -121,13 +91,9 @@ margin-right:10px;
 }
 
 .desc{
-max-width:700px;
-margin:30px auto;
+margin:30px 0;
 line-height:1.6;
-}
-
-.actions{
-margin-bottom:40px;
+max-width:600px;
 }
 
 .actions button{
@@ -139,47 +105,49 @@ color:white;
 }
 
 .gold{
-background:#c8a96a !important;
-color:black !important;
-border:none !important;
-}
-
-/* carrusel lipo */
-.carousel-lipo{
-margin-top:40px;
-position:relative;
-}
-
-.track{
-display:flex;
-gap:20px;
-overflow:hidden;
-}
-
-.track img{
-height:260px;
-border-radius:12px;
-background:white;
-padding:5px;
-}
-
-.btn-car{
-position:absolute;
-top:40%;
-background:black;
-color:white;
+background:#c8a96a;
+color:black;
 border:none;
-padding:10px;
-cursor:pointer;
 }
 
-.prev{left:-20px;}
-.next{right:-20px;}
+/* DERECHA (CARD FLOTANTE) */
+.lipo-right{
+width:40%;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
 
-.text-car{
+.card{
+background:rgba(0,0,0,0.6);
+padding:20px;
+border-radius:15px;
 text-align:center;
-margin-top:20px;
-color:#ddd;
+width:100%;
+max-width:350px;
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.card p{
+margin-top:15px;
+font-size:14px;
+}
+
+/* BOTONES DEL CARRUSEL */
+.car-controls{
+margin-top:15px;
+}
+
+.car-controls button{
+background:#c8a96a;
+border:none;
+padding:10px 15px;
+margin:5px;
+cursor:pointer;
 }
 
 </style>
@@ -188,33 +156,15 @@ color:#ddd;
 <body>
 
 <nav>
-<div>inicio tratamientos resultados</div>
+<div>inicio tratamientos resultados áreas</div>
 <div>+1 786 690 0960 <span class="btn-blue">AGENDAR</span></div>
 </nav>
 
 <!-- HOME -->
 <section class="hero">
-
 <h1>D’ROYAL SPA</h1>
-
-<div class="line"></div>
-
 <p>Belleza natural con tecnología avanzada</p>
 <p>Resultados reales sin cirugía ni agujas</p>
-<p><i>Diseñados para rejuvenecer de forma inteligente</i></p>
-
-<p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
-
-<div class="buttons">
-<a class="primary">AGENDAR CITA</a>
-<a href="https://wa.me/message/6QSXBTK7A47QM1">WHATSAPP</a>
-<a href="tel:17866900960">LLAMAR</a>
-</div>
-
-<p>$90 1RA SESIÓN · 5★ CALIFICACIÓN MIAMI</p>
-
-<div class="line"></div>
-
 </section>
 
 <!-- RESULTADOS -->
@@ -224,7 +174,6 @@ color:#ddd;
 <p>La diferencia se ve</p>
 
 <div class="carousel">
-
 <img src="lipo-results.jpg">
 <img src="chin-results.jpg">
 <img src="face-results.jpg">
@@ -232,18 +181,17 @@ color:#ddd;
 <img src="glute-results.jpg">
 <img src="arm-results.jpg">
 <img src="legs-results.jpg">
-
-<img src="lipo-laser-360-before-after-side-waist.jpg">
-<img src="lipo-laser-360-before-after-front-abdomen.jpg">
-
 </div>
 
-<p style="margin-top:20px;">Desde la primera sesión</p>
+<p>Desde la primera sesión</p>
 
 </section>
 
-<!-- LIPO -->
+<!-- LIPO CORRECTO -->
 <section class="lipo">
+
+<!-- IZQUIERDA -->
+<div class="lipo-left">
 
 <div class="signature">SIGNATURE · BODY SCULPTING</div>
 
@@ -267,39 +215,49 @@ Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultado
 <button>CONSULTAR ↗</button>
 </div>
 
-<div class="carousel-lipo">
+</div>
 
-<button class="btn-car prev" onclick="move(-1)">‹</button>
-<button class="btn-car next" onclick="move(1)">›</button>
+<!-- DERECHA -->
+<div class="lipo-right">
 
-<div class="track" id="track">
+<div class="card">
 
-<img src="lipo-treatment-bg.jpg">
-<img src="double-chin-laser-neck-tightening-treatment.jpg">
-<img src="body-contouring-treatment.jpg">
-<img src="radio-frequency-rf-treatment-heads.jpg">
-<img src="lipo-results.jpg">
-<img src="chin-results.jpg">
-<img src="legs-results.jpg">
+<img id="lipoImg" src="lipo-treatment-bg.jpg">
 
+<p>
+El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa,
+que el cuerpo elimina de forma natural. Luego reafirma la piel.
+</p>
+
+<div class="car-controls">
+<button onclick="prev()">←</button>
+<button onclick="next()">→</button>
 </div>
 
 </div>
 
-<div class="text-car">
-ANTES / DESPUÉS · RESULTADOS REALES<br>
-La diferencia se ve desde la primera sesión
 </div>
 
 </section>
 
 <script>
-function move(dir){
-const track = document.getElementById("track");
-track.scrollBy({
-left: dir * 300,
-behavior:"smooth"
-});
+const images = [
+"lipo-treatment-bg.jpg",
+"double-chin-laser-neck-tightening-treatment.jpg",
+"body-contouring-treatment.jpg",
+"radio-frequency-rf-treatment-heads.jpg"
+];
+
+let i = 0;
+
+function next(){
+i = (i+1)%images.length;
+document.getElementById("lipoImg").src = images[i];
+}
+
+function prev(){
+i = (i-1+images.length)%images.length;
+document.getElementById("lipoImg").src = images[i];
 }
 </script>
 
