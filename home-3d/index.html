@@ -1,3 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>D’ROYAL SPA</title>
+
+<style>
+
+/* RESET */
+body{
+margin:0;
+font-family:Arial, sans-serif;
+color:#111;
+background:#fff;
+text-align:center;
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+font-size:14px;
+}
+
+nav a{
+margin:0 10px;
+text-decoration:none;
+color:#111;
+}
+
+/* SECCIONES */
+.section{
+padding:80px 20px;
+max-width:900px;
+margin:auto;
+}
+
+/* HOME */
+h1{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.line{
+width:200px;
+height:1px;
+background:#999;
+margin:20px auto;
+}
+
+.locations{
+letter-spacing:3px;
+margin:20px 0;
+}
+
+/* BOTONES */
+.buttons{
+margin-top:20px;
+}
+
+.btn{
+display:inline-block;
+margin:10px;
+padding:12px 20px;
+border:1px solid #000;
+text-decoration:none;
+color:#000;
+}
+
+.btn.primary{
+background:#000;
+color:#fff;
+}
+
+.price{
+margin-top:20px;
+}
+
+/* CARRUSEL */
+.carousel{
+position:relative;
+width:100%;
+max-width:700px;
+margin:40px auto;
+overflow:hidden;
+}
+
+.slide{
+width:100%;
+display:none;
+border-radius:10px;
+}
+
+.slide.active{
+display:block;
+}
+
+/* LINKS CARRUSEL */
+.carousel-nav{
+margin-top:20px;
+}
+
+.carousel-nav a{
+margin:0 10px;
+color:#007aff;
+text-decoration:none;
+}
+
+/* TEXTOS */
+h2{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.tag{
+font-size:12px;
+letter-spacing:2px;
+color:#777;
+}
+
+.areas{
+margin:10px 0;
+letter-spacing:2px;
+}
+
+strong{
+color:#007aff;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<div>
+<a href="#lipo">tratamientos</a>
+<a href="#home">inicio</a>
+<a href="#resultados">resultados</a>
+<a href="#">áreas</a>
+</div>
+
+<div>
++1 786 690 0960
+<a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar">AGENDAR</a>
+</div>
+</nav>
+
+<!-- HOME -->
 <section id="home" class="section">
 
 <h1>D’ROYAL SPA</h1>
@@ -12,15 +165,17 @@
 
 <div class="buttons">
 <a href="https://wa.me/17866900960?text=Hola,%20quiero%20agendar" class="btn primary">AGENDAR CITA</a>
-<a href="https://wa.me/17866900960" class="btn whatsapp">WHATSAPP</a>
+<a href="https://wa.me/17866900960" class="btn">WHATSAPP</a>
 <a href="tel:+17866900960" class="btn">LLAMAR</a>
 </div>
 
-<p class="price">$90 1RA SESIÓN. &nbsp;&nbsp;&nbsp; 5★ CALIFICACIÓN MIAMI</p>
+<p class="price">$90 1RA SESIÓN. 5★ CALIFICACIÓN MIAMI</p>
 
 <div class="line"></div>
 
 </section>
+
+<!-- RESULTADOS -->
 <section id="resultados" class="section">
 
 <h2>Resultados reales</h2>
@@ -39,6 +194,8 @@
 </div>
 
 </section>
+
+<!-- LIPO -->
 <section id="lipo" class="section">
 
 <p class="tag">SIGNATURE · BODY SCULPTING</p>
@@ -69,6 +226,8 @@ El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa, que
 </div>
 
 </section>
+
+<!-- AUMENTOS -->
 <section id="aumentos" class="section">
 
 <p class="tag">AUMENTOS · VACUUM THERAPY</p>
@@ -97,6 +256,8 @@ Copas de succión activan el tejido adiposo, estimulan circulación y aumentan v
 </div>
 
 </section>
+
+<!-- BOTOX -->
 <section id="botox" class="section">
 
 <h2>Botox Natural con Láser.</h2>
@@ -123,6 +284,8 @@ Láser que actúa hasta 3 mm de profundidad, estimulando la regeneración de la 
 </div>
 
 </section>
+
+<!-- COOLSCULPTING -->
 <section id="cool" class="section">
 
 <h2>CoolSculpting</h2>
@@ -145,3 +308,23 @@ Reducción de grasa localizada mediante enfriamiento controlado que elimina cél
 </div>
 
 </section>
+
+<!-- SCRIPT CARRUSEL -->
+<script>
+
+document.querySelectorAll(".carousel").forEach(carousel=>{
+let slides=carousel.querySelectorAll(".slide");
+let i=0;
+
+setInterval(()=>{
+slides[i].classList.remove("active");
+i=(i+1)%slides.length;
+slides[i].classList.add("active");
+},3000);
+
+});
+
+</script>
+
+</body>
+</html>
