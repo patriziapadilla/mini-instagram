@@ -30,14 +30,14 @@ export default function Resultados() {
       {/* Parallax luxury interior bg */}
       <motion.div
         style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 z-0"
         aria-hidden
       >
         <img src={IMG.miamiBeach} alt="" className="w-full h-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--cream)] via-[var(--cream)]/80 to-[var(--cream)]" />
       </motion.div>
 
-      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8">
         {/* Header — fixed layout so carousel no longer overlaps */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
           <motion.div

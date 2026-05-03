@@ -34,14 +34,14 @@ export default function TreatmentBlock({
       {bgImage && (
         <motion.div
           style={{ y: bgY, opacity: bgOpacity }}
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 z-0"
           aria-hidden
         >
           <img src={bgImage} alt="" className="w-full h-full object-cover" />
         </motion.div>
       )}
 
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14">
           <motion.div
             className={`${reversed ? "lg:col-start-7" : ""} lg:col-span-6`}

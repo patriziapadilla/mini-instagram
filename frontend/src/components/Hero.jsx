@@ -26,7 +26,7 @@ export default function Hero() {
       {/* Parallax hero image (Dubai rascacielos) */}
       <motion.div
         style={{ y, scale, opacity }}
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 z-0"
         aria-hidden
       >
         <img
@@ -34,11 +34,11 @@ export default function Hero() {
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-[var(--cream)]/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--cream)]/40 via-transparent to-[var(--cream)]" />
+        <div className="absolute inset-0 bg-[var(--cream)]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--cream)]" />
       </motion.div>
 
-      <div className="relative max-w-[1400px] mx-auto px-5 sm:px-8">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
