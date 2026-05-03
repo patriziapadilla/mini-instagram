@@ -3,155 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>D’ROYAL SPA</title>
 
 <style>
-
 body{
 margin:0;
-font-family:Arial, sans-serif;
-background:#fff;
+font-family:Arial;
+background:#f5f5f5;
 color:#111;
-text-align:center;
 }
 
-.section{
-padding:80px 20px;
-max-width:1000px;
-margin:auto;
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background:white;
+position:sticky;
+top:0;
 }
 
-/* HOME */
-h1{font-size:48px;}
-.line{
-width:200px;height:1px;background:#999;margin:20px auto;
-}
-.locations{letter-spacing:3px;margin:20px 0;}
-
-.buttons a{
-display:inline-block;
-margin:10px;
-padding:12px 20px;
-border:1px solid #000;
+nav a{
+margin-right:20px;
 text-decoration:none;
-color:#000;
+color:black;
 }
 
-.primary{background:#000;color:#fff;}
+/* HERO */
+.hero{
+text-align:center;
+padding:80px 20px;
+background:white;
+}
 
-.price{margin-top:20px;}
+.hero h1{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.hero p{
+margin:8px 0;
+}
+
+.btns{
+margin-top:30px;
+}
+
+.btn{
+padding:14px 28px;
+border:1px solid black;
+margin:5px;
+display:inline-block;
+text-decoration:none;
+}
+
+.btn.primary{
+background:#0a58ff;
+color:white;
+border:none;
+}
 
 /* RESULTADOS */
-h2{font-size:32px;}
-
-.top-text{
-margin-bottom:20px;
-color:#555;
+.resultados{
+text-align:center;
+padding:80px 20px;
 }
 
-.bottom-text{
-margin-top:25px;
-color:#444;
-}
-
-/* CARRUSEL */
-.carousel-wrapper{
+.carousel{
 position:relative;
-max-width:900px;
-margin:auto;
+overflow:hidden;
+margin-top:30px;
 }
 
 .carousel-track{
 display:flex;
-gap:15px;
-overflow-x:auto;
-scroll-behavior:smooth;
+gap:20px;
+transition:0.4s;
+padding:20px;
+background:url('hero-dubai.png') center/cover no-repeat;
+}
+
+.carousel img{
+height:220px;
+border-radius:10px;
+background:white;
 padding:10px;
 }
 
-.carousel-track img{
-height:260px;
-width:auto;
-border-radius:12px;
-flex-shrink:0;
-object-fit:cover;
+/* TEXTO RESULTADOS */
+.sub{
+margin-top:10px;
+font-size:18px;
 }
 
-/* flechas */
-.arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:#000;
-color:#fff;
-border:none;
-padding:10px;
-cursor:pointer;
+/* LIPO */
+.lipo{
+display:flex;
+padding:80px 40px;
+gap:60px;
+align-items:center;
 }
 
-.left{left:0;}
-.right{right:0;}
+.lipo-text{
+flex:1;
+}
 
-/* links */
-.carousel-links{
+.lipo-text h2{
+font-size:40px;
+}
+
+.lipo-text p{
 margin-top:20px;
+line-height:1.6;
 }
 
-.carousel-links a{
-margin:0 10px;
-color:#007aff;
-text-decoration:none;
+.lipo-areas{
+margin-top:30px;
+letter-spacing:2px;
 }
 
+.lipo-carousel{
+flex:1;
+overflow:hidden;
+}
+
+.lipo-track{
+display:flex;
+gap:20px;
+}
+
+.lipo-track img{
+height:220px;
+border-radius:12px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.lipo{
+flex-direction:column;
+}
+
+.carousel img,
+.lipo-track img{
+height:160px;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+}
 </style>
 </head>
 
 <body>
 
-<!-- HOME -->
-<section class="section">
+<!-- NAV -->
+<nav>
+<div>
+<a href="#">inicio</a>
+<a href="#">tratamientos</a>
+<a href="#">resultados</a>
+<a href="#">áreas</a>
+</div>
 
+<div>
++1 786 690 0960
+<a class="btn primary" href="#">AGENDAR</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
 <h1>D’ROYAL SPA</h1>
-
-<div class="line"></div>
 
 <p>Belleza natural con tecnología avanzada</p>
 <p>Resultados reales sin cirugía ni agujas</p>
-<p><em>Diseñados para rejuvenecer de forma inteligente</em></p>
+<p><i>Diseñados para rejuvenecer de forma inteligente</i></p>
 
-<p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
+<p>BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
 
-<div class="buttons">
-<a href="https://wa.me/17866900960" class="primary">AGENDAR CITA</a>
-<a href="https://wa.me/17866900960">WHATSAPP</a>
-<a href="tel:+17866900960">LLAMAR</a>
+<div class="btns">
+<a class="btn primary" href="#">AGENDAR</a>
+<a class="btn" href="https://wa.me/message/6QSXBTK7A47QM1">WHATSAPP</a>
+<a class="btn" href="tel:17866900960">LLAMAR</a>
 </div>
 
-<p class="price">$90 1RA SESIÓN · 5★ CALIFICACIÓN MIAMI</p>
-
-<div class="line"></div>
-
+<p style="margin-top:20px;">$90 1RA SESIÓN · 5★ CALIFICACIÓN MIAMI</p>
 </section>
 
 <!-- RESULTADOS -->
-<section class="section">
+<section class="resultados">
 
 <h2>Resultados</h2>
+<p class="sub">La diferencia se ve</p>
 
-<p class="top-text">La diferencia se ve</p>
-
-<div class="carousel-wrapper">
-
-<button class="arrow left">&#10094;</button>
-
-<div class="carousel-track" id="track">
-
-<!-- 🔥 TUS FOTOS REALES -->
+<div class="carousel">
+<div class="carousel-track">
 
 <img src="lipo-results.jpg">
 <img src="chin-results.jpg">
 <img src="face-results.jpg">
 <img src="breast-results.jpg">
+<img src="glute-results.jpg">
 <img src="arm-results.jpg">
 <img src="legs-results.jpg">
 
@@ -159,33 +215,64 @@ text-decoration:none;
 <img src="lipo-laser-360-before-after-front-abdomen.jpg">
 
 </div>
-
-<button class="arrow right">&#10095;</button>
-
 </div>
 
-<p class="bottom-text">Desde la primera sesión</p>
+<p class="sub">Desde la primera sesión</p>
 
-<div class="carousel-links">
-<a href="#lipo">Lipo con Láser</a>
-<a href="#aumentos">Aumentos</a>
-<a href="#botox">Botox</a>
-<a href="#cool">CoolSculpting</a>
-</div>
+<p style="margin-top:20px;">
+<a href="#">Lipo con Láser</a> ·
+<a href="#">Aumentos</a> ·
+<a href="#">Botox</a> ·
+<a href="#">CoolSculpting</a>
+</p>
 
 </section>
 
-<script>
-const track = document.getElementById("track");
+<!-- LIPO -->
+<section class="lipo">
 
-document.querySelector(".left").onclick = () => {
-track.scrollBy({ left: -300, behavior: 'smooth' });
-};
+<div class="lipo-text">
 
-document.querySelector(".right").onclick = () => {
-track.scrollBy({ left: 300, behavior: 'smooth' });
-};
-</script>
+<p>SIGNATURE · BODY SCULPTING</p>
+
+<h2>Lipo con Láser</h2>
+
+<p>
+Esculpe localizadamente abdomen, brazos, piernas o papada con tecnología 
+<b>láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores</b>. 
+Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultados desde la primera sesión.
+</p>
+
+<div class="lipo-areas">
+ABDOMEN · BRAZOS · PIERNAS · PAPADA
+</div>
+
+<p style="margin-top:30px;">
+El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa, 
+que el cuerpo elimina de forma natural a través del sistema linfático. 
+Luego, la radiofrecuencia y la luz terapéutica reafirman la piel, mejoran estrías y dejan una apariencia más luminosa.
+</p>
+
+<div class="btns">
+<a class="btn primary" href="#">RESERVAR</a>
+<a class="btn" href="#">CONSULTAR</a>
+</div>
+
+</div>
+
+<div class="lipo-carousel">
+<div class="lipo-track">
+
+<img src="lipo-treatment-bg.jpg">
+<img src="double-chin-laser-neck-tightening-treatment.jpg">
+<img src="body-contouring-treatment.jpg">
+<img src="legs-results.jpg">
+<img src="lipo-results.jpg">
+
+</div>
+</div>
+
+</section>
 
 </body>
 </html>
