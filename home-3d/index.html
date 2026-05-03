@@ -3,133 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>D'Royal Spa</title>
+<title>D’Royal Spa</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
 
-/* RESET */
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#f5f5f5;
-color:#111;
+  scroll-snap-type:y mandatory;
+  overflow-y:scroll;
+}
+
+section{
+  height:100vh;
+  scroll-snap-align:start;
+  padding:60px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 /* NAV */
 nav{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-background:white;
-align-items:center;
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+  z-index:999;
 }
 
-nav .menu{
-display:flex;
-gap:30px;
+nav a{
+  margin:0 15px;
+  text-decoration:none;
+  color:black;
 }
 
-nav .cta{
-background:#2d6cff;
-color:white;
-padding:10px 18px;
+/* BACKGROUNDS */
+.white{background:#fff;}
+.beige{background:#f5f1ea;}
+.dark{
+  background:linear-gradient(to right,#000,#555);
+  color:white;
 }
 
 /* HOME */
 .home{
-text-align:center;
-padding:80px 20px;
+  text-align:center;
 }
-
 .home h1{
-font-size:48px;
-margin-bottom:20px;
+  font-size:60px;
 }
-
 .home p{
-margin:10px 0;
+  margin:10px 0;
 }
 
 /* RESULTADOS */
-.resultados{
-text-align:center;
-padding:60px 20px;
+.resultados-container{
+  width:90%;
+}
+
+.resultados-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.resultados-header h1{
+  font-size:40px;
+}
+
+.resultados-header p{
+  font-size:18px;
 }
 
 .carousel{
-display:flex;
-overflow:hidden;
-justify-content:center;
-gap:20px;
-margin:30px 0;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-.carousel img{
-width:300px;
-border-radius:10px;
+.carousel img, .carousel video{
+  width:500px;
+  border-radius:20px;
 }
 
-/* SECCIONES */
-.section{
-display:flex;
-padding:80px 40px;
-gap:40px;
-align-items:center;
-background:linear-gradient(to right,#000,#555);
-color:white;
+.before, .after{
+  position:absolute;
+  top:10px;
+  font-weight:bold;
 }
 
-.left{flex:1;}
-.right{flex:1; display:flex; justify-content:center;}
-
-.signature{
-color:#d4af6a;
-letter-spacing:2px;
-margin-bottom:10px;
-}
-
-h2{
-font-size:48px;
-margin:10px 0;
-}
-
-.areas span{
-border:1px solid #d4af6a;
-padding:10px 15px;
-margin-right:10px;
-}
-
-.desc{
-margin:20px 0;
-}
-
-.actions button{
-margin-right:10px;
-padding:10px 20px;
-}
-
-.gold{
-background:#d4af6a;
-border:none;
-}
-
-/* CARD */
-.card{
-background:#111;
-padding:20px;
-border-radius:12px;
-width:300px;
-text-align:center;
-}
-
-.card img, .card video{
-width:100%;
-border-radius:10px;
-}
+.before{left:20%;}
+.after{right:20%;}
 
 .controls{
-margin-top:10px;
+  margin-top:20px;
+  text-align:center;
+}
+
+.controls button{
+  padding:10px 20px;
+  margin:0 10px;
+  cursor:pointer;
+}
+
+.category{
+  text-align:center;
+  margin-top:20px;
+  font-size:18px;
+}
+
+/* TRATAMIENTOS */
+.treatment{
+  display:flex;
+  justify-content:space-between;
+  width:100%;
+}
+
+.left{
+  width:50%;
+}
+
+.right{
+  width:40%;
+  text-align:center;
+}
+
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+}
+
+.buttons{
+  margin-top:20px;
+}
+
+.buttons button{
+  padding:10px 20px;
+  margin-right:10px;
+}
+
+/* BOTONES AREAS */
+.areas button{
+  margin-right:10px;
+  padding:10px;
+  border:1px solid #caa75d;
+  background:transparent;
+  color:#caa75d;
+}
+
+/* CARRUSEL LIPO */
+.lipo-carousel img, .lipo-carousel video{
+  width:100%;
+  border-radius:15px;
 }
 
 </style>
@@ -139,231 +168,260 @@ margin-top:10px;
 
 <!-- NAV -->
 <nav>
-<div class="menu">
-<span>inicio</span>
-<span>tratamientos</span>
-<span>resultados</span>
-<span>áreas</span>
-</div>
-
-<div>
-+1 786 690 0960
-<span class="cta">AGENDAR</span>
-</div>
+  <div>
+    <a href="#">tratamientos</a>
+    <a href="#">inicio</a>
+    <a href="#">resultados</a>
+    <a href="#">áreas</a>
+  </div>
+  <div>+1 786 690 0960 &nbsp; <strong>AGENDAR</strong></div>
 </nav>
 
 <!-- HOME -->
-<section class="home">
-<h1>D’ROYAL SPA</h1>
-<p>Belleza natural con tecnología avanzada</p>
-<p>Resultados reales sin cirugía ni agujas</p>
-<p><i>Diseñados para rejuvenecer de forma inteligente</i></p>
+<section class="white home">
+  <div>
+    <h1>D’ROYAL SPA</h1>
+    <p>Belleza inteligente, resultados reales</p>
+    <p>Tecnología avanzada para moldear y rejuvenecer tu cuerpo sin agujas y sin cirugía</p>
+    <br>
+    <p>BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
+  </div>
 </section>
 
 <!-- RESULTADOS -->
-<section class="resultados">
-<h2>Resultados</h2>
-<p>La diferencia se ve</p>
+<section class="beige">
+  <div class="resultados-container">
+    
+    <div class="resultados-header">
+      <h1>Resultados</h1>
+      <p>La Diferencia se ve desde la 1ra sesion</p>
+    </div>
 
-<div class="carousel">
-<img src="lipo-results.jpg">
-<img src="chin-results.jpg">
-<img src="face-results.jpg">
-</div>
+    <div class="carousel">
+      <span class="before">Antes</span>
+      <img id="resultImg" src="lipo-results.jpg">
+      <span class="after">Desp</span>
+    </div>
 
-<p>Desde la primera sesión</p>
+    <div class="controls">
+      <button onclick="prev()">←</button>
+      <button onclick="next()">→</button>
+    </div>
+
+    <div class="category" id="categoryName">
+      Lipo con Láser
+    </div>
+
+  </div>
 </section>
 
 <!-- LIPO -->
-<section class="section">
+<section class="dark">
+  <div class="treatment">
+    
+    <div class="left">
+      <h3>SIGNATURE · BODY SCULPTING</h3>
+      <h1>Lipo con Láser</h1>
 
-<div class="left">
-<div class="signature">SIGNATURE · BODY SCULPTING</div>
-<h2>Lipo con Láser</h2>
+      <div class="areas">
+        <button>ABDOMEN</button>
+        <button>BRAZOS</button>
+        <button>PIERNAS</button>
+        <button>PAPADA</button>
+      </div>
 
-<div class="areas">
-<span>ABDOMEN</span>
-<span>BRAZOS</span>
-<span>PIERNAS</span>
-<span>PAPADA</span>
-</div>
+      <p>
+      Esculpe localizadamente abdomen, brazos, piernas o papada con tecnología láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores. Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía.
+      </p>
 
-<p class="desc">
-Esculpe localizadamente abdomen, brazos, piernas o papada con tecnología láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores.
-</p>
+      <div class="buttons">
+        <button>RESERVAR</button>
+        <button>CONSULTAR</button>
+      </div>
+    </div>
 
-<div class="actions">
-<button class="gold">RESERVAR →</button>
-<button>CONSULTAR ↗</button>
-</div>
-</div>
+    <div class="right">
+      <div class="card lipo-carousel">
+        <img id="lipoMedia" src="hero-dubai.png">
+        <div class="controls">
+          <button onclick="lipoPrev()">←</button>
+          <button onclick="lipoNext()">→</button>
+        </div>
+      </div>
 
-<div class="right">
-<div class="card">
+      <p>
+      El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa...
+      </p>
+    </div>
 
-<img id="lipoImg" src="lipo-treatment-bg.jpg">
-
-<p>
-El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa.
-</p>
-
-<div class="controls">
-<button onclick="lipoPrev()">←</button>
-<button onclick="lipoNext()">→</button>
-</div>
-
-</div>
-</div>
-
+  </div>
 </section>
 
 <!-- AUMENTOS -->
-<section class="section">
+<section class="white">
+  <div class="treatment">
 
-<div class="left">
-<div class="signature">AUMENTOS · VACUUM</div>
-<h2>Aumentos sin Cirugía</h2>
+    <div class="left">
+      <h3>AUMENTOS · VACUUM THERAPY</h3>
 
-<div class="areas">
-<span>GLÚTEOS</span>
-<span>SENOS</span>
-</div>
+      <h1>Aumentos de Glúteos y Senos</h1>
+      <h2>sin Implantes y sin Inyecciones</h2>
 
-<p class="desc">
-Tecnología vacuum que aumenta volumen natural sin implantes.
-</p>
+      <p>
+      Tecnología vacuum + láser que activa el tejido adiposo...
+      </p>
 
-<div class="actions">
-<button class="gold">RESERVAR →</button>
-<button>CONSULTAR ↗</button>
-</div>
-</div>
+      <div class="areas">
+        <button>GLÚTEOS</button>
+        <button>SENOS</button>
+      </div>
 
-<div class="right">
-<div class="card">
+      <div class="buttons">
+        <button>RESERVAR</button>
+        <button>CONSULTAR</button>
+      </div>
+    </div>
 
-<video autoplay muted loop>
-<source src="explainer-vacuum-breasts.mp4">
-</video>
+    <div class="right">
+      <div class="card">
+        <img src="ref-frame2.jpg">
+      </div>
 
-<p>Aumento natural con tecnología avanzada</p>
+      <p>
+      Copas de succión activan el tejido adiposo...
+      </p>
+    </div>
 
-</div>
-</div>
-
+  </div>
 </section>
 
 <!-- BOTOX -->
-<section class="section">
+<section class="beige">
+  <div class="treatment">
 
-<div class="left">
-<div class="signature">FACIAL · REJUVENECIMIENTO</div>
-<h2>Botox Natural</h2>
+    <div class="left">
+      <h3>AUMENTOS · VACUUM THERAPY</h3>
+      <h1>Botox Natural con Láser</h1>
 
-<div class="areas">
-<span>CARA</span>
-<span>CUELLO</span>
-</div>
+      <p>
+      Hydromicrodermabration + D’Cool + Radiofrecuencia...
+      </p>
 
-<p class="desc">
-Rejuvenece sin agujas con radiofrecuencia y luz.
-</p>
+      <div class="buttons">
+        <button>RESERVAR</button>
+        <button>CONSULTAR</button>
+      </div>
+    </div>
 
-<div class="actions">
-<button class="gold">RESERVAR →</button>
-<button>CONSULTAR ↗</button>
-</div>
-</div>
+    <div class="right">
+      <div class="card">
+        <img src="ref-frame2.jpg">
+      </div>
 
-<div class="right">
-<div class="card">
+      <p>
+      Láser que actúa hasta 3 mm de profundidad...
+      </p>
+    </div>
 
-<video autoplay muted loop>
-<source src="face-video.mp4">
-</video>
-
-<p>Mejora la piel y elimina líneas de expresión</p>
-
-</div>
-</div>
-
+  </div>
 </section>
 
-<!-- COOL -->
-<section class="section">
+<!-- COOLSCULPTING -->
+<section class="white">
+  <div class="treatment">
 
-<div class="left">
-<div class="signature">BODY · COOLSCULPTING</div>
-<h2>CoolSculpting</h2>
+    <div class="left">
+      <h3>BODY SCULPTING</h3>
+      <h1>CoolSculpting</h1>
 
-<div class="areas">
-<span>ABDOMEN</span>
-<span>BRAZOS</span>
-<span>PIERNAS</span>
-<span>PAPADA</span>
-</div>
+      <p>
+      Tecnología de criolipólisis que elimina células de grasa mediante frío controlado...
+      </p>
 
-<p class="desc">
-Elimina grasa con tecnología de frío sin cirugía.
-</p>
+      <div class="buttons">
+        <button>RESERVAR</button>
+        <button>CONSULTAR</button>
+      </div>
+    </div>
 
-<div class="actions">
-<button class="gold">RESERVAR →</button>
-<button>CONSULTAR ↗</button>
-</div>
-</div>
+    <div class="right">
+      <div class="card">
+        <img src="ref-frame2.jpg">
+      </div>
 
-<div class="right">
-<div class="card">
+      <p>
+      El frío controlado actúa sobre las células de grasa...
+      </p>
+    </div>
 
-<img id="coolImg" src="lipo-laser-360-before-after-front-abdomen.jpg">
-
-<p>Resultados visibles progresivamente</p>
-
-<div class="controls">
-<button onclick="coolPrev()">←</button>
-<button onclick="coolNext()">→</button>
-</div>
-
-</div>
-</div>
-
+  </div>
 </section>
 
 <script>
 
-/* LIPO */
-const lipoImgs=[
+/* RESULTADOS */
+const images = ["lipo-results.jpg","legs-results.jpg","arm-results.jpg","chin-results.jpg"];
+const names = ["Lipo con Láser","Botox con Láser","Aumentos","CoolSculpting"];
+
+let i = 0;
+
+function next(){
+  i = (i+1)%images.length;
+  update();
+}
+
+function prev(){
+  i = (i-1+images.length)%images.length;
+  update();
+}
+
+function update(){
+  document.getElementById("resultImg").src = images[i];
+  document.getElementById("categoryName").innerText = names[i];
+}
+
+/* LIPO CARRUSEL */
+const lipo = [
+"hero-dubai.png",
 "lipo-treatment-bg.jpg",
-"radio-frequency-rf-treatment-heads.jpg",
-"body-contouring-treatment.jpg"
+"legs-video.mp4",
+"lipo-results.jpg",
+"legs-results.jpg",
+"chin-results.jpg",
+"double-chin-laser-neck-tightening-treatment.jpg",
+"arm-results.jpg",
+"ref-frame2.jpg"
 ];
-let li=0;
+
+let l = 0;
 
 function lipoNext(){
-li=(li+1)%lipoImgs.length;
-document.getElementById("lipoImg").src=lipoImgs[li];
+  l=(l+1)%lipo.length;
+  renderLipo();
 }
+
 function lipoPrev(){
-li=(li-1+lipoImgs.length)%lipoImgs.length;
-document.getElementById("lipoImg").src=lipoImgs[li];
+  l=(l-1+lipo.length)%lipo.length;
+  renderLipo();
 }
 
-/* COOL */
-const coolImgs=[
-"lipo-laser-360-before-after-front-abdomen.jpg",
-"lipo-laser-360-before-after-side-waist.jpg",
-"arm-results.jpg"
-];
-let ci=0;
+function renderLipo(){
+  const container = document.getElementById("lipoMedia");
 
-function coolNext(){
-ci=(ci+1)%coolImgs.length;
-document.getElementById("coolImg").src=coolImgs[ci];
-}
-function coolPrev(){
-ci=(ci-1+coolImgs.length)%coolImgs.length;
-document.getElementById("coolImg").src=coolImgs[ci];
+  if(lipo[l].includes(".mp4")){
+    const video = document.createElement("video");
+    video.src = lipo[l];
+    video.autoplay = true;
+    video.loop = true;
+    video.controls = true;
+    container.replaceWith(video);
+    video.id="lipoMedia";
+  }else{
+    const img = document.createElement("img");
+    img.src = lipo[l];
+    container.replaceWith(img);
+    img.id="lipoMedia";
+  }
 }
 
 </script>
