@@ -25,12 +25,12 @@ export default function Areas() {
             transition={{ duration: 1 }}
           >
             <div className="text-[0.72rem] tracking-[0.3em] uppercase text-[var(--ink)]/60 mb-5">
-              Áreas de Servicio
+              Áreas · Miami
             </div>
             <h2 className="font-display font-light text-5xl sm:text-6xl lg:text-[6rem] leading-[0.96] tracking-[-0.01em]">
-              Llegamos a tu
+              Tu zona,
               <br />
-              <span className="italic font-normal">puerta.</span>
+              <span className="italic font-normal">tu hora.</span>
             </h2>
           </motion.div>
           <motion.p
@@ -40,8 +40,7 @@ export default function Areas() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1, delay: 0.15 }}
           >
-            Servicio 100% in-home en las zonas premium de Miami.
-            Tú relajas, nosotros llevamos todo el equipo.
+            Servicio 100% in-home en las zonas premium de Miami — disponibilidad 24/7.
           </motion.p>
         </div>
 
