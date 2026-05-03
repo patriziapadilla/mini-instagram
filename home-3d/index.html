@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>D’ROYAL SPA</title>
 
 <style>
-
 body{
 margin:0;
-font-family: 'Helvetica Neue', sans-serif;
-background:#111;
-color:white;
+font-family:Arial, sans-serif;
+color:#111;
+background:#fff;
 }
 
 /* NAV */
@@ -20,8 +18,7 @@ nav{
 display:flex;
 justify-content:space-between;
 padding:20px 40px;
-background:white;
-color:black;
+background:#fff;
 }
 
 .btn-blue{
@@ -30,19 +27,74 @@ color:white;
 padding:10px 20px;
 }
 
-/* ===== LIPO SECTION ===== */
-
-.lipo{
-padding:100px 60px;
-background:linear-gradient(to right,#0d0d0d,#555);
+/* HOME */
+.hero{
+text-align:center;
+padding:80px 20px;
 }
 
-/* SIGNATURE */
+.hero h1{font-size:48px;}
+.hero p{margin:8px 0;}
+
+.locations{
+letter-spacing:3px;
+margin:20px 0;
+}
+
+.buttons a{
+display:inline-block;
+margin:10px;
+padding:12px 20px;
+border:1px solid #000;
+text-decoration:none;
+color:#000;
+}
+
+.primary{
+background:#0a58ff;
+color:white;
+border:none;
+}
+
+.line{
+width:200px;
+height:1px;
+background:#999;
+margin:20px auto;
+}
+
+/* RESULTADOS */
+.resultados{
+text-align:center;
+padding:80px 20px;
+}
+
+.carousel{
+display:flex;
+gap:20px;
+overflow-x:auto;
+padding:20px;
+background:url('hero-dubai.png') center/cover no-repeat;
+}
+
+.carousel img{
+height:220px;
+border-radius:10px;
+background:white;
+padding:5px;
+}
+
+/* LIPO */
+.lipo{
+padding:100px 40px;
+background:linear-gradient(to right,#0d0d0d,#555);
+color:white;
+}
+
 .signature{
 color:#c8a96a;
 letter-spacing:3px;
 font-size:12px;
-margin-bottom:10px;
 display:flex;
 align-items:center;
 gap:10px;
@@ -55,75 +107,63 @@ height:1px;
 background:#c8a96a;
 }
 
-/* TITLE */
-h1{
-font-size:70px;
+.lipo h2{
+font-size:60px;
 font-weight:300;
-margin:10px 0 30px;
-}
-
-/* AREAS */
-.areas{
-margin-bottom:30px;
+margin:20px 0;
 }
 
 .areas span{
 border:1px solid #c8a96a;
 color:#c8a96a;
-padding:12px 25px;
+padding:10px 20px;
 margin-right:10px;
 }
 
-/* DESC */
 .desc{
 max-width:700px;
+margin:30px auto;
 line-height:1.6;
-margin-bottom:30px;
 }
 
-/* BUTTONS */
 .actions{
-display:flex;
-gap:10px;
-margin-bottom:60px;
-flex-wrap:wrap;
+margin-bottom:40px;
 }
 
 .actions button{
 padding:12px 20px;
+margin-right:10px;
 border:1px solid white;
 background:transparent;
 color:white;
-cursor:pointer;
 }
 
-.actions .gold{
-background:#c8a96a;
-color:black;
-border:none;
+.gold{
+background:#c8a96a !important;
+color:black !important;
+border:none !important;
 }
 
-/* ===== CARRUSEL ===== */
-
-.carousel-wrapper{
+/* carrusel lipo */
+.carousel-lipo{
+margin-top:40px;
 position:relative;
 }
 
-.carousel{
+.track{
 display:flex;
 gap:20px;
 overflow:hidden;
 }
 
-.carousel img{
+.track img{
 height:260px;
-border-radius:15px;
+border-radius:12px;
 background:white;
 padding:5px;
 }
 
-/* BOTONES */
-.carousel-btn{
+.btn-car{
 position:absolute;
 top:40%;
 background:black;
@@ -136,29 +176,10 @@ cursor:pointer;
 .prev{left:-20px;}
 .next{right:-20px;}
 
-/* TEXTO BAJO */
-.carousel-text{
+.text-car{
 text-align:center;
 margin-top:20px;
 color:#ddd;
-font-size:14px;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-
-.lipo{
-padding:40px 20px;
-}
-
-h1{
-font-size:40px;
-}
-
-.carousel img{
-height:180px;
-}
-
 }
 
 </style>
@@ -167,21 +188,66 @@ height:180px;
 <body>
 
 <nav>
-<div>
-inicio tratamientos resultados áreas
-</div>
-
-<div>
-+1 786 690 0960
-<span class="btn-blue">AGENDAR</span>
-</div>
+<div>inicio tratamientos resultados</div>
+<div>+1 786 690 0960 <span class="btn-blue">AGENDAR</span></div>
 </nav>
 
+<!-- HOME -->
+<section class="hero">
+
+<h1>D’ROYAL SPA</h1>
+
+<div class="line"></div>
+
+<p>Belleza natural con tecnología avanzada</p>
+<p>Resultados reales sin cirugía ni agujas</p>
+<p><i>Diseñados para rejuvenecer de forma inteligente</i></p>
+
+<p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
+
+<div class="buttons">
+<a class="primary">AGENDAR CITA</a>
+<a href="https://wa.me/message/6QSXBTK7A47QM1">WHATSAPP</a>
+<a href="tel:17866900960">LLAMAR</a>
+</div>
+
+<p>$90 1RA SESIÓN · 5★ CALIFICACIÓN MIAMI</p>
+
+<div class="line"></div>
+
+</section>
+
+<!-- RESULTADOS -->
+<section class="resultados">
+
+<h2>Resultados</h2>
+<p>La diferencia se ve</p>
+
+<div class="carousel">
+
+<img src="lipo-results.jpg">
+<img src="chin-results.jpg">
+<img src="face-results.jpg">
+<img src="breast-results.jpg">
+<img src="glute-results.jpg">
+<img src="arm-results.jpg">
+<img src="legs-results.jpg">
+
+<img src="lipo-laser-360-before-after-side-waist.jpg">
+<img src="lipo-laser-360-before-after-front-abdomen.jpg">
+
+</div>
+
+<p style="margin-top:20px;">Desde la primera sesión</p>
+
+</section>
+
+<!-- LIPO -->
 <section class="lipo">
 
 <div class="signature">SIGNATURE · BODY SCULPTING</div>
 
-<h1>Lipo con Láser</h1>
+<h2>Lipo con Láser</h2>
 
 <div class="areas">
 <span>ABDOMEN</span>
@@ -201,13 +267,12 @@ Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultado
 <button>CONSULTAR ↗</button>
 </div>
 
-<!-- CARRUSEL -->
-<div class="carousel-wrapper">
+<div class="carousel-lipo">
 
-<button class="carousel-btn prev" onclick="scrollCarousel(-1)">‹</button>
-<button class="carousel-btn next" onclick="scrollCarousel(1)">›</button>
+<button class="btn-car prev" onclick="move(-1)">‹</button>
+<button class="btn-car next" onclick="move(1)">›</button>
 
-<div class="carousel" id="carousel">
+<div class="track" id="track">
 
 <img src="lipo-treatment-bg.jpg">
 <img src="double-chin-laser-neck-tightening-treatment.jpg">
@@ -221,8 +286,7 @@ Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultado
 
 </div>
 
-<!-- TEXTO BAJO -->
-<div class="carousel-text">
+<div class="text-car">
 ANTES / DESPUÉS · RESULTADOS REALES<br>
 La diferencia se ve desde la primera sesión
 </div>
@@ -230,15 +294,13 @@ La diferencia se ve desde la primera sesión
 </section>
 
 <script>
-
-function scrollCarousel(direction){
-const carousel = document.getElementById('carousel');
-carousel.scrollBy({
-left: direction * 300,
-behavior:'smooth'
+function move(dir){
+const track = document.getElementById("track");
+track.scrollBy({
+left: dir * 300,
+behavior:"smooth"
 });
 }
-
 </script>
 
 </body>
