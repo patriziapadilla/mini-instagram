@@ -1,297 +1,144 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D’ROYAL SPA</title>
-
-<style>
-
-body{
-margin:0;
-font-family:Arial, sans-serif;
-color:#111;
-background:#fff;
-}
-
-nav{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-font-size:14px;
-}
-
-nav a{
-margin:0 10px;
-text-decoration:none;
-color:#111;
-}
-
-.section{
-padding:80px 20px;
-max-width:1000px;
-margin:auto;
-text-align:center;
-}
-
-h1{
-font-size:48px;
-margin-bottom:20px;
-}
-
-.line{
-width:200px;
-height:1px;
-background:#999;
-margin:20px auto;
-}
-
-.locations{
-letter-spacing:3px;
-margin:20px 0;
-}
-
-.buttons a{
-display:inline-block;
-margin:10px;
-padding:12px 20px;
-border:1px solid #000;
-text-decoration:none;
-color:#000;
-}
-
-.primary{
-background:#000;
-color:#fff;
-}
-
-.price{
-margin-top:20px;
-}
-
-/* CARRUSEL */
-.carousel-wrapper{
-position:relative;
-max-width:900px;
-margin:40px auto;
-overflow:hidden;
-}
-
-.carousel-track{
-display:flex;
-gap:20px;
-overflow-x:auto;
-scroll-behavior:smooth;
-padding:10px;
-}
-
-.carousel-track img,
-.carousel-track video{
-height:260px;
-border-radius:12px;
-flex-shrink:0;
-object-fit:cover;
-}
-
-.arrow{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:#000;
-color:#fff;
-border:none;
-padding:10px;
-cursor:pointer;
-z-index:2;
-}
-
-.left{ left:0; }
-.right{ right:0; }
-
-.carousel-links a{
-margin:0 10px;
-color:#007aff;
-text-decoration:none;
-}
-
-h2{
-font-size:32px;
-margin-bottom:10px;
-}
-
-.tag{
-font-size:12px;
-letter-spacing:2px;
-color:#777;
-}
-
-.areas{
-margin:10px 0;
-letter-spacing:2px;
-}
-
-strong{
-color:#007aff;
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- NAV -->
-<nav>
-<div>
-<a href="#lipo">tratamientos</a>
-<a href="#home">inicio</a>
-<a href="#resultados">resultados</a>
-</div>
-
-<div>
-+1 786 690 0960
-<a href="https://wa.me/17866900960">AGENDAR</a>
-</div>
-</nav>
-
-<!-- HOME -->
-<section id="home" class="section">
-<h1>D’ROYAL SPA</h1>
-<div class="line"></div>
-<p>Belleza natural con tecnología avanzada</p>
-<p>Resultados reales sin cirugía ni agujas</p>
-<p><em>Diseñados para rejuvenecer de forma inteligente</em></p>
-<p class="locations">BRICKELL · DOWNTOWN · DORAL · MIAMI BEACH</p>
-
-<div class="buttons">
-<a href="https://wa.me/17866900960" class="primary">AGENDAR CITA</a>
-<a href="https://wa.me/17866900960">WHATSAPP</a>
-<a href="tel:+17866900960">LLAMAR</a>
-</div>
-
-<p class="price">$90 1RA SESIÓN. 5★ CALIFICACIÓN MIAMI</p>
-<div class="line"></div>
-</section>
-
 <!-- RESULTADOS -->
 <section id="resultados" class="section">
+
 <h2>Resultados reales</h2>
 
-<div class="carousel-wrapper">
-<button class="arrow left">&#10094;</button>
-
-<div class="carousel-track" id="track1">
-
-<img src="./lipo-results.jpg">
-<img src="./legs-results.jpg">
-<img src="./chin-results.jpg">
-<img src="./arm-results.jpg">
-<img src="./face-results.jpg">
-<img src="./glute-results.jpg">
-
+<div class="carousel">
+<img src="lipo-results.jpg" class="slide active">
+<img src="legs-results.jpg" class="slide">
+<img src="chin-results.jpg" class="slide">
+<img src="arm-results.jpg" class="slide">
+<img src="face-results.jpg" class="slide">
+<img src="glute-results.jpg" class="slide">
 </div>
 
-<button class="arrow right">&#10095;</button>
-</div>
-
-<div class="carousel-links">
+<div class="carousel-nav">
 <a href="#lipo">Lipo Láser 360</a>
 <a href="#aumentos">Aumentos</a>
 <a href="#botox">Botox</a>
 <a href="#cool">CoolSculpting</a>
 </div>
+
 </section>
 
 <!-- LIPO -->
 <section id="lipo" class="section">
+
 <p class="tag">SIGNATURE · BODY SCULPTING</p>
+
 <h2>Lipo con Láser</h2>
 
-<div class="carousel-wrapper">
-<div class="carousel-track">
+<p class="areas">ABDOMEN · BRAZOS · PIERNAS · PAPADA</p>
 
-<img src="./hero-dubai.png">
-<img src="./ref-frame2.jpg">
+<p>
+Esculpe localizadamente abdomen, brazos, piernas o papada con 
+<strong>tecnología láser + ultrasonido + radiofrecuencia + terapia de luz de 7 colores</strong>. 
+Reduce, moldea, reafirma y rejuvenece tu piel sin cirugía, sin dolor, resultados desde la primera sesión.
+</p>
 
-<video src="./legs-video.mp4" autoplay muted loop playsinline></video>
-
-<img src="./radio-frequency-rf-treatment-heads.jpg">
-<img src="./lipo-treatment-bg.jpg">
-
-<img src="./lipo-results.jpg">
-<img src="./legs-results.jpg">
-<img src="./chin-results.jpg">
-<img src="./double-chin-laser-neck-tightening-treatment.jpg">
-<img src="./arm-results.jpg">
-
+<div class="carousel">
+<img src="hero-dubai.png" class="slide active">
+<img src="ref-frame2.jpg" class="slide">
+<img src="lipo-treatment-bg.jpg" class="slide">
+<img src="lipo-results.jpg" class="slide">
+<img src="legs-results.jpg" class="slide">
+<img src="chin-results.jpg" class="slide">
+<img src="double-chin-laser-neck-tightening-treatment.jpg" class="slide">
+<img src="arm-results.jpg" class="slide">
 </div>
+
+<p>
+El láser rojo (650nm) penetra la piel y actúa sobre las células de grasa, que el cuerpo elimina de forma natural a través del sistema linfático. Luego, la radiofrecuencia y la luz terapéutica reafirman la piel, mejoran estrías y dejan una apariencia más luminosa y rejuvenecida.
+</p>
+
+<div class="buttons">
+<a href="https://wa.me/17866900960?text=Quiero%20Lipo%20con%20Laser" class="btn primary">RESERVAR</a>
+<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
 </div>
 
 </section>
 
 <!-- AUMENTOS -->
 <section id="aumentos" class="section">
-<h2>Aumentos sin Cirugía</h2>
 
-<div class="carousel-wrapper">
-<div class="carousel-track">
+<p class="tag">AUMENTOS · VACUUM THERAPY</p>
 
-<video src="./explainer-vacuum-breasts.mp4" autoplay muted loop playsinline></video>
+<h2>Aumentos sin Cirugía.</h2>
 
-<img src="./glute-results.jpg">
-<img src="./breast-results.jpg">
-<img src="./treatment-aumentos-v2.png">
-<img src="./legs-results.jpg">
+<p>
+Tecnología vacuum + láser que activa el tejido adiposo y estimula la circulación, aumentando volumen natural en glúteos y senos. Sin implantes, sin inyecciones.
+</p>
 
+<p class="areas">GLÚTEOS · SENOS</p>
+
+<div class="carousel">
+<img src="glute-results.jpg" class="slide active">
+<img src="breast-results.jpg" class="slide">
+<img src="treatment-aumentos-v2.png" class="slide">
+<img src="legs-results.jpg" class="slide">
 </div>
+
+<p>
+Copas de succión activan el tejido adiposo, estimulan circulación y aumentan volumen natural.
+</p>
+
+<div class="buttons">
+<a href="https://wa.me/17866900960?text=Quiero%20Aumentos" class="btn primary">RESERVAR</a>
+<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
 </div>
+
 </section>
 
 <!-- BOTOX -->
 <section id="botox" class="section">
-<h2>Botox Natural con Láser</h2>
 
-<div class="carousel-wrapper">
-<div class="carousel-track">
+<h2>Botox Natural con Láser.</h2>
 
-<img src="./radio-frequency-rf-treatment-heads.jpg">
-<img src="./face-results.jpg">
-<img src="./chin-results.jpg">
-<img src="./botox-laser-forehead-premium-treatment.jpg">
+<p>
+Hydromicrodermabration + D’Cool + <strong>Radiofrecuencia + Terapia de luz de 7 colores</strong> que regenera las células madres, eliminando las líneas de expresión y pigmentación de la piel, ideal para rejuvenecer de forma natural, sin agujas, sin inyecciones, sin tiempo de recuperación.
+</p>
 
+<p class="areas">OJOS · CARA · CUELLO</p>
+
+<div class="carousel">
+<img src="radio-frequency-rf-treatment-heads.jpg" class="slide active">
+<img src="face-results.jpg" class="slide">
+<img src="chin-results.jpg" class="slide">
+<img src="botox-laser-forehead-premium-treatment.jpg" class="slide">
 </div>
+
+<p>
+Láser que actúa hasta 3 mm de profundidad, estimulando la regeneración de la piel. Se sella con frío para calmar y potenciar resultados.
+</p>
+
+<div class="buttons">
+<a href="https://wa.me/17866900960?text=Quiero%20Botox" class="btn primary">RESERVAR</a>
+<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
 </div>
+
 </section>
 
 <!-- COOL -->
 <section id="cool" class="section">
+
 <h2>CoolSculpting</h2>
 
-<div class="carousel-wrapper">
-<div class="carousel-track">
+<p class="areas">ABDOMEN · BRAZOS · PIERNAS</p>
 
-<img src="./COOLSCULPINGCARRUCEL.jpg">
-<img src="./radio-frequency-rf-treatment-heads.jpg">
-<img src="./lipo-laser-360-before-after-front-abdomen.jpg">
-<img src="./body-contouring-treatment.jpg">
+<p>
+Reducción de grasa localizada mediante enfriamiento controlado que elimina células adiposas sin cirugía. Se combina con radiofrecuencia para reafirmar la piel (skin tightening).
+</p>
 
+<div class="carousel">
+<img src="COOLSCULPINGCARRUCEL.jpg" class="slide active">
+<img src="radio-frequency-rf-treatment-heads.jpg" class="slide">
+<img src="lipo-laser-360-before-after-front-abdomen.jpg" class="slide">
+<img src="body-contouring-treatment.jpg" class="slide">
 </div>
+
+<div class="buttons">
+<a href="https://wa.me/17866900960?text=Quiero%20CoolSculpting" class="btn primary">RESERVAR</a>
+<a href="https://wa.me/17866900960" class="btn">CONSULTAR</a>
 </div>
+
 </section>
-
-<script>
-
-/* SOLO PRIMER CARRUSEL CON FLECHAS */
-const track = document.getElementById("track1");
-
-document.querySelector(".left").onclick = () => {
-track.scrollBy({ left: -300, behavior: 'smooth' });
-};
-
-document.querySelector(".right").onclick = () => {
-track.scrollBy({ left: 300, behavior: 'smooth' });
-};
-
-</script>
-
-</body>
-</html>
